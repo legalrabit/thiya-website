@@ -4,514 +4,614 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex, nofollow">
-<title>Thiya — Final Logo + Loading System</title>
+<title>Thiya — Design System & Asset Sheet v1.0</title>
 <style id="auth-veil">body{visibility:hidden;background:#08080d}</style>
-<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
-  
-  body {
-    font-family: 'Sora', sans-serif;
-    background: #08080d;
-    color: #e0e0e0;
-    min-height: 100vh;
-    padding: 48px 24px;
+
+  :root {
+    --thiya-orange: #FF6B35;
+    --thiya-orange-light: #FF8F55;
+    --thiya-orange-dark: #E85520;
+    --thiya-orange-darker: #CC3300;
+    --thiya-orange-10: #FF6B3518;
+    --thiya-orange-20: #FF6B3533;
+    --thiya-orange-50: #FF6B3580;
+    --thiya-bg-dark: #08080d;
+    --thiya-bg-card: #0e0e16;
+    --thiya-bg-elevated: #0f0f18;
+    --thiya-border: #16161f;
+    --thiya-text-primary: #ffffff;
+    --thiya-text-secondary: #999999;
+    --thiya-text-muted: #444444;
+    --thiya-pupil: #C84E1B;
+    --thiya-eye: #ffffff;
+    --font-display: 'Sora', sans-serif;
+    --font-system: 'Outfit', sans-serif;
+    --font-mono: 'DM Mono', monospace;
   }
 
-  .page-header {
+  body {
+    font-family: var(--font-system);
+    background: var(--thiya-bg-dark);
+    color: #ccc;
+    min-height: 100vh;
+    padding: 0;
+  }
+
+  /* ═══ LAYOUT ═══ */
+  .page {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 56px 32px;
+  }
+
+  .hero-banner {
     text-align: center;
+    padding: 64px 32px 48px;
+    border-bottom: 1px solid var(--thiya-border);
     margin-bottom: 56px;
   }
-  .page-header h1 {
-    font-size: 11px;
-    letter-spacing: 6px;
+  .hero-banner h1 {
+    font-family: var(--font-display);
+    font-size: 13px;
+    letter-spacing: 8px;
     text-transform: uppercase;
-    color: #FF6B35;
-    margin-bottom: 6px;
-    font-family: 'Outfit', sans-serif;
+    color: var(--thiya-orange);
+    margin-bottom: 8px;
   }
-  .page-header p {
+  .hero-banner .version {
     font-size: 10px;
-    letter-spacing: 3px;
+    letter-spacing: 4px;
+    color: var(--thiya-text-muted);
     text-transform: uppercase;
-    color: #333;
+  }
+  .hero-banner .subtitle {
+    font-size: 11px;
+    color: #555;
+    margin-top: 12px;
+    letter-spacing: 1px;
   }
 
   .section {
-    max-width: 1300px;
-    margin: 0 auto 48px;
+    margin-bottom: 64px;
   }
 
-  .section-title {
-    font-size: 9px;
+  .section-header {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    margin-bottom: 24px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #111;
+  }
+  .section-header h2 {
+    font-family: var(--font-display);
+    font-size: 10px;
     letter-spacing: 5px;
     text-transform: uppercase;
-    color: #FF6B35;
-    opacity: 0.5;
-    margin-bottom: 18px;
-    padding-left: 4px;
-    font-family: 'Outfit', sans-serif;
+    color: var(--thiya-orange);
+  }
+  .section-header .num {
+    font-family: var(--font-mono);
+    font-size: 9px;
+    color: var(--thiya-text-muted);
+    letter-spacing: 1px;
   }
 
-  .grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-    gap: 20px;
+  .subsection {
+    margin-bottom: 36px;
   }
-
-  .card {
-    background: #0e0e16;
-    border: 1px solid #16161f;
-    border-radius: 16px;
-    padding: 40px 24px 28px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 14px;
-    position: relative;
-    transition: all 0.35s ease;
-  }
-  .card::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    border-radius: 16px;
-    background: radial-gradient(ellipse at 50% 0%, rgba(255,107,53,0.025), transparent 70%);
-    pointer-events: none;
-  }
-  .card:hover {
-    border-color: #FF6B3518;
-    transform: translateY(-2px);
-    box-shadow: 0 12px 40px rgba(0,0,0,0.4);
-  }
-  .card.hero {
-    background: #0f0f18;
-    border-color: #FF6B3515;
-    padding: 48px 28px 32px;
-  }
-  .card.full {
-    grid-column: 1 / -1;
-    padding: 52px 40px 40px;
-  }
-
-  .label {
+  .subsection-title {
     font-size: 9px;
     letter-spacing: 3px;
     text-transform: uppercase;
-    color: #444;
-    font-family: 'Outfit', sans-serif;
+    color: #555;
+    margin-bottom: 14px;
   }
 
-  .logo-area {
+  /* Cards & containers */
+  .row { display: flex; gap: 16px; flex-wrap: wrap; }
+  .row.center { justify-content: center; align-items: center; }
+  .row.stretch { align-items: stretch; }
+
+  .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; }
+  .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; }
+  .grid-4 { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px; }
+
+  .asset-card {
+    background: var(--thiya-bg-card);
+    border: 1px solid var(--thiya-border);
+    border-radius: 12px;
+    padding: 28px 20px;
     display: flex;
+    flex-direction: column;
     align-items: center;
-    justify-content: center;
-    min-height: 60px;
-    padding: 8px 0;
+    gap: 12px;
   }
-
-  .tags {
-    display: flex;
-    gap: 6px;
-    flex-wrap: wrap;
-    justify-content: center;
-  }
-  .tag {
-    font-size: 7px;
-    letter-spacing: 1.5px;
+  .asset-card.flush { padding: 0; overflow: hidden; }
+  .asset-card .asset-label {
+    font-size: 8px;
+    letter-spacing: 2px;
     text-transform: uppercase;
-    color: #3a3a4a;
-    background: #12121c;
-    padding: 3px 8px;
-    border-radius: 3px;
+    color: var(--thiya-text-muted);
+  }
+  .asset-card .asset-spec {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: #666;
   }
 
+  /* Color swatches */
+  .swatch-row { display: flex; gap: 12px; flex-wrap: wrap; }
+  .swatch {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+  }
+  .swatch-color {
+    width: 64px;
+    height: 64px;
+    border-radius: 12px;
+    border: 1px solid #222;
+  }
+  .swatch-name {
+    font-size: 9px;
+    letter-spacing: 1px;
+    color: #888;
+    text-transform: uppercase;
+  }
+  .swatch-hex {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: #555;
+  }
+
+  /* Token table */
+  .token-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  .token-table th {
+    text-align: left;
+    font-size: 8px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--thiya-text-muted);
+    padding: 8px 12px;
+    border-bottom: 1px solid #151520;
+  }
+  .token-table td {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: #777;
+    padding: 8px 12px;
+    border-bottom: 1px solid #0d0d14;
+  }
+  .token-table td:first-child { color: var(--thiya-orange); opacity: 0.7; }
+  .token-table .preview {
+    width: 20px;
+    height: 20px;
+    border-radius: 4px;
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 6px;
+    border: 1px solid #222;
+  }
+
+  /* Spec callout */
+  .spec-box {
+    background: #0b0b14;
+    border: 1px solid #141420;
+    border-radius: 8px;
+    padding: 16px 20px;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: #666;
+    line-height: 1.8;
+  }
+  .spec-box .key { color: var(--thiya-orange); opacity: 0.6; }
+  .spec-box .val { color: #999; }
+
+  /* Divider */
   .divider {
-    max-width: 1300px;
-    margin: 16px auto 48px;
     height: 1px;
     background: linear-gradient(90deg, transparent, #1a1a25, transparent);
+    margin: 56px 0;
   }
 
-  .preview-row {
-    display: flex;
-    gap: 16px;
-    justify-content: center;
-    flex-wrap: wrap;
-  }
-  .preview-box {
-    width: 300px;
-    height: 140px;
-    border-radius: 14px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: 1px solid #16161f;
-  }
-
-  /* Character states grid */
-  .char-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 20px;
-  }
-  .char-card {
-    background: #0e0e16;
-    border: 1px solid #16161f;
-    border-radius: 16px;
-    padding: 32px 20px 24px;
+  /* Do / Don't */
+  .do-dont-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .do-card, .dont-card {
+    border-radius: 12px;
+    padding: 24px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 14px;
-    transition: all 0.35s ease;
+    gap: 12px;
   }
-  .char-card:hover {
-    border-color: #FF6B3518;
-    transform: translateY(-2px);
-  }
-  .state-name {
-    font-size: 10px;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    color: #FF6B35;
-    font-family: 'Outfit', sans-serif;
-  }
-  .state-desc {
-    font-size: 9px;
-    color: #333;
-    text-align: center;
-    line-height: 1.5;
-  }
+  .do-card { background: #0a120a; border: 1px solid #1a2a1a; }
+  .dont-card { background: #120a0a; border: 1px solid #2a1a1a; }
+  .do-card .badge { color: #4a4; font-size: 9px; letter-spacing: 2px; text-transform: uppercase; }
+  .dont-card .badge { color: #a44; font-size: 9px; letter-spacing: 2px; text-transform: uppercase; }
+  .rule-text { font-size: 10px; color: #555; text-align: center; line-height: 1.5; }
 
-  /* ═══════════════════════════ */
-  /* LOADING SCENE STYLES       */
-  /* ═══════════════════════════ */
-  .loading-card {
-    background: #0c0c14;
-    border: 1px solid #16161f;
-    border-radius: 20px;
-    padding: 48px 32px 36px;
+  /* BG preview */
+  .bg-preview {
+    border-radius: 10px;
     display: flex;
-    flex-direction: column;
     align-items: center;
-    gap: 20px;
-    position: relative;
-    overflow: hidden;
+    justify-content: center;
+    padding: 24px 16px;
+    min-height: 100px;
   }
-  .loading-card::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, rgba(255,107,53,0.12), transparent);
-  }
-  .loading-label {
+
+  /* Notes */
+  .note {
     font-size: 10px;
-    letter-spacing: 4px;
-    text-transform: uppercase;
-    color: #FF6B35;
-    font-family: 'Outfit', sans-serif;
-  }
-  .loading-desc {
-    font-size: 10px;
-    color: #333;
-    text-align: center;
-    line-height: 1.5;
-    max-width: 320px;
-  }
-  .loading-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
-    gap: 24px;
+    color: #444;
+    line-height: 1.6;
+    padding: 12px 16px;
+    background: #0a0a12;
+    border-left: 2px solid var(--thiya-orange-20);
+    border-radius: 0 6px 6px 0;
+    margin-top: 12px;
   }
 
-  /* ═══ CORE ANIMATIONS ═══ */
-  @keyframes v-bounce {
-    0%   { transform: translate(0, 0); }
-    15%  { transform: translate(-8px, 6px); }
-    30%  { transform: translate(0, 12px); }
-    45%  { transform: translate(8px, 6px); }
-    60%  { transform: translate(0, 0); }
-    100% { transform: translate(0, 0); }
-  }
-  @keyframes v-bounce-lg {
-    0%   { transform: translate(0, 0); }
-    15%  { transform: translate(-12px, 8px); }
-    30%  { transform: translate(0, 16px); }
-    45%  { transform: translate(12px, 8px); }
-    60%  { transform: translate(0, 0); }
-    100% { transform: translate(0, 0); }
-  }
-  @keyframes step-left {
-    0%, 100% { transform: rotate(0deg); }
-    25% { transform: rotate(-14deg); }
-    75% { transform: rotate(14deg); }
-  }
-  @keyframes step-right {
-    0%, 100% { transform: rotate(0deg); }
-    25% { transform: rotate(14deg); }
-    75% { transform: rotate(-14deg); }
-  }
-  @keyframes float-idle {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-3px); }
-  }
-  @keyframes blink {
-    0%, 42%, 46%, 100% { transform: scaleY(1); }
-    44% { transform: scaleY(0.1); }
-  }
-  @keyframes listen-tilt {
-    0%, 100% { transform: rotate(0deg); }
-    30% { transform: rotate(8deg); }
-    70% { transform: rotate(-4deg); }
-  }
-  @keyframes think-eyes {
-    0%, 100% { transform: translateY(0); }
-    30% { transform: translateY(-2px); }
-    70% { transform: translateY(-2px); }
-  }
-  @keyframes think-dot1 {
-    0%, 20% { opacity: 0; transform: translateY(0); }
-    30%, 80% { opacity: 0.6; transform: translateY(-2px); }
-    100% { opacity: 0; transform: translateY(-4px); }
-  }
-  @keyframes think-dot2 {
-    0%, 35% { opacity: 0; transform: translateY(0); }
-    45%, 85% { opacity: 0.5; transform: translateY(-2px); }
-    100% { opacity: 0; transform: translateY(-4px); }
-  }
-  @keyframes think-dot3 {
-    0%, 50% { opacity: 0; transform: translateY(0); }
-    60%, 90% { opacity: 0.4; transform: translateY(-2px); }
-    100% { opacity: 0; transform: translateY(-4px); }
-  }
-  @keyframes speak-wave1 {
-    0%, 100% { opacity: 0; transform: translateX(0); }
-    20% { opacity: 0.5; transform: translateX(2px); }
-    60% { opacity: 0.3; transform: translateX(6px); }
-    100% { opacity: 0; transform: translateX(10px); }
-  }
-  @keyframes speak-wave2 {
-    0%, 100% { opacity: 0; transform: translateX(0); }
-    30% { opacity: 0.4; transform: translateX(2px); }
-    70% { opacity: 0.2; transform: translateX(8px); }
-    100% { opacity: 0; transform: translateX(12px); }
-  }
+  /* ═══ ANIMATIONS (for loading demos) ═══ */
+  @keyframes v-bounce { 0%{transform:translate(0,0)}15%{transform:translate(-8px,6px)}30%{transform:translate(0,12px)}45%{transform:translate(8px,6px)}60%{transform:translate(0,0)}100%{transform:translate(0,0)} }
+  @keyframes v-bounce-lg { 0%{transform:translate(0,0)}15%{transform:translate(-12px,8px)}30%{transform:translate(0,16px)}45%{transform:translate(12px,8px)}60%{transform:translate(0,0)}100%{transform:translate(0,0)} }
+  @keyframes step-left { 0%,100%{transform:rotate(0)}25%{transform:rotate(-14deg)}75%{transform:rotate(14deg)} }
+  @keyframes step-right { 0%,100%{transform:rotate(0)}25%{transform:rotate(14deg)}75%{transform:rotate(-14deg)} }
+  @keyframes float-idle { 0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)} }
+  @keyframes blink { 0%,42%,46%,100%{transform:scaleY(1)}44%{transform:scaleY(0.1)} }
+  @keyframes listen-tilt { 0%,100%{transform:rotate(0)}30%{transform:rotate(8deg)}70%{transform:rotate(-4deg)} }
+  @keyframes think-eyes { 0%,100%{transform:translateY(0)}30%{transform:translateY(-2px)}70%{transform:translateY(-2px)} }
+  @keyframes think-dot1 { 0%,20%{opacity:0;transform:translateY(0)}30%,80%{opacity:0.6;transform:translateY(-2px)}100%{opacity:0;transform:translateY(-4px)} }
+  @keyframes think-dot2 { 0%,35%{opacity:0;transform:translateY(0)}45%,85%{opacity:0.5;transform:translateY(-2px)}100%{opacity:0;transform:translateY(-4px)} }
+  @keyframes think-dot3 { 0%,50%{opacity:0;transform:translateY(0)}60%,90%{opacity:0.4;transform:translateY(-2px)}100%{opacity:0;transform:translateY(-4px)} }
+  @keyframes speak-wave1 { 0%,100%{opacity:0;transform:translateX(0)}20%{opacity:0.5;transform:translateX(2px)}60%{opacity:0.3;transform:translateX(6px)} }
+  @keyframes speak-wave2 { 0%,100%{opacity:0;transform:translateX(0)}30%{opacity:0.4;transform:translateX(2px)}70%{opacity:0.2;transform:translateX(8px)} }
+  @keyframes walk-across { 0%{transform:translateX(-20px)}100%{transform:translateX(280px)} }
+  @keyframes walk-step-l { 0%,100%{transform:rotate(0)}25%{transform:rotate(-18deg)}75%{transform:rotate(18deg)} }
+  @keyframes walk-step-r { 0%,100%{transform:rotate(0)}25%{transform:rotate(18deg)}75%{transform:rotate(-18deg)} }
+  @keyframes walk-head-bounce { 0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)} }
+  @keyframes bounce-squash { 0%{transform:translateY(0) scaleX(1) scaleY(1)}35%{transform:translateY(-20px) scaleX(.95) scaleY(1.05)}50%{transform:translateY(-24px) scaleX(.95) scaleY(1.05)}80%{transform:translateY(0) scaleX(1.08) scaleY(.92)}100%{transform:translateY(0) scaleX(1) scaleY(1)} }
+  @keyframes dot-cascade-1 { 0%,25%,100%{opacity:.15;transform:scale(.8)}10%{opacity:1;transform:scale(1)} }
+  @keyframes dot-cascade-2 { 0%,100%{opacity:.15;transform:scale(.8)}35%{opacity:1;transform:scale(1)} }
+  @keyframes dot-cascade-3 { 0%,45%,100%{opacity:.15;transform:scale(.8)}60%{opacity:1;transform:scale(1)} }
+  @keyframes delivery-walk { 0%{transform:translateX(0)}20%{transform:translateX(0)}30%{transform:translateX(80px)}45%{transform:translateX(80px)}55%{transform:translateX(165px)}70%{transform:translateX(165px)}80%{transform:translateX(250px)}100%{transform:translateX(250px)} }
+  @keyframes trail-draw { 0%{stroke-dashoffset:300}100%{stroke-dashoffset:0} }
+  @keyframes stop-ping-1 { 0%,25%{opacity:0}30%,100%{opacity:1} }
+  @keyframes stop-ping-2 { 0%,50%{opacity:0}55%,100%{opacity:1} }
+  @keyframes stop-ping-3 { 0%,75%{opacity:0}80%,100%{opacity:1} }
+  @keyframes stop-ring-1 { 0%,28%{r:3;opacity:0}32%{opacity:.4}60%{r:12;opacity:0}100%{r:12;opacity:0} }
+  @keyframes stop-ring-2 { 0%,53%{r:3;opacity:0}57%{opacity:.4}85%{r:12;opacity:0}100%{r:12;opacity:0} }
+  @keyframes stop-ring-3 { 0%,78%{r:3;opacity:0}82%{opacity:.4}100%{r:12;opacity:0} }
+  @keyframes splash-char-enter { 0%{transform:translateY(30px) scale(.5);opacity:0}40%{transform:translateY(-5px) scale(1.05);opacity:1}60%,100%{transform:translateY(0) scale(1);opacity:1} }
+  @keyframes splash-text-enter { 0%,35%{transform:translateY(15px);opacity:0}55%{transform:translateY(-2px);opacity:1}70%,100%{transform:translateY(0);opacity:1} }
+  @keyframes splash-bar-enter { 0%,50%{transform:scaleX(0);opacity:0}60%{opacity:1}100%{transform:scaleX(1);opacity:1} }
+  @keyframes splash-bar-fill { 0%,55%{width:0}100%{width:100%} }
+  @keyframes splash-fade-text { 0%,60%{opacity:0}75%,100%{opacity:1} }
 
-  /* ═══ LOADING ANIMATIONS ═══ */
-
-  /* L1: Walk across */
-  @keyframes walk-across {
-    0%   { transform: translateX(-20px); }
-    100% { transform: translateX(280px); }
-  }
-  @keyframes walk-step-l {
-    0%, 100% { transform: rotate(0deg); }
-    25% { transform: rotate(-18deg); }
-    75% { transform: rotate(18deg); }
-  }
-  @keyframes walk-step-r {
-    0%, 100% { transform: rotate(0deg); }
-    25% { transform: rotate(18deg); }
-    75% { transform: rotate(-18deg); }
-  }
-  @keyframes bar-fill {
-    0%   { width: 0%; }
-    100% { width: 100%; }
-  }
-  @keyframes walk-head-bounce {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-3px); }
-  }
-
-  /* L2: Bounce in place */
-  @keyframes bounce-squash {
-    0%   { transform: translateY(0) scaleX(1) scaleY(1); }
-    35%  { transform: translateY(-20px) scaleX(0.95) scaleY(1.05); }
-    50%  { transform: translateY(-24px) scaleX(0.95) scaleY(1.05); }
-    80%  { transform: translateY(0) scaleX(1.08) scaleY(0.92); }
-    100% { transform: translateY(0) scaleX(1) scaleY(1); }
-  }
-  @keyframes dot-cascade-1 {
-    0%, 25%, 100% { opacity: 0.15; transform: scale(0.8); }
-    10% { opacity: 1; transform: scale(1); }
-  }
-  @keyframes dot-cascade-2 {
-    0%, 100% { opacity: 0.15; transform: scale(0.8); }
-    35% { opacity: 1; transform: scale(1); }
-  }
-  @keyframes dot-cascade-3 {
-    0%, 45%, 100% { opacity: 0.15; transform: scale(0.8); }
-    60% { opacity: 1; transform: scale(1); }
-  }
-
-  /* L3: Delivery stops */
-  @keyframes delivery-walk {
-    0%   { transform: translateX(0); }
-    20%  { transform: translateX(0); }
-    30%  { transform: translateX(80px); }
-    45%  { transform: translateX(80px); }
-    55%  { transform: translateX(165px); }
-    70%  { transform: translateX(165px); }
-    80%  { transform: translateX(250px); }
-    100% { transform: translateX(250px); }
-  }
-  @keyframes stop-ping-1 {
-    0%, 25% { opacity: 0; }
-    30%, 100% { opacity: 1; }
-  }
-  @keyframes stop-ping-2 {
-    0%, 50% { opacity: 0; }
-    55%, 100% { opacity: 1; }
-  }
-  @keyframes stop-ping-3 {
-    0%, 75% { opacity: 0; }
-    80%, 100% { opacity: 1; }
-  }
-  @keyframes stop-ring-1 {
-    0%, 28% { r: 3; opacity: 0; }
-    32% { opacity: 0.4; }
-    60% { r: 12; opacity: 0; }
-    100% { r: 12; opacity: 0; }
-  }
-  @keyframes stop-ring-2 {
-    0%, 53% { r: 3; opacity: 0; }
-    57% { opacity: 0.4; }
-    85% { r: 12; opacity: 0; }
-    100% { r: 12; opacity: 0; }
-  }
-  @keyframes stop-ring-3 {
-    0%, 78% { r: 3; opacity: 0; }
-    82% { opacity: 0.4; }
-    100% { r: 12; opacity: 0; }
-  }
-  @keyframes trail-draw {
-    0%   { stroke-dashoffset: 300; }
-    100% { stroke-dashoffset: 0; }
-  }
-
-  /* L4: State morph */
-  @keyframes morph-walk {
-    0%   { transform: translateX(0); }
-    100% { transform: translateX(240px); }
-  }
-  /* Eye states during morph */
-  @keyframes morph-eyes {
-    0%, 20%   { transform: translateY(0); } /* idle */
-    25%, 45%  { transform: translateY(-1.5px); } /* listening - look up slightly */
-    50%, 70%  { transform: translateY(-2px); } /* thinking */
-    75%, 100% { transform: translateY(0); } /* speaking */
-  }
-  @keyframes morph-mouth {
-    0%, 20%   { ry: 0; rx: 2.5; } /* smile line */
-    25%, 45%  { ry: 1.5; rx: 2; } /* small o */
-    50%, 70%  { ry: 0; rx: 3; } /* flat line */
-    75%, 100% { ry: 3; rx: 2.5; } /* talking */
-  }
-  @keyframes morph-mouth-speak {
-    0%, 70% { ry: 0.5; }
-    75% { ry: 3.5; }
-    80% { ry: 1.5; }
-    85% { ry: 4; }
-    90% { ry: 2; }
-    95% { ry: 3; }
-    100% { ry: 0.5; }
-  }
-  @keyframes state-label-1 { 0%, 20% { opacity: 1; } 25%, 100% { opacity: 0; } }
-  @keyframes state-label-2 { 0%, 24% { opacity: 0; } 25%, 45% { opacity: 1; } 50%, 100% { opacity: 0; } }
-  @keyframes state-label-3 { 0%, 49% { opacity: 0; } 50%, 70% { opacity: 1; } 75%, 100% { opacity: 0; } }
-  @keyframes state-label-4 { 0%, 74% { opacity: 0; } 75%, 100% { opacity: 1; } }
-
-  /* L5: Splash screen */
-  @keyframes splash-char-enter {
-    0%   { transform: translateY(30px) scale(0.5); opacity: 0; }
-    40%  { transform: translateY(-5px) scale(1.05); opacity: 1; }
-    60%  { transform: translateY(0) scale(1); opacity: 1; }
-    100% { transform: translateY(0) scale(1); opacity: 1; }
-  }
-  @keyframes splash-text-enter {
-    0%, 35%  { transform: translateY(15px); opacity: 0; }
-    55%  { transform: translateY(-2px); opacity: 1; }
-    70%, 100% { transform: translateY(0); opacity: 1; }
-  }
-  @keyframes splash-bar-enter {
-    0%, 50%  { transform: scaleX(0); opacity: 0; }
-    60%  { opacity: 1; }
-    100% { transform: scaleX(1); opacity: 1; }
-  }
-  @keyframes splash-bar-fill {
-    0%, 55%  { width: 0; }
-    100% { width: 100%; }
-  }
-  @keyframes splash-fade-text {
-    0%, 60% { opacity: 0; }
-    75%, 100% { opacity: 1; }
-  }
-
-  .footer {
-    text-align: center;
-    margin-top: 56px;
-    padding: 20px;
-  }
-  .footer p {
-    font-size: 10px;
-    color: #222;
-    letter-spacing: 2px;
+  @media (max-width: 700px) {
+    .do-dont-grid { grid-template-columns: 1fr; }
+    .page { padding: 32px 16px; }
   }
 </style>
 </head>
 <body>
 
-<div class="page-header">
-  <h1>Thiya — Complete System</h1>
-  <p>Final Logo · Character States · Loading Animations</p>
+<div class="hero-banner">
+  <h1>Thiya Design System</h1>
+  <p class="version">v1.0 · Asset Sheet</p>
+  <p class="subtitle">For Mobile Developers · Figma Designers · Brand Guidelines</p>
 </div>
 
-<!-- ═══════════════════════════════════════════════════════ -->
-<!-- PART 1: FINAL LOGO                                     -->
-<!-- ═══════════════════════════════════════════════════════ -->
-<div class="section">
-  <div class="section-title">Final Logo — Tight Aligned</div>
-  <div class="grid">
+<div class="page">
 
-    <div class="card hero">
-      <span class="label">Small · 32px</span>
-      <div class="logo-area">
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- 01 · BRAND COLORS                                         -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-header">
+    <span class="num">01</span>
+    <h2>Brand Colors</h2>
+  </div>
+
+  <div class="subsection">
+    <div class="subsection-title">Primary Palette</div>
+    <div class="swatch-row">
+      <div class="swatch">
+        <div class="swatch-color" style="background: #FF6B35;"></div>
+        <span class="swatch-name">Thiya Orange</span>
+        <span class="swatch-hex">#FF6B35</span>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background: #FF8F55;"></div>
+        <span class="swatch-name">Orange Light</span>
+        <span class="swatch-hex">#FF8F55</span>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background: #E85520;"></div>
+        <span class="swatch-name">Orange Dark</span>
+        <span class="swatch-hex">#E85520</span>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background: #CC3300;"></div>
+        <span class="swatch-name">Orange Deeper</span>
+        <span class="swatch-hex">#CC3300</span>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background: #FFFFFF; border-color: #333;"></div>
+        <span class="swatch-name">White</span>
+        <span class="swatch-hex">#FFFFFF</span>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background: #111111;"></div>
+        <span class="swatch-name">Near Black</span>
+        <span class="swatch-hex">#111111</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="subsection">
+    <div class="subsection-title">Opacity Variants (for UI)</div>
+    <div class="swatch-row">
+      <div class="swatch">
+        <div class="swatch-color" style="background: #FF6B3510; border-color: #222;"></div>
+        <span class="swatch-name">Orange 6%</span>
+        <span class="swatch-hex">#FF6B3510</span>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background: #FF6B3518;"></div>
+        <span class="swatch-name">Orange 10%</span>
+        <span class="swatch-hex">#FF6B3518</span>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background: #FF6B3533;"></div>
+        <span class="swatch-name">Orange 20%</span>
+        <span class="swatch-hex">#FF6B3533</span>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background: #FF6B3580;"></div>
+        <span class="swatch-name">Orange 50%</span>
+        <span class="swatch-hex">#FF6B3580</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="subsection">
+    <div class="subsection-title">Surface Colors</div>
+    <table class="token-table">
+      <thead><tr><th>Token</th><th>Hex</th><th>Usage</th></tr></thead>
+      <tbody>
+        <tr><td>bg-dark</td><td><span class="preview" style="background:#08080d;"></span>#08080D</td><td>App background, splash screen</td></tr>
+        <tr><td>bg-card</td><td><span class="preview" style="background:#0e0e16;"></span>#0E0E16</td><td>Cards, containers</td></tr>
+        <tr><td>bg-elevated</td><td><span class="preview" style="background:#0f0f18;"></span>#0F0F18</td><td>Elevated cards, modals</td></tr>
+        <tr><td>border</td><td><span class="preview" style="background:#16161f;"></span>#16161F</td><td>Card borders, dividers</td></tr>
+        <tr><td>text-primary</td><td><span class="preview" style="background:#ffffff;border-color:#333"></span>#FFFFFF</td><td>Headings, primary text</td></tr>
+        <tr><td>text-secondary</td><td><span class="preview" style="background:#999;"></span>#999999</td><td>Body text, descriptions</td></tr>
+        <tr><td>text-muted</td><td><span class="preview" style="background:#444;"></span>#444444</td><td>Labels, captions</td></tr>
+        <tr><td>pupil-color</td><td><span class="preview" style="background:#C84E1B;"></span>#C84E1B</td><td>Character eye pupils (thinking state)</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="subsection">
+    <div class="subsection-title">Gradients</div>
+    <div class="row" style="gap: 12px;">
+      <div style="flex:1; min-width: 180px;">
+        <div style="height: 56px; border-radius: 10px; background: linear-gradient(135deg, #FF8855, #FF4D15); margin-bottom: 8px;"></div>
+        <div class="spec-box"><span class="key">app-icon-grad:</span> <span class="val">135deg, #FF8855 → #FF4D15</span></div>
+      </div>
+      <div style="flex:1; min-width: 180px;">
+        <div style="height: 56px; border-radius: 10px; background: linear-gradient(135deg, #FF6B35, #FF8F55); margin-bottom: 8px;"></div>
+        <div class="spec-box"><span class="key">brand-grad:</span> <span class="val">135deg, #FF6B35 → #FF8F55</span></div>
+      </div>
+      <div style="flex:1; min-width: 180px;">
+        <div style="height: 56px; border-radius: 10px; background: linear-gradient(90deg, #FF6B35, #FF8F55); margin-bottom: 8px;"></div>
+        <div class="spec-box"><span class="key">bar-fill-grad:</span> <span class="val">90deg, #FF6B35 → #FF8F55</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- 02 · TYPOGRAPHY                                            -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-header">
+    <span class="num">02</span>
+    <h2>Typography</h2>
+  </div>
+
+  <div class="spec-box" style="margin-bottom: 16px;">
+    <span class="key">Logo Font:</span> <span class="val">Sora, Bold (700), letter-spacing: -1.5px</span><br>
+    <span class="key">UI Font:</span> <span class="val">Outfit, 500–700</span><br>
+    <span class="key">Code/Specs:</span> <span class="val">DM Mono, 400</span><br>
+    <span class="key">Google Fonts:</span> <span class="val">fonts.google.com/specimen/Sora</span>
+  </div>
+
+  <div style="display: flex; gap: 32px; flex-wrap: wrap; align-items: baseline; margin-top: 20px;">
+    <div>
+      <p style="font-family: 'Sora'; font-weight: 700; font-size: 48px; color: #fff; letter-spacing: -1.5px;">thiya</p>
+      <p style="font-size: 9px; color: #444; letter-spacing: 2px; margin-top: 4px;">SORA BOLD 48PX</p>
+    </div>
+    <div>
+      <p style="font-family: 'Sora'; font-weight: 700; font-size: 32px; color: #fff; letter-spacing: -1px;">thiya</p>
+      <p style="font-size: 9px; color: #444; letter-spacing: 2px; margin-top: 4px;">SORA BOLD 32PX</p>
+    </div>
+    <div>
+      <p style="font-family: 'Sora'; font-weight: 700; font-size: 20px; color: #fff; letter-spacing: -0.5px;">thiya</p>
+      <p style="font-size: 9px; color: #444; letter-spacing: 2px; margin-top: 4px;">SORA BOLD 20PX</p>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- 03 · CHARACTER ANATOMY                                     -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-header">
+    <span class="num">03</span>
+    <h2>Character Anatomy</h2>
+  </div>
+
+  <div class="grid-2">
+    <!-- Anatomy diagram -->
+    <div class="asset-card" style="padding: 36px 24px;">
+      <span class="asset-label">Anatomy Breakdown</span>
+      <svg width="140" height="220" viewBox="0 0 140 220" fill="none">
+        <g transform="translate(30, 10)">
+          <!-- Head -->
+          <circle cx="14" cy="38" r="22" fill="#FF6B35"/>
+          <circle cx="7" cy="36" r="3.5" fill="#fff"/>
+          <circle cx="21" cy="36" r="3.5" fill="#fff"/>
+          <path d="M7 46 Q14 52 21 46" stroke="#fff" stroke-width="2" stroke-linecap="round" fill="none"/>
+          <!-- Body -->
+          <rect x="0" y="66" width="28" height="54" rx="8" fill="#FF6B35"/>
+          <!-- Point -->
+          <polygon points="4,120 14,140 24,120" fill="#FF6B35"/>
+          <!-- Legs -->
+          <line x1="7" y1="140" x2="4" y2="160" stroke="#FF6B35" stroke-width="4" stroke-linecap="round"/>
+          <line x1="21" y1="140" x2="24" y2="160" stroke="#FF6B35" stroke-width="4" stroke-linecap="round"/>
+
+          <!-- Annotation lines -->
+          <!-- Head -->
+          <line x1="40" y1="18" x2="60" y2="18" stroke="#333" stroke-width="0.5" stroke-dasharray="2 2"/>
+          <line x1="40" y1="58" x2="60" y2="58" stroke="#333" stroke-width="0.5" stroke-dasharray="2 2"/>
+          <line x1="55" y1="18" x2="55" y2="58" stroke="#444" stroke-width="0.5"/>
+          <circle cx="55" cy="18" r="1.5" fill="#444"/>
+          <circle cx="55" cy="58" r="1.5" fill="#444"/>
+          <!-- Body -->
+          <line x1="32" y1="66" x2="60" y2="66" stroke="#333" stroke-width="0.5" stroke-dasharray="2 2"/>
+          <line x1="32" y1="120" x2="60" y2="120" stroke="#333" stroke-width="0.5" stroke-dasharray="2 2"/>
+          <line x1="55" y1="66" x2="55" y2="120" stroke="#444" stroke-width="0.5"/>
+          <circle cx="55" cy="66" r="1.5" fill="#444"/>
+          <circle cx="55" cy="120" r="1.5" fill="#444"/>
+          <!-- Point -->
+          <line x1="28" y1="140" x2="60" y2="140" stroke="#333" stroke-width="0.5" stroke-dasharray="2 2"/>
+          <!-- Legs -->
+          <line x1="28" y1="160" x2="60" y2="160" stroke="#333" stroke-width="0.5" stroke-dasharray="2 2"/>
+        </g>
+        <!-- Labels -->
+        <text x="96" y="40" font-family="'DM Mono'" font-size="8" fill="#666">HEAD r:22</text>
+        <text x="96" y="52" font-family="'DM Mono'" font-size="7" fill="#555">eyes r:3.5</text>
+        <text x="96" y="96" font-family="'DM Mono'" font-size="8" fill="#666">BODY 28×54</text>
+        <text x="96" y="108" font-family="'DM Mono'" font-size="7" fill="#555">rx: 8</text>
+        <text x="96" y="142" font-family="'DM Mono'" font-size="8" fill="#666">POINT ▽</text>
+        <text x="96" y="162" font-family="'DM Mono'" font-size="8" fill="#666">LEGS w:4</text>
+      </svg>
+    </div>
+
+    <!-- Proportions spec -->
+    <div class="asset-card" style="padding: 28px 24px; align-items: flex-start;">
+      <span class="asset-label">Proportions & Specs</span>
+      <div class="spec-box" style="width: 100%; line-height: 2.2;">
+        <span class="key">Total Height Ratio:</span> <span class="val">~5.5 head-units</span><br>
+        <span class="key">Head:</span> <span class="val">circle, radius = 1 unit</span><br>
+        <span class="key">Eyes:</span> <span class="val">circle, radius = 0.16 unit, fill: #FFF</span><br>
+        <span class="key">Pupils (thinking):</span> <span class="val">r = 0.06 unit, fill: #C84E1B</span><br>
+        <span class="key">Smile:</span> <span class="val">quadratic curve, stroke: #FFF, w: 2px</span><br>
+        <span class="key">Body:</span> <span class="val">rounded rect, w = 1.27 unit, h = 2.45 unit</span><br>
+        <span class="key">Body Radius:</span> <span class="val">rx: 0.36 unit</span><br>
+        <span class="key">Point:</span> <span class="val">triangle, tip 0.9 unit below body</span><br>
+        <span class="key">Legs:</span> <span class="val">2 lines, stroke-width: 4px, linecap: round</span><br>
+        <span class="key">Leg Splay:</span> <span class="val">3px outward from body edges</span><br>
+        <span class="key">Head Gap:</span> <span class="val">6px between head bottom and body top</span><br>
+        <span class="key">Fill:</span> <span class="val">#FF6B35 (all parts same color)</span><br>
+        <span class="key">Eye Fill:</span> <span class="val">#FFFFFF</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="note">
+    <strong style="color: #FF6B3580;">Scale Rule:</strong> All proportions are relative. When resizing, scale the entire character uniformly. The head:body ratio must remain constant. Minimum display size: 24px total height.
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- 04 · LOGO ASSETS — ALL SIZES                               -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-header">
+    <span class="num">04</span>
+    <h2>Logo Assets</h2>
+  </div>
+
+  <!-- ★ SIGNATURE ANIMATED LOGO — V-BOUNCE HEAD (PRIMARY) -->
+  <div class="subsection">
+    <div class="subsection-title" style="color: var(--thiya-orange); opacity: 1; font-size: 10px;">★ Signature Animated Logo — V-Bounce Head + Walking Feet (Primary)</div>
+
+    <div class="note" style="margin-bottom: 20px; border-left-color: var(--thiya-orange);">
+      <strong style="color: #FF6B35;">THIS IS THE REAL LOGO.</strong> The V-bounce head is the soul of Thiya — it communicates "Main aas-paas ki services tere paas laata hoon." The head bounces in a V-path symbolizing going to different locations and bringing services back. Feet walk = always on the move. <strong style="color: #FF6B3580;">Use this animated version wherever possible — apps, websites, splash screens.</strong> Static version is only for print/export.
+    </div>
+
+    <!-- ANIMATED HERO — Large -->
+    <div class="asset-card" style="background: var(--thiya-bg-elevated); border-color: var(--thiya-orange-10); padding: 52px 32px 40px;">
+      <span class="asset-label" style="color: var(--thiya-orange);">★ Hero Animated · 62px · Dark</span>
+      <svg width="290" height="88" viewBox="0 0 290 88" fill="none">
+        <text x="6" y="68" font-family="'Sora', sans-serif" font-weight="700" font-size="62" fill="#fff" letter-spacing="-2.5">th</text>
+        <g transform="translate(80, 2)">
+          <rect x="0" y="30" width="13" height="25" rx="3.5" fill="#FF6B35"/>
+          <polygon points="1.5,55 6.5,66 11.5,55" fill="#FF6B35"/>
+          <g style="animation: step-left 1.2s ease-in-out infinite; transform-origin: 3.5px 66px;"><line x1="3" y1="66" x2="0" y2="74" stroke="#FF6B35" stroke-width="2.2" stroke-linecap="round"/></g>
+          <g style="animation: step-right 1.2s ease-in-out infinite; transform-origin: 9.5px 66px;"><line x1="10" y1="66" x2="13" y2="74" stroke="#FF6B35" stroke-width="2.2" stroke-linecap="round"/></g>
+          <!-- ★ V-BOUNCE HEAD — the signature animation -->
+          <g style="animation: v-bounce-lg 3s ease-in-out infinite;">
+            <circle cx="6.5" cy="16" r="8.5" fill="#FF6B35"/>
+            <circle cx="4" cy="15" r="1.5" fill="#fff"/>
+            <circle cx="9" cy="15" r="1.5" fill="#fff"/>
+          </g>
+        </g>
+        <text x="102" y="68" font-family="'Sora', sans-serif" font-weight="700" font-size="62" fill="#fff" letter-spacing="-2.5">ya</text>
+      </svg>
+      <span class="asset-spec">290 × 88 · v-bounce-lg 3s + step 1.2s</span>
+    </div>
+
+    <!-- Animated all 3 sizes -->
+    <div class="grid-3" style="margin-top: 16px;">
+      <div class="asset-card" style="border-color: var(--thiya-orange-10);">
+        <span class="asset-label">Animated Small · 32px</span>
         <svg width="152" height="52" viewBox="0 0 152 52" fill="none">
           <text x="4" y="38" font-family="'Sora', sans-serif" font-weight="700" font-size="32" fill="#fff" letter-spacing="-1">th</text>
           <g transform="translate(42, 2)">
             <rect x="0" y="18" width="7" height="13" rx="2" fill="#FF6B35"/>
             <polygon points="1,31 3.5,37 6,31" fill="#FF6B35"/>
-            <g style="animation: step-left 1.2s ease-in-out infinite; transform-origin: 2px 37px;"><line x1="1.5" y1="37" x2="-0.5" y2="42" stroke="#FF6B35" stroke-width="1.5" stroke-linecap="round"/></g>
+            <g style="animation: step-left 1.2s ease-in-out infinite; transform-origin: 2px 37px;"><line x1="1.5" y1="37" x2="-.5" y2="42" stroke="#FF6B35" stroke-width="1.5" stroke-linecap="round"/></g>
             <g style="animation: step-right 1.2s ease-in-out infinite; transform-origin: 5px 37px;"><line x1="5.5" y1="37" x2="7.5" y2="42" stroke="#FF6B35" stroke-width="1.5" stroke-linecap="round"/></g>
-            <g style="animation: v-bounce 3s ease-in-out infinite;"><circle cx="3.5" cy="10" r="4.5" fill="#FF6B35"/><circle cx="2" cy="9.5" r="0.8" fill="#fff"/><circle cx="5" cy="9.5" r="0.8" fill="#fff"/></g>
+            <g style="animation: v-bounce 3s ease-in-out infinite;"><circle cx="3.5" cy="10" r="4.5" fill="#FF6B35"/><circle cx="2" cy="9.5" r=".8" fill="#fff"/><circle cx="5" cy="9.5" r=".8" fill="#fff"/></g>
           </g>
           <text x="54" y="38" font-family="'Sora', sans-serif" font-weight="700" font-size="32" fill="#fff" letter-spacing="-1">ya</text>
         </svg>
+        <span class="asset-spec">152 × 52</span>
       </div>
-    </div>
 
-    <div class="card hero">
-      <span class="label">Medium · 42px</span>
-      <div class="logo-area">
+      <div class="asset-card" style="border-color: var(--thiya-orange-10);">
+        <span class="asset-label">Animated Medium · 42px</span>
         <svg width="192" height="62" viewBox="0 0 192 62" fill="none">
           <text x="4" y="48" font-family="'Sora', sans-serif" font-weight="700" font-size="42" fill="#fff" letter-spacing="-1.5">th</text>
           <g transform="translate(54, 2)">
             <rect x="0" y="22" width="9" height="17" rx="2.5" fill="#FF6B35"/>
             <polygon points="1.2,39 4.5,46 7.8,39" fill="#FF6B35"/>
-            <g style="animation: step-left 1.2s ease-in-out infinite; transform-origin: 2.5px 46px;"><line x1="2" y1="46" x2="-0.5" y2="52" stroke="#FF6B35" stroke-width="1.8" stroke-linecap="round"/></g>
+            <g style="animation: step-left 1.2s ease-in-out infinite; transform-origin: 2.5px 46px;"><line x1="2" y1="46" x2="-.5" y2="52" stroke="#FF6B35" stroke-width="1.8" stroke-linecap="round"/></g>
             <g style="animation: step-right 1.2s ease-in-out infinite; transform-origin: 6.5px 46px;"><line x1="7" y1="46" x2="9.5" y2="52" stroke="#FF6B35" stroke-width="1.8" stroke-linecap="round"/></g>
             <g style="animation: v-bounce 3s ease-in-out infinite;"><circle cx="4.5" cy="12" r="5.5" fill="#FF6B35"/><circle cx="2.8" cy="11.5" r="1" fill="#fff"/><circle cx="6.2" cy="11.5" r="1" fill="#fff"/></g>
           </g>
           <text x="70" y="48" font-family="'Sora', sans-serif" font-weight="700" font-size="42" fill="#fff" letter-spacing="-1.5">ya</text>
         </svg>
+        <span class="asset-spec">192 × 62</span>
       </div>
-    </div>
 
-    <div class="card hero full">
-      <span class="label">★ Large Hero · 62px</span>
-      <div class="logo-area" style="min-height: 90px;">
+      <div class="asset-card" style="border-color: var(--thiya-orange-10);">
+        <span class="asset-label">Animated Large · 62px</span>
         <svg width="290" height="88" viewBox="0 0 290 88" fill="none">
           <text x="6" y="68" font-family="'Sora', sans-serif" font-weight="700" font-size="62" fill="#fff" letter-spacing="-2.5">th</text>
           <g transform="translate(80, 2)">
@@ -523,50 +623,202 @@
           </g>
           <text x="102" y="68" font-family="'Sora', sans-serif" font-weight="700" font-size="62" fill="#fff" letter-spacing="-2.5">ya</text>
         </svg>
+        <span class="asset-spec">290 × 88</span>
+      </div>
+    </div>
+
+    <!-- Animated on Light + Brand BG -->
+    <div class="grid-3" style="margin-top: 16px;">
+      <div class="asset-card" style="background: #fff; border-color: #e0e0e0;">
+        <span class="asset-label" style="color: #aaa;">Animated · Light BG</span>
+        <svg width="192" height="62" viewBox="0 0 192 62" fill="none">
+          <text x="4" y="48" font-family="'Sora', sans-serif" font-weight="700" font-size="42" fill="#111" letter-spacing="-1.5">th</text>
+          <g transform="translate(54, 2)">
+            <rect x="0" y="22" width="9" height="17" rx="2.5" fill="#FF6B35"/>
+            <polygon points="1.2,39 4.5,46 7.8,39" fill="#FF6B35"/>
+            <g style="animation: step-left 1.2s ease-in-out infinite; transform-origin: 2.5px 46px;"><line x1="2" y1="46" x2="-.5" y2="52" stroke="#FF6B35" stroke-width="1.8" stroke-linecap="round"/></g>
+            <g style="animation: step-right 1.2s ease-in-out infinite; transform-origin: 6.5px 46px;"><line x1="7" y1="46" x2="9.5" y2="52" stroke="#FF6B35" stroke-width="1.8" stroke-linecap="round"/></g>
+            <g style="animation: v-bounce 3s ease-in-out infinite;"><circle cx="4.5" cy="12" r="5.5" fill="#FF6B35"/><circle cx="2.8" cy="11.5" r="1" fill="#fff"/><circle cx="6.2" cy="11.5" r="1" fill="#fff"/></g>
+          </g>
+          <text x="70" y="48" font-family="'Sora', sans-serif" font-weight="700" font-size="42" fill="#111" letter-spacing="-1.5">ya</text>
+        </svg>
+      </div>
+      <div class="asset-card" style="background: linear-gradient(135deg, #FF6B35, #FF8F55); border-color: transparent;">
+        <span class="asset-label" style="color: #fff8;">Animated · Brand BG</span>
+        <svg width="192" height="62" viewBox="0 0 192 62" fill="none">
+          <text x="4" y="48" font-family="'Sora', sans-serif" font-weight="700" font-size="42" fill="#fff" letter-spacing="-1.5">th</text>
+          <g transform="translate(54, 2)">
+            <rect x="0" y="22" width="9" height="17" rx="2.5" fill="#fff"/>
+            <polygon points="1.2,39 4.5,46 7.8,39" fill="#fff"/>
+            <g style="animation: step-left 1.2s ease-in-out infinite; transform-origin: 2.5px 46px;"><line x1="2" y1="46" x2="-.5" y2="52" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/></g>
+            <g style="animation: step-right 1.2s ease-in-out infinite; transform-origin: 6.5px 46px;"><line x1="7" y1="46" x2="9.5" y2="52" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/></g>
+            <g style="animation: v-bounce 3s ease-in-out infinite;"><circle cx="4.5" cy="12" r="5.5" fill="#fff"/><circle cx="2.8" cy="11.5" r="1" fill="#FF6B35"/><circle cx="6.2" cy="11.5" r="1" fill="#FF6B35"/></g>
+          </g>
+          <text x="70" y="48" font-family="'Sora', sans-serif" font-weight="700" font-size="42" fill="#fff" letter-spacing="-1.5">ya</text>
+        </svg>
+      </div>
+      <div class="asset-card" style="background: #0a0a12;">
+        <span class="asset-label">Animated · App Icon</span>
+        <svg width="80" height="80" viewBox="0 0 80 80" fill="none">
+          <defs><linearGradient id="aigA" x1="0" y1="0" x2="80" y2="80"><stop offset="0%" stop-color="#FF8855"/><stop offset="100%" stop-color="#FF4D15"/></linearGradient></defs>
+          <rect width="80" height="80" rx="18" fill="url(#aigA)"/>
+          <rect x="31" y="30" width="10" height="18" rx="3" fill="#fff"/>
+          <polygon points="33,48 36,56 39,48" fill="#fff"/>
+          <g style="animation: step-left 1.2s ease-in-out infinite; transform-origin: 33.5px 56px;"><line x1="33.5" y1="56" x2="31" y2="62" stroke="#fff" stroke-width="2" stroke-linecap="round"/></g>
+          <g style="animation: step-right 1.2s ease-in-out infinite; transform-origin: 38.5px 56px;"><line x1="38.5" y1="56" x2="41" y2="62" stroke="#fff" stroke-width="2" stroke-linecap="round"/></g>
+          <g style="animation: v-bounce 3s ease-in-out infinite;"><circle cx="36" cy="20" r="7" fill="#fff"/><circle cx="33.5" cy="19.5" r="1.2" fill="#FF6B35"/><circle cx="38.5" cy="19.5" r="1.2" fill="#FF6B35"/></g>
+        </svg>
+      </div>
+    </div>
+
+    <!-- V-Bounce Spec Box -->
+    <div class="spec-box" style="margin-top: 16px; line-height: 2.2;">
+      <span class="key">★ V-BOUNCE HEAD:</span> <span class="val">The signature Thiya animation</span><br>
+      <span class="key">meaning:</span> <span class="val">"Main aas-paas ki services tere paas laata hoon" — head goes LEFT (vendor 1) then DOWN (picks up) then RIGHT (vendor 2) then BACK UP (delivers to you)</span><br>
+      <span class="key">keyframes:</span> <span class="val">0%: center → 15%: left -8px, down 6px → 30%: center, down 12px → 45%: right +8px, down 6px → 60%: center → 100%: hold</span><br>
+      <span class="key">v-bounce:</span> <span class="val">3s ease-in-out infinite (small/medium)</span><br>
+      <span class="key">v-bounce-lg:</span> <span class="val">3s ease-in-out infinite, translate ±12px/16px (large)</span><br>
+      <span class="key">step-left/right:</span> <span class="val">1.2s ease-in-out infinite, rotate ±14deg</span><br>
+      <span class="key">priority:</span> <span class="val">ALWAYS use animated version in digital. Static ONLY for print/favicon where animation isn't possible.</span>
+    </div>
+  </div>
+
+  <!-- STATIC / PRINT FALLBACK -->
+  <div class="subsection">
+    <div class="subsection-title">Static Versions — Print / Favicon / Export Only</div>
+    <div class="grid-3">
+      <div class="asset-card">
+        <span class="asset-label">Static Dark · 32px</span>
+        <svg width="152" height="52" viewBox="0 0 152 52" fill="none">
+          <text x="4" y="38" font-family="'Sora', sans-serif" font-weight="700" font-size="32" fill="#fff" letter-spacing="-1">th</text>
+          <g transform="translate(42, 2)"><rect x="0" y="18" width="7" height="13" rx="2" fill="#FF6B35"/><polygon points="1,31 3.5,37 6,31" fill="#FF6B35"/><line x1="2" y1="37" x2="-.5" y2="42" stroke="#FF6B35" stroke-width="1.5" stroke-linecap="round"/><line x1="5.5" y1="37" x2="7.5" y2="42" stroke="#FF6B35" stroke-width="1.5" stroke-linecap="round"/><circle cx="3.5" cy="10" r="4.5" fill="#FF6B35"/><circle cx="2" cy="9.5" r=".8" fill="#fff"/><circle cx="5" cy="9.5" r=".8" fill="#fff"/></g>
+          <text x="54" y="38" font-family="'Sora', sans-serif" font-weight="700" font-size="32" fill="#fff" letter-spacing="-1">ya</text>
+        </svg>
+        <span class="asset-spec">152 × 52</span>
+      </div>
+
+      <div class="asset-card">
+        <span class="asset-label">Static Dark · 42px</span>
+        <svg width="192" height="62" viewBox="0 0 192 62" fill="none">
+          <text x="4" y="48" font-family="'Sora', sans-serif" font-weight="700" font-size="42" fill="#fff" letter-spacing="-1.5">th</text>
+          <g transform="translate(54, 2)"><rect x="0" y="22" width="9" height="17" rx="2.5" fill="#FF6B35"/><polygon points="1.2,39 4.5,46 7.8,39" fill="#FF6B35"/><line x1="2" y1="46" x2="-.5" y2="52" stroke="#FF6B35" stroke-width="1.8" stroke-linecap="round"/><line x1="7" y1="46" x2="9.5" y2="52" stroke="#FF6B35" stroke-width="1.8" stroke-linecap="round"/><circle cx="4.5" cy="12" r="5.5" fill="#FF6B35"/><circle cx="2.8" cy="11.5" r="1" fill="#fff"/><circle cx="6.2" cy="11.5" r="1" fill="#fff"/></g>
+          <text x="70" y="48" font-family="'Sora', sans-serif" font-weight="700" font-size="42" fill="#fff" letter-spacing="-1.5">ya</text>
+        </svg>
+        <span class="asset-spec">192 × 62</span>
+      </div>
+
+      <div class="asset-card">
+        <span class="asset-label">Static Dark · 62px</span>
+        <svg width="290" height="88" viewBox="0 0 290 88" fill="none">
+          <text x="6" y="68" font-family="'Sora', sans-serif" font-weight="700" font-size="62" fill="#fff" letter-spacing="-2.5">th</text>
+          <g transform="translate(80, 2)"><rect x="0" y="30" width="13" height="25" rx="3.5" fill="#FF6B35"/><polygon points="1.5,55 6.5,66 11.5,55" fill="#FF6B35"/><line x1="3" y1="66" x2="0" y2="74" stroke="#FF6B35" stroke-width="2.2" stroke-linecap="round"/><line x1="10" y1="66" x2="13" y2="74" stroke="#FF6B35" stroke-width="2.2" stroke-linecap="round"/><circle cx="6.5" cy="16" r="8.5" fill="#FF6B35"/><circle cx="4" cy="15" r="1.5" fill="#fff"/><circle cx="9" cy="15" r="1.5" fill="#fff"/></g>
+          <text x="102" y="68" font-family="'Sora', sans-serif" font-weight="700" font-size="62" fill="#fff" letter-spacing="-2.5">ya</text>
+        </svg>
+        <span class="asset-spec">290 × 88</span>
       </div>
     </div>
   </div>
-</div>
 
-<!-- Static + BG previews -->
-<div class="section">
-  <div class="section-title">Static Versions</div>
-  <div class="preview-row">
-    <div class="preview-box" style="background: #fff;">
-      <svg width="192" height="62" viewBox="0 0 192 62" fill="none">
-        <text x="4" y="48" font-family="'Sora', sans-serif" font-weight="700" font-size="42" fill="#111" letter-spacing="-1.5">th</text>
-        <g transform="translate(54, 2)"><rect x="0" y="22" width="9" height="17" rx="2.5" fill="#FF6B35"/><polygon points="1.2,39 4.5,46 7.8,39" fill="#FF6B35"/><line x1="2" y1="46" x2="-0.5" y2="52" stroke="#FF6B35" stroke-width="1.8" stroke-linecap="round"/><line x1="7" y1="46" x2="9.5" y2="52" stroke="#FF6B35" stroke-width="1.8" stroke-linecap="round"/><circle cx="4.5" cy="12" r="5.5" fill="#FF6B35"/><circle cx="2.8" cy="11.5" r="1" fill="#fff"/><circle cx="6.2" cy="11.5" r="1" fill="#fff"/></g>
-        <text x="70" y="48" font-family="'Sora', sans-serif" font-weight="700" font-size="42" fill="#111" letter-spacing="-1.5">ya</text>
-      </svg>
+  <!-- Light / Brand static versions -->
+  <div class="subsection">
+    <div class="subsection-title">Static Light + Brand — Print Only</div>
+    <div class="grid-3">
+      <div class="asset-card" style="background: #fff; border-color: #e0e0e0;">
+        <span class="asset-label" style="color: #aaa;">Static Light</span>
+        <svg width="192" height="62" viewBox="0 0 192 62" fill="none">
+          <text x="4" y="48" font-family="'Sora', sans-serif" font-weight="700" font-size="42" fill="#111" letter-spacing="-1.5">th</text>
+          <g transform="translate(54, 2)"><rect x="0" y="22" width="9" height="17" rx="2.5" fill="#FF6B35"/><polygon points="1.2,39 4.5,46 7.8,39" fill="#FF6B35"/><line x1="2" y1="46" x2="-.5" y2="52" stroke="#FF6B35" stroke-width="1.8" stroke-linecap="round"/><line x1="7" y1="46" x2="9.5" y2="52" stroke="#FF6B35" stroke-width="1.8" stroke-linecap="round"/><circle cx="4.5" cy="12" r="5.5" fill="#FF6B35"/><circle cx="2.8" cy="11.5" r="1" fill="#fff"/><circle cx="6.2" cy="11.5" r="1" fill="#fff"/></g>
+          <text x="70" y="48" font-family="'Sora', sans-serif" font-weight="700" font-size="42" fill="#111" letter-spacing="-1.5">ya</text>
+        </svg>
+      </div>
+      <div class="asset-card" style="background: linear-gradient(135deg, #FF6B35, #FF8F55); border-color: transparent;">
+        <span class="asset-label" style="color: #fff8;">Static Brand</span>
+        <svg width="192" height="62" viewBox="0 0 192 62" fill="none">
+          <text x="4" y="48" font-family="'Sora', sans-serif" font-weight="700" font-size="42" fill="#fff" letter-spacing="-1.5">th</text>
+          <g transform="translate(54, 2)"><rect x="0" y="22" width="9" height="17" rx="2.5" fill="#fff"/><polygon points="1.2,39 4.5,46 7.8,39" fill="#fff"/><line x1="2" y1="46" x2="-.5" y2="52" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/><line x1="7" y1="46" x2="9.5" y2="52" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/><circle cx="4.5" cy="12" r="5.5" fill="#fff"/><circle cx="2.8" cy="11.5" r="1" fill="#FF6B35"/><circle cx="6.2" cy="11.5" r="1" fill="#FF6B35"/></g>
+          <text x="70" y="48" font-family="'Sora', sans-serif" font-weight="700" font-size="42" fill="#fff" letter-spacing="-1.5">ya</text>
+        </svg>
+      </div>
+      <div class="asset-card">
+        <span class="asset-label">Favicon 32 (Static)</span>
+        <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+          <rect width="32" height="32" rx="8" fill="#FF6B35"/>
+          <rect x="13" y="13" width="4" height="8" rx="1.2" fill="#fff"/><polygon points="14,21 15,24 16,21" fill="#fff"/>
+          <circle cx="15" cy="9" r="3.2" fill="#fff"/>
+        </svg>
+        <span class="asset-spec">No animation at favicon size</span>
+      </div>
     </div>
-    <div class="preview-box" style="background: #08080d;">
-      <svg width="192" height="62" viewBox="0 0 192 62" fill="none">
-        <text x="4" y="48" font-family="'Sora', sans-serif" font-weight="700" font-size="42" fill="#fff" letter-spacing="-1.5">th</text>
-        <g transform="translate(54, 2)"><rect x="0" y="22" width="9" height="17" rx="2.5" fill="#FF6B35"/><polygon points="1.2,39 4.5,46 7.8,39" fill="#FF6B35"/><line x1="2" y1="46" x2="-0.5" y2="52" stroke="#FF6B35" stroke-width="1.8" stroke-linecap="round"/><line x1="7" y1="46" x2="9.5" y2="52" stroke="#FF6B35" stroke-width="1.8" stroke-linecap="round"/><circle cx="4.5" cy="12" r="5.5" fill="#FF6B35"/><circle cx="2.8" cy="11.5" r="1" fill="#fff"/><circle cx="6.2" cy="11.5" r="1" fill="#fff"/></g>
-        <text x="70" y="48" font-family="'Sora', sans-serif" font-weight="700" font-size="42" fill="#fff" letter-spacing="-1.5">ya</text>
-      </svg>
-    </div>
-    <div class="preview-box" style="background: linear-gradient(135deg, #FF6B35, #FF8F55); border-color: transparent;">
-      <svg width="192" height="62" viewBox="0 0 192 62" fill="none">
-        <text x="4" y="48" font-family="'Sora', sans-serif" font-weight="700" font-size="42" fill="#fff" letter-spacing="-1.5">th</text>
-        <g transform="translate(54, 2)"><rect x="0" y="22" width="9" height="17" rx="2.5" fill="#fff"/><polygon points="1.2,39 4.5,46 7.8,39" fill="#fff"/><line x1="2" y1="46" x2="-0.5" y2="52" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/><line x1="7" y1="46" x2="9.5" y2="52" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/><circle cx="4.5" cy="12" r="5.5" fill="#fff"/><circle cx="2.8" cy="11.5" r="1" fill="#FF6B35"/><circle cx="6.2" cy="11.5" r="1" fill="#FF6B35"/></g>
-        <text x="70" y="48" font-family="'Sora', sans-serif" font-weight="700" font-size="42" fill="#fff" letter-spacing="-1.5">ya</text>
-      </svg>
+  </div>
+
+  <!-- APP ICONS -->
+  <div class="subsection">
+    <div class="subsection-title">App Icons</div>
+    <div class="row center" style="gap: 24px;">
+      <div class="asset-card">
+        <span class="asset-label">1024 × 1024 (Store)</span>
+        <svg width="96" height="96" viewBox="0 0 96 96" fill="none">
+          <defs><linearGradient id="aig" x1="0" y1="0" x2="96" y2="96"><stop offset="0%" stop-color="#FF8855"/><stop offset="100%" stop-color="#FF4D15"/></linearGradient></defs>
+          <rect width="96" height="96" rx="22" fill="url(#aig)"/>
+          <rect x="37" y="36" width="12" height="22" rx="3.5" fill="#fff"/>
+          <polygon points="39.5,58 43,67 46.5,58" fill="#fff"/>
+          <line x1="40" y1="67" x2="37" y2="75" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/>
+          <line x1="46" y1="67" x2="49" y2="75" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/>
+          <circle cx="43" cy="24" r="8.5" fill="#fff"/>
+          <circle cx="40" cy="23.5" r="1.5" fill="#FF6B35"/>
+          <circle cx="46" cy="23.5" r="1.5" fill="#FF6B35"/>
+        </svg>
+        <span class="asset-spec">Export as PNG @1x–4x</span>
+      </div>
+      <div class="asset-card">
+        <span class="asset-label">80 × 80</span>
+        <svg width="80" height="80" viewBox="0 0 80 80" fill="none">
+          <defs><linearGradient id="aig2" x1="0" y1="0" x2="80" y2="80"><stop offset="0%" stop-color="#FF8855"/><stop offset="100%" stop-color="#FF4D15"/></linearGradient></defs>
+          <rect width="80" height="80" rx="18" fill="url(#aig2)"/>
+          <rect x="31" y="30" width="10" height="18" rx="3" fill="#fff"/><polygon points="33,48 36,56 39,48" fill="#fff"/>
+          <line x1="33.5" y1="56" x2="31" y2="62" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
+          <line x1="38.5" y1="56" x2="41" y2="62" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
+          <circle cx="36" cy="20" r="7" fill="#fff"/><circle cx="33.5" cy="19.5" r="1.2" fill="#FF6B35"/><circle cx="38.5" cy="19.5" r="1.2" fill="#FF6B35"/>
+        </svg>
+      </div>
+      <div class="asset-card">
+        <span class="asset-label">56 × 56</span>
+        <svg width="56" height="56" viewBox="0 0 56 56" fill="none">
+          <defs><linearGradient id="aig3" x1="0" y1="0" x2="56" y2="56"><stop offset="0%" stop-color="#FF8855"/><stop offset="100%" stop-color="#FF4D15"/></linearGradient></defs>
+          <rect width="56" height="56" rx="13" fill="url(#aig3)"/>
+          <rect x="22" y="22" width="7" height="13" rx="2" fill="#fff"/><polygon points="23.5,35 25.5,40 27.5,35" fill="#fff"/>
+          <line x1="23.8" y1="40" x2="22" y2="44" stroke="#fff" stroke-width="1.5" stroke-linecap="round"/>
+          <line x1="27.2" y1="40" x2="29" y2="44" stroke="#fff" stroke-width="1.5" stroke-linecap="round"/>
+          <circle cx="25.5" cy="15" r="5" fill="#fff"/><circle cx="23.8" cy="14.5" r=".9" fill="#FF6B35"/><circle cx="27.2" cy="14.5" r=".9" fill="#FF6B35"/>
+        </svg>
+      </div>
+      <div class="asset-card">
+        <span class="asset-label">Favicon 32</span>
+        <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+          <rect width="32" height="32" rx="8" fill="#FF6B35"/>
+          <rect x="13" y="13" width="4" height="8" rx="1.2" fill="#fff"/><polygon points="14,21 15,24 16,21" fill="#fff"/>
+          <circle cx="15" cy="9" r="3.2" fill="#fff"/>
+        </svg>
+      </div>
     </div>
   </div>
 </div>
 
 <div class="divider"></div>
 
-<!-- ═══════════════════════════════════════════════════════ -->
-<!-- PART 2: CHARACTER STATES                               -->
-<!-- ═══════════════════════════════════════════════════════ -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- 05 · CHARACTER STATES                                      -->
+<!-- ═══════════════════════════════════════════════════════════ -->
 <div class="section">
-  <div class="section-title">Character States</div>
-  <div class="char-grid">
+  <div class="section-header">
+    <span class="num">05</span>
+    <h2>Character States</h2>
+  </div>
+
+  <div class="grid-4">
     <!-- IDLE -->
-    <div class="char-card">
-      <span class="state-name">Idle</span>
+    <div class="asset-card">
+      <span class="asset-label">Idle</span>
       <svg width="70" height="120" viewBox="0 0 70 120" fill="none">
         <g transform="translate(16, 6)">
           <rect x="0" y="44" width="20" height="38" rx="6" fill="#FF6B35"/>
@@ -576,27 +828,37 @@
           <g style="animation: float-idle 3s ease-in-out infinite;"><circle cx="10" cy="26" r="15" fill="#FF6B35"/><g style="animation: blink 4s ease-in-out infinite;"><circle cx="5.5" cy="24.5" r="2.5" fill="#fff"/><circle cx="14.5" cy="24.5" r="2.5" fill="#fff"/></g><path d="M5 32 Q10 36 15 32" stroke="#fff" stroke-width="1.8" stroke-linecap="round" fill="none"/></g>
         </g>
       </svg>
-      <p class="state-desc">Gentle float, blinking, soft smile.</p>
+      <div class="spec-box" style="font-size: 8px; width: 100%; line-height: 1.8;">
+        <span class="key">anim:</span> <span class="val">float 3s ease ∞</span><br>
+        <span class="key">eyes:</span> <span class="val">blink 4s ease ∞</span><br>
+        <span class="key">mouth:</span> <span class="val">curved smile</span>
+      </div>
     </div>
+
     <!-- LISTENING -->
-    <div class="char-card">
-      <span class="state-name">Listening</span>
+    <div class="asset-card">
+      <span class="asset-label">Listening</span>
       <svg width="90" height="120" viewBox="0 0 90 120" fill="none">
         <g transform="translate(26, 6)">
           <rect x="0" y="44" width="20" height="38" rx="6" fill="#FF6B35"/>
           <polygon points="3,82 10,96 17,82" fill="#FF6B35"/>
           <line x1="5" y1="96" x2="3" y2="110" stroke="#FF6B35" stroke-width="3" stroke-linecap="round"/>
           <line x1="15" y1="96" x2="17" y2="110" stroke="#FF6B35" stroke-width="3" stroke-linecap="round"/>
-          <g style="animation: listen-tilt 2.5s ease-in-out infinite; transform-origin: 10px 26px;"><circle cx="10" cy="26" r="15" fill="#FF6B35"/><circle cx="5.5" cy="24" r="2.8" fill="#fff"/><circle cx="14.5" cy="24" r="2.8" fill="#fff"/><ellipse cx="10" cy="34" rx="2.5" ry="1.8" fill="#fff" opacity="0.6"/></g>
-          <circle cx="-14" cy="26" fill="none" stroke="#FF6B35" stroke-width="1.3"><animate attributeName="r" from="6" to="24" dur="2s" repeatCount="indefinite"/><animate attributeName="opacity" from="0.4" to="0" dur="2s" repeatCount="indefinite"/></circle>
-          <circle cx="-14" cy="26" fill="none" stroke="#FF6B35" stroke-width="1"><animate attributeName="r" from="6" to="28" dur="2s" begin="0.6s" repeatCount="indefinite"/><animate attributeName="opacity" from="0.3" to="0" dur="2s" begin="0.6s" repeatCount="indefinite"/></circle>
+          <g style="animation: listen-tilt 2.5s ease-in-out infinite; transform-origin: 10px 26px;"><circle cx="10" cy="26" r="15" fill="#FF6B35"/><circle cx="5.5" cy="24" r="2.8" fill="#fff"/><circle cx="14.5" cy="24" r="2.8" fill="#fff"/><ellipse cx="10" cy="34" rx="2.5" ry="1.8" fill="#fff" opacity=".6"/></g>
+          <circle cx="-14" cy="26" fill="none" stroke="#FF6B35" stroke-width="1.3"><animate attributeName="r" from="6" to="24" dur="2s" repeatCount="indefinite"/><animate attributeName="opacity" from=".4" to="0" dur="2s" repeatCount="indefinite"/></circle>
+          <circle cx="-14" cy="26" fill="none" stroke="#FF6B35" stroke-width="1"><animate attributeName="r" from="6" to="28" dur="2s" begin=".6s" repeatCount="indefinite"/><animate attributeName="opacity" from=".3" to="0" dur="2s" begin=".6s" repeatCount="indefinite"/></circle>
         </g>
       </svg>
-      <p class="state-desc">Head tilted, sound ripples in.</p>
+      <div class="spec-box" style="font-size: 8px; width: 100%; line-height: 1.8;">
+        <span class="key">head:</span> <span class="val">tilt ±8° 2.5s</span><br>
+        <span class="key">ripples:</span> <span class="val">r 6→24, 2s loop</span><br>
+        <span class="key">mouth:</span> <span class="val">small ellipse o</span>
+      </div>
     </div>
+
     <!-- SPEAKING -->
-    <div class="char-card">
-      <span class="state-name">Speaking</span>
+    <div class="asset-card">
+      <span class="asset-label">Speaking</span>
       <svg width="90" height="120" viewBox="0 0 90 120" fill="none">
         <g transform="translate(16, 6)">
           <rect x="0" y="44" width="20" height="38" rx="6" fill="#FF6B35"/>
@@ -605,16 +867,21 @@
           <line x1="15" y1="96" x2="17" y2="110" stroke="#FF6B35" stroke-width="3" stroke-linecap="round"/>
           <circle cx="10" cy="26" r="15" fill="#FF6B35"/>
           <circle cx="5.5" cy="24" r="2.5" fill="#fff"/><circle cx="14.5" cy="24" r="2.5" fill="#fff"/>
-          <ellipse cx="10" cy="33" rx="3.5" ry="2" fill="#fff"><animate attributeName="ry" values="2;4;2.5;4.5;2" dur="0.8s" repeatCount="indefinite"/></ellipse>
-          <g style="animation: speak-wave1 1s ease-out infinite;"><path d="M30 20 A8 8 0 0 1 30 32" stroke="#FF6B35" stroke-width="2" stroke-linecap="round" fill="none" opacity="0.5"/></g>
-          <g style="animation: speak-wave2 1s ease-out 0.3s infinite;"><path d="M37 16 A12 12 0 0 1 37 36" stroke="#FF6B35" stroke-width="1.5" stroke-linecap="round" fill="none" opacity="0.3"/></g>
+          <ellipse cx="10" cy="33" rx="3.5" ry="2" fill="#fff"><animate attributeName="ry" values="2;4;2.5;4.5;2" dur=".8s" repeatCount="indefinite"/></ellipse>
+          <g style="animation: speak-wave1 1s ease-out infinite;"><path d="M30 20 A8 8 0 0 1 30 32" stroke="#FF6B35" stroke-width="2" stroke-linecap="round" fill="none" opacity=".5"/></g>
+          <g style="animation: speak-wave2 1s ease-out .3s infinite;"><path d="M37 16 A12 12 0 0 1 37 36" stroke="#FF6B35" stroke-width="1.5" stroke-linecap="round" fill="none" opacity=".3"/></g>
         </g>
       </svg>
-      <p class="state-desc">Mouth animated, sound waves out.</p>
+      <div class="spec-box" style="font-size: 8px; width: 100%; line-height: 1.8;">
+        <span class="key">mouth:</span> <span class="val">ry 2→4.5 0.8s</span><br>
+        <span class="key">waves:</span> <span class="val">2 arcs, fade-out 1s</span><br>
+        <span class="key">eyes:</span> <span class="val">static happy</span>
+      </div>
     </div>
+
     <!-- THINKING -->
-    <div class="char-card">
-      <span class="state-name">Thinking</span>
+    <div class="asset-card">
+      <span class="asset-label">Thinking</span>
       <svg width="90" height="120" viewBox="0 0 90 120" fill="none">
         <g transform="translate(16, 6)">
           <rect x="0" y="44" width="20" height="38" rx="6" fill="#FF6B35"/>
@@ -629,250 +896,239 @@
           <circle cx="46" cy="3" r="1.8" fill="#FF6B35" style="animation: think-dot3 2s ease-in-out infinite;"/>
         </g>
       </svg>
-      <p class="state-desc">Eyes up, thinking dots floating.</p>
+      <div class="spec-box" style="font-size: 8px; width: 100%; line-height: 1.8;">
+        <span class="key">eyes:</span> <span class="val">look-up -2px 3s</span><br>
+        <span class="key">pupils:</span> <span class="val">#C84E1B visible</span><br>
+        <span class="key">dots:</span> <span class="val">3 cascading 2s</span><br>
+        <span class="key">mouth:</span> <span class="val">flat line</span>
+      </div>
     </div>
+  </div>
+
+  <div class="note">
+    <strong style="color: #FF6B3580;">Usage:</strong> Idle = default/home. Listening = mic active / voice input. Speaking = AI responding / TTS playback. Thinking = processing / loading API call.
   </div>
 </div>
 
 <div class="divider"></div>
 
-<!-- ═══════════════════════════════════════════════════════ -->
-<!-- PART 3: LOADING ANIMATIONS                             -->
-<!-- ═══════════════════════════════════════════════════════ -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- 06 · LOADING ANIMATIONS                                    -->
+<!-- ═══════════════════════════════════════════════════════════ -->
 <div class="section">
-  <div class="section-title">Loading Animations</div>
-  <div class="loading-grid">
+  <div class="section-header">
+    <span class="num">06</span>
+    <h2>Loading Animations</h2>
+  </div>
 
-    <!-- ═══ L1: WALKING PROGRESS BAR ═══ -->
-    <div class="loading-card">
-      <span class="loading-label">L1 · Walking Loader</span>
-      <svg width="320" height="80" viewBox="0 0 320 80" fill="none">
-        <!-- Track -->
-        <rect x="10" y="62" width="300" height="3" rx="1.5" fill="#1a1a25"/>
-        <!-- Fill bar -->
-        <rect x="10" y="62" width="0" height="3" rx="1.5" fill="#FF6B35" style="animation: bar-fill 4s ease-in-out infinite;">
-          <animate attributeName="width" from="0" to="300" dur="4s" repeatCount="indefinite"/>
-        </rect>
-        <!-- Thiya walking across -->
+  <div class="grid-2">
+    <!-- L1 Walking -->
+    <div class="asset-card" style="padding: 36px 20px; gap: 16px;">
+      <span class="asset-label">L1 · Walking Progress</span>
+      <svg width="300" height="70" viewBox="0 0 300 70" fill="none">
+        <rect x="10" y="56" width="280" height="3" rx="1.5" fill="#1a1a25"/>
+        <rect x="10" y="56" width="0" height="3" rx="1.5" fill="#FF6B35"><animate attributeName="width" from="0" to="280" dur="4s" repeatCount="indefinite"/></rect>
         <g style="animation: walk-across 4s ease-in-out infinite;">
-          <!-- Body -->
-          <rect x="0" y="30" width="8" height="16" rx="2.5" fill="#FF6B35"/>
-          <polygon points="1,46 4,52 7,46" fill="#FF6B35"/>
-          <!-- Feet walking fast -->
-          <g style="animation: walk-step-l 0.4s ease-in-out infinite; transform-origin: 2px 52px;"><line x1="2" y1="52" x2="-0.5" y2="58" stroke="#FF6B35" stroke-width="1.8" stroke-linecap="round"/></g>
-          <g style="animation: walk-step-r 0.4s ease-in-out infinite; transform-origin: 6px 52px;"><line x1="6" y1="52" x2="8.5" y2="58" stroke="#FF6B35" stroke-width="1.8" stroke-linecap="round"/></g>
-          <!-- Head bouncing -->
-          <g style="animation: walk-head-bounce 0.4s ease-in-out infinite;">
-            <circle cx="4" cy="20" r="5.5" fill="#FF6B35"/>
-            <circle cx="2.5" cy="19.5" r="0.9" fill="#fff"/>
-            <circle cx="5.5" cy="19.5" r="0.9" fill="#fff"/>
-          </g>
-          <!-- Footprint trail dots -->
-          <circle cx="-10" cy="60" r="1" fill="#FF6B35" opacity="0.15"/>
-          <circle cx="-20" cy="60" r="0.8" fill="#FF6B35" opacity="0.08"/>
+          <rect x="0" y="26" width="8" height="14" rx="2.5" fill="#FF6B35"/><polygon points="1,40 4,46 7,40" fill="#FF6B35"/>
+          <g style="animation: walk-step-l .4s ease infinite; transform-origin: 2px 46px;"><line x1="2" y1="46" x2="-.5" y2="52" stroke="#FF6B35" stroke-width="1.8" stroke-linecap="round"/></g>
+          <g style="animation: walk-step-r .4s ease infinite; transform-origin: 6px 46px;"><line x1="6" y1="46" x2="8.5" y2="52" stroke="#FF6B35" stroke-width="1.8" stroke-linecap="round"/></g>
+          <g style="animation: walk-head-bounce .4s ease infinite;"><circle cx="4" cy="18" r="5" fill="#FF6B35"/><circle cx="2.5" cy="17.5" r=".9" fill="#fff"/><circle cx="5.5" cy="17.5" r=".9" fill="#fff"/></g>
         </g>
       </svg>
-      <p class="loading-desc">Thiya walks across the progress bar — feet moving, head bouncing, trail behind.</p>
-    </div>
-
-    <!-- ═══ L2: BOUNCE + DOTS ═══ -->
-    <div class="loading-card">
-      <span class="loading-label">L2 · Bounce Loader</span>
-      <svg width="200" height="100" viewBox="0 0 200 100" fill="none">
-        <!-- Ground shadow -->
-        <ellipse cx="100" cy="88" rx="16" ry="3" fill="#FF6B3515"/>
-        <!-- Thiya bouncing -->
-        <g style="animation: bounce-squash 1s ease-in-out infinite; transform-origin: 100px 86px;">
-          <g transform="translate(90, 20)">
-            <rect x="0" y="32" width="14" height="26" rx="4" fill="#FF6B35"/>
-            <polygon points="2,58 7,66 12,58" fill="#FF6B35"/>
-            <line x1="3.5" y1="66" x2="1.5" y2="74" stroke="#FF6B35" stroke-width="2.2" stroke-linecap="round"/>
-            <line x1="10.5" y1="66" x2="12.5" y2="74" stroke="#FF6B35" stroke-width="2.2" stroke-linecap="round"/>
-            <circle cx="7" cy="18" r="10" fill="#FF6B35"/>
-            <circle cx="4" cy="17" r="1.8" fill="#fff"/>
-            <circle cx="10" cy="17" r="1.8" fill="#fff"/>
-            <path d="M4 23 Q7 26 10 23" stroke="#fff" stroke-width="1.5" stroke-linecap="round" fill="none"/>
-          </g>
-        </g>
-        <!-- Loading dots -->
-        <circle cx="140" cy="58" r="4" fill="#FF6B35" style="animation: dot-cascade-1 1.2s ease-in-out infinite;"/>
-        <circle cx="155" cy="58" r="4" fill="#FF6B35" style="animation: dot-cascade-2 1.2s ease-in-out infinite;"/>
-        <circle cx="170" cy="58" r="4" fill="#FF6B35" style="animation: dot-cascade-3 1.2s ease-in-out infinite;"/>
-      </svg>
-      <p class="loading-desc">Thiya bounces with squash-stretch while loading dots cascade beside.</p>
-    </div>
-
-    <!-- ═══ L3: DELIVERY STOPS ═══ -->
-    <div class="loading-card">
-      <span class="loading-label">L3 · Delivery Route</span>
-      <svg width="320" height="90" viewBox="0 0 320 90" fill="none">
-        <!-- Route line (dashed, draws in) -->
-        <line x1="25" y1="70" x2="295" y2="70" stroke="#1a1a25" stroke-width="2" stroke-dasharray="6 4"/>
-        <line x1="25" y1="70" x2="295" y2="70" stroke="#FF6B35" stroke-width="2" stroke-dasharray="300" style="animation: trail-draw 6s linear infinite;"/>
-
-        <!-- Stop markers -->
-        <g style="animation: stop-ping-1 6s ease infinite;">
-          <circle cx="25" cy="70" r="4" fill="#FF6B35"/>
-          <circle cx="25" cy="70" r="4" fill="none" stroke="#FF6B35" stroke-width="1" style="animation: stop-ring-1 6s ease infinite;"/>
-        </g>
-        <g style="animation: stop-ping-2 6s ease infinite;">
-          <circle cx="115" cy="70" r="4" fill="#FF6B35"/>
-          <circle cx="115" cy="70" r="4" fill="none" stroke="#FF6B35" stroke-width="1" style="animation: stop-ring-2 6s ease infinite;"/>
-        </g>
-        <g style="animation: stop-ping-3 6s ease infinite;">
-          <circle cx="200" cy="70" r="4" fill="#FF6B35"/>
-          <circle cx="200" cy="70" r="4" fill="none" stroke="#FF6B35" stroke-width="1" style="animation: stop-ring-3 6s ease infinite;"/>
-        </g>
-        <circle cx="285" cy="70" r="4" fill="#FF6B3530"/>
-
-        <!-- Tiny house icons at stops -->
-        <text x="20" y="84" font-size="8" fill="#333">🏠</text>
-        <text x="110" y="84" font-size="8" fill="#333">🏠</text>
-        <text x="195" y="84" font-size="8" fill="#333">🏠</text>
-        <text x="280" y="84" font-size="8" fill="#333">🏠</text>
-
-        <!-- Thiya walking along route -->
-        <g style="animation: delivery-walk 6s ease-in-out infinite;">
-          <g transform="translate(16, 20)">
-            <rect x="0" y="22" width="8" height="14" rx="2.5" fill="#FF6B35"/>
-            <polygon points="1,36 4,42 7,36" fill="#FF6B35"/>
-            <g style="animation: walk-step-l 0.35s ease-in-out infinite; transform-origin: 2px 42px;"><line x1="1.5" y1="42" x2="-0.5" y2="47" stroke="#FF6B35" stroke-width="1.5" stroke-linecap="round"/></g>
-            <g style="animation: walk-step-r 0.35s ease-in-out infinite; transform-origin: 6px 42px;"><line x1="6.5" y1="42" x2="8.5" y2="47" stroke="#FF6B35" stroke-width="1.5" stroke-linecap="round"/></g>
-            <g style="animation: walk-head-bounce 0.35s ease-in-out infinite;"><circle cx="4" cy="14" r="5" fill="#FF6B35"/><circle cx="2.5" cy="13.5" r="0.8" fill="#fff"/><circle cx="5.5" cy="13.5" r="0.8" fill="#fff"/></g>
-          </g>
-        </g>
-      </svg>
-      <p class="loading-desc">Thiya walks stop-to-stop along a delivery route. Each stop pings on arrival.</p>
-    </div>
-
-    <!-- ═══ L4: STATE TRANSITION LOADER ═══ -->
-    <div class="loading-card">
-      <span class="loading-label">L4 · State Morph</span>
-      <svg width="320" height="100" viewBox="0 0 320 100" fill="none">
-        <!-- Progress track -->
-        <rect x="10" y="82" width="300" height="3" rx="1.5" fill="#1a1a25"/>
-        <rect x="10" y="82" width="0" height="3" rx="1.5" fill="#FF6B35"><animate attributeName="width" from="0" to="300" dur="8s" repeatCount="indefinite"/></rect>
-
-        <!-- State labels along bar -->
-        <text x="20" y="96" font-family="'Outfit', sans-serif" font-size="7" fill="#FF6B35" letter-spacing="1" style="animation: state-label-1 8s ease infinite;">IDLE</text>
-        <text x="90" y="96" font-family="'Outfit', sans-serif" font-size="7" fill="#FF6B35" letter-spacing="1" style="animation: state-label-2 8s ease infinite;">LISTENING</text>
-        <text x="175" y="96" font-family="'Outfit', sans-serif" font-size="7" fill="#FF6B35" letter-spacing="1" style="animation: state-label-3 8s ease infinite;">THINKING</text>
-        <text x="260" y="96" font-family="'Outfit', sans-serif" font-size="7" fill="#FF6B35" letter-spacing="1" style="animation: state-label-4 8s ease infinite;">SPEAKING</text>
-
-        <!-- Thiya morphing states as it walks -->
-        <g style="animation: morph-walk 8s ease-in-out infinite;">
-          <g transform="translate(10, 14)">
-            <rect x="0" y="28" width="10" height="20" rx="3" fill="#FF6B35"/>
-            <polygon points="1.5,48 5,55 8.5,48" fill="#FF6B35"/>
-            <g style="animation: walk-step-l 0.5s ease-in-out infinite; transform-origin: 2.5px 55px;"><line x1="2.5" y1="55" x2="0" y2="62" stroke="#FF6B35" stroke-width="1.8" stroke-linecap="round"/></g>
-            <g style="animation: walk-step-r 0.5s ease-in-out infinite; transform-origin: 7.5px 55px;"><line x1="7.5" y1="55" x2="10" y2="62" stroke="#FF6B35" stroke-width="1.8" stroke-linecap="round"/></g>
-            <!-- Head -->
-            <circle cx="5" cy="14" r="7" fill="#FF6B35"/>
-            <!-- Eyes morph -->
-            <g style="animation: morph-eyes 8s ease-in-out infinite;">
-              <circle cx="3" cy="13" r="1.3" fill="#fff"/>
-              <circle cx="7" cy="13" r="1.3" fill="#fff"/>
-            </g>
-            <!-- Mouth morph -->
-            <ellipse cx="5" cy="19" rx="2" fill="#fff" style="animation: morph-mouth-speak 8s ease-in-out infinite;"/>
-          </g>
-        </g>
-      </svg>
-      <p class="loading-desc">Thiya transitions: Idle → Listening → Thinking → Speaking as progress fills.</p>
-    </div>
-
-    <!-- ═══ L5: SPLASH SCREEN ═══ -->
-    <div class="loading-card" style="grid-column: 1 / -1; background: #0a0a10; min-height: 320px; justify-content: center;">
-      <span class="loading-label">L5 · Splash Screen</span>
-      <div style="display: flex; flex-direction: column; align-items: center; gap: 20px;">
-        <!-- Character drops in -->
-        <svg width="60" height="100" viewBox="0 0 60 100" fill="none" style="animation: splash-char-enter 3s ease-out infinite;">
-          <g transform="translate(14, 4)">
-            <rect x="0" y="36" width="16" height="30" rx="5" fill="#FF6B35"/>
-            <polygon points="2.5,66 8,78 13.5,66" fill="#FF6B35"/>
-            <line x1="4" y1="78" x2="2" y2="90" stroke="#FF6B35" stroke-width="2.5" stroke-linecap="round"/>
-            <line x1="12" y1="78" x2="14" y2="90" stroke="#FF6B35" stroke-width="2.5" stroke-linecap="round"/>
-            <g style="animation: float-idle 2s ease-in-out infinite;">
-              <circle cx="8" cy="20" r="12" fill="#FF6B35"/>
-              <g style="animation: blink 3.5s ease-in-out infinite;">
-                <circle cx="4.5" cy="19" r="2.2" fill="#fff"/>
-                <circle cx="11.5" cy="19" r="2.2" fill="#fff"/>
-              </g>
-              <path d="M4 25 Q8 29 12 25" stroke="#fff" stroke-width="1.5" stroke-linecap="round" fill="none"/>
-            </g>
-          </g>
-        </svg>
-
-        <!-- Logo text slides in -->
-        <svg width="192" height="50" viewBox="0 0 192 50" fill="none" style="animation: splash-text-enter 3s ease-out infinite;">
-          <text x="4" y="38" font-family="'Sora', sans-serif" font-weight="700" font-size="42" fill="#fff" letter-spacing="-1.5">th</text>
-          <g transform="translate(54, -4)">
-            <rect x="0" y="22" width="9" height="17" rx="2.5" fill="#FF6B35"/>
-            <polygon points="1.2,39 4.5,46 7.8,39" fill="#FF6B35"/>
-            <line x1="2" y1="46" x2="-0.5" y2="50" stroke="#FF6B35" stroke-width="1.8" stroke-linecap="round"/>
-            <line x1="7" y1="46" x2="9.5" y2="50" stroke="#FF6B35" stroke-width="1.8" stroke-linecap="round"/>
-            <circle cx="4.5" cy="12" r="5.5" fill="#FF6B35"/>
-            <circle cx="2.8" cy="11.5" r="1" fill="#fff"/>
-            <circle cx="6.2" cy="11.5" r="1" fill="#fff"/>
-          </g>
-          <text x="70" y="38" font-family="'Sora', sans-serif" font-weight="700" font-size="42" fill="#fff" letter-spacing="-1.5">ya</text>
-        </svg>
-
-        <!-- Tagline fades in -->
-        <p style="font-size: 10px; letter-spacing: 4px; color: #FF6B3580; text-transform: uppercase; animation: splash-fade-text 3s ease-out infinite;">Voice-First Vendor OS</p>
-
-        <!-- Loading bar slides in and fills -->
-        <div style="width: 200px; height: 3px; background: #1a1a25; border-radius: 2px; overflow: hidden; transform-origin: center; animation: splash-bar-enter 3s ease-out infinite;">
-          <div style="height: 100%; background: linear-gradient(90deg, #FF6B35, #FF8F55); border-radius: 2px; animation: splash-bar-fill 3s ease-out infinite;"></div>
-        </div>
+      <div class="spec-box" style="font-size: 8px; width: 100%; line-height: 1.8;">
+        <span class="key">use:</span> <span class="val">Page load, data fetch</span><br>
+        <span class="key">duration:</span> <span class="val">Matches actual load time</span><br>
+        <span class="key">walk-speed:</span> <span class="val">0.4s step cycle</span>
       </div>
     </div>
 
+    <!-- L2 Bounce -->
+    <div class="asset-card" style="padding: 36px 20px; gap: 16px;">
+      <span class="asset-label">L2 · Bounce + Dots</span>
+      <svg width="200" height="80" viewBox="0 0 200 80" fill="none">
+        <ellipse cx="80" cy="72" rx="14" ry="2.5" fill="#FF6B3515"/>
+        <g style="animation: bounce-squash 1s ease-in-out infinite; transform-origin: 80px 70px;">
+          <g transform="translate(70, 14)">
+            <rect x="0" y="26" width="12" height="22" rx="3.5" fill="#FF6B35"/><polygon points="2,48 6,55 10,48" fill="#FF6B35"/>
+            <line x1="3" y1="55" x2="1.5" y2="62" stroke="#FF6B35" stroke-width="2" stroke-linecap="round"/>
+            <line x1="9" y1="55" x2="10.5" y2="62" stroke="#FF6B35" stroke-width="2" stroke-linecap="round"/>
+            <circle cx="6" cy="14" r="8.5" fill="#FF6B35"/><circle cx="3.5" cy="13" r="1.5" fill="#fff"/><circle cx="8.5" cy="13" r="1.5" fill="#fff"/>
+            <path d="M3 19 Q6 22 9 19" stroke="#fff" stroke-width="1.3" stroke-linecap="round" fill="none"/>
+          </g>
+        </g>
+        <circle cx="130" cy="46" r="4" fill="#FF6B35" style="animation: dot-cascade-1 1.2s ease infinite;"/>
+        <circle cx="145" cy="46" r="4" fill="#FF6B35" style="animation: dot-cascade-2 1.2s ease infinite;"/>
+        <circle cx="160" cy="46" r="4" fill="#FF6B35" style="animation: dot-cascade-3 1.2s ease infinite;"/>
+      </svg>
+      <div class="spec-box" style="font-size: 8px; width: 100%; line-height: 1.8;">
+        <span class="key">use:</span> <span class="val">Inline loader, quick fetch</span><br>
+        <span class="key">bounce:</span> <span class="val">1s squash-stretch</span><br>
+        <span class="key">dots:</span> <span class="val">1.2s cascade loop</span>
+      </div>
+    </div>
+
+    <!-- L3 Delivery -->
+    <div class="asset-card" style="padding: 36px 20px; gap: 16px;">
+      <span class="asset-label">L3 · Delivery Route</span>
+      <svg width="300" height="80" viewBox="0 0 300 80" fill="none">
+        <line x1="25" y1="62" x2="275" y2="62" stroke="#1a1a25" stroke-width="2" stroke-dasharray="6 4"/>
+        <line x1="25" y1="62" x2="275" y2="62" stroke="#FF6B35" stroke-width="2" stroke-dasharray="300" style="animation: trail-draw 6s linear infinite;"/>
+        <g style="animation: stop-ping-1 6s ease infinite;"><circle cx="25" cy="62" r="4" fill="#FF6B35"/></g>
+        <g style="animation: stop-ping-2 6s ease infinite;"><circle cx="108" cy="62" r="4" fill="#FF6B35"/></g>
+        <g style="animation: stop-ping-3 6s ease infinite;"><circle cx="192" cy="62" r="4" fill="#FF6B35"/></g>
+        <circle cx="275" cy="62" r="4" fill="#FF6B3530"/>
+        <g style="animation: delivery-walk 6s ease-in-out infinite;">
+          <g transform="translate(16, 16)">
+            <rect x="0" y="20" width="7" height="12" rx="2" fill="#FF6B35"/><polygon points="1,32 3.5,38 6,32" fill="#FF6B35"/>
+            <g style="animation: walk-step-l .35s ease infinite; transform-origin: 2px 38px;"><line x1="1.5" y1="38" x2="-.5" y2="43" stroke="#FF6B35" stroke-width="1.5" stroke-linecap="round"/></g>
+            <g style="animation: walk-step-r .35s ease infinite; transform-origin: 5px 38px;"><line x1="5.5" y1="38" x2="7.5" y2="43" stroke="#FF6B35" stroke-width="1.5" stroke-linecap="round"/></g>
+            <g style="animation: walk-head-bounce .35s ease infinite;"><circle cx="3.5" cy="12" r="4.5" fill="#FF6B35"/><circle cx="2" cy="11.5" r=".7" fill="#fff"/><circle cx="5" cy="11.5" r=".7" fill="#fff"/></g>
+          </g>
+        </g>
+      </svg>
+      <div class="spec-box" style="font-size: 8px; width: 100%; line-height: 1.8;">
+        <span class="key">use:</span> <span class="val">Multi-step process, onboarding</span><br>
+        <span class="key">stops:</span> <span class="val">Ping on arrival at each</span><br>
+        <span class="key">duration:</span> <span class="val">6s full cycle</span>
+      </div>
+    </div>
+
+    <!-- L5 Splash -->
+    <div class="asset-card" style="padding: 36px 20px; gap: 16px; background: #0a0a10;">
+      <span class="asset-label">L5 · Splash Screen</span>
+      <div style="display: flex; flex-direction: column; align-items: center; gap: 14px;">
+        <svg width="48" height="80" viewBox="0 0 48 80" fill="none" style="animation: splash-char-enter 3s ease-out infinite;">
+          <g transform="translate(10, 2)">
+            <rect x="0" y="28" width="14" height="24" rx="4.5" fill="#FF6B35"/><polygon points="2,52 7,62 12,52" fill="#FF6B35"/>
+            <line x1="3.5" y1="62" x2="1.5" y2="72" stroke="#FF6B35" stroke-width="2.2" stroke-linecap="round"/>
+            <line x1="10.5" y1="62" x2="12.5" y2="72" stroke="#FF6B35" stroke-width="2.2" stroke-linecap="round"/>
+            <g style="animation: float-idle 2s ease-in-out infinite;"><circle cx="7" cy="16" r="10" fill="#FF6B35"/><circle cx="4" cy="15" r="1.8" fill="#fff"/><circle cx="10" cy="15" r="1.8" fill="#fff"/><path d="M4 21 Q7 24 10 21" stroke="#fff" stroke-width="1.3" stroke-linecap="round" fill="none"/></g>
+          </g>
+        </svg>
+        <svg width="160" height="40" viewBox="0 0 192 50" fill="none" style="animation: splash-text-enter 3s ease-out infinite;">
+          <text x="4" y="38" font-family="'Sora'" font-weight="700" font-size="42" fill="#fff" letter-spacing="-1.5">th</text>
+          <g transform="translate(54, -4)"><rect x="0" y="22" width="9" height="17" rx="2.5" fill="#FF6B35"/><polygon points="1.2,39 4.5,46 7.8,39" fill="#FF6B35"/><line x1="2" y1="46" x2="-.5" y2="50" stroke="#FF6B35" stroke-width="1.8" stroke-linecap="round"/><line x1="7" y1="46" x2="9.5" y2="50" stroke="#FF6B35" stroke-width="1.8" stroke-linecap="round"/><circle cx="4.5" cy="12" r="5.5" fill="#FF6B35"/><circle cx="2.8" cy="11.5" r="1" fill="#fff"/><circle cx="6.2" cy="11.5" r="1" fill="#fff"/></g>
+          <text x="70" y="38" font-family="'Sora'" font-weight="700" font-size="42" fill="#fff" letter-spacing="-1.5">ya</text>
+        </svg>
+        <p style="font-size: 8px; letter-spacing: 3px; color: #FF6B3560; text-transform: uppercase; animation: splash-fade-text 3s ease-out infinite;">Voice-First Vendor OS</p>
+        <div style="width: 140px; height: 2px; background: #1a1a25; border-radius: 2px; overflow: hidden; animation: splash-bar-enter 3s ease-out infinite;">
+          <div style="height: 100%; background: linear-gradient(90deg, #FF6B35, #FF8F55); border-radius: 2px; animation: splash-bar-fill 3s ease-out infinite;"></div>
+        </div>
+      </div>
+      <div class="spec-box" style="font-size: 8px; width: 100%; line-height: 1.8;">
+        <span class="key">use:</span> <span class="val">App cold start, first launch</span><br>
+        <span class="key">sequence:</span> <span class="val">char→logo→tagline→bar</span><br>
+        <span class="key">total:</span> <span class="val">3s orchestrated entry</span>
+      </div>
+    </div>
   </div>
 </div>
 
 <div class="divider"></div>
 
-<!-- App Icons -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- 07 · USAGE GUIDELINES                                      -->
+<!-- ═══════════════════════════════════════════════════════════ -->
 <div class="section">
-  <div class="section-title">App Icons</div>
-  <div style="display: flex; gap: 24px; justify-content: center; flex-wrap: wrap; align-items: flex-end;">
-    <div style="text-align: center;">
-      <svg width="80" height="80" viewBox="0 0 80 80" fill="none">
-        <defs><linearGradient id="appg" x1="0" y1="0" x2="80" y2="80"><stop offset="0%" stop-color="#FF8855"/><stop offset="100%" stop-color="#FF4D15"/></linearGradient></defs>
-        <rect width="80" height="80" rx="18" fill="url(#appg)"/>
-        <rect x="31" y="30" width="10" height="18" rx="3" fill="#fff"/>
-        <polygon points="33,48 36,56 39,48" fill="#fff"/>
-        <line x1="33.5" y1="56" x2="31" y2="62" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
-        <line x1="38.5" y1="56" x2="41" y2="62" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
-        <g style="animation: v-bounce 3s ease-in-out infinite;"><circle cx="36" cy="20" r="7" fill="#fff"/><circle cx="33.5" cy="19.5" r="1.2" fill="#FF6B35"/><circle cx="38.5" cy="19.5" r="1.2" fill="#FF6B35"/></g>
-      </svg>
-      <p style="font-size: 8px; color: #444; letter-spacing: 2px; margin-top: 8px;">80×80</p>
+  <div class="section-header">
+    <span class="num">07</span>
+    <h2>Usage Guidelines</h2>
+  </div>
+
+  <div class="do-dont-grid">
+    <div class="do-card">
+      <span class="badge">✓ Do</span>
+      <p class="rule-text"><strong style="color:#5a5;">ALWAYS use animated V-bounce head version</strong> in apps, websites, splash screens. The moving head IS the logo identity.</p>
     </div>
-    <div style="text-align: center;">
-      <svg width="56" height="56" viewBox="0 0 56 56" fill="none">
-        <defs><linearGradient id="appg2" x1="0" y1="0" x2="56" y2="56"><stop offset="0%" stop-color="#FF8855"/><stop offset="100%" stop-color="#FF4D15"/></linearGradient></defs>
-        <rect width="56" height="56" rx="13" fill="url(#appg2)"/>
-        <rect x="22" y="22" width="7" height="13" rx="2" fill="#fff"/><polygon points="23.5,35 25.5,40 27.5,35" fill="#fff"/>
-        <line x1="23.8" y1="40" x2="22" y2="44" stroke="#fff" stroke-width="1.5" stroke-linecap="round"/>
-        <line x1="27.2" y1="40" x2="29" y2="44" stroke="#fff" stroke-width="1.5" stroke-linecap="round"/>
-        <circle cx="25.5" cy="15" r="5" fill="#fff"/><circle cx="23.8" cy="14.5" r="0.9" fill="#FF6B35"/><circle cx="27.2" cy="14.5" r="0.9" fill="#FF6B35"/>
-      </svg>
-      <p style="font-size: 8px; color: #444; letter-spacing: 2px; margin-top: 8px;">56×56</p>
+    <div class="dont-card">
+      <span class="badge">✗ Don't</span>
+      <p class="rule-text">Don't use static logo in digital where animation is possible. Static is ONLY for print, favicon, and non-animated contexts.</p>
     </div>
-    <div style="text-align: center;">
-      <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
-        <rect width="32" height="32" rx="8" fill="#FF6B35"/>
-        <rect x="13" y="13" width="4" height="8" rx="1.2" fill="#fff"/><polygon points="14,21 15,24 16,21" fill="#fff"/>
-        <circle cx="15" cy="9" r="3.2" fill="#fff"/>
+    <div class="do-card">
+      <span class="badge">✓ Do</span>
+      <svg width="120" height="40" viewBox="0 0 152 52" fill="none">
+        <text x="4" y="38" font-family="'Sora'" font-weight="700" font-size="32" fill="#4a4" letter-spacing="-1">th</text>
+        <g transform="translate(42, 2)"><rect x="0" y="18" width="7" height="13" rx="2" fill="#FF6B35"/><polygon points="1,31 3.5,37 6,31" fill="#FF6B35"/><line x1="2" y1="37" x2="-.5" y2="42" stroke="#FF6B35" stroke-width="1.5" stroke-linecap="round"/><line x1="5.5" y1="37" x2="7.5" y2="42" stroke="#FF6B35" stroke-width="1.5" stroke-linecap="round"/><circle cx="3.5" cy="10" r="4.5" fill="#FF6B35"/><circle cx="2" cy="9.5" r=".8" fill="#fff"/><circle cx="5" cy="9.5" r=".8" fill="#fff"/></g>
+        <text x="54" y="38" font-family="'Sora'" font-weight="700" font-size="32" fill="#4a4" letter-spacing="-1">ya</text>
       </svg>
-      <p style="font-size: 8px; color: #444; letter-spacing: 2px; margin-top: 8px;">FAVICON</p>
+      <p class="rule-text">Use logo with tight spacing. Character sits snugly between th and ya.</p>
+    </div>
+    <div class="dont-card">
+      <span class="badge">✗ Don't</span>
+      <svg width="160" height="40" viewBox="0 0 200 52" fill="none">
+        <text x="4" y="38" font-family="'Sora'" font-weight="700" font-size="32" fill="#a44" letter-spacing="-1">th</text>
+        <g transform="translate(62, 2)"><rect x="0" y="18" width="7" height="13" rx="2" fill="#FF6B35"/><polygon points="1,31 3.5,37 6,31" fill="#FF6B35"/><circle cx="3.5" cy="10" r="4.5" fill="#FF6B35"/></g>
+        <text x="90" y="38" font-family="'Sora'" font-weight="700" font-size="32" fill="#a44" letter-spacing="-1">ya</text>
+      </svg>
+      <p class="rule-text">Don't add extra spacing around the character. No wide gaps.</p>
+    </div>
+    <div class="do-card">
+      <span class="badge">✓ Do</span>
+      <p class="rule-text">Scale entire logo uniformly. Head:body ratio must stay constant at all sizes.</p>
+    </div>
+    <div class="dont-card">
+      <span class="badge">✗ Don't</span>
+      <p class="rule-text">Don't stretch, skew, or change character proportions independently.</p>
+    </div>
+    <div class="do-card">
+      <span class="badge">✓ Do</span>
+      <p class="rule-text">Use #FF6B35 character on dark bg. Use white character on orange bg.</p>
+    </div>
+    <div class="dont-card">
+      <span class="badge">✗ Don't</span>
+      <p class="rule-text">Don't change character color to blue, green, or any non-brand color.</p>
+    </div>
+    <div class="do-card">
+      <span class="badge">✓ Do</span>
+      <p class="rule-text">Minimum clear space around logo = height of character head on all sides.</p>
+    </div>
+    <div class="dont-card">
+      <span class="badge">✗ Don't</span>
+      <p class="rule-text">Don't place logo on busy backgrounds or overlap with other elements.</p>
     </div>
   </div>
 </div>
 
-<div class="footer">
-  <p>THIYA — VOICE-FIRST VENDOR OS · © GeekRabit Pvt Ltd</p>
+<div class="divider"></div>
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- 08 · ANIMATION TIMING REFERENCE                            -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-header">
+    <span class="num">08</span>
+    <h2>Animation Timing Reference</h2>
+  </div>
+
+  <table class="token-table">
+    <thead><tr><th>Animation</th><th>Duration</th><th>Easing</th><th>Context</th></tr></thead>
+    <tbody>
+      <tr><td style="color: #FF6B35; opacity: 1; font-weight: 500;">★ v-bounce (head)</td><td>3s</td><td>ease-in-out</td><td>★ SIGNATURE ANIMATION — "services tere paas laata hoon" V-path</td></tr>
+      <tr><td style="color: #FF6B35; opacity: 1; font-weight: 500;">★ v-bounce-lg (head)</td><td>3s</td><td>ease-in-out</td><td>★ Large version — translate ±12px/16px for hero logos</td></tr>
+      <tr><td>step-left / right</td><td>1.2s (logo), 0.4s (walking)</td><td>ease-in-out</td><td>Feet movement. Faster = walking speed</td></tr>
+      <tr><td>float-idle</td><td>3s</td><td>ease-in-out</td><td>Idle state gentle hover</td></tr>
+      <tr><td>blink</td><td>4s</td><td>ease-in-out</td><td>Eye blink at 44% of cycle</td></tr>
+      <tr><td>listen-tilt</td><td>2.5s</td><td>ease-in-out</td><td>Head tilt ±8° for listening</td></tr>
+      <tr><td>speak-mouth</td><td>0.8s</td><td>ease</td><td>Mouth ry oscillates 2→4.5</td></tr>
+      <tr><td>speak-wave</td><td>1s</td><td>ease-out</td><td>Sound wave arcs, 0.3s delay between</td></tr>
+      <tr><td>think-dots</td><td>2s</td><td>ease-in-out</td><td>3 dots cascade with stagger</td></tr>
+      <tr><td>bounce-squash</td><td>1s</td><td>ease-in-out</td><td>Bounce loader with squash-stretch</td></tr>
+      <tr><td>walk-across</td><td>4s</td><td>ease-in-out</td><td>Walking progress bar</td></tr>
+      <tr><td>delivery-walk</td><td>6s</td><td>ease-in-out</td><td>Multi-stop delivery route</td></tr>
+      <tr><td>splash-sequence</td><td>3s</td><td>ease-out</td><td>Orchestrated: char→logo→tag→bar</td></tr>
+    </tbody>
+  </table>
+
+  <div class="note" style="margin-top: 16px;">
+    <strong style="color: #FF6B35;">★ For Developers — CRITICAL:</strong> The V-bounce head animation is <strong style="color:#FF6B3599;">NOT optional</strong> — it's the primary brand identity. Implement it on every screen where the logo appears. All animations are CSS-only — no JS runtime needed. For Lottie export, recreate these timing curves in After Effects. For Android/iOS native, use spring-based interpolators for bounce-squash and ease-in-out curves for everything else. <strong style="color:#FF6B3599;">V-bounce head + walking feet = non-negotiable in digital.</strong>
+  </div>
+</div>
+
+</div><!-- end .page -->
+
+<div style="text-align: center; padding: 40px 20px; border-top: 1px solid #111;">
+  <p style="font-size: 10px; color: #333; letter-spacing: 4px; text-transform: uppercase;">Thiya Design System v1.0</p>
+  <p style="font-size: 9px; color: #222; letter-spacing: 2px; margin-top: 4px;">© GeekRabit Private Limited · 2025</p>
 </div>
 
 
