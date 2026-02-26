@@ -192,12 +192,11 @@ a{color:inherit;text-decoration:none}
 // Each entry: { tag, title, description, url, date }
 // ─────────────────────────────────────────
 var DOCS = [
-  // Example entry (remove or edit this):
   {
-    tag: 'Guide',
-    title: 'Getting Started — Thiya Developer Setup',
-    description: 'Initial setup guide for developers joining the Thiya platform. Covers environment configuration, repo access, and onboarding steps.',
-    url: 'https://example.com/thiya-dev-setup',
+    tag: 'Brand Identity',
+    title: 'Thiya Logo & Character System',
+    description: 'Final logo wordmarks in all sizes (small, medium, large hero), static versions for print and brand export (dark / light / brand background), Thiya character states (Idle, Listening, Speaking, Thinking) with animations, and final app icon specifications.',
+    url: 'logo-reference.html',
     date: 'Feb 2026'
   },
   // Add more entries below this line:
@@ -211,17 +210,26 @@ var authenticated = false;
 
 function showPortal() {
   authenticated = true;
+  sessionStorage.setItem('thiya_dev_session', '1');
   document.getElementById('loginScreen').style.display = 'none';
   document.getElementById('portalScreen').style.display = 'block';
   renderDocs();
 }
 
 function showLogin(msg) {
+  sessionStorage.removeItem('thiya_dev_session');
   document.getElementById('loginScreen').style.display = 'flex';
   document.getElementById('portalScreen').style.display = 'none';
   document.getElementById('loginUser').value = '';
   document.getElementById('loginPass').value = '';
   if (msg) document.getElementById('loginError').textContent = msg;
+}
+
+function openDoc(idx) {
+  var doc = DOCS[idx];
+  if (!doc || !doc.url) return;
+  sessionStorage.setItem('thiya_dev_session', '1');
+  window.open(doc.url, '_blank');
 }
 
 function renderDocs() {
@@ -230,7 +238,7 @@ function renderDocs() {
     grid.innerHTML = '<div class="empty-state">No documents added yet.<br>Add entries to the DOCS array in developer.html</div>';
     return;
   }
-  grid.innerHTML = DOCS.map(function(doc) {
+  grid.innerHTML = DOCS.map(function(doc, i) {
     return [
       '<div class="doc-card">',
         '<div class="doc-info">',
@@ -239,10 +247,10 @@ function renderDocs() {
           '<div class="doc-description">' + escHtml(doc.description) + '</div>',
           doc.date ? '<div class="doc-meta">Added ' + escHtml(doc.date) + '</div>' : '',
         '</div>',
-        '<a class="doc-link" href="' + escHtml(doc.url) + '" target="_blank" rel="noopener noreferrer">',
+        '<button class="doc-link" onclick="openDoc(' + i + ')">',
           '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>',
           'Open',
-        '</a>',
+        '</button>',
       '</div>'
     ].join('');
   }).join('');

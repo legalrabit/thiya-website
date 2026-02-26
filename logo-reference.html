@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Thiya — Final Logo System</title>
+<!-- Auth veil: hides content until session is verified -->
+<style id="auth-veil">body{visibility:hidden;background:#08080d}</style>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  
+  body {
+    font-family: 'Sora', sans-serif;
+    background: #08080d;
+    color: #e0e0e0;
+    min-height: 100vh;
+    padding: 48px 24px;
+  }
+
+  .page-header {
+    text-align: center;
+    margin-bottom: 56px;
+  }
+  .page-header h1 {
+    font-size: 11px;
+    letter-spacing: 6px;
+    text-transform: uppercase;
+    color: #FF6B35;
+    margin-bottom: 6px;
+    font-family: 'Outfit', sans-serif;
+  }
+  .page-header p {
+    font-size: 10px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: #333;
+  }
+
+  .section {
+    max-width: 1300px;
+    margin: 0 auto 48px;
+  }
+
+  .section-title {
+    font-size: 9px;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    color: #FF6B35;
+    opacity: 0.5;
+    margin-bottom: 18px;
+    padding-left: 4px;
+    font-family: 'Outfit', sans-serif;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 20px;
+  }
+
+  .card {
+    background: #0e0e16;
+    border: 1px solid #16161f;
+    border-radius: 16px;
+    padding: 40px 24px 28px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+    position: relative;
+    transition: all 0.35s ease;
+  }
+  .card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 16px;
+    background: radial-gradient(ellipse at 50% 0%, rgba(255,107,53,0.025), transparent 70%);
+    pointer-events: none;
+  }
+  .card:hover {
+    border-color: #FF6B3518;
+    transform: translateY(-2px);
+    box-shadow: 0 12px 40px rgba(0,0,0,0.4);
+  }
+  .card.hero {
+    background: #0f0f18;
+    border-color: #FF6B3515;
+    padding: 48px 28px 32px;
+  }
+  .card.full {
+    grid-column: 1 / -1;
+    padding: 52px 40px 40px;
+  }
+
+  .label {
+    font-size: 9px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: #444;
+    font-family: 'Outfit', sans-serif;
+  }
+
+  .logo-area {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 60px;
+    padding: 8px 0;
+  }
+
+  .tags {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .tag {
+    font-size: 7px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: #3a3a4a;
+    background: #12121c;
+    padding: 3px 8px;
+    border-radius: 3px;
+  }
+
+  .divider {
+    max-width: 1300px;
+    margin: 16px auto 48px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, #1a1a25, transparent);
+  }
+
+  .preview-row {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .preview-box {
+    width: 300px;
+    height: 140px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #16161f;
+  }
+
+  /* Character states grid */
+  .char-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+  }
+  .char-card {
+    background: #0e0e16;
+    border: 1px solid #16161f;
+    border-radius: 16px;
+    padding: 32px 20px 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+    transition: all 0.35s ease;
+  }
+  .char-card:hover {
+    border-color: #FF6B3518;
+    transform: translateY(-2px);
+  }
+  .state-name {
+    font-size: 10px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: #FF6B35;
+    font-family: 'Outfit', sans-serif;
+  }
+  .state-desc {
+    font-size: 9px;
+    color: #333;
+    text-align: center;
+    line-height: 1.5;
+  }
+
+  /* ═══ ANIMATIONS ═══ */
+  @keyframes v-bounce {
+    0%   { transform: translate(0, 0); }
+    15%  { transform: translate(-8px, 6px); }
+    30%  { transform: translate(0, 12px); }
+    45%  { transform: translate(8px, 6px); }
+    60%  { transform: translate(0, 0); }
+    100% { transform: translate(0, 0); }
+  }
+  @keyframes v-bounce-lg {
+    0%   { transform: translate(0, 0); }
+    15%  { transform: translate(-12px, 8px); }
+    30%  { transform: translate(0, 16px); }
+    45%  { transform: translate(12px, 8px); }
+    60%  { transform: translate(0, 0); }
+    100% { transform: translate(0, 0); }
+  }
+  @keyframes step-left {
+    0%, 100% { transform: rotate(0deg); }
+    25% { transform: rotate(-14deg); }
+    75% { transform: rotate(14deg); }
+  }
+  @keyframes step-right {
+    0%, 100% { transform: rotate(0deg); }
+    25% { transform: rotate(14deg); }
+    75% { transform: rotate(-14deg); }
+  }
+  @keyframes float-idle {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-3px); }
+  }
+  @keyframes blink {
+    0%, 42%, 46%, 100% { transform: scaleY(1); }
+    44% { transform: scaleY(0.1); }
+  }
+  @keyframes listen-tilt {
+    0%, 100% { transform: rotate(0deg); }
+    30% { transform: rotate(8deg); }
+    70% { transform: rotate(-4deg); }
+  }
+  @keyframes think-eyes {
+    0%, 100% { transform: translateY(0); }
+    30% { transform: translateY(-2px); }
+    70% { transform: translateY(-2px); }
+  }
+  @keyframes think-dot1 {
+    0%, 20% { opacity: 0; transform: translateY(0); }
+    30%, 80% { opacity: 0.6; transform: translateY(-2px); }
+    100% { opacity: 0; transform: translateY(-4px); }
+  }
+  @keyframes think-dot2 {
+    0%, 35% { opacity: 0; transform: translateY(0); }
+    45%, 85% { opacity: 0.5; transform: translateY(-2px); }
+    100% { opacity: 0; transform: translateY(-4px); }
+  }
+  @keyframes think-dot3 {
+    0%, 50% { opacity: 0; transform: translateY(0); }
+    60%, 90% { opacity: 0.4; transform: translateY(-2px); }
+    100% { opacity: 0; transform: translateY(-4px); }
+  }
+  @keyframes speak-wave1 {
+    0%, 100% { opacity: 0; transform: translateX(0); }
+    20% { opacity: 0.5; transform: translateX(2px); }
+    60% { opacity: 0.3; transform: translateX(6px); }
+    100% { opacity: 0; transform: translateX(10px); }
+  }
+  @keyframes speak-wave2 {
+    0%, 100% { opacity: 0; transform: translateX(0); }
+    30% { opacity: 0.4; transform: translateX(2px); }
+    70% { opacity: 0.2; transform: translateX(8px); }
+    100% { opacity: 0; transform: translateX(12px); }
+  }
+
+  .footer {
+    text-align: center;
+    margin-top: 56px;
+    padding: 20px;
+  }
+  .footer p {
+    font-size: 10px;
+    color: #222;
+    letter-spacing: 2px;
+  }
+</style>
+</head>
+<body>
+
+<div class="page-header">
+  <h1>Thiya — Final Logo</h1>
+  <p>Tight Spacing · Proper Alignment · Character System</p>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- FINAL ALIGNED WORDMARKS — TIGHT SPACING           -->
+<!-- ═══════════════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-title">Final Wordmark — Tight Alignment</div>
+  <div class="grid">
+
+    <!-- SMALL -->
+    <div class="card hero">
+      <span class="label">Small · 32px</span>
+      <div class="logo-area">
+        <!-- 
+          Font size 32. "th" width ~38px. Character "i" width ~8px. 
+          "ya" starts right after character. Tight tight tight.
+        -->
+        <svg width="152" height="52" viewBox="0 0 152 52" fill="none">
+          <text x="4" y="38" font-family="'Sora', sans-serif" font-weight="700" font-size="32" fill="#fff" letter-spacing="-1">th</text>
+          <!-- Pin character replacing i — x starts at ~40 -->
+          <g transform="translate(42, 2)">
+            <rect x="0" y="18" width="7" height="13" rx="2" fill="#FF6B35"/>
+            <polygon points="1,31 3.5,37 6,31" fill="#FF6B35"/>
+            <g style="animation: step-left 1.2s ease-in-out infinite; transform-origin: 2px 37px;">
+              <line x1="1.5" y1="37" x2="-0.5" y2="42" stroke="#FF6B35" stroke-width="1.5" stroke-linecap="round"/>
+            </g>
+            <g style="animation: step-right 1.2s ease-in-out infinite; transform-origin: 5px 37px;">
+              <line x1="5.5" y1="37" x2="7.5" y2="42" stroke="#FF6B35" stroke-width="1.5" stroke-linecap="round"/>
+            </g>
+            <g style="animation: v-bounce 3s ease-in-out infinite;">
+              <circle cx="3.5" cy="10" r="4.5" fill="#FF6B35"/>
+              <circle cx="2" cy="9.5" r="0.8" fill="#fff"/>
+              <circle cx="5" cy="9.5" r="0.8" fill="#fff"/>
+            </g>
+          </g>
+          <text x="54" y="38" font-family="'Sora', sans-serif" font-weight="700" font-size="32" fill="#fff" letter-spacing="-1">ya</text>
+        </svg>
+      </div>
+      <div class="tags"><span class="tag">Nav Bar</span><span class="tag">Header</span></div>
+    </div>
+
+    <!-- MEDIUM -->
+    <div class="card hero">
+      <span class="label">Medium · 42px</span>
+      <div class="logo-area">
+        <svg width="192" height="62" viewBox="0 0 192 62" fill="none">
+          <text x="4" y="48" font-family="'Sora', sans-serif" font-weight="700" font-size="42" fill="#fff" letter-spacing="-1.5">th</text>
+          <!-- Pin at ~52px -->
+          <g transform="translate(54, 2)">
+            <rect x="0" y="22" width="9" height="17" rx="2.5" fill="#FF6B35"/>
+            <polygon points="1.2,39 4.5,46 7.8,39" fill="#FF6B35"/>
+            <g style="animation: step-left 1.2s ease-in-out infinite; transform-origin: 2.5px 46px;">
+              <line x1="2" y1="46" x2="-0.5" y2="52" stroke="#FF6B35" stroke-width="1.8" stroke-linecap="round"/>
+            </g>
+            <g style="animation: step-right 1.2s ease-in-out infinite; transform-origin: 6.5px 46px;">
+              <line x1="7" y1="46" x2="9.5" y2="52" stroke="#FF6B35" stroke-width="1.8" stroke-linecap="round"/>
+            </g>
+            <g style="animation: v-bounce 3s ease-in-out infinite;">
+              <circle cx="4.5" cy="12" r="5.5" fill="#FF6B35"/>
+              <circle cx="2.8" cy="11.5" r="1" fill="#fff"/>
+              <circle cx="6.2" cy="11.5" r="1" fill="#fff"/>
+            </g>
+          </g>
+          <text x="70" y="48" font-family="'Sora', sans-serif" font-weight="700" font-size="42" fill="#fff" letter-spacing="-1.5">ya</text>
+        </svg>
+      </div>
+      <div class="tags"><span class="tag">Website</span><span class="tag">Splash</span></div>
+    </div>
+
+    <!-- LARGE HERO — full width -->
+    <div class="card hero full">
+      <span class="label">★ Large Hero · 62px</span>
+      <div class="logo-area" style="min-height: 90px;">
+        <svg width="290" height="88" viewBox="0 0 290 88" fill="none">
+          <text x="6" y="68" font-family="'Sora', sans-serif" font-weight="700" font-size="62" fill="#fff" letter-spacing="-2.5">th</text>
+          <!-- Pin at ~78px, snug -->
+          <g transform="translate(80, 2)">
+            <rect x="0" y="30" width="13" height="25" rx="3.5" fill="#FF6B35"/>
+            <polygon points="1.5,55 6.5,66 11.5,55" fill="#FF6B35"/>
+            <g style="animation: step-left 1.2s ease-in-out infinite; transform-origin: 3.5px 66px;">
+              <line x1="3" y1="66" x2="0" y2="74" stroke="#FF6B35" stroke-width="2.2" stroke-linecap="round"/>
+            </g>
+            <g style="animation: step-right 1.2s ease-in-out infinite; transform-origin: 9.5px 66px;">
+              <line x1="10" y1="66" x2="13" y2="74" stroke="#FF6B35" stroke-width="2.2" stroke-linecap="round"/>
+            </g>
+            <g style="animation: v-bounce-lg 3s ease-in-out infinite;">
+              <circle cx="6.5" cy="16" r="8.5" fill="#FF6B35"/>
+              <circle cx="4" cy="15" r="1.5" fill="#fff"/>
+              <circle cx="9" cy="15" r="1.5" fill="#fff"/>
+            </g>
+          </g>
+          <text x="102" y="68" font-family="'Sora', sans-serif" font-weight="700" font-size="62" fill="#fff" letter-spacing="-2.5">ya</text>
+        </svg>
+      </div>
+      <div class="tags"><span class="tag">★ Final Hero</span><span class="tag">Marketing</span><span class="tag">Pitch Deck</span></div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- STATIC VERSIONS (no animation) for print           -->
+<!-- ═══════════════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-title">Static Versions — Print / Export</div>
+  <div class="grid">
+
+    <div class="card">
+      <span class="label">Static Dark</span>
+      <div class="logo-area">
+        <svg width="192" height="62" viewBox="0 0 192 62" fill="none">
+          <text x="4" y="48" font-family="'Sora', sans-serif" font-weight="700" font-size="42" fill="#fff" letter-spacing="-1.5">th</text>
+          <g transform="translate(54, 2)">
+            <rect x="0" y="22" width="9" height="17" rx="2.5" fill="#FF6B35"/>
+            <polygon points="1.2,39 4.5,46 7.8,39" fill="#FF6B35"/>
+            <line x1="2" y1="46" x2="-0.5" y2="52" stroke="#FF6B35" stroke-width="1.8" stroke-linecap="round"/>
+            <line x1="7" y1="46" x2="9.5" y2="52" stroke="#FF6B35" stroke-width="1.8" stroke-linecap="round"/>
+            <circle cx="4.5" cy="12" r="5.5" fill="#FF6B35"/>
+            <circle cx="2.8" cy="11.5" r="1" fill="#fff"/>
+            <circle cx="6.2" cy="11.5" r="1" fill="#fff"/>
+          </g>
+          <text x="70" y="48" font-family="'Sora', sans-serif" font-weight="700" font-size="42" fill="#fff" letter-spacing="-1.5">ya</text>
+        </svg>
+      </div>
+      <div class="tags"><span class="tag">Dark BG</span><span class="tag">Print</span></div>
+    </div>
+
+    <div class="card" style="background: #fafafa; border-color: #e8e8e8;">
+      <span class="label" style="color: #999;">Static Light</span>
+      <div class="logo-area">
+        <svg width="192" height="62" viewBox="0 0 192 62" fill="none">
+          <text x="4" y="48" font-family="'Sora', sans-serif" font-weight="700" font-size="42" fill="#111" letter-spacing="-1.5">th</text>
+          <g transform="translate(54, 2)">
+            <rect x="0" y="22" width="9" height="17" rx="2.5" fill="#FF6B35"/>
+            <polygon points="1.2,39 4.5,46 7.8,39" fill="#FF6B35"/>
+            <line x1="2" y1="46" x2="-0.5" y2="52" stroke="#FF6B35" stroke-width="1.8" stroke-linecap="round"/>
+            <line x1="7" y1="46" x2="9.5" y2="52" stroke="#FF6B35" stroke-width="1.8" stroke-linecap="round"/>
+            <circle cx="4.5" cy="12" r="5.5" fill="#FF6B35"/>
+            <circle cx="2.8" cy="11.5" r="1" fill="#fff"/>
+            <circle cx="6.2" cy="11.5" r="1" fill="#fff"/>
+          </g>
+          <text x="70" y="48" font-family="'Sora', sans-serif" font-weight="700" font-size="42" fill="#111" letter-spacing="-1.5">ya</text>
+        </svg>
+      </div>
+      <div class="tags"><span class="tag" style="background:#f0f0f0; color:#888;">Light BG</span><span class="tag" style="background:#f0f0f0; color:#888;">Print</span></div>
+    </div>
+
+    <div class="card" style="background: linear-gradient(135deg, #FF6B35, #FF8F55); border-color: transparent;">
+      <span class="label" style="color: #fff8;">Static Brand</span>
+      <div class="logo-area">
+        <svg width="192" height="62" viewBox="0 0 192 62" fill="none">
+          <text x="4" y="48" font-family="'Sora', sans-serif" font-weight="700" font-size="42" fill="#fff" letter-spacing="-1.5">th</text>
+          <g transform="translate(54, 2)">
+            <rect x="0" y="22" width="9" height="17" rx="2.5" fill="#fff"/>
+            <polygon points="1.2,39 4.5,46 7.8,39" fill="#fff"/>
+            <line x1="2" y1="46" x2="-0.5" y2="52" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/>
+            <line x1="7" y1="46" x2="9.5" y2="52" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/>
+            <circle cx="4.5" cy="12" r="5.5" fill="#fff"/>
+            <circle cx="2.8" cy="11.5" r="1" fill="#FF6B35"/>
+            <circle cx="6.2" cy="11.5" r="1" fill="#FF6B35"/>
+          </g>
+          <text x="70" y="48" font-family="'Sora', sans-serif" font-weight="700" font-size="42" fill="#fff" letter-spacing="-1.5">ya</text>
+        </svg>
+      </div>
+      <div class="tags"><span class="tag" style="background:#ffffff30; color:#fff">Brand BG</span></div>
+    </div>
+
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- INDEPENDENT CHARACTER STATES                       -->
+<!-- ═══════════════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-title">Thiya Character — 4 States</div>
+  <div class="char-grid">
+
+    <!-- IDLE -->
+    <div class="char-card">
+      <span class="state-name">Idle</span>
+      <svg width="70" height="130" viewBox="0 0 70 130" fill="none">
+        <g transform="translate(16, 8)">
+          <rect x="0" y="44" width="20" height="38" rx="6" fill="#FF6B35"/>
+          <polygon points="3,82 10,96 17,82" fill="#FF6B35"/>
+          <line x1="5" y1="96" x2="3" y2="110" stroke="#FF6B35" stroke-width="3" stroke-linecap="round"/>
+          <line x1="15" y1="96" x2="17" y2="110" stroke="#FF6B35" stroke-width="3" stroke-linecap="round"/>
+          <g style="animation: float-idle 3s ease-in-out infinite;">
+            <circle cx="10" cy="26" r="15" fill="#FF6B35"/>
+            <g style="animation: blink 4s ease-in-out infinite;">
+              <circle cx="5.5" cy="24.5" r="2.5" fill="#fff"/>
+              <circle cx="14.5" cy="24.5" r="2.5" fill="#fff"/>
+            </g>
+            <path d="M5 32 Q10 36 15 32" stroke="#fff" stroke-width="1.8" stroke-linecap="round" fill="none"/>
+          </g>
+        </g>
+      </svg>
+      <p class="state-desc">Gentle float, blinking eyes, soft smile. Ready & waiting.</p>
+    </div>
+
+    <!-- LISTENING -->
+    <div class="char-card">
+      <span class="state-name">Listening</span>
+      <svg width="90" height="130" viewBox="0 0 90 130" fill="none">
+        <g transform="translate(26, 8)">
+          <rect x="0" y="44" width="20" height="38" rx="6" fill="#FF6B35"/>
+          <polygon points="3,82 10,96 17,82" fill="#FF6B35"/>
+          <line x1="5" y1="96" x2="3" y2="110" stroke="#FF6B35" stroke-width="3" stroke-linecap="round"/>
+          <line x1="15" y1="96" x2="17" y2="110" stroke="#FF6B35" stroke-width="3" stroke-linecap="round"/>
+          <g style="animation: listen-tilt 2.5s ease-in-out infinite; transform-origin: 10px 26px;">
+            <circle cx="10" cy="26" r="15" fill="#FF6B35"/>
+            <circle cx="5.5" cy="24" r="2.8" fill="#fff"/>
+            <circle cx="14.5" cy="24" r="2.8" fill="#fff"/>
+            <ellipse cx="10" cy="34" rx="2.5" ry="1.8" fill="#fff" opacity="0.6"/>
+          </g>
+          <!-- Sound ripples from left -->
+          <circle cx="-14" cy="26" fill="none" stroke="#FF6B35" stroke-width="1.3">
+            <animate attributeName="r" from="6" to="24" dur="2s" repeatCount="indefinite"/>
+            <animate attributeName="opacity" from="0.4" to="0" dur="2s" repeatCount="indefinite"/>
+          </circle>
+          <circle cx="-14" cy="26" fill="none" stroke="#FF6B35" stroke-width="1">
+            <animate attributeName="r" from="6" to="28" dur="2s" begin="0.6s" repeatCount="indefinite"/>
+            <animate attributeName="opacity" from="0.3" to="0" dur="2s" begin="0.6s" repeatCount="indefinite"/>
+          </circle>
+        </g>
+      </svg>
+      <p class="state-desc">Head tilted, sound ripples incoming. Actively listening.</p>
+    </div>
+
+    <!-- SPEAKING -->
+    <div class="char-card">
+      <span class="state-name">Speaking</span>
+      <svg width="90" height="130" viewBox="0 0 90 130" fill="none">
+        <g transform="translate(16, 8)">
+          <rect x="0" y="44" width="20" height="38" rx="6" fill="#FF6B35"/>
+          <polygon points="3,82 10,96 17,82" fill="#FF6B35"/>
+          <line x1="5" y1="96" x2="3" y2="110" stroke="#FF6B35" stroke-width="3" stroke-linecap="round"/>
+          <line x1="15" y1="96" x2="17" y2="110" stroke="#FF6B35" stroke-width="3" stroke-linecap="round"/>
+          <circle cx="10" cy="26" r="15" fill="#FF6B35"/>
+          <circle cx="5.5" cy="24" r="2.5" fill="#fff"/>
+          <circle cx="14.5" cy="24" r="2.5" fill="#fff"/>
+          <!-- Animated mouth -->
+          <ellipse cx="10" cy="33" rx="3.5" ry="2" fill="#fff">
+            <animate attributeName="ry" values="2;4;2.5;4.5;2" dur="0.8s" repeatCount="indefinite"/>
+          </ellipse>
+          <!-- Sound waves right -->
+          <g style="animation: speak-wave1 1s ease-out infinite;">
+            <path d="M30 20 A8 8 0 0 1 30 32" stroke="#FF6B35" stroke-width="2" stroke-linecap="round" fill="none" opacity="0.5"/>
+          </g>
+          <g style="animation: speak-wave2 1s ease-out 0.3s infinite;">
+            <path d="M37 16 A12 12 0 0 1 37 36" stroke="#FF6B35" stroke-width="1.5" stroke-linecap="round" fill="none" opacity="0.3"/>
+          </g>
+        </g>
+      </svg>
+      <p class="state-desc">Mouth animated, sound waves emitting. Thiya is responding.</p>
+    </div>
+
+    <!-- THINKING -->
+    <div class="char-card">
+      <span class="state-name">Thinking</span>
+      <svg width="90" height="130" viewBox="0 0 90 130" fill="none">
+        <g transform="translate(16, 8)">
+          <rect x="0" y="44" width="20" height="38" rx="6" fill="#FF6B35"/>
+          <polygon points="3,82 10,96 17,82" fill="#FF6B35"/>
+          <line x1="5" y1="96" x2="3" y2="110" stroke="#FF6B35" stroke-width="3" stroke-linecap="round"/>
+          <line x1="15" y1="96" x2="17" y2="110" stroke="#FF6B35" stroke-width="3" stroke-linecap="round"/>
+          <circle cx="10" cy="26" r="15" fill="#FF6B35"/>
+          <!-- Eyes looking up -->
+          <g style="animation: think-eyes 3s ease-in-out infinite;">
+            <circle cx="5.5" cy="24" r="2.5" fill="#fff"/>
+            <circle cx="14.5" cy="24" r="2.5" fill="#fff"/>
+            <circle cx="6.3" cy="22.8" r="1" fill="#C84E1B"/>
+            <circle cx="15.3" cy="22.8" r="1" fill="#C84E1B"/>
+          </g>
+          <!-- Hmm mouth -->
+          <line x1="6" y1="33" x2="14" y2="33" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/>
+          <!-- Thinking dots -->
+          <circle cx="32" cy="14" r="3.5" fill="#FF6B35" style="animation: think-dot1 2s ease-in-out infinite;"/>
+          <circle cx="40" cy="8" r="2.5" fill="#FF6B35" style="animation: think-dot2 2s ease-in-out infinite;"/>
+          <circle cx="46" cy="3" r="1.8" fill="#FF6B35" style="animation: think-dot3 2s ease-in-out infinite;"/>
+        </g>
+      </svg>
+      <p class="state-desc">Eyes up, thinking dots floating. Processing your request.</p>
+    </div>
+
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- LARGE CLOSE-UP CHARACTER STATES                    -->
+<!-- ═══════════════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-title">Character Close-ups — Large</div>
+  <div class="grid">
+
+    <div class="card" style="background: #0a0a12;">
+      <span class="label">Idle — Large</span>
+      <div class="logo-area" style="min-height: 180px;">
+        <svg width="100" height="200" viewBox="0 0 100 200" fill="none">
+          <g transform="translate(22, 8)">
+            <rect x="0" y="66" width="28" height="54" rx="8" fill="#FF6B35"/>
+            <polygon points="4,120 14,140 24,120" fill="#FF6B35"/>
+            <line x1="7" y1="140" x2="4" y2="160" stroke="#FF6B35" stroke-width="4" stroke-linecap="round"/>
+            <line x1="21" y1="140" x2="24" y2="160" stroke="#FF6B35" stroke-width="4" stroke-linecap="round"/>
+            <g style="animation: float-idle 3s ease-in-out infinite;">
+              <circle cx="14" cy="38" r="22" fill="#FF6B35"/>
+              <g style="animation: blink 4s ease-in-out infinite;">
+                <circle cx="7" cy="36" r="3.5" fill="#fff"/>
+                <circle cx="21" cy="36" r="3.5" fill="#fff"/>
+              </g>
+              <path d="M7 46 Q14 52 21 46" stroke="#fff" stroke-width="2.2" stroke-linecap="round" fill="none"/>
+            </g>
+          </g>
+        </svg>
+      </div>
+    </div>
+
+    <div class="card" style="background: #0a0a12;">
+      <span class="label">Listening — Large</span>
+      <div class="logo-area" style="min-height: 180px;">
+        <svg width="120" height="200" viewBox="0 0 120 200" fill="none">
+          <g transform="translate(32, 8)">
+            <rect x="0" y="66" width="28" height="54" rx="8" fill="#FF6B35"/>
+            <polygon points="4,120 14,140 24,120" fill="#FF6B35"/>
+            <line x1="7" y1="140" x2="4" y2="160" stroke="#FF6B35" stroke-width="4" stroke-linecap="round"/>
+            <line x1="21" y1="140" x2="24" y2="160" stroke="#FF6B35" stroke-width="4" stroke-linecap="round"/>
+            <g style="animation: listen-tilt 2.5s ease-in-out infinite; transform-origin: 14px 38px;">
+              <circle cx="14" cy="38" r="22" fill="#FF6B35"/>
+              <circle cx="7" cy="35" r="4" fill="#fff"/>
+              <circle cx="21" cy="35" r="4" fill="#fff"/>
+              <ellipse cx="14" cy="48" rx="3.5" ry="2.5" fill="#fff" opacity="0.6"/>
+            </g>
+            <circle cx="-18" cy="38" fill="none" stroke="#FF6B35" stroke-width="1.8">
+              <animate attributeName="r" from="8" to="34" dur="2s" repeatCount="indefinite"/>
+              <animate attributeName="opacity" from="0.4" to="0" dur="2s" repeatCount="indefinite"/>
+            </circle>
+            <circle cx="-18" cy="38" fill="none" stroke="#FF6B35" stroke-width="1.3">
+              <animate attributeName="r" from="8" to="40" dur="2s" begin="0.7s" repeatCount="indefinite"/>
+              <animate attributeName="opacity" from="0.3" to="0" dur="2s" begin="0.7s" repeatCount="indefinite"/>
+            </circle>
+          </g>
+        </svg>
+      </div>
+    </div>
+
+    <div class="card" style="background: #0a0a12;">
+      <span class="label">Speaking — Large</span>
+      <div class="logo-area" style="min-height: 180px;">
+        <svg width="120" height="200" viewBox="0 0 120 200" fill="none">
+          <g transform="translate(22, 8)">
+            <rect x="0" y="66" width="28" height="54" rx="8" fill="#FF6B35"/>
+            <polygon points="4,120 14,140 24,120" fill="#FF6B35"/>
+            <line x1="7" y1="140" x2="4" y2="160" stroke="#FF6B35" stroke-width="4" stroke-linecap="round"/>
+            <line x1="21" y1="140" x2="24" y2="160" stroke="#FF6B35" stroke-width="4" stroke-linecap="round"/>
+            <circle cx="14" cy="38" r="22" fill="#FF6B35"/>
+            <circle cx="7" cy="35" r="3.5" fill="#fff"/>
+            <circle cx="21" cy="35" r="3.5" fill="#fff"/>
+            <ellipse cx="14" cy="47" rx="5" ry="2.5" fill="#fff">
+              <animate attributeName="ry" values="2.5;5.5;3;6;2.5" dur="0.8s" repeatCount="indefinite"/>
+            </ellipse>
+            <g style="animation: speak-wave1 1s ease-out infinite;">
+              <path d="M42 30 A10 10 0 0 1 42 46" stroke="#FF6B35" stroke-width="2.5" stroke-linecap="round" fill="none" opacity="0.5"/>
+            </g>
+            <g style="animation: speak-wave2 1s ease-out 0.3s infinite;">
+              <path d="M52 24 A16 16 0 0 1 52 52" stroke="#FF6B35" stroke-width="2" stroke-linecap="round" fill="none" opacity="0.3"/>
+            </g>
+          </g>
+        </svg>
+      </div>
+    </div>
+
+    <div class="card" style="background: #0a0a12;">
+      <span class="label">Thinking — Large</span>
+      <div class="logo-area" style="min-height: 180px;">
+        <svg width="120" height="200" viewBox="0 0 120 200" fill="none">
+          <g transform="translate(22, 8)">
+            <rect x="0" y="66" width="28" height="54" rx="8" fill="#FF6B35"/>
+            <polygon points="4,120 14,140 24,120" fill="#FF6B35"/>
+            <line x1="7" y1="140" x2="4" y2="160" stroke="#FF6B35" stroke-width="4" stroke-linecap="round"/>
+            <line x1="21" y1="140" x2="24" y2="160" stroke="#FF6B35" stroke-width="4" stroke-linecap="round"/>
+            <circle cx="14" cy="38" r="22" fill="#FF6B35"/>
+            <g style="animation: think-eyes 3s ease-in-out infinite;">
+              <circle cx="7" cy="35" r="3.5" fill="#fff"/>
+              <circle cx="21" cy="35" r="3.5" fill="#fff"/>
+              <circle cx="8.2" cy="33.5" r="1.4" fill="#C84E1B"/>
+              <circle cx="22.2" cy="33.5" r="1.4" fill="#C84E1B"/>
+            </g>
+            <line x1="8" y1="48" x2="20" y2="48" stroke="#fff" stroke-width="2.2" stroke-linecap="round"/>
+            <circle cx="44" cy="20" r="5" fill="#FF6B35" style="animation: think-dot1 2s ease-in-out infinite;"/>
+            <circle cx="54" cy="12" r="3.5" fill="#FF6B35" style="animation: think-dot2 2s ease-in-out infinite;"/>
+            <circle cx="62" cy="5" r="2.5" fill="#FF6B35" style="animation: think-dot3 2s ease-in-out infinite;"/>
+          </g>
+        </svg>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- APP ICON -->
+<!-- ═══════════════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-title">App Icon — Final</div>
+  <div style="display: flex; gap: 24px; justify-content: center; flex-wrap: wrap; align-items: flex-end;">
+    <div style="text-align: center;">
+      <svg width="80" height="80" viewBox="0 0 80 80" fill="none">
+        <defs><linearGradient id="appg" x1="0" y1="0" x2="80" y2="80"><stop offset="0%" stop-color="#FF8855"/><stop offset="100%" stop-color="#FF4D15"/></linearGradient></defs>
+        <rect width="80" height="80" rx="18" fill="url(#appg)"/>
+        <rect x="31" y="30" width="10" height="18" rx="3" fill="#fff"/>
+        <polygon points="33,48 36,56 39,48" fill="#fff"/>
+        <line x1="33.5" y1="56" x2="31" y2="62" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
+        <line x1="38.5" y1="56" x2="41" y2="62" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
+        <g style="animation: v-bounce 3s ease-in-out infinite;">
+          <circle cx="36" cy="20" r="7" fill="#fff"/>
+          <circle cx="33.5" cy="19.5" r="1.2" fill="#FF6B35"/>
+          <circle cx="38.5" cy="19.5" r="1.2" fill="#FF6B35"/>
+        </g>
+      </svg>
+      <p style="font-size: 8px; color: #444; letter-spacing: 2px; margin-top: 8px;">80×80</p>
+    </div>
+    <div style="text-align: center;">
+      <svg width="56" height="56" viewBox="0 0 56 56" fill="none">
+        <defs><linearGradient id="appg2" x1="0" y1="0" x2="56" y2="56"><stop offset="0%" stop-color="#FF8855"/><stop offset="100%" stop-color="#FF4D15"/></linearGradient></defs>
+        <rect width="56" height="56" rx="13" fill="url(#appg2)"/>
+        <rect x="22" y="22" width="7" height="13" rx="2" fill="#fff"/>
+        <polygon points="23.5,35 25.5,40 27.5,35" fill="#fff"/>
+        <line x1="23.8" y1="40" x2="22" y2="44" stroke="#fff" stroke-width="1.5" stroke-linecap="round"/>
+        <line x1="27.2" y1="40" x2="29" y2="44" stroke="#fff" stroke-width="1.5" stroke-linecap="round"/>
+        <circle cx="25.5" cy="15" r="5" fill="#fff"/>
+        <circle cx="23.8" cy="14.5" r="0.9" fill="#FF6B35"/>
+        <circle cx="27.2" cy="14.5" r="0.9" fill="#FF6B35"/>
+      </svg>
+      <p style="font-size: 8px; color: #444; letter-spacing: 2px; margin-top: 8px;">56×56</p>
+    </div>
+    <div style="text-align: center;">
+      <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+        <rect width="32" height="32" rx="8" fill="#FF6B35"/>
+        <rect x="13" y="13" width="4" height="8" rx="1.2" fill="#fff"/>
+        <polygon points="14,21 15,24 16,21" fill="#fff"/>
+        <circle cx="15" cy="9" r="3.2" fill="#fff"/>
+      </svg>
+      <p style="font-size: 8px; color: #444; letter-spacing: 2px; margin-top: 8px;">FAVICON</p>
+    </div>
+  </div>
+</div>
+
+<div class="footer">
+  <p>THIYA — VOICE-FIRST VENDOR OS · © GeekRabit Pvt Ltd</p>
+</div>
+
+
+<script>
+(function() {
+  var veil = document.getElementById('auth-veil');
+  if (sessionStorage.getItem('thiya_dev_session') === '1') {
+    // Authenticated — remove veil, show content
+    veil.remove();
+  } else {
+    // Not authenticated — replace content with gate
+    veil.textContent = 'body{margin:0;background:#08080d;font-family:"Sora",sans-serif}';
+    document.addEventListener('DOMContentLoaded', function() {
+      document.body.innerHTML =
+        '<div style="min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:28px;padding:24px;text-align:center">' +
+          '<div>' +
+            '<div style="width:52px;height:52px;background:#FF6B35;border-radius:12px;display:inline-flex;align-items:center;justify-content:center;font-weight:700;font-size:20px;color:#fff;margin-bottom:20px;font-family:Sora,sans-serif">th</div>' +
+            '<h2 style="color:#e8e4e0;font-size:22px;font-weight:600;margin-bottom:10px;font-family:Sora,sans-serif">Restricted Access</h2>' +
+            '<p style="color:#7a7680;font-size:14px;line-height:1.7;max-width:300px">This resource is only accessible through the Thiya Developer Portal.</p>' +
+          '</div>' +
+          '<a href="developer.html" style="display:inline-block;background:#FF6B35;color:#fff;text-decoration:none;padding:13px 28px;border-radius:8px;font-size:14px;font-weight:600;font-family:Sora,sans-serif;letter-spacing:0.02em">Go to Developer Portal &rarr;</a>' +
+        '</div>';
+    });
+  }
+})();
+</script>
+</body>
+</html>
