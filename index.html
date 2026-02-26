@@ -640,16 +640,22 @@ section{padding:100px 24px}
 <nav class="nav" id="nav">
   <div class="nav-inner">
     <a href="#" class="nav-logo">
-      <svg width="88" height="36" viewBox="0 0 152 52" fill="none">
+      <svg width="114" height="39" viewBox="0 0 152 52" fill="none">
         <text x="4" y="38" font-family="'Sora',sans-serif" font-weight="700" font-size="32" fill="#fff" letter-spacing="-1">th</text>
         <g transform="translate(42,2)">
           <rect x="0" y="18" width="7" height="13" rx="2" fill="#FF6B35"/>
           <polygon points="1,31 3.5,37 6,31" fill="#FF6B35"/>
-          <line x1="1.5" y1="37" x2="-0.5" y2="42" stroke="#FF6B35" stroke-width="1.5" stroke-linecap="round"/>
-          <line x1="5.5" y1="37" x2="7.5" y2="42" stroke="#FF6B35" stroke-width="1.5" stroke-linecap="round"/>
-          <circle cx="3.5" cy="10" r="4.5" fill="#FF6B35"/>
-          <circle cx="2" cy="9.5" r="0.8" fill="#fff"/>
-          <circle cx="5" cy="9.5" r="0.8" fill="#fff"/>
+          <g style="animation:step-left 1.2s ease-in-out infinite;transform-origin:2px 37px">
+            <line x1="1.5" y1="37" x2="-0.5" y2="42" stroke="#FF6B35" stroke-width="1.5" stroke-linecap="round"/>
+          </g>
+          <g style="animation:step-right 1.2s ease-in-out infinite;transform-origin:5px 37px">
+            <line x1="5.5" y1="37" x2="7.5" y2="42" stroke="#FF6B35" stroke-width="1.5" stroke-linecap="round"/>
+          </g>
+          <g style="animation:v-bounce 3s ease-in-out infinite">
+            <circle cx="3.5" cy="10" r="4.5" fill="#FF6B35"/>
+            <circle cx="2" cy="9.5" r="0.8" fill="#fff"/>
+            <circle cx="5" cy="9.5" r="0.8" fill="#fff"/>
+          </g>
         </g>
         <text x="54" y="38" font-family="'Sora',sans-serif" font-weight="700" font-size="32" fill="#fff" letter-spacing="-1">ya</text>
       </svg>
