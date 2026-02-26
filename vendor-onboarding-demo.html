@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Thiya — Vendor Onboarding</title>
+<style id="auth-veil">body{visibility:hidden;background:#020617}</style>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#020617;--bg2:#0f172a;--bg3:#1e293b;--bdr:#334155;--bdr2:#1e293b;
+  --t1:#f1f5f9;--t2:#cbd5e1;--t3:#94a3b8;--t4:#64748b;--t5:#475569;--tmute:#334155;
+  --o:#FF6B35;--ol:#FF8F55;--od:#E85520;--o05:rgba(255,107,53,.05);--o10:rgba(255,107,53,.1);--o15:rgba(255,107,53,.15);--o20:rgba(255,107,53,.2);--o30:rgba(255,107,53,.3);--o50:rgba(255,107,53,.5);
+  --g:#22c55e;--g10:rgba(34,197,94,.1);--g20:rgba(34,197,94,.2);--g50:rgba(34,197,94,.5);
+  --r:#ef4444;--r10:rgba(239,68,68,.1);
+  --sora:'Sora',sans-serif;--out:'Outfit',sans-serif;
+}
+body{font-family:'Outfit',sans-serif;background:#080c18;color:var(--t1);min-height:100vh;overflow-x:hidden}
+::selection{background:var(--o30);color:#fff}
+
+/* ═══ PHONE SHELL ═══ */
+.shell{display:flex;justify-content:center;align-items:center;min-height:100vh;padding:20px 12px;background:radial-gradient(ellipse at 50% 30%,#0f172a,#020617 70%)}
+.phone{width:393px;max-width:100%;height:852px;max-height:95vh;background:var(--bg);border-radius:44px;border:2.5px solid #1e293b;overflow:hidden;position:relative;box-shadow:0 0 0 1px rgba(255,255,255,.04),0 40px 100px -20px rgba(0,0,0,.7),0 0 80px rgba(255,107,53,.03)}
+.phone-inner{height:100%;position:relative;overflow:hidden}
+.island{width:126px;height:34px;background:#000;border-radius:20px;position:absolute;top:8px;left:50%;transform:translateX(-50%);z-index:20}
+.status-bar{position:absolute;top:0;left:0;right:0;height:54px;z-index:15;display:flex;justify-content:space-between;align-items:flex-end;padding:0 28px 6px;font-size:11px;font-weight:600;color:#fff}
+.home-indicator{position:absolute;bottom:8px;left:50%;transform:translateX(-50%);width:134px;height:5px;background:#fff;border-radius:3px;opacity:.15;z-index:20}
+
+/* ═══ SCREENS ═══ */
+.scr{position:absolute;top:0;left:0;right:0;bottom:0;display:flex;flex-direction:column;opacity:0;pointer-events:none;transition:all .45s cubic-bezier(.4,0,.2,1);transform:translateX(40px) scale(.97)}
+.scr.on{opacity:1;pointer-events:auto;transform:translateX(0) scale(1)}
+.scr-body{flex:1;overflow-y:auto;overflow-x:hidden;padding:0 24px 32px;-webkit-overflow-scrolling:touch}
+.scr-body::-webkit-scrollbar{display:none}
+
+/* ═══ NAV ═══ */
+.topbar{height:56px;display:flex;align-items:center;justify-content:center;padding:0 20px;border-bottom:1px solid var(--bdr2);flex-shrink:0;background:rgba(2,6,23,.85);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);position:relative;z-index:10}
+.topbar-back{position:absolute;left:16px;top:50%;transform:translateY(-50%);color:var(--o);cursor:pointer;display:flex;align-items:center;gap:4px;font-size:12px;font-weight:600}
+
+/* ═══ PROGRESS ═══ */
+.prog-wrap{padding:14px 24px 0;flex-shrink:0}
+.prog-bar{display:flex;gap:5px;height:4px}
+.prog-seg{flex:1;border-radius:2px;background:var(--bdr2);transition:all .6s cubic-bezier(.4,0,.2,1);overflow:hidden;position:relative}
+.prog-seg.done{background:var(--o)}
+.prog-seg.active{background:var(--o30)}
+.prog-seg.active::after{content:'';position:absolute;left:0;top:0;bottom:0;width:60%;background:var(--o);border-radius:2px;animation:progPulse 2s ease-in-out infinite}
+@keyframes progPulse{0%,100%{width:30%}50%{width:80%}}
+.prog-labels{display:flex;justify-content:space-between;margin-top:8px}
+.prog-label{font-size:9px;letter-spacing:.8px;text-transform:uppercase;color:var(--tmute);font-weight:600;transition:color .4s}
+.prog-label.done{color:var(--o)}
+.prog-label.active{color:var(--o50)}
+
+/* ═══ THIYA BUBBLE ═══ */
+.tb{display:flex;gap:10px;align-items:flex-start;margin:16px 0;animation:tbIn .5s ease}
+@keyframes tbIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.tb-av{flex-shrink:0;width:34px;height:34px;border-radius:50%;background:var(--o10);border:1.5px solid var(--o20);display:flex;align-items:center;justify-content:center}
+.tb-bub{flex:1;background:var(--bg2);border:1px solid var(--bdr2);border-radius:16px 16px 16px 4px;padding:12px 16px}
+.tb-name{font-family:var(--sora);font-size:9px;font-weight:700;color:var(--o);letter-spacing:1.5px;margin-bottom:5px;text-transform:uppercase}
+.tb-txt{font-size:13px;line-height:1.65;color:var(--t3)}
+
+/* ═══ FORM ═══ */
+.fld{margin-bottom:18px}
+.fld-lbl{font-size:12px;font-weight:600;color:var(--t4);margin-bottom:7px;display:flex;align-items:center;gap:5px}
+.fld-lbl .req{color:var(--o);font-size:8px}
+.fld-lbl .opt{color:var(--t5);font-size:10px;font-weight:400}
+.inp{width:100%;background:var(--bg2);border:1.5px solid var(--bdr2);border-radius:14px;padding:14px 16px;font-size:15px;color:var(--t1);outline:none;transition:all .25s;font-family:inherit}
+.inp:focus{border-color:var(--o50);box-shadow:0 0 0 3px var(--o10)}
+.inp::placeholder{color:var(--t5)}
+.inp.err{border-color:var(--r);box-shadow:0 0 0 3px var(--r10)}
+.fld-hint{font-size:10px;color:var(--t5);margin-top:5px}
+.fld-err{font-size:10px;color:var(--r);margin-top:5px;display:none}
+.ph-row{display:flex;gap:8px;align-items:stretch}
+.ph-pre{background:var(--o10);border:1.5px solid var(--o20);border-radius:14px;padding:14px 16px;font-size:15px;font-weight:700;color:var(--o);font-family:var(--sora);flex-shrink:0;display:flex;align-items:center}
+
+/* OTP */
+.otp-row{display:flex;gap:10px;justify-content:center;margin:24px 0}
+.otp-box{width:46px;height:56px;background:var(--bg2);border:2px solid var(--bdr2);border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:700;color:var(--t1);font-family:var(--sora);transition:all .2s}
+.otp-box.filled{border-color:var(--o);background:var(--o05)}
+.otp-box.cur{border-color:var(--o50);box-shadow:0 0 0 3px var(--o10)}
+.timer-txt{text-align:center;font-size:13px;color:var(--o);font-weight:500;margin:4px 0}
+
+/* Chips */
+.chips{display:flex;flex-wrap:wrap;gap:10px;margin:14px 0}
+.chip{padding:11px 18px;border-radius:14px;font-size:13px;font-weight:500;border:1.5px solid var(--bdr2);background:var(--bg2);color:var(--t3);cursor:pointer;transition:all .2s;display:flex;align-items:center;gap:7px;-webkit-tap-highlight-color:transparent;user-select:none}
+.chip:active{transform:scale(.96)}
+.chip.on{border-color:var(--o);background:var(--o10);color:var(--o);font-weight:600;box-shadow:0 0 0 1px var(--o20)}
+.chip .ci{font-size:17px}
+
+/* Slider */
+.slider-wrap{margin:16px 0 8px}
+.sl-track{height:6px;background:var(--bdr2);border-radius:3px;position:relative;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.sl-fill{position:absolute;left:0;top:0;height:6px;background:linear-gradient(90deg,var(--o),var(--ol));border-radius:3px;pointer-events:none}
+.sl-thumb{position:absolute;top:-7px;width:20px;height:20px;background:var(--o);border-radius:50%;border:3px solid var(--bg);box-shadow:0 2px 10px var(--o30);pointer-events:none}
+.sl-labels{display:flex;justify-content:space-between;margin-top:8px;font-size:10px;color:var(--t5)}
+.radius-big{text-align:center;font-family:var(--sora);font-size:36px;font-weight:800;color:var(--o);margin:4px 0 0}
+.radius-unit{text-align:center;font-size:10px;color:var(--t5);letter-spacing:2px;text-transform:uppercase}
+
+/* Map */
+.map-box{background:linear-gradient(135deg,var(--o05),transparent);border:1.5px solid var(--o15);border-radius:18px;height:130px;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;overflow:hidden;margin-bottom:16px}
+.map-box .zone{border:2px dashed var(--o20);border-radius:50%;position:absolute;transition:all .4s}
+.map-box .pin{font-size:30px;filter:drop-shadow(0 4px 8px var(--o30));position:relative;z-index:2}
+.map-box .lbl{font-size:9px;color:var(--o50);letter-spacing:1px;margin-top:4px;z-index:2}
+
+/* Buttons */
+.btn{width:100%;padding:16px;border:none;border-radius:16px;font-size:15px;font-weight:700;font-family:var(--out);cursor:pointer;transition:all .2s;letter-spacing:.2px;-webkit-tap-highlight-color:transparent}
+.btn:active{transform:scale(.98)}
+.btn-o{background:var(--o);color:#fff;box-shadow:0 8px 30px var(--o30)}
+.btn-o:hover{background:var(--od);box-shadow:0 10px 36px rgba(255,107,53,.35)}
+.btn-o:disabled{opacity:.3;cursor:not-allowed;box-shadow:none;transform:none}
+.btn-ghost{background:transparent;border:1.5px solid var(--bdr);color:var(--t3);box-shadow:none}
+.btn-ghost:hover{border-color:var(--o30);color:var(--o)}
+.btn-txt{background:none;border:none;color:var(--t5);font-size:12px;text-align:center;padding:12px;cursor:pointer;font-family:var(--out);font-weight:500}
+.btn-txt:hover{color:var(--t3)}
+.btn-gps{width:100%;background:var(--o10);border:1.5px solid var(--o20);color:var(--o);border-radius:14px;padding:12px;font-size:13px;font-weight:600;display:flex;align-items:center;gap:8px;cursor:pointer;transition:all .2s;justify-content:center;margin-bottom:16px;font-family:var(--out)}
+.btn-gps:hover{background:var(--o15)}
+
+/* ═══ SPLASH ═══ */
+.splash{background:linear-gradient(180deg,#020617 0%,#0a0f1e 50%,#0f172a 100%);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0;padding-top:54px}
+.splash-char{animation:splashCharIn 1.2s cubic-bezier(.34,1.56,.64,1) .2s both}
+.splash-logo{animation:splashLogoIn 1s ease .6s both}
+.splash-sub{animation:splashFade 1s ease 1.2s both}
+.splash-loader{animation:splashFade 1s ease 1.4s both}
+@keyframes splashCharIn{0%{opacity:0;transform:translateY(24px) scale(.6)}100%{opacity:1;transform:translateY(0) scale(1)}}
+@keyframes splashLogoIn{0%{opacity:0;transform:translateY(16px)}100%{opacity:1;transform:translateY(0)}}
+@keyframes splashFade{0%{opacity:0}100%{opacity:1}}
+
+/* ═══ SUCCESS ═══ */
+.success-wrap{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:40px 24px 24px;min-height:100%;gap:0}
+.check-ring{width:88px;height:88px;border-radius:50%;background:var(--g10);border:2.5px solid var(--g20);display:flex;align-items:center;justify-content:center;animation:checkBounce .6s cubic-bezier(.34,1.56,.64,1);margin-bottom:20px}
+@keyframes checkBounce{0%{transform:scale(0);opacity:0}60%{transform:scale(1.15)}100%{transform:scale(1);opacity:1}}
+.confetti-wrap{position:absolute;top:0;left:0;right:0;height:200px;pointer-events:none;overflow:hidden}
+.conf{position:absolute;width:8px;height:8px;border-radius:2px;opacity:0}
+
+/* Summary card */
+.sum-card{background:var(--bg2);border:1px solid var(--bdr2);border-radius:18px;padding:20px;width:100%;max-width:320px;margin:16px 0}
+.sum-row{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(51,65,85,.3)}
+.sum-row:last-child{border:none}
+.sum-k{font-size:12px;color:var(--t4)}
+.sum-v{font-size:12px;color:var(--t1);font-weight:600;text-align:right;max-width:60%}
+
+/* Walking loader */
+.wloader{position:relative;height:30px;overflow:hidden;margin:14px 0}
+.wl-track{position:absolute;bottom:0;left:0;right:0;height:3px;background:var(--bdr2);border-radius:2px}
+.wl-fill{position:absolute;bottom:0;left:0;height:3px;background:linear-gradient(90deg,var(--o),var(--ol));border-radius:2px;animation:wlFill 2.5s ease-in-out}
+@keyframes wlFill{0%{width:0}100%{width:100%}}
+
+/* ═══ CORE ANIMS ═══ */
+@keyframes v-bounce{0%{transform:translate(0,0)}15%{transform:translate(-6px,4px)}30%{transform:translate(0,8px)}45%{transform:translate(6px,4px)}60%{transform:translate(0,0)}100%{transform:translate(0,0)}}
+@keyframes step-l{0%,100%{transform:rotate(0)}25%{transform:rotate(-14deg)}75%{transform:rotate(14deg)}}
+@keyframes step-r{0%,100%{transform:rotate(0)}25%{transform:rotate(14deg)}75%{transform:rotate(-14deg)}}
+@keyframes idle-float{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}
+@keyframes blink{0%,42%,46%,100%{transform:scaleY(1)}44%{transform:scaleY(.1)}}
+@keyframes walkAcross{0%{transform:translateX(-12px)}100%{transform:translateX(340px)}}
+@keyframes walkBob{0%,100%{transform:translateY(0)}50%{transform:translateY(-2px)}}
+@keyframes walkLeg{0%,100%{transform:rotate(0)}25%{transform:rotate(-16deg)}75%{transform:rotate(16deg)}}
+@keyframes glow{0%,100%{box-shadow:0 0 20px var(--o20)}50%{box-shadow:0 0 44px var(--o30)}}
+@keyframes confDrop{0%{transform:translateY(0) rotate(0);opacity:1}100%{transform:translateY(180px) rotate(var(--rot));opacity:0}}
+
+/* Responsive */
+@media(max-width:420px){.phone{width:100%;height:100vh;max-height:100vh;border-radius:0;border:none;box-shadow:none}.shell{padding:0}
+.otp-box{width:40px;height:50px;font-size:20px}.otp-row{gap:7px}}
+</style>
+</head>
+<body>
+
+<div class="shell">
+<div class="phone">
+<div class="phone-inner">
+  <div class="island"></div>
+  <div class="status-bar"><span>9:41</span><span style="display:flex;gap:5px;align-items:center"><svg width="16" height="12" viewBox="0 0 16 12" fill="#fff"><rect x="0" y="4" width="3" height="8" rx="1" opacity=".3"/><rect x="4.5" y="2.5" width="3" height="9.5" rx="1" opacity=".5"/><rect x="9" y="0" width="3" height="12" rx="1" opacity=".7"/><rect x="13" y="0" width="3" height="12" rx="1"/></svg><svg width="24" height="12" viewBox="0 0 24 12" fill="none"><rect x=".5" y=".5" width="21" height="11" rx="2.5" stroke="#fff" stroke-opacity=".35"/><rect x="22" y="3.5" width="2" height="5" rx="1" fill="#fff" opacity=".4"/><rect x="2" y="2" width="16" height="8" rx="1.5" fill="#fff"/></svg></span></div>
+  <div class="home-indicator"></div>
+
+  <!-- ═══════════════════════════════════ -->
+  <!-- S0: SPLASH                         -->
+  <!-- ═══════════════════════════════════ -->
+  <div class="scr splash on" id="s0">
+    <!-- Thiya Character -->
+    <div class="splash-char" style="margin-bottom:20px">
+      <svg width="72" height="96" viewBox="0 0 48 66" fill="none">
+        <rect x="12" y="28" width="14" height="20" rx="4.5" fill="#FF6B35"/>
+        <polygon points="14.5,48 19,58 23.5,48" fill="#FF6B35"/>
+        <line x1="16" y1="58" x2="14" y2="64" stroke="#FF6B35" stroke-width="2.2" stroke-linecap="round"/>
+        <line x1="22" y1="58" x2="24" y2="64" stroke="#FF6B35" stroke-width="2.2" stroke-linecap="round"/>
+        <g style="animation:idle-float 2.5s ease-in-out infinite"><circle cx="19" cy="16" r="10" fill="#FF6B35"/><g style="animation:blink 4s ease-in-out infinite"><circle cx="15.5" cy="15" r="1.7" fill="#fff"/><circle cx="22.5" cy="15" r="1.7" fill="#fff"/></g><path d="M15 21 Q19 24.5 23 21" stroke="#fff" stroke-width="1.4" stroke-linecap="round" fill="none"/></g>
+      </svg>
+    </div>
+    <!-- Logo -->
+    <div class="splash-logo" style="margin-bottom:8px">
+      <svg width="160" height="44" viewBox="0 0 192 52" fill="none">
+        <text x="8" y="40" font-family="'Sora',sans-serif" font-weight="700" font-size="36" fill="#e2e8f0" letter-spacing="-1.5">th</text>
+        <g transform="translate(51,4)"><rect x="0" y="18" width="7" height="13" rx="2" fill="#FF6B35"/><polygon points="1,31 3.5,37 6,31" fill="#FF6B35"/><line x1="2" y1="37" x2="0" y2="41" stroke="#FF6B35" stroke-width="1.5" stroke-linecap="round"/><line x1="5.5" y1="37" x2="7.5" y2="41" stroke="#FF6B35" stroke-width="1.5" stroke-linecap="round"/><circle cx="3.5" cy="10" r="4.5" fill="#FF6B35"/><circle cx="2" cy="9.5" r=".7" fill="#fff"/><circle cx="5" cy="9.5" r=".7" fill="#fff"/></g>
+        <text x="63" y="40" font-family="'Sora',sans-serif" font-weight="700" font-size="36" fill="#e2e8f0" letter-spacing="-1.5">ya</text>
+      </svg>
+    </div>
+    <p class="splash-sub" style="font-size:10px;letter-spacing:4px;color:var(--o50);text-transform:uppercase">Vendor App</p>
+    <!-- Loader bar -->
+    <div class="splash-loader" style="width:140px;height:3px;background:var(--bdr2);border-radius:2px;overflow:hidden;margin-top:20px">
+      <div style="height:100%;background:linear-gradient(90deg,var(--o),var(--ol));border-radius:2px;animation:wlFill 2.2s ease-out"></div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════ -->
+  <!-- S1: PHONE NUMBER                   -->
+  <!-- ═══════════════════════════════════ -->
+  <div class="scr" id="s1">
+    <div class="topbar">
+      <svg width="80" height="28" viewBox="0 0 152 52" fill="none">
+        <text x="4" y="38" font-family="'Sora',sans-serif" font-weight="700" font-size="32" fill="#e2e8f0" letter-spacing="-1">th</text>
+        <g transform="translate(42,2)"><rect x="0" y="18" width="7" height="13" rx="2" fill="#FF6B35"/><polygon points="1,31 3.5,37 6,31" fill="#FF6B35"/><g style="animation:step-l 1.2s ease-in-out infinite;transform-origin:2px 37px"><line x1="1.5" y1="37" x2="-.5" y2="42" stroke="#FF6B35" stroke-width="1.5" stroke-linecap="round"/></g><g style="animation:step-r 1.2s ease-in-out infinite;transform-origin:5px 37px"><line x1="5.5" y1="37" x2="7.5" y2="42" stroke="#FF6B35" stroke-width="1.5" stroke-linecap="round"/></g><g style="animation:v-bounce 3s ease-in-out infinite"><circle cx="3.5" cy="10" r="4.5" fill="#FF6B35"/><circle cx="2" cy="9.5" r=".8" fill="#fff"/><circle cx="5" cy="9.5" r=".8" fill="#fff"/></g></g>
+        <text x="54" y="38" font-family="'Sora',sans-serif" font-weight="700" font-size="32" fill="#e2e8f0" letter-spacing="-1">ya</text>
+      </svg>
+    </div>
+    <div class="scr-body" style="padding-top:28px">
+      <h1 style="font-family:var(--sora);font-size:24px;font-weight:700;line-height:1.2;margin-bottom:6px">Enter your number</h1>
+      <p style="font-size:14px;color:var(--t4);margin-bottom:28px">We'll send a 6-digit OTP to verify</p>
+      <div class="fld">
+        <div class="fld-lbl">Mobile Number <span class="req">●</span></div>
+        <div class="ph-row">
+          <div class="ph-pre">+91</div>
+          <input class="inp" id="inpPhone" type="tel" maxlength="10" placeholder="98765 43210" autocomplete="tel" oninput="valPhone()">
+        </div>
+        <div class="fld-hint">10-digit Indian mobile (starts with 6-9)</div>
+      </div>
+      <button class="btn btn-o" id="btnSend" disabled onclick="goOtp()">Send OTP</button>
+
+      <div class="tb" style="margin-top:28px">
+        <div class="tb-av"><svg width="16" height="18" viewBox="0 0 14 18" fill="none"><circle cx="7" cy="5" r="3.5" fill="#FF6B35"/><circle cx="5.8" cy="4.7" r=".5" fill="#fff"/><circle cx="8.2" cy="4.7" r=".5" fill="#fff"/><rect x="3" y="9" width="8" height="5" rx="2" fill="#FF6B35"/><polygon points="5,14 7,17 9,14" fill="#FF6B35"/></svg></div>
+        <div class="tb-bub"><div class="tb-name">Thiya</div><div class="tb-txt">Hello! I'm Thiya, your setup assistant. Enter your phone number and let's get you started.</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════ -->
+  <!-- S1B: OTP VERIFY                    -->
+  <!-- ═══════════════════════════════════ -->
+  <div class="scr" id="s1b">
+    <div class="topbar">
+      <div class="topbar-back" onclick="go('s1')"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg></div>
+      <span style="font-family:var(--sora);font-weight:600;font-size:14px;color:var(--t2)">Verify OTP</span>
+    </div>
+    <div class="scr-body" style="padding-top:28px">
+      <h1 style="font-family:var(--sora);font-size:24px;font-weight:700;margin-bottom:6px">Enter OTP</h1>
+      <p style="font-size:14px;color:var(--t4);margin-bottom:2px">Sent to <span id="dispPh" style="color:var(--o);font-weight:600">+91 98****10</span></p>
+
+      <div class="otp-row" onclick="document.getElementById('hidOtp').focus()">
+        <div class="otp-box cur" id="ob0"></div>
+        <div class="otp-box" id="ob1"></div>
+        <div class="otp-box" id="ob2"></div>
+        <div class="otp-box" id="ob3"></div>
+        <div class="otp-box" id="ob4"></div>
+        <div class="otp-box" id="ob5"></div>
+      </div>
+      <input type="tel" id="hidOtp" maxlength="6" style="position:absolute;opacity:0;height:0" oninput="otpType(this.value)">
+      <div class="timer-txt" id="tmr">Resend in 0:30</div>
+      <button class="btn-txt" id="btnResend" style="display:none;color:var(--o)" onclick="resendOtp()">Resend OTP</button>
+
+      <button class="btn btn-o" id="btnVerify" disabled onclick="doVerify()" style="margin-top:16px">Verify & Continue</button>
+
+      <!-- Walking loader -->
+      <div class="wloader" id="wl1" style="display:none">
+        <div class="wl-track"></div>
+        <div class="wl-fill"></div>
+        <svg width="100%" height="24" viewBox="0 0 360 24" fill="none" style="position:absolute;top:0"><g style="animation:walkAcross 2.5s ease-in-out"><rect x="0" y="4" width="6" height="9" rx="2" fill="#FF6B35"/><polygon points="1,13 3,17 5,13" fill="#FF6B35"/><g style="animation:walkLeg .3s ease infinite;transform-origin:1.5px 17px"><line x1="1.5" y1="17" x2="0" y2="21" stroke="#FF6B35" stroke-width="1.3" stroke-linecap="round"/></g><g style="animation:walkLeg .3s ease .15s infinite;transform-origin:4.5px 17px"><line x1="4.5" y1="17" x2="6" y2="21" stroke="#FF6B35" stroke-width="1.3" stroke-linecap="round"/></g><g style="animation:walkBob .3s ease infinite"><circle cx="3" cy="0" r="3.5" fill="#FF6B35"/><circle cx="1.8" cy="-.3" r=".5" fill="#fff"/><circle cx="4.2" cy="-.3" r=".5" fill="#fff"/></g></g></svg>
+      </div>
+
+      <div class="tb" style="margin-top:16px">
+        <div class="tb-av"><svg width="16" height="18" viewBox="0 0 14 18" fill="none"><circle cx="7" cy="5" r="3.5" fill="#FF6B35"/><circle cx="5.8" cy="4.7" r=".5" fill="#fff"/><circle cx="8.2" cy="4.7" r=".5" fill="#fff"/><rect x="3" y="9" width="8" height="5" rx="2" fill="#FF6B35"/><polygon points="5,14 7,17 9,14" fill="#FF6B35"/></svg></div>
+        <div class="tb-bub" id="otpBub"><div class="tb-name">Thiya</div><div class="tb-txt">OTP is on its way! Enter the 6-digit code you received.</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════ -->
+  <!-- S2: BUSINESS PROFILE               -->
+  <!-- ═══════════════════════════════════ -->
+  <div class="scr" id="s2">
+    <div class="topbar"><span style="font-family:var(--sora);font-weight:600;font-size:14px;color:var(--t2)">Business Profile</span></div>
+    <div class="prog-wrap">
+      <div class="prog-bar"><div class="prog-seg done"></div><div class="prog-seg active"></div><div class="prog-seg"></div></div>
+      <div class="prog-labels"><span class="prog-label done">✓ Phone</span><span class="prog-label active">Profile</span><span class="prog-label">Services</span></div>
+    </div>
+    <div class="scr-body" style="padding-top:20px">
+      <h1 style="font-family:var(--sora);font-size:22px;font-weight:700;margin-bottom:4px">Tell us about your business</h1>
+      <p style="font-size:13px;color:var(--t4);margin-bottom:22px">This is what your customers will see</p>
+
+      <div class="fld">
+        <div class="fld-lbl">Your Name <span class="req">●</span></div>
+        <input class="inp" id="inpOwner" placeholder="e.g. Ramesh Kumar" oninput="valProfile()">
+      </div>
+      <div class="fld">
+        <div class="fld-lbl">Business / Shop Name <span class="req">●</span></div>
+        <input class="inp" id="inpBiz" placeholder="e.g. Ramesh Dairy Farm" oninput="valProfile()">
+      </div>
+      <div class="fld">
+        <div class="fld-lbl">Profile Photo <span class="opt">(optional — add later)</span></div>
+        <div style="display:flex;align-items:center;gap:14px;padding:14px 18px;background:var(--bg2);border:1.5px dashed var(--bdr2);border-radius:14px;cursor:pointer;transition:border-color .2s" onmouseover="this.style.borderColor='var(--o30)'" onmouseout="this.style.borderColor='var(--bdr2)'">
+          <div style="width:46px;height:46px;border-radius:14px;background:var(--o10);display:flex;align-items:center;justify-content:center;flex-shrink:0"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#FF6B35" stroke-width="1.5"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg></div>
+          <div><p style="font-size:13px;color:var(--t2);font-weight:500">Add a photo</p><p style="font-size:11px;color:var(--t5)">Helps build customer trust</p></div>
+        </div>
+      </div>
+
+      <button class="btn btn-o" id="btnProf" disabled onclick="go('s3')">Continue →</button>
+
+      <div class="tb" style="margin-top:16px">
+        <div class="tb-av"><svg width="16" height="18" viewBox="0 0 14 18" fill="none"><circle cx="7" cy="5" r="3.5" fill="#FF6B35"/><circle cx="5.8" cy="4.7" r=".5" fill="#fff"/><circle cx="8.2" cy="4.7" r=".5" fill="#fff"/><rect x="3" y="9" width="8" height="5" rx="2" fill="#FF6B35"/><polygon points="5,14 7,17 9,14" fill="#FF6B35"/></svg></div>
+        <div class="tb-bub"><div class="tb-name">Thiya</div><div class="tb-txt">Enter your business name — this is what customers will see when they discover you!</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════ -->
+  <!-- S3: SHOP ADDRESS                   -->
+  <!-- ═══════════════════════════════════ -->
+  <div class="scr" id="s3">
+    <div class="topbar">
+      <div class="topbar-back" onclick="go('s2')"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg></div>
+      <span style="font-family:var(--sora);font-weight:600;font-size:14px;color:var(--t2)">Shop Location</span>
+    </div>
+    <div class="prog-wrap">
+      <div class="prog-bar"><div class="prog-seg done"></div><div class="prog-seg done"></div><div class="prog-seg active"></div></div>
+      <div class="prog-labels"><span class="prog-label done">✓ Phone</span><span class="prog-label done">✓ Profile</span><span class="prog-label active">Location</span></div>
+    </div>
+    <div class="scr-body" style="padding-top:16px">
+      <h1 style="font-family:var(--sora);font-size:22px;font-weight:700;margin-bottom:4px">Where's your shop?</h1>
+      <p style="font-size:13px;color:var(--t4);margin-bottom:14px">Nearby customers will discover you here</p>
+
+      <div class="map-box"><div class="zone" style="width:80px;height:80px"></div><div class="pin">📍</div><div class="lbl">Drag pin or use GPS</div></div>
+
+      <button class="btn-gps" onclick="simGps()"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="2" x2="12" y2="6"/><line x1="12" y1="18" x2="12" y2="22"/><line x1="2" y1="12" x2="6" y2="12"/><line x1="18" y1="12" x2="22" y2="12"/></svg>Use my current location</button>
+
+      <div class="fld">
+        <div class="fld-lbl">Address Line 1 <span class="req">●</span></div>
+        <input class="inp" id="inpAddr" placeholder="Shop no., Building, Street" oninput="valAddr()">
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+        <div class="fld"><div class="fld-lbl">Locality</div><input class="inp" id="inpLoc" placeholder="Area"></div>
+        <div class="fld"><div class="fld-lbl">Pincode <span class="req">●</span></div><input class="inp" id="inpPin" type="tel" maxlength="6" placeholder="411045" oninput="valAddr()"></div>
+      </div>
+      <div class="fld"><div class="fld-lbl">City <span class="req">●</span></div><input class="inp" id="inpCity" placeholder="e.g. Pune" oninput="valAddr()"></div>
+
+      <button class="btn btn-o" id="btnAddr" disabled onclick="go('s4')">Save Location →</button>
+
+      <div class="tb" style="margin-top:14px">
+        <div class="tb-av"><svg width="16" height="18" viewBox="0 0 14 18" fill="none"><circle cx="7" cy="5" r="3.5" fill="#FF6B35"/><circle cx="5.8" cy="4.7" r=".5" fill="#fff"/><circle cx="8.2" cy="4.7" r=".5" fill="#fff"/><rect x="3" y="9" width="8" height="5" rx="2" fill="#FF6B35"/><polygon points="5,14 7,17 9,14" fill="#FF6B35"/></svg></div>
+        <div class="tb-bub"><div class="tb-name">Thiya</div><div class="tb-txt">Pin your shop on the map — or just tap GPS. Nearby customers will find you here!</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════ -->
+  <!-- S4: SERVICES + ZONE                -->
+  <!-- ═══════════════════════════════════ -->
+  <div class="scr" id="s4">
+    <div class="topbar">
+      <div class="topbar-back" onclick="go('s3')"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg></div>
+      <span style="font-family:var(--sora);font-weight:600;font-size:14px;color:var(--t2)">Services & Zone</span>
+    </div>
+    <div class="prog-wrap">
+      <div class="prog-bar"><div class="prog-seg done"></div><div class="prog-seg done"></div><div class="prog-seg done"></div></div>
+      <div class="prog-labels"><span class="prog-label done">✓ Phone</span><span class="prog-label done">✓ Profile</span><span class="prog-label done">✓ Location</span></div>
+    </div>
+    <div class="scr-body" style="padding-top:16px">
+      <h1 style="font-family:var(--sora);font-size:22px;font-weight:700;margin-bottom:4px">What do you deliver?</h1>
+      <p style="font-size:13px;color:var(--t4);margin-bottom:4px">Select one or more — add others anytime</p>
+
+      <div class="chips" id="chipGrid">
+        <div class="chip" onclick="tgl(this)" data-v="Milk"><span class="ci">🥛</span>Milk</div>
+        <div class="chip" onclick="tgl(this)" data-v="Water"><span class="ci">💧</span>Water</div>
+        <div class="chip" onclick="tgl(this)" data-v="Vegetables"><span class="ci">🥬</span>Vegetables</div>
+        <div class="chip" onclick="tgl(this)" data-v="Tiffin"><span class="ci">🍱</span>Tiffin</div>
+        <div class="chip" onclick="tgl(this)" data-v="Laundry"><span class="ci">👔</span>Laundry</div>
+        <div class="chip" onclick="tgl(this)" data-v="Bread"><span class="ci">🍞</span>Bread</div>
+        <div class="chip" onclick="tgl(this)" data-v="Cleaning"><span class="ci">🧹</span>Cleaning</div>
+        <div class="chip" onclick="tgl(this)" data-v="Other"><span class="ci">📦</span>Other</div>
+      </div>
+
+      <div style="margin-top:20px;padding-top:18px;border-top:1px solid var(--bdr2)">
+        <h2 style="font-family:var(--sora);font-size:17px;font-weight:600;margin-bottom:2px">Delivery radius</h2>
+        <p style="font-size:12px;color:var(--t5);margin-bottom:6px">How far from your shop can you deliver?</p>
+        <div class="radius-big" id="radVal">5</div>
+        <div class="radius-unit">kilometers</div>
+        <div class="slider-wrap" id="slWrap">
+          <div class="sl-track" onclick="slClick(event)" onmousedown="slStart(event)" ontouchstart="slStart(event)">
+            <div class="sl-fill" id="slFill" style="width:16.7%"></div>
+            <div class="sl-thumb" id="slThumb" style="left:calc(16.7% - 10px)"></div>
+          </div>
+          <div class="sl-labels"><span>1 km</span><span>13 km</span><span>25 km</span></div>
+        </div>
+        <div class="map-box" style="height:72px;margin-top:12px"><div class="zone" id="zoneCircle" style="width:48px;height:48px"></div><div style="font-size:12px;color:var(--o);font-weight:600;z-index:2"><span id="radMap">5</span> km zone</div></div>
+      </div>
+
+      <button class="btn btn-o" id="btnLive" disabled onclick="goLive()" style="margin-top:18px;font-size:16px">Go Live! 🚀</button>
+
+      <div class="tb" style="margin-top:14px">
+        <div class="tb-av"><svg width="16" height="18" viewBox="0 0 14 18" fill="none"><circle cx="7" cy="5" r="3.5" fill="#FF6B35"/><circle cx="5.8" cy="4.7" r=".5" fill="#fff"/><circle cx="8.2" cy="4.7" r=".5" fill="#fff"/><rect x="3" y="9" width="8" height="5" rx="2" fill="#FF6B35"/><polygon points="5,14 7,17 9,14" fill="#FF6B35"/></svg></div>
+        <div class="tb-bub" id="s4Bub"><div class="tb-name">Thiya</div><div class="tb-txt">Pick your services and set how far you can deliver. One tap and you're live!</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════ -->
+  <!-- S5: SUCCESS                        -->
+  <!-- ═══════════════════════════════════ -->
+  <div class="scr" id="s5">
+    <div class="confetti-wrap" id="confWrap"></div>
+    <div class="success-wrap">
+      <div class="check-ring"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+      <h1 style="font-family:var(--sora);font-size:26px;font-weight:800;margin-bottom:4px">You're Live!</h1>
+      <p style="font-size:14px;color:var(--t3);max-width:260px;line-height:1.6;margin-bottom:4px">Customers in your zone can now find you.</p>
+
+      <div class="sum-card">
+        <div class="sum-row"><span class="sum-k">Business</span><span class="sum-v" id="sumBiz">—</span></div>
+        <div class="sum-row"><span class="sum-k">Location</span><span class="sum-v" id="sumCity">—</span></div>
+        <div class="sum-row"><span class="sum-k">Services</span><span class="sum-v" id="sumSvc">—</span></div>
+        <div class="sum-row"><span class="sum-k">Radius</span><span class="sum-v" style="color:var(--o)" id="sumRad">—</span></div>
+      </div>
+
+      <button class="btn btn-o" style="max-width:300px" onclick="restart()">Open Dashboard</button>
+      <button class="btn-txt" style="color:var(--o);font-weight:600;font-size:13px;margin-top:2px">Complete KYC to unlock payments →</button>
+
+      <div class="tb" style="margin-top:12px;max-width:300px;width:100%">
+        <div class="tb-av"><svg width="16" height="18" viewBox="0 0 14 18" fill="none"><circle cx="7" cy="5" r="3.5" fill="#FF6B35"/><circle cx="5.8" cy="4.7" r=".5" fill="#fff"/><circle cx="8.2" cy="4.7" r=".5" fill="#fff"/><rect x="3" y="9" width="8" height="5" rx="2" fill="#FF6B35"/><polygon points="5,14 7,17 9,14" fill="#FF6B35"/></svg></div>
+        <div class="tb-bub"><div class="tb-name">Thiya</div><div class="tb-txt">Welcome aboard! 🎉 Your shop is live. Complete KYC anytime to unlock payment features.</div></div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /phone-inner -->
+</div><!-- /phone -->
+</div><!-- /shell -->
+
+<script>
+// ═══ STATE ═══
+let otp='',tmrI=null,sel=new Set(),radKm=5,dragging=false;
+
+// ═══ NAV ═══
+function go(id){
+  document.querySelectorAll('.scr').forEach(s=>s.classList.remove('on'));
+  setTimeout(()=>document.getElementById(id).classList.add('on'),80);
+}
+
+// Splash auto
+setTimeout(()=>go('s1'),2600);
+
+// ═══ S1: PHONE ═══
+function valPhone(){
+  const v=document.getElementById('inpPhone').value.replace(/\D/g,'');
+  document.getElementById('btnSend').disabled=!(v.length===10&&/^[6-9]/.test(v));
+}
+function goOtp(){
+  const ph=document.getElementById('inpPhone').value;
+  document.getElementById('dispPh').textContent='+91 '+ph.slice(0,2)+'****'+ph.slice(-2);
+  go('s1b');
+  setTimeout(()=>document.getElementById('hidOtp').focus(),500);
+  startTmr(30);
+}
+
+// ═══ S1B: OTP ═══
+function otpType(v){
+  otp=v.replace(/\D/g,'').slice(0,6);
+  for(let i=0;i<6;i++){
+    const b=document.getElementById('ob'+i);
+    b.textContent=otp[i]||'';
+    b.className='otp-box'+(otp[i]?' filled':'')+(i===otp.length&&i<6?' cur':'');
+  }
+  document.getElementById('btnVerify').disabled=otp.length!==6;
+}
+function startTmr(s){
+  let t=s;
+  document.getElementById('btnResend').style.display='none';
+  document.getElementById('tmr').style.display='block';
+  tmrI=setInterval(()=>{
+    t--;
+    document.getElementById('tmr').textContent='Resend in 0:'+String(t).padStart(2,'0');
+    if(t<=0){clearInterval(tmrI);document.getElementById('tmr').style.display='none';document.getElementById('btnResend').style.display='block';}
+  },1000);
+}
+function resendOtp(){
+  startTmr(30);
+  document.getElementById('otpBub').querySelector('.tb-txt').textContent='New OTP sent! Check your messages.';
+}
+function doVerify(){
+  document.getElementById('btnVerify').disabled=true;
+  document.getElementById('btnVerify').textContent='Verifying...';
+  document.getElementById('wl1').style.display='block';
+  setTimeout(()=>{clearInterval(tmrI);go('s2');document.getElementById('btnVerify').textContent='Verify & Continue';document.getElementById('btnVerify').disabled=false;},2200);
+}
+
+// ═══ S2: PROFILE ═══
+function valProfile(){
+  const a=document.getElementById('inpOwner').value.trim();
+  const b=document.getElementById('inpBiz').value.trim();
+  document.getElementById('btnProf').disabled=!(a.length>=2&&b.length>=2);
+}
+
+// ═══ S3: ADDRESS ═══
+function valAddr(){
+  const a=document.getElementById('inpAddr').value.trim();
+  const p=document.getElementById('inpPin').value.trim();
+  const c=document.getElementById('inpCity').value.trim();
+  document.getElementById('btnAddr').disabled=!(a.length>=3&&/^\d{6}$/.test(p)&&c.length>=2);
+}
+function simGps(){
+  document.getElementById('inpAddr').value='Shop 4, Ganesh Nagar';
+  document.getElementById('inpLoc').value='Baner';
+  document.getElementById('inpPin').value='411045';
+  document.getElementById('inpCity').value='Pune';
+  valAddr();
+  // flash GPS button
+  const btn=document.querySelector('.btn-gps');
+  btn.style.background='var(--o20)';btn.innerHTML='<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Location detected!';
+  setTimeout(()=>{btn.style.background='';btn.innerHTML='<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="2" x2="12" y2="6"/><line x1="12" y1="18" x2="12" y2="22"/><line x1="2" y1="12" x2="6" y2="12"/><line x1="18" y1="12" x2="22" y2="12"/></svg>Use my current location';},2000);
+}
+
+// ═══ S4: SERVICES ═══
+function tgl(el){
+  const v=el.dataset.v;
+  if(sel.has(v)){sel.delete(v);el.classList.remove('on');}
+  else{sel.add(v);el.classList.add('on');}
+  document.getElementById('btnLive').disabled=sel.size===0;
+  if(sel.size>0){
+    const n=[...sel].join(', ');
+    document.getElementById('s4Bub').querySelector('.tb-txt').textContent='Great — '+n+'! Now set your delivery radius and hit Go Live.';
+  }else{
+    document.getElementById('s4Bub').querySelector('.tb-txt').textContent='Pick your services and set how far you can deliver. One tap and you\'re live!';
+  }
+}
+
+// Slider
+function slSet(pct){
+  pct=Math.max(0,Math.min(1,pct));
+  radKm=Math.round(1+pct*24);
+  pct=(radKm-1)/24;
+  document.getElementById('slFill').style.width=(pct*100)+'%';
+  document.getElementById('slThumb').style.left='calc('+pct*100+'% - 10px)';
+  document.getElementById('radVal').textContent=radKm;
+  document.getElementById('radMap').textContent=radKm;
+  // Zone circle size
+  const sz=30+pct*50;
+  document.getElementById('zoneCircle').style.width=sz+'px';
+  document.getElementById('zoneCircle').style.height=sz+'px';
+}
+function slClick(e){const r=e.currentTarget.getBoundingClientRect();slSet((e.clientX-r.left)/r.width);}
+function slStart(e){
+  dragging=true;
+  const move=ev=>{
+    const t=ev.touches?ev.touches[0]:ev;
+    const r=document.querySelector('.sl-track').getBoundingClientRect();
+    slSet((t.clientX-r.left)/r.width);
+  };
+  const up=()=>{dragging=false;document.removeEventListener('mousemove',move);document.removeEventListener('mouseup',up);document.removeEventListener('touchmove',move);document.removeEventListener('touchend',up);};
+  document.addEventListener('mousemove',move);document.addEventListener('mouseup',up);
+  document.addEventListener('touchmove',move,{passive:true});document.addEventListener('touchend',up);
+}
+
+// ═══ S5: GO LIVE ═══
+function goLive(){
+  document.getElementById('btnLive').disabled=true;
+  document.getElementById('btnLive').textContent='Setting up your shop...';
+  setTimeout(()=>{
+    document.getElementById('sumBiz').textContent=document.getElementById('inpBiz').value||'Your Business';
+    document.getElementById('sumCity').textContent=(document.getElementById('inpLoc').value?document.getElementById('inpLoc').value+', ':'')+document.getElementById('inpCity').value||'—';
+    document.getElementById('sumSvc').textContent=[...sel].join(', ');
+    document.getElementById('sumRad').textContent=radKm+' km';
+    go('s5');
+    launchConfetti();
+    document.getElementById('btnLive').textContent='Go Live! 🚀';
+    document.getElementById('btnLive').disabled=false;
+  },1800);
+}
+
+// ═══ CONFETTI ═══
+function launchConfetti(){
+  const wrap=document.getElementById('confWrap');
+  wrap.innerHTML='';
+  const colors=['#FF6B35','#FF8F55','#22c55e','#5eead4','#fbbf24','#f472b6','#a78bfa','#fff'];
+  for(let i=0;i<30;i++){
+    const c=document.createElement('div');
+    c.className='conf';
+    c.style.cssText=`left:${10+Math.random()*80}%;top:${20+Math.random()*40}%;width:${5+Math.random()*6}px;height:${5+Math.random()*6}px;background:${colors[i%colors.length]};border-radius:${Math.random()>.5?'50%':'2px'};--rot:${Math.random()*720}deg;animation:confDrop ${1+Math.random()*1.5}s ease-out ${Math.random()*.4}s forwards`;
+    wrap.appendChild(c);
+  }
+}
+
+// ═══ RESTART ═══
+function restart(){
+  otp='';sel.clear();radKm=5;
+  document.querySelectorAll('.chip').forEach(c=>c.classList.remove('on'));
+  document.querySelectorAll('.inp').forEach(i=>i.value='');
+  for(let i=0;i<6;i++){const b=document.getElementById('ob'+i);b.textContent='';b.className='otp-box'+(i===0?' cur':'');}
+  document.getElementById('hidOtp').value='';
+  slSet((5-1)/24);
+  go('s0');
+  setTimeout(()=>go('s1'),2600);
+}
+</script>
+
+<script>
+(function() {
+  var veil = document.getElementById('auth-veil');
+  if (sessionStorage.getItem('thiya_dev_session') === '1') {
+    veil.remove();
+  } else {
+    veil.textContent = 'body{margin:0;background:#020617;font-family:"Sora",sans-serif}';
+    document.addEventListener('DOMContentLoaded', function() {
+      document.body.innerHTML =
+        '<div style="min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:28px;padding:24px;text-align:center">' +
+          '<div>' +
+            '<div style="width:52px;height:52px;background:#FF6B35;border-radius:12px;display:inline-flex;align-items:center;justify-content:center;font-weight:700;font-size:20px;color:#fff;margin-bottom:20px;font-family:Sora,sans-serif">th</div>' +
+            '<h2 style="color:#e8e4e0;font-size:22px;font-weight:600;margin-bottom:10px;font-family:Sora,sans-serif">Restricted Access</h2>' +
+            '<p style="color:#7a7680;font-size:14px;line-height:1.7;max-width:300px">This resource is only accessible through the Thiya Developer Portal.</p>' +
+          '</div>' +
+          '<a href="developer.html" style="display:inline-block;background:#FF6B35;color:#fff;text-decoration:none;padding:13px 28px;border-radius:8px;font-size:14px;font-weight:600;font-family:Sora,sans-serif;letter-spacing:0.02em">Go to Developer Portal &rarr;</a>' +
+        '</div>';
+    });
+  }
+})();
+</script>
+</body>
+</html>
