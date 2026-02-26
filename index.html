@@ -609,6 +609,8 @@ section{padding:100px 24px}
   .showcase-block.reverse .showcase-visual{order:2}
   .footer-top{grid-template-columns:1fr 1fr}
 }
+.nav-dev-link{font-size:11px !important;text-transform:uppercase;letter-spacing:0.12em;color:var(--text-dim) !important;opacity:0.5;transition:opacity 0.2s,color 0.2s !important}
+.nav-dev-link:hover{opacity:1 !important;color:var(--accent) !important}
 @media(max-width:768px){
   .nav-links{display:none}
   .nav-links.open{
@@ -656,6 +658,7 @@ section{padding:100px 24px}
       <a href="#platform">Platform</a>
       <a href="#how">How It Works</a>
       <a href="#apps">Apps</a>
+      <a href="#" id="devPortalBtn" class="nav-dev-link">Dev</a>
       <a href="#contact" class="nav-cta">Get Early Access</a>
     </div>
     <button class="nav-mobile-toggle" id="navToggle" aria-label="Menu">
@@ -663,6 +666,32 @@ section{padding:100px 24px}
     </button>
   </div>
 </nav>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- DEV PORTAL MODAL                        -->
+<!-- ═══════════════════════════════════════ -->
+<div id="devOverlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.75);z-index:998;backdrop-filter:blur(6px)"></div>
+<div id="devModal" style="display:none;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);z-index:999;background:#0a0a10;border:1px solid #1e1e2e;border-radius:16px;padding:40px;width:380px;max-width:90vw;flex-direction:column;gap:24px;box-shadow:0 32px 80px rgba(0,0,0,0.6)">
+  <div>
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
+      <h3 style="font-family:'Sora',sans-serif;font-size:18px;font-weight:600;color:#e8e4e0">Developer Portal</h3>
+      <button id="devModalClose" style="background:none;border:none;color:#7a7680;cursor:pointer;font-size:20px;line-height:1;padding:0">×</button>
+    </div>
+    <p style="font-size:13px;color:#7a7680;line-height:1.5">Internal access only. Enter your credentials to continue.</p>
+  </div>
+  <form id="devLoginForm" style="display:flex;flex-direction:column;gap:16px">
+    <div style="display:flex;flex-direction:column;gap:6px">
+      <label style="font-size:11px;color:#7a7680;text-transform:uppercase;letter-spacing:0.1em;font-family:'Sora',sans-serif">Username</label>
+      <input id="devUser" type="text" autocomplete="off" placeholder="Enter username" style="background:#050508;border:1px solid #14141e;border-radius:8px;padding:11px 14px;color:#e8e4e0;font-size:14px;font-family:'DM Sans',sans-serif;outline:none;transition:border-color 0.2s;width:100%" onfocus="this.style.borderColor='#FF6B35'" onblur="this.style.borderColor='#14141e'">
+    </div>
+    <div style="display:flex;flex-direction:column;gap:6px">
+      <label style="font-size:11px;color:#7a7680;text-transform:uppercase;letter-spacing:0.1em;font-family:'Sora',sans-serif">Password</label>
+      <input id="devPass" type="password" autocomplete="off" placeholder="Enter password" style="background:#050508;border:1px solid #14141e;border-radius:8px;padding:11px 14px;color:#e8e4e0;font-size:14px;font-family:'DM Sans',sans-serif;outline:none;transition:border-color 0.2s;width:100%" onfocus="this.style.borderColor='#FF6B35'" onblur="this.style.borderColor='#14141e'">
+    </div>
+    <p id="devError" style="color:#FF6B35;font-size:12px;min-height:16px;margin:0"></p>
+    <button type="submit" style="background:#FF6B35;color:#fff;border:none;border-radius:8px;padding:13px;font-family:'Sora',sans-serif;font-weight:600;font-size:14px;cursor:pointer;transition:background 0.2s;letter-spacing:0.02em" onmouseover="this.style.background='#D45520'" onmouseout="this.style.background='#FF6B35'">Access Portal →</button>
+  </form>
+</div>
 
 <!-- ═══════════════════════════════════════ -->
 <!-- HERO                                    -->
@@ -1118,6 +1147,50 @@ section{padding:100px 24px}
 <!-- SCRIPTS                                 -->
 <!-- ═══════════════════════════════════════ -->
 <script>
+// Dev Portal
+(function() {
+  var U = 'th1y@D3v', P = 'th1y@D3v0303';
+  var modal = document.getElementById('devModal');
+  var overlay = document.getElementById('devOverlay');
+
+  function openModal() {
+    modal.style.display = 'flex';
+    overlay.style.display = 'block';
+    document.getElementById('devUser').value = '';
+    document.getElementById('devPass').value = '';
+    document.getElementById('devError').textContent = '';
+    setTimeout(function(){ document.getElementById('devUser').focus(); }, 100);
+  }
+  function closeModal() {
+    modal.style.display = 'none';
+    overlay.style.display = 'none';
+  }
+
+  document.getElementById('devPortalBtn').addEventListener('click', function(e) {
+    e.preventDefault();
+    e.stopImmediatePropagation();
+    openModal();
+  });
+  document.getElementById('devModalClose').addEventListener('click', closeModal);
+  overlay.addEventListener('click', closeModal);
+  document.addEventListener('keydown', function(e){ if(e.key === 'Escape') closeModal(); });
+
+  document.getElementById('devLoginForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    var u = document.getElementById('devUser').value.trim();
+    var p = document.getElementById('devPass').value;
+    if (u === U && p === P) {
+      sessionStorage.setItem('thiya_dev_token', 'valid');
+      closeModal();
+      window.open('developer.html', '_blank');
+    } else {
+      document.getElementById('devError').textContent = 'Invalid credentials. Please try again.';
+      document.getElementById('devPass').value = '';
+      document.getElementById('devPass').focus();
+    }
+  });
+})();
+
 // Nav scroll effect
 const nav = document.getElementById('nav');
 window.addEventListener('scroll', () => {
