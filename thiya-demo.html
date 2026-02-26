@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Thiya — Voice-First Vendor OS</title>
+    <style id="auth-veil">body{visibility:hidden;background:#fff}</style>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              thiya: {
+                50: '#FFF3ED',
+                100: '#FFE2D0',
+                200: '#FFC5A3',
+                300: '#FF9E6B',
+                400: '#FF8F55',
+                500: '#FF6B35',
+                600: '#E85520',
+                700: '#CC3300',
+                800: '#A32900',
+                900: '#7A1F00',
+              }
+            },
+            fontFamily: {
+              'sora': ['Sora', 'sans-serif'],
+              'outfit': ['Outfit', 'sans-serif'],
+            }
+          }
+        }
+      }
+    </script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; overflow-x: hidden; }
+
+        /* ═══ THIYA ANIMATIONS ═══ */
+        @keyframes v-bounce {
+            0%   { transform: translate(0, 0); }
+            15%  { transform: translate(-6px, 4px); }
+            30%  { transform: translate(0, 8px); }
+            45%  { transform: translate(6px, 4px); }
+            60%  { transform: translate(0, 0); }
+            100% { transform: translate(0, 0); }
+        }
+        @keyframes step-left {
+            0%, 100% { transform: rotate(0deg); }
+            25% { transform: rotate(-14deg); }
+            75% { transform: rotate(14deg); }
+        }
+        @keyframes step-right {
+            0%, 100% { transform: rotate(0deg); }
+            25% { transform: rotate(14deg); }
+            75% { transform: rotate(-14deg); }
+        }
+        @keyframes float-idle {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-4px); }
+        }
+        @keyframes blink {
+            0%, 42%, 46%, 100% { transform: scaleY(1); }
+            44% { transform: scaleY(0.1); }
+        }
+        @keyframes listen-tilt {
+            0%, 100% { transform: rotate(0deg); }
+            30% { transform: rotate(8deg); }
+            70% { transform: rotate(-4deg); }
+        }
+        @keyframes speak-mouth {
+            0%, 100% { ry: 1.5; }
+            25% { ry: 3.5; }
+            50% { ry: 2; }
+            75% { ry: 4; }
+        }
+        @keyframes speak-wave {
+            0%, 100% { opacity: 0; r: 16; }
+            30% { opacity: 0.3; }
+            100% { opacity: 0; r: 32; }
+        }
+        @keyframes think-dot1 {
+            0%, 20% { opacity: 0; } 30%, 80% { opacity: 0.6; } 100% { opacity: 0; }
+        }
+        @keyframes think-dot2 {
+            0%, 35% { opacity: 0; } 45%, 85% { opacity: 0.5; } 100% { opacity: 0; }
+        }
+        @keyframes think-dot3 {
+            0%, 50% { opacity: 0; } 60%, 90% { opacity: 0.4; } 100% { opacity: 0; }
+        }
+        @keyframes walk-across {
+            0%   { transform: translateX(-12px); }
+            100% { transform: translateX(calc(100% + 12px)); }
+        }
+        @keyframes walk-step-l {
+            0%, 100% { transform: rotate(0deg); }
+            25% { transform: rotate(-18deg); }
+            75% { transform: rotate(18deg); }
+        }
+        @keyframes walk-step-r {
+            0%, 100% { transform: rotate(0deg); }
+            25% { transform: rotate(18deg); }
+            75% { transform: rotate(-18deg); }
+        }
+        @keyframes walk-head-bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-2px); }
+        }
+        @keyframes bounce-squash {
+            0%   { transform: translateY(0) scaleX(1) scaleY(1); }
+            35%  { transform: translateY(-16px) scaleX(0.95) scaleY(1.05); }
+            50%  { transform: translateY(-20px); }
+            80%  { transform: translateY(0) scaleX(1.06) scaleY(0.94); }
+            100% { transform: translateY(0) scaleX(1) scaleY(1); }
+        }
+        @keyframes dot-cascade-1 { 0%,25%,100%{opacity:.15}10%{opacity:1} }
+        @keyframes dot-cascade-2 { 0%,100%{opacity:.15}35%{opacity:1} }
+        @keyframes dot-cascade-3 { 0%,45%,100%{opacity:.15}60%{opacity:1} }
+        @keyframes slideIn {
+            from { transform: translateX(-100%); }
+            to { transform: translateX(0); }
+        }
+        @keyframes fadeSlideUp {
+            from { opacity: 0; transform: translateY(12px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes glow-pulse {
+            0%, 100% { box-shadow: 0 0 20px rgba(255,107,53,0.3); }
+            50% { box-shadow: 0 0 40px rgba(255,107,53,0.5); }
+        }
+        @keyframes ripple {
+            0% { transform: scale(1); opacity: 0.4; }
+            100% { transform: scale(2.5); opacity: 0; }
+        }
+        @keyframes progress-shimmer {
+            0% { background-position: -200px 0; }
+            100% { background-position: 200px 0; }
+        }
+
+        .sidebar-slide { animation: slideIn 0.3s ease-out; }
+        .msg-enter { animation: fadeSlideUp 0.35s ease-out; }
+
+        /* Walking loader bar */
+        .walking-loader {
+            position: relative;
+            height: 28px;
+            overflow: hidden;
+        }
+        .walking-loader .track {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: #1e293b;
+            border-radius: 2px;
+        }
+        .walking-loader .fill {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #FF6B35, #FF8F55);
+            border-radius: 2px;
+            animation: bar-fill 4s ease-in-out infinite;
+        }
+        @keyframes bar-fill {
+            0% { width: 0; }
+            100% { width: 100%; }
+        }
+
+        ::-webkit-scrollbar { width: 5px; }
+        ::-webkit-scrollbar-track { background: #0f172a; }
+        ::-webkit-scrollbar-thumb { background: #334155; border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: #475569; }
+
+        .hidden { display: none !important; }
+    </style>
+</head>
+<body class="bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950 text-slate-50 min-h-screen">
+
+    <!-- ═══ TOP NAVIGATION ═══ -->
+    <nav class="fixed top-0 left-0 right-0 bg-slate-900/95 backdrop-blur-sm border-b border-slate-700/50 z-30 h-16 flex items-center justify-between px-5">
+        <button onclick="toggleMenu()" class="p-2 hover:bg-slate-800 rounded-lg transition-colors">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#FF6B35" stroke-width="2" stroke-linecap="round">
+                <line x1="3" y1="6" x2="21" y2="6"></line>
+                <line x1="3" y1="12" x2="18" y2="12"></line>
+                <line x1="3" y1="18" x2="15" y2="18"></line>
+            </svg>
+        </button>
+
+        <!-- ★ ANIMATED THIYA LOGO — V-BOUNCE -->
+        <svg width="90" height="34" viewBox="0 0 152 52" fill="none" class="cursor-pointer" onclick="navigateTo('home')">
+            <text x="4" y="38" font-family="'Sora', sans-serif" font-weight="700" font-size="32" fill="#e2e8f0" letter-spacing="-1">th</text>
+            <g transform="translate(42, 2)">
+                <rect x="0" y="18" width="7" height="13" rx="2" fill="#FF6B35"/>
+                <polygon points="1,31 3.5,37 6,31" fill="#FF6B35"/>
+                <g style="animation: step-left 1.2s ease-in-out infinite; transform-origin: 2px 37px;"><line x1="1.5" y1="37" x2="-.5" y2="42" stroke="#FF6B35" stroke-width="1.5" stroke-linecap="round"/></g>
+                <g style="animation: step-right 1.2s ease-in-out infinite; transform-origin: 5px 37px;"><line x1="5.5" y1="37" x2="7.5" y2="42" stroke="#FF6B35" stroke-width="1.5" stroke-linecap="round"/></g>
+                <g style="animation: v-bounce 3s ease-in-out infinite;">
+                    <circle cx="3.5" cy="10" r="4.5" fill="#FF6B35"/>
+                    <circle cx="2" cy="9.5" r=".8" fill="#fff"/>
+                    <circle cx="5" cy="9.5" r=".8" fill="#fff"/>
+                </g>
+            </g>
+            <text x="54" y="38" font-family="'Sora', sans-serif" font-weight="700" font-size="32" fill="#e2e8f0" letter-spacing="-1">ya</text>
+        </svg>
+
+        <button onclick="handleNotificationClick()" class="p-2 hover:bg-slate-800 rounded-lg transition-colors relative">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#FF6B35" stroke-width="2">
+                <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+                <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+            </svg>
+            <div id="notificationDot" class="absolute top-1 right-1 w-2.5 h-2.5 bg-red-500 rounded-full animate-pulse hidden"></div>
+        </button>
+    </nav>
+
+    <!-- ═══ SIDEBAR MENU ═══ -->
+    <div id="sidebar" class="fixed left-0 top-16 bottom-0 w-64 bg-slate-900/95 backdrop-blur-sm border-r border-slate-700/50 z-30 pt-6 px-4 hidden sidebar-slide">
+        <div class="space-y-1">
+            <button onclick="navigateTo('home'); toggleMenu()" class="w-full text-left px-4 py-3 rounded-lg text-slate-300 hover:bg-thiya-500/10 hover:text-thiya-400 transition-colors flex items-center gap-3">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                Home
+            </button>
+            <button class="w-full text-left px-4 py-3 rounded-lg text-slate-300 hover:bg-thiya-500/10 hover:text-thiya-400 transition-colors flex items-center gap-3">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+                Wallet
+            </button>
+            <button class="w-full text-left px-4 py-3 rounded-lg text-slate-300 hover:bg-thiya-500/10 hover:text-thiya-400 transition-colors flex items-center gap-3">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+                Settings
+            </button>
+        </div>
+        <div class="mt-8 px-4">
+            <p class="text-[10px] text-slate-600 tracking-wider uppercase font-outfit">Thiya · Voice-First Vendor OS</p>
+            <p class="text-[9px] text-slate-700 mt-1">© GeekRabit Pvt Ltd</p>
+        </div>
+    </div>
+    <div id="sidebarOverlay" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-20 hidden" onclick="toggleMenu()"></div>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- HOME SCREEN                                -->
+    <!-- ═══════════════════════════════════════════ -->
+    <div id="homeScreen" class="pt-20 pb-8 px-6 max-w-2xl mx-auto">
+        <!-- Greeting + Voice bar -->
+        <div class="mb-8 space-y-4">
+            <div>
+                <h1 class="text-2xl font-sora font-semibold text-slate-100 mb-1">Namaste! 🙏</h1>
+                <p class="text-slate-500 text-sm">Thiya is ready — bataiye kya chahiye</p>
+            </div>
+
+            <!-- Voice/Search Bar -->
+            <div class="flex gap-2 items-center">
+                <button onclick="openThiyaChat()" class="flex-1 flex items-center gap-3 bg-gradient-to-r from-thiya-500/15 to-thiya-500/5 border border-thiya-500/30 rounded-xl px-4 py-3.5 text-thiya-300 hover:bg-thiya-500/20 transition-all">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path d="M12 1a3 3 0 0 0-3 3v12a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path>
+                        <path d="M19 10v2a7 7 0 0 1-14 0v-2"></path>
+                        <line x1="12" y1="19" x2="12" y2="23"></line>
+                    </svg>
+                    <span class="text-sm font-medium text-slate-400">Tell Thiya what you need...</span>
+                </button>
+                <!-- Thiya Pin Character Button -->
+                <button onclick="openThiyaChat()" class="flex-shrink-0 w-14 h-14 rounded-xl bg-thiya-500 hover:bg-thiya-600 transition-colors flex items-center justify-center" style="animation: glow-pulse 3s ease-in-out infinite;">
+                    <svg width="28" height="36" viewBox="0 0 28 42" fill="none">
+                        <rect x="5" y="14" width="10" height="14" rx="3" fill="#fff"/>
+                        <polygon points="7,28 10,34 13,28" fill="#fff"/>
+                        <g style="animation: v-bounce 3s ease-in-out infinite;">
+                            <circle cx="10" cy="8" r="6" fill="#fff"/>
+                            <circle cx="8" cy="7.5" r="1" fill="#FF6B35"/>
+                            <circle cx="12" cy="7.5" r="1" fill="#FF6B35"/>
+                        </g>
+                    </svg>
+                </button>
+            </div>
+
+            <!-- Quick service pills -->
+            <div class="flex gap-2 overflow-x-auto pb-1">
+                <button onclick="openThiyaChat()" class="flex-shrink-0 px-4 py-2 bg-slate-800/50 border border-slate-700/50 rounded-full text-xs text-slate-400 hover:bg-thiya-500/10 hover:border-thiya-500/30 hover:text-thiya-400 transition-all">
+                    💧 Water Delivery
+                </button>
+                <button onclick="openThiyaChat()" class="flex-shrink-0 px-4 py-2 bg-slate-800/50 border border-slate-700/50 rounded-full text-xs text-slate-400 hover:bg-thiya-500/10 hover:border-thiya-500/30 hover:text-thiya-400 transition-all">
+                    🥛 Milk Supply
+                </button>
+                <button onclick="openThiyaChat()" class="flex-shrink-0 px-4 py-2 bg-slate-800/50 border border-slate-700/50 rounded-full text-xs text-slate-400 hover:bg-thiya-500/10 hover:border-thiya-500/30 hover:text-thiya-400 transition-all">
+                    🍱 Tiffin Service
+                </button>
+                <button onclick="openThiyaChat()" class="flex-shrink-0 px-4 py-2 bg-slate-800/50 border border-slate-700/50 rounded-full text-xs text-slate-400 hover:bg-thiya-500/10 hover:border-thiya-500/30 hover:text-thiya-400 transition-all">
+                    👔 Laundry
+                </button>
+            </div>
+        </div>
+
+        <!-- Lead Request In Progress -->
+        <div id="leadInProgressCard" class="mb-6 border border-thiya-500/30 rounded-xl p-5 bg-thiya-500/5 hidden">
+            <div class="flex items-start gap-4">
+                <div class="flex-shrink-0 w-12 h-12 rounded-xl bg-thiya-500/15 border border-thiya-500/30 flex items-center justify-center">
+                    <svg width="24" height="30" viewBox="0 0 24 34" fill="none">
+                        <rect x="4" y="12" width="8" height="10" rx="2.5" fill="#FF6B35"/>
+                        <polygon points="5.5,22 8,27 10.5,22" fill="#FF6B35"/>
+                        <g style="animation: v-bounce 2s ease-in-out infinite;"><circle cx="8" cy="7" r="4.5" fill="#FF6B35"/><circle cx="6.5" cy="6.5" r=".7" fill="#fff"/><circle cx="9.5" cy="6.5" r=".7" fill="#fff"/></g>
+                    </svg>
+                </div>
+                <div class="flex-1">
+                    <h3 class="text-slate-100 font-medium text-sm">Finding Vendors Near You...</h3>
+                    <p class="text-xs text-slate-500 mt-1">10 Bislery cans daily delivery</p>
+                    <!-- Walking loader -->
+                    <div class="mt-3 relative h-7 overflow-hidden">
+                        <div class="absolute bottom-0 left-0 right-0 h-[3px] bg-slate-800 rounded-full"></div>
+                        <div class="absolute bottom-0 left-0 h-[3px] bg-gradient-to-r from-thiya-500 to-thiya-400 rounded-full" style="animation: bar-fill 4s ease-in-out infinite;"></div>
+                        <svg width="100%" height="24" viewBox="0 0 300 24" fill="none" class="absolute top-0 left-0">
+                            <g style="animation: walk-across 4s ease-in-out infinite;">
+                                <rect x="0" y="4" width="6" height="9" rx="2" fill="#FF6B35"/><polygon points="1,13 3,17 5,13" fill="#FF6B35"/>
+                                <g style="animation: walk-step-l .35s ease infinite; transform-origin: 1.5px 17px;"><line x1="1.5" y1="17" x2="0" y2="21" stroke="#FF6B35" stroke-width="1.3" stroke-linecap="round"/></g>
+                                <g style="animation: walk-step-r .35s ease infinite; transform-origin: 4.5px 17px;"><line x1="4.5" y1="17" x2="6" y2="21" stroke="#FF6B35" stroke-width="1.3" stroke-linecap="round"/></g>
+                                <g style="animation: walk-head-bounce .35s ease infinite;"><circle cx="3" cy="0" r="3.5" fill="#FF6B35"/><circle cx="1.8" cy="-.3" r=".5" fill="#fff"/><circle cx="4.2" cy="-.3" r=".5" fill="#fff"/></g>
+                            </g>
+                        </svg>
+                    </div>
+                </div>
+                <button onclick="simulateProposalReceived()" class="flex-shrink-0 px-3 py-1.5 bg-thiya-500/15 border border-thiya-500/30 rounded-lg text-xs text-thiya-400 hover:bg-thiya-500/25 transition-colors">
+                    Check
+                </button>
+            </div>
+        </div>
+
+        <!-- Proposals Received Card -->
+        <div id="proposalsReceivedCard" class="mb-6 border border-green-600/40 rounded-xl p-5 bg-green-950/20 hidden">
+            <div class="flex items-start gap-4">
+                <div class="flex-shrink-0 w-12 h-12 rounded-xl bg-green-600/15 border border-green-600/30 flex items-center justify-center">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#4ade80" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                </div>
+                <div class="flex-1">
+                    <h3 class="text-slate-100 font-medium text-sm" id="proposalCount">✓ 4 Proposals Received!</h3>
+                    <p class="text-xs text-slate-400 mt-1">Top vendors ready to serve you</p>
+                    <button onclick="navigateTo('proposals')" class="mt-2 text-thiya-400 hover:text-thiya-300 text-sm font-medium flex items-center gap-1">
+                        View proposals <span>→</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Active Subscriptions -->
+        <div class="space-y-3">
+            <h2 class="text-[10px] text-slate-500 uppercase tracking-widest font-outfit font-semibold">Active Subscriptions</h2>
+            <div class="border border-slate-700/50 rounded-xl p-4 bg-slate-800/20 hover:bg-slate-800/40 hover:border-thiya-500/20 transition-all cursor-pointer">
+                <div class="flex items-center gap-4">
+                    <div class="w-14 h-14 bg-gradient-to-br from-cyan-900/80 to-cyan-800/60 border border-cyan-500/20 rounded-xl flex flex-col items-center justify-center">
+                        <span class="text-xl">💧</span>
+                        <span class="text-[8px] text-cyan-400/70 mt-0.5">Bislery</span>
+                    </div>
+                    <div class="flex-1 min-w-0">
+                        <h3 class="text-slate-100 font-medium text-sm">Kavya Enterprises</h3>
+                        <p class="text-xs text-slate-500 mt-0.5">Bislery 20L · 2 cans daily</p>
+                        <p class="text-xs text-thiya-400 mt-1 font-medium">Next: Today 7:30 AM</p>
+                    </div>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#475569" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+                </div>
+            </div>
+        </div>
+
+        <!-- Today Summary -->
+        <div class="mt-6 border border-slate-700/40 rounded-xl p-5 bg-slate-800/20">
+            <p class="text-[10px] text-slate-500 uppercase tracking-widest font-outfit font-semibold mb-3">Today</p>
+            <div class="grid grid-cols-2 gap-4">
+                <div>
+                    <p class="text-xs text-slate-500">Deliveries</p>
+                    <p class="text-thiya-400 font-semibold font-sora">1 active</p>
+                </div>
+                <div>
+                    <p class="text-xs text-slate-500">Daily spend</p>
+                    <p class="text-thiya-400 font-semibold font-sora">₹200</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- PROPOSALS SCREEN                           -->
+    <!-- ═══════════════════════════════════════════ -->
+    <div id="proposalsScreen" class="pt-20 pb-8 px-6 max-w-2xl mx-auto hidden">
+        <div class="mb-6">
+            <h1 class="text-2xl font-sora font-semibold text-slate-100 mb-1">Proposals</h1>
+            <p class="text-slate-500 text-sm">10 Bislery cans · Daily · Office location</p>
+        </div>
+
+        <!-- Lead Summary -->
+        <div class="border border-thiya-500/25 rounded-xl p-4 bg-thiya-500/5 mb-6">
+            <div class="grid grid-cols-4 gap-3 text-center">
+                <div>
+                    <p class="text-xl font-sora font-semibold text-thiya-400">10</p>
+                    <p class="text-[10px] text-slate-500 mt-1">Cans</p>
+                </div>
+                <div>
+                    <p class="text-xl">💧</p>
+                    <p class="text-[10px] text-slate-500 mt-1">Bislery</p>
+                </div>
+                <div>
+                    <p class="text-sm font-sora font-semibold text-thiya-400">Daily</p>
+                    <p class="text-[10px] text-slate-500 mt-1">Frequency</p>
+                </div>
+                <div>
+                    <p class="text-sm font-sora font-semibold text-thiya-400">Tomorrow</p>
+                    <p class="text-[10px] text-slate-500 mt-1">Start</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="proposalsList" class="space-y-4"></div>
+
+        <button onclick="navigateTo('home')" class="w-full mt-6 border border-slate-700/50 text-slate-400 hover:text-thiya-400 hover:border-thiya-500/30 py-3 rounded-xl font-medium transition-all text-sm">
+            ← Back to Home
+        </button>
+    </div>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- THIYA CHAT OVERLAY                         -->
+    <!-- ═══════════════════════════════════════════ -->
+    <div id="thiyaChatOverlay" class="fixed inset-0 bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950 z-50 flex flex-col hidden">
+        <!-- Chat Header with Thiya Character -->
+        <div class="pt-6 px-6 pb-5 border-b border-slate-700/50 flex flex-col items-center relative">
+            <button onclick="closeThiyaChat()" class="absolute top-4 right-4 p-2 hover:bg-slate-800 rounded-lg transition-colors">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            </button>
+
+            <!-- ★ THIYA CHARACTER — Animated States -->
+            <div id="thiyaCharacterContainer" class="relative">
+                <svg id="thiyaCharSvg" width="80" height="100" viewBox="0 0 60 80" fill="none">
+                    <!-- Body -->
+                    <rect x="17" y="38" width="16" height="24" rx="5" fill="#FF6B35"/>
+                    <polygon points="20,62 25,72 30,62" fill="#FF6B35"/>
+                    <!-- Legs -->
+                    <g id="thiyaLegL" style="animation: step-left 1.2s ease-in-out infinite; transform-origin: 22px 72px;"><line x1="22" y1="72" x2="19" y2="80" stroke="#FF6B35" stroke-width="2.5" stroke-linecap="round"/></g>
+                    <g id="thiyaLegR" style="animation: step-right 1.2s ease-in-out infinite; transform-origin: 28px 72px;"><line x1="28" y1="72" x2="31" y2="80" stroke="#FF6B35" stroke-width="2.5" stroke-linecap="round"/></g>
+                    <!-- Head group (animated) -->
+                    <g id="thiyaHead" style="animation: float-idle 3s ease-in-out infinite;">
+                        <circle cx="25" cy="22" r="13" fill="#FF6B35"/>
+                        <g id="thiyaEyes" style="animation: blink 4s ease-in-out infinite;">
+                            <circle cx="20" cy="20.5" r="2.2" fill="#fff"/>
+                            <circle cx="30" cy="20.5" r="2.2" fill="#fff"/>
+                        </g>
+                        <path id="thiyaMouth" d="M20 27 Q25 31 30 27" stroke="#fff" stroke-width="1.8" stroke-linecap="round" fill="none"/>
+                    </g>
+                    <!-- Ripples (listening) -->
+                    <circle id="thiyaRipple1" cx="0" cy="22" r="8" fill="none" stroke="#FF6B35" stroke-width="1" opacity="0"/>
+                    <circle id="thiyaRipple2" cx="0" cy="22" r="8" fill="none" stroke="#FF6B35" stroke-width="0.8" opacity="0"/>
+                    <!-- Speak waves -->
+                    <path id="thiyaWave1" d="M42 16 A8 8 0 0 1 42 28" stroke="#FF6B35" stroke-width="1.5" stroke-linecap="round" fill="none" opacity="0"/>
+                    <path id="thiyaWave2" d="M48 12 A12 12 0 0 1 48 32" stroke="#FF6B35" stroke-width="1.2" stroke-linecap="round" fill="none" opacity="0"/>
+                    <!-- Think dots -->
+                    <circle id="thinkDot1" cx="42" cy="12" r="3" fill="#FF6B35" opacity="0"/>
+                    <circle id="thinkDot2" cx="48" cy="7" r="2.2" fill="#FF6B35" opacity="0"/>
+                    <circle id="thinkDot3" cx="53" cy="3" r="1.5" fill="#FF6B35" opacity="0"/>
+                </svg>
+            </div>
+
+            <h2 class="text-lg font-sora font-semibold text-slate-100 mt-2">Thiya</h2>
+            <p class="text-xs text-slate-500 mt-1" id="thiyaStatus">Ready to help</p>
+        </div>
+
+        <!-- Messages -->
+        <div class="flex-1 overflow-y-auto px-5 py-5 space-y-4 flex flex-col" id="messagesContainer">
+            <div class="flex-1 flex flex-col items-center justify-center text-center">
+                <p class="text-slate-400 text-base mb-2">Aapko kya chahiye?</p>
+                <p class="text-slate-600 text-xs">Voice ya text — dono chalega</p>
+            </div>
+        </div>
+
+        <!-- Input Area -->
+        <div class="border-t border-slate-700/50 p-5 bg-slate-900/50 backdrop-blur-sm">
+            <div class="flex gap-3 mb-3">
+                <button onclick="startVoiceCommand()" class="p-3.5 rounded-full bg-thiya-500 hover:bg-thiya-600 transition-colors flex-shrink-0" style="box-shadow: 0 4px 20px rgba(255,107,53,0.3);">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.5">
+                        <path d="M12 1a3 3 0 0 0-3 3v12a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/>
+                    </svg>
+                </button>
+                <input type="text" id="chatInput" placeholder="Hindi ya English mein type karo..." class="flex-1 bg-slate-800 border border-slate-700/50 rounded-full px-5 py-3.5 text-sm text-slate-100 placeholder-slate-500 focus:outline-none focus:border-thiya-500/50 transition-colors">
+                <button onclick="sendMessage()" class="p-3.5 rounded-full bg-thiya-500 hover:bg-thiya-600 transition-colors flex-shrink-0" style="box-shadow: 0 4px 20px rgba(255,107,53,0.3);">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+                </button>
+            </div>
+            <div id="quickSuggestion" class="space-y-2">
+                <p class="text-[10px] text-slate-600 px-1 tracking-wider uppercase">Quick suggestion</p>
+                <button onclick="handleQuickSuggestion()" class="w-full text-left px-4 py-2.5 text-sm text-slate-400 bg-slate-800/40 border border-slate-700/40 rounded-xl hover:bg-thiya-500/10 hover:border-thiya-500/20 hover:text-thiya-400 transition-all">
+                    💧 "Mere office mein 10 cans Bislery chahiye"
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══ FLOATING THIYA BUTTON ═══ -->
+    <div id="floatingThiya" class="fixed bottom-6 right-6 z-40 cursor-pointer" onclick="openThiyaChat()">
+        <button class="w-16 h-16 rounded-2xl bg-thiya-500 hover:bg-thiya-600 transition-all flex items-center justify-center relative focus:outline-none" style="animation: glow-pulse 3s ease-in-out infinite;">
+            <div class="absolute -inset-1 rounded-2xl bg-thiya-500/20 animate-ping" style="animation-duration: 3s;"></div>
+            <svg width="28" height="36" viewBox="0 0 28 42" fill="none">
+                <rect x="5" y="16" width="10" height="12" rx="3" fill="#fff"/>
+                <polygon points="7,28 10,33 13,28" fill="#fff"/>
+                <line x1="7.5" y1="33" x2="6" y2="37" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/>
+                <line x1="12.5" y1="33" x2="14" y2="37" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/>
+                <g style="animation: v-bounce 3s ease-in-out infinite;">
+                    <circle cx="10" cy="9" r="6" fill="#fff"/>
+                    <circle cx="8" cy="8.5" r="1" fill="#FF6B35"/>
+                    <circle cx="12" cy="8.5" r="1" fill="#FF6B35"/>
+                </g>
+            </svg>
+        </button>
+    </div>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- JAVASCRIPT                                 -->
+    <!-- ═══════════════════════════════════════════ -->
+    <script>
+        let currentScreen = 'home';
+        let messages = [];
+        let thiyaState = 'idle';
+        let leadRequest = null;
+        let proposals = [];
+        let showProposals = false;
+        let pendingNotification = false;
+
+        function navigateTo(screen) {
+            currentScreen = screen;
+            document.getElementById('homeScreen').classList.toggle('hidden', screen !== 'home');
+            document.getElementById('proposalsScreen').classList.toggle('hidden', screen !== 'proposals');
+            if (screen === 'proposals') renderProposals();
+        }
+
+        function toggleMenu() {
+            document.getElementById('sidebar').classList.toggle('hidden');
+            document.getElementById('sidebarOverlay').classList.toggle('hidden');
+        }
+
+        // ═══ THIYA CHAT ═══
+        function openThiyaChat() {
+            document.getElementById('thiyaChatOverlay').classList.remove('hidden');
+            document.getElementById('floatingThiya').classList.add('hidden');
+            messages = [];
+            renderMessages();
+            updateThiyaState('idle');
+        }
+
+        function closeThiyaChat() {
+            document.getElementById('thiyaChatOverlay').classList.add('hidden');
+            document.getElementById('floatingThiya').classList.remove('hidden');
+            messages = [];
+        }
+
+        // ═══ THIYA CHARACTER STATE MACHINE ═══
+        function updateThiyaState(state) {
+            thiyaState = state;
+            const head = document.getElementById('thiyaHead');
+            const eyes = document.getElementById('thiyaEyes');
+            const mouth = document.getElementById('thiyaMouth');
+            const legL = document.getElementById('thiyaLegL');
+            const legR = document.getElementById('thiyaLegR');
+            const r1 = document.getElementById('thiyaRipple1');
+            const r2 = document.getElementById('thiyaRipple2');
+            const w1 = document.getElementById('thiyaWave1');
+            const w2 = document.getElementById('thiyaWave2');
+            const d1 = document.getElementById('thinkDot1');
+            const d2 = document.getElementById('thinkDot2');
+            const d3 = document.getElementById('thinkDot3');
+            const status = document.getElementById('thiyaStatus');
+
+            // Reset all
+            r1.style.cssText = 'opacity:0';
+            r2.style.cssText = 'opacity:0';
+            w1.style.opacity = '0';
+            w2.style.opacity = '0';
+            d1.style.cssText = 'opacity:0';
+            d2.style.cssText = 'opacity:0';
+            d3.style.cssText = 'opacity:0';
+
+            if (state === 'idle') {
+                head.style.animation = 'float-idle 3s ease-in-out infinite';
+                eyes.style.animation = 'blink 4s ease-in-out infinite';
+                eyes.innerHTML = '<circle cx="20" cy="20.5" r="2.2" fill="#fff"/><circle cx="30" cy="20.5" r="2.2" fill="#fff"/>';
+                mouth.setAttribute('d', 'M20 27 Q25 31 30 27');
+                mouth.setAttribute('fill', 'none');
+                status.textContent = 'Ready to help';
+            }
+            else if (state === 'listening') {
+                head.style.animation = 'listen-tilt 2.5s ease-in-out infinite';
+                eyes.style.animation = 'none';
+                eyes.innerHTML = '<circle cx="20" cy="20" r="2.5" fill="#fff"/><circle cx="30" cy="20" r="2.5" fill="#fff"/>';
+                mouth.setAttribute('d', 'M22 28 A3 2 0 0 0 28 28');
+                r1.style.cssText = 'opacity:1;animation:speak-wave 2s ease-out infinite';
+                r2.style.cssText = 'opacity:1;animation:speak-wave 2s ease-out 0.6s infinite';
+                status.textContent = '🎙️ Sun rahi hoon...';
+            }
+            else if (state === 'processing') {
+                head.style.animation = 'float-idle 2s ease-in-out infinite';
+                eyes.style.animation = 'none';
+                eyes.innerHTML = '<circle cx="20" cy="20" r="2.2" fill="#fff"/><circle cx="30" cy="20" r="2.2" fill="#fff"/><circle cx="21" cy="19" r=".8" fill="#C84E1B"/><circle cx="31" cy="19" r=".8" fill="#C84E1B"/>';
+                mouth.setAttribute('d', 'M21 28 L29 28');
+                d1.style.cssText = 'animation: think-dot1 2s ease-in-out infinite';
+                d2.style.cssText = 'animation: think-dot2 2s ease-in-out infinite';
+                d3.style.cssText = 'animation: think-dot3 2s ease-in-out infinite';
+                status.textContent = '🤔 Soch rahi hoon...';
+            }
+            else if (state === 'responding') {
+                head.style.animation = 'float-idle 3s ease-in-out infinite';
+                eyes.style.animation = 'blink 3s ease-in-out infinite';
+                eyes.innerHTML = '<circle cx="20" cy="20.5" r="2.2" fill="#fff"/><circle cx="30" cy="20.5" r="2.2" fill="#fff"/>';
+                mouth.setAttribute('d', 'M22 27 A3 3 0 0 0 28 27');
+                w1.style.cssText = 'animation: speak-wave1 1s ease-out infinite; opacity: 0.4';
+                w2.style.cssText = 'animation: speak-wave2 1s ease-out 0.3s infinite; opacity: 0.3';
+                status.textContent = '💬 Bata rahi hoon...';
+            }
+        }
+
+        function addMessage(type, text) {
+            messages.push({ type, text, timestamp: new Date() });
+            renderMessages();
+        }
+
+        function renderMessages() {
+            const container = document.getElementById('messagesContainer');
+            if (messages.length === 0) {
+                container.innerHTML = '<div class="flex-1 flex flex-col items-center justify-center text-center"><p class="text-slate-400 text-base mb-2">Aapko kya chahiye?</p><p class="text-slate-600 text-xs">Voice ya text — dono chalega</p></div>';
+                return;
+            }
+            let html = '';
+            messages.forEach(msg => {
+                if (msg.type === 'user') {
+                    html += `<div class="flex justify-end msg-enter"><div class="max-w-[75%] px-5 py-3.5 rounded-2xl rounded-br-sm text-sm leading-relaxed bg-thiya-500 text-white">${msg.text}</div></div>`;
+                } else {
+                    html += `<div class="flex gap-2.5 items-start msg-enter">
+                        <div class="flex-shrink-0 w-7 h-7 rounded-full bg-thiya-500/15 flex items-center justify-center mt-1">
+                            <svg width="14" height="16" viewBox="0 0 14 18" fill="none"><circle cx="7" cy="5" r="3.5" fill="#FF6B35"/><circle cx="5.8" cy="4.7" r=".5" fill="#fff"/><circle cx="8.2" cy="4.7" r=".5" fill="#fff"/><rect x="3" y="9" width="8" height="5" rx="2" fill="#FF6B35"/></svg>
+                        </div>
+                        <div class="max-w-[75%] px-5 py-3.5 rounded-2xl rounded-bl-sm text-sm leading-relaxed bg-slate-800 text-slate-200 border border-slate-700/50" style="white-space:pre-wrap;">${msg.text}</div>
+                    </div>`;
+                }
+            });
+            container.innerHTML = html;
+            container.scrollTop = container.scrollHeight;
+        }
+
+        function startVoiceCommand() {
+            updateThiyaState('listening');
+            setTimeout(() => {
+                addMessage('user', 'Mere office mein kal se mujhe 10 cans Bislery bottels delivery chahiye hai, kya mujhe tum options suggest kar sakti ho?');
+                updateThiyaState('processing');
+                setTimeout(() => {
+                    const response = `Bilkul! Main aapke office ke liye water delivery dhundh rahi hoon. Aapne kaha:
+
+✓ 10 Bislery 20L water cans
+✓ Daily delivery kal se
+✓ Delivery location: Aapka office
+
+Kya iska aur kuch modify karna hai? Delivery time, alternate day, ya kuch aur specific requirement?`;
+                    addMessage('thiya', response);
+                    updateThiyaState('responding');
+                }, 1500);
+            }, 1500);
+            document.getElementById('quickSuggestion').classList.add('hidden');
+        }
+
+        function handleQuickSuggestion() { startVoiceCommand(); }
+
+        function sendMessage() {
+            const input = document.getElementById('chatInput');
+            const text = input.value.trim();
+            if (!text) return;
+            addMessage('user', text);
+            input.value = '';
+            updateThiyaState('processing');
+            setTimeout(() => {
+                const response = `Bilkul! Abhi main aapke paas ke vendors se details le rahi hoon:
+
+📍 Quantity: 10 cans
+📍 Type: Bislery 20L
+📍 Start: Kal se
+📍 Delivery: Daily
+
+5-10 minutes mein 4-5 acche proposals mil jayenge. Main notify karungi! 🔔`;
+                addMessage('thiya', response);
+                updateThiyaState('responding');
+                leadRequest = { id: 'LEAD-001', type: 'Water Delivery', quantity: 10 };
+                document.getElementById('leadInProgressCard').classList.remove('hidden');
+                document.getElementById('quickSuggestion').classList.add('hidden');
+                pendingNotification = true;
+                document.getElementById('notificationDot').classList.remove('hidden');
+            }, 1500);
+        }
+
+        function simulateProposalReceived() {
+            pendingNotification = false;
+            document.getElementById('notificationDot').classList.add('hidden');
+            proposals = [
+                { id:1, vendor:'Aqua Pure Solutions', rating:4.8, reviews:156, distance:0.5, deliveryTime:'8:00 AM - 9:00 AM', pricePerCan:'₹25', totalPrice:'₹250/day', monthlyEstimate:'₹6,250', responseTime:'Usually responds in 2 mins', badge:'⭐ Most Popular', highlights:['Free delivery setup','Same day available'] },
+                { id:2, vendor:'Fresh Water Delivery', rating:4.6, reviews:98, distance:0.8, deliveryTime:'7:00 AM - 8:00 AM', pricePerCan:'₹23', totalPrice:'₹230/day', monthlyEstimate:'₹5,750', responseTime:'Usually responds in 1 min', badge:'⚡ Quick Setup', highlights:['Fastest delivery','Bulk discounts'] },
+                { id:3, vendor:'Office Water Care', rating:4.9, reviews:203, distance:1.2, deliveryTime:'6:00 AM - 7:00 AM', pricePerCan:'₹26', totalPrice:'₹260/day', monthlyEstimate:'₹6,500', responseTime:'Usually responds in 3 mins', badge:'👑 Premium', highlights:['24/7 support','Premium quality'] },
+                { id:4, vendor:'Metro Water Supply', rating:4.5, reviews:67, distance:0.3, deliveryTime:'9:00 AM - 10:00 AM', pricePerCan:'₹22', totalPrice:'₹220/day', monthlyEstimate:'₹5,500', responseTime:'Usually responds in 5 mins', badge:'💰 Best Price', highlights:['Lowest price','Nearby'] }
+            ];
+            showProposals = true;
+            document.getElementById('leadInProgressCard').classList.add('hidden');
+            document.getElementById('proposalsReceivedCard').classList.remove('hidden');
+            document.getElementById('proposalCount').textContent = `✓ ${proposals.length} Proposals Received!`;
+            addMessage('thiya', `✅ 4 vendors se proposals aa gaye! Sabke rates, delivery time, aur services alag hain. Neeche dekho aur best vendor select karo.`);
+        }
+
+        function renderProposals() {
+            const container = document.getElementById('proposalsList');
+            let html = '';
+            proposals.forEach((p, idx) => {
+                const stars = '★'.repeat(Math.floor(p.rating)) + '☆'.repeat(5 - Math.floor(p.rating));
+                html += `
+                    <div class="border border-slate-700/50 rounded-xl p-5 bg-slate-800/20 hover:bg-slate-800/40 hover:border-thiya-500/20 transition-all">
+                        ${idx === 0 ? `<div class="mb-3"><span class="px-2.5 py-1 bg-yellow-500/10 border border-yellow-500/30 rounded-lg text-[10px] text-yellow-300 font-medium tracking-wide">${p.badge}</span></div>` : `<div class="mb-3"><span class="px-2.5 py-1 bg-slate-700/30 border border-slate-600/30 rounded-lg text-[10px] text-slate-400 font-medium tracking-wide">${p.badge}</span></div>`}
+                        <div class="flex items-start justify-between mb-3">
+                            <div>
+                                <h3 class="text-slate-100 font-medium text-sm">${p.vendor}</h3>
+                                <div class="flex items-center gap-2 mt-1 text-xs">
+                                    <span class="text-yellow-400">${stars}</span>
+                                    <span class="text-slate-500">${p.rating} (${p.reviews})</span>
+                                </div>
+                            </div>
+                            <div class="text-right">
+                                <p class="text-thiya-400 font-sora font-semibold text-lg">${p.pricePerCan}</p>
+                                <p class="text-[10px] text-slate-500">/can</p>
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-2 gap-3 mb-3 text-sm">
+                            <div class="flex items-center gap-2 text-slate-400">
+                                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#FF6B35" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                                <span class="text-xs">${p.deliveryTime}</span>
+                            </div>
+                            <div class="flex items-center gap-2 text-slate-400">
+                                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#FF6B35" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                                <span class="text-xs">${p.distance} km away</span>
+                            </div>
+                        </div>
+                        <div class="bg-slate-800/50 border border-slate-700/30 rounded-lg p-3 mb-3">
+                            <div class="grid grid-cols-2 gap-3 text-sm">
+                                <div><p class="text-[10px] text-slate-500 mb-0.5">Daily Cost</p><p class="text-thiya-400 font-sora font-semibold">${p.totalPrice}</p></div>
+                                <div><p class="text-[10px] text-slate-500 mb-0.5">Monthly Est.</p><p class="text-thiya-400 font-sora font-semibold">${p.monthlyEstimate}</p></div>
+                            </div>
+                        </div>
+                        <div class="space-y-1.5 mb-3">
+                            ${p.highlights.map(h => `<div class="flex items-center gap-2 text-xs text-slate-400"><div class="w-1.5 h-1.5 rounded-full bg-thiya-500"></div><span>${h}</span></div>`).join('')}
+                        </div>
+                        <p class="text-[10px] text-slate-500 mb-3">${p.responseTime}</p>
+                        <button class="w-full bg-thiya-500 hover:bg-thiya-600 text-white py-2.5 rounded-xl font-medium transition-colors text-sm" style="box-shadow: 0 4px 16px rgba(255,107,53,0.25);">
+                            Select & Connect
+                        </button>
+                    </div>`;
+            });
+            container.innerHTML = html;
+        }
+
+        function handleNotificationClick() {
+            if (pendingNotification) simulateProposalReceived();
+            else if (showProposals) navigateTo('proposals');
+        }
+    </script>
+
+<script>
+(function() {
+  var veil = document.getElementById('auth-veil');
+  if (sessionStorage.getItem('thiya_dev_session') === '1') {
+    veil.remove();
+  } else {
+    veil.textContent = 'body{margin:0;background:#fff;font-family:"Sora",sans-serif}';
+    document.addEventListener('DOMContentLoaded', function() {
+      document.body.innerHTML =
+        '<div style="min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:28px;padding:24px;text-align:center">' +
+          '<div>' +
+            '<div style="width:52px;height:52px;background:#FF6B35;border-radius:12px;display:inline-flex;align-items:center;justify-content:center;font-weight:700;font-size:20px;color:#fff;margin-bottom:20px;font-family:Sora,sans-serif">th</div>' +
+            '<h2 style="color:#111;font-size:22px;font-weight:600;margin-bottom:10px;font-family:Sora,sans-serif">Restricted Access</h2>' +
+            '<p style="color:#666;font-size:14px;line-height:1.7;max-width:300px">This resource is only accessible through the Thiya Developer Portal.</p>' +
+          '</div>' +
+          '<a href="developer.html" style="display:inline-block;background:#FF6B35;color:#fff;text-decoration:none;padding:13px 28px;border-radius:8px;font-size:14px;font-weight:600;font-family:Sora,sans-serif;letter-spacing:0.02em">Go to Developer Portal &rarr;</a>' +
+        '</div>';
+    });
+  }
+})();
+</script>
+</body>
+</html>
