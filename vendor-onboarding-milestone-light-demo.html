@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>Thiya — Vendor App</title>
+<style id="auth-veil">body{visibility:hidden;background:#E2E8F0}</style>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#F8FAFC;--bg2:#FFFFFF;--bg3:#F1F5F9;
+  --bdr:#E2E8F0;--bdr2:#CBD5E1;
+  --t1:#0F172A;--t2:#1E293B;--t3:#475569;--t4:#64748B;--t5:#94A3B8;
+  --o:#FF6B35;--ol:#FF8F55;--od:#E85520;
+  --o05:rgba(255,107,53,.05);--o10:rgba(255,107,53,.1);--o15:rgba(255,107,53,.15);--o20:rgba(255,107,53,.2);--o30:rgba(255,107,53,.3);--o50:rgba(255,107,53,.5);
+  --g:#16a34a;--g10:rgba(22,163,74,.08);--g20:rgba(22,163,74,.15);
+  --r:#dc2626;--r10:rgba(220,38,38,.08);
+  --sora:'Sora',sans-serif;--out:'Outfit',sans-serif;
+}
+body{font-family:var(--out);background:#E2E8F0;color:var(--t1);min-height:100vh}
+::selection{background:var(--o20);color:var(--t1)}
+
+/* ═══ SHELL ═══ */
+.shell{display:flex;justify-content:center;align-items:center;min-height:100vh;padding:20px 12px;background:linear-gradient(145deg,#E2E8F0 0%,#CBD5E1 100%)}
+.phone{width:393px;max-width:100%;height:852px;max-height:95vh;background:var(--bg);border-radius:44px;border:1px solid var(--bdr);overflow:hidden;position:relative;box-shadow:0 25px 60px -12px rgba(0,0,0,.15),0 0 0 1px rgba(255,255,255,.8) inset}
+.pi{height:100%;position:relative;overflow:hidden}
+.island{width:126px;height:34px;background:#1a1a1a;border-radius:20px;position:absolute;top:8px;left:50%;transform:translateX(-50%);z-index:50}
+.sbar{position:absolute;top:0;left:0;right:0;height:54px;z-index:45;display:flex;justify-content:space-between;align-items:flex-end;padding:0 28px 6px;font-size:11px;font-weight:600;color:var(--t1)}
+.hind{position:absolute;bottom:8px;left:50%;transform:translateX(-50%);width:134px;height:5px;background:var(--t1);border-radius:3px;opacity:.12;z-index:50}
+
+/* ═══ SCREENS ═══ */
+.sc{position:absolute;inset:0;display:flex;flex-direction:column;opacity:0;pointer-events:none;transition:all .45s cubic-bezier(.4,0,.2,1);transform:translateX(40px) scale(.97)}
+.sc.on{opacity:1;pointer-events:auto;transform:none}
+.bd{flex:1;overflow-y:auto;overflow-x:hidden;padding:0 24px 100px;-webkit-overflow-scrolling:touch}
+.bd::-webkit-scrollbar{display:none}
+
+/* ═══ TOPBAR ═══ */
+.top{height:56px;display:flex;align-items:center;justify-content:center;padding:0 20px;border-bottom:1px solid var(--bdr);flex-shrink:0;background:rgba(248,250,252,.92);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);position:relative;z-index:15}
+.top-bk{position:absolute;left:14px;top:50%;transform:translateY(-50%);color:var(--o);cursor:pointer;display:flex;align-items:center;font-size:12px;font-weight:600;padding:4px 8px;border-radius:8px}
+.top-bk:active{background:var(--o05)}
+.top-t{font-family:var(--sora);font-weight:600;font-size:14px;color:var(--t2);letter-spacing:-.2px}
+
+/* ═══ PROGRESS ═══ */
+.pw{padding:14px 24px 0;flex-shrink:0}
+.pb{display:flex;gap:5px;height:4px}
+.ps{flex:1;border-radius:2px;background:var(--bdr);transition:.6s;overflow:hidden;position:relative}
+.ps.dn{background:var(--o)}.ps.ac{background:var(--o20)}
+.ps.ac::after{content:'';position:absolute;inset:0;width:60%;background:var(--o);border-radius:2px;animation:pp 2s ease infinite}
+@keyframes pp{0%,100%{width:30%}50%{width:80%}}
+.pl{display:flex;justify-content:space-between;margin-top:8px}
+.pl span{font-size:9px;letter-spacing:.8px;text-transform:uppercase;color:var(--bdr2);font-weight:600}
+.pl .dn{color:var(--o)}.pl .ac{color:var(--o50)}
+
+/* ═══ THIYA BUBBLE ═══ */
+.tb{display:flex;gap:10px;align-items:flex-start;margin:16px 0;animation:tbIn .5s ease}
+@keyframes tbIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.tb-av{flex-shrink:0;width:34px;height:34px;border-radius:50%;background:var(--o10);border:1.5px solid var(--o15);display:flex;align-items:center;justify-content:center}
+.tb-bub{flex:1;background:var(--bg2);border:1px solid var(--bdr);border-radius:16px 16px 16px 4px;padding:12px 16px;box-shadow:0 1px 3px rgba(0,0,0,.04)}
+.tb-nm{font-family:var(--sora);font-size:9px;font-weight:700;color:var(--o);letter-spacing:1.5px;margin-bottom:5px;text-transform:uppercase}
+.tb-tx{font-size:13px;line-height:1.65;color:var(--t3)}
+
+/* ═══ FORM ═══ */
+.fld{margin-bottom:18px}
+.fl{font-size:12px;font-weight:600;color:var(--t4);margin-bottom:7px;display:flex;align-items:center;gap:5px}
+.fl .rq{color:var(--o);font-size:8px}.fl .op{color:var(--t5);font-size:10px;font-weight:400}
+.inp{width:100%;background:var(--bg2);border:1.5px solid var(--bdr);border-radius:14px;padding:14px 16px;font-size:15px;color:var(--t1);outline:none;transition:.25s;font-family:inherit}
+.inp:focus{border-color:var(--o);box-shadow:0 0 0 3px var(--o10)}
+.inp::placeholder{color:var(--t5)}
+.fld-h{font-size:10px;color:var(--t5);margin-top:5px}
+.ph-row{display:flex;gap:8px}.ph-pre{background:var(--o05);border:1.5px solid var(--o15);border-radius:14px;padding:14px 16px;font-size:15px;font-weight:700;color:var(--o);font-family:var(--sora);flex-shrink:0;display:flex;align-items:center}
+
+/* OTP */
+.otp-r{display:flex;gap:10px;justify-content:center;margin:24px 0}
+.ob{width:46px;height:56px;background:var(--bg2);border:2px solid var(--bdr);border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:700;color:var(--t1);font-family:var(--sora);transition:.2s}
+.ob.f{border-color:var(--o);background:var(--o05)}.ob.c{border-color:var(--o50);box-shadow:0 0 0 3px var(--o10)}
+
+/* Chips */
+.chips{display:flex;flex-wrap:wrap;gap:10px;margin:14px 0}
+.chip{padding:11px 18px;border-radius:14px;font-size:13px;font-weight:500;border:1.5px solid var(--bdr);background:var(--bg2);color:var(--t3);cursor:pointer;transition:.2s;display:flex;align-items:center;gap:7px;user-select:none;box-shadow:0 1px 2px rgba(0,0,0,.04)}
+.chip:active{transform:scale(.96)}.chip.on{border-color:var(--o);background:var(--o05);color:var(--od);font-weight:600;box-shadow:0 0 0 1px var(--o15)}
+.chip .ci{font-size:17px}
+
+/* Capability list */
+.cat-hd{font-size:11px;font-weight:700;color:var(--t5);letter-spacing:.5px;text-transform:uppercase;margin:16px 0 6px;padding-left:2px}
+.cap-row{display:flex;align-items:center;gap:12px;padding:12px 14px;background:var(--bg2);border:1.5px solid var(--bdr);border-radius:14px;margin-bottom:6px;cursor:pointer;transition:.2s;box-shadow:0 1px 2px rgba(0,0,0,.03)}
+.cap-row:active{transform:scale(.98)}.cap-row.on{border-color:var(--o);background:var(--o05)}
+.cap-row .cr-ic{width:38px;height:38px;border-radius:10px;background:var(--bg3);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.cap-row.on .cr-ic{background:var(--o10)}
+.cap-row .cr-nm{font-size:14px;font-weight:600;color:var(--t1)}.cap-row .cr-desc{font-size:11px;color:var(--t5);margin-top:1px}
+.cap-row .cr-ck{width:22px;height:22px;border-radius:7px;border:2px solid var(--bdr);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:11px;color:transparent;transition:.2s;margin-left:auto}
+.cap-row.on .cr-ck{border-color:var(--o);background:var(--o);color:#fff}
+
+/* Buttons */
+.btn{width:100%;padding:16px;border:none;border-radius:16px;font-size:15px;font-weight:700;font-family:var(--out);cursor:pointer;transition:.2s;letter-spacing:.2px}
+.btn:active{transform:scale(.98)}
+.btn-o{background:var(--o);color:#fff;box-shadow:0 4px 16px var(--o30)}
+.btn-o:disabled{opacity:.3;cursor:not-allowed;box-shadow:none;transform:none}
+.btn-g{background:var(--g);color:#fff;box-shadow:0 4px 16px rgba(22,163,74,.25)}
+.btn-g:disabled{opacity:.3;cursor:not-allowed;box-shadow:none}
+.btn-ghost{background:var(--bg2);border:1.5px solid var(--bdr);color:var(--t3);border-radius:16px;padding:16px;font-size:15px;font-weight:600;cursor:pointer;font-family:var(--out);width:100%}
+.btn-ghost:active{transform:scale(.98);border-color:var(--o15)}
+.btn-gps{width:100%;background:var(--o05);border:1.5px solid var(--o15);color:var(--o);border-radius:14px;padding:12px;font-size:13px;font-weight:600;display:flex;align-items:center;gap:8px;cursor:pointer;justify-content:center;margin-bottom:16px;font-family:var(--out)}
+.btn-txt{background:none;border:none;color:var(--t5);font-size:12px;text-align:center;padding:12px;cursor:pointer;font-family:var(--out);font-weight:500}
+
+/* Map + Zone */
+.map-box{background:linear-gradient(135deg,var(--o05),var(--bg3));border:1.5px solid var(--o10);border-radius:18px;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;overflow:hidden}
+.map-box .zone{border:2px dashed var(--o20);border-radius:50%;position:absolute;transition:all .4s}
+
+/* Slider */
+.sl-trk{height:6px;background:var(--bdr);border-radius:3px;position:relative;cursor:pointer;margin:16px 0 8px}
+.sl-fl{position:absolute;left:0;top:0;height:6px;background:linear-gradient(90deg,var(--o),var(--ol));border-radius:3px;pointer-events:none}
+.sl-th{position:absolute;top:-7px;width:20px;height:20px;background:var(--o);border-radius:50%;border:3px solid var(--bg);box-shadow:0 2px 8px var(--o30);pointer-events:none}
+.sl-lbl{display:flex;justify-content:space-between;font-size:10px;color:var(--t5)}
+
+/* ═══ CAPABILITY CARDS ═══ */
+.cap{background:var(--bg2);border:1.5px solid var(--bdr);border-radius:16px;padding:18px;margin-bottom:10px;cursor:pointer;transition:.3s;box-shadow:0 1px 3px rgba(0,0,0,.04)}
+.cap:active{transform:scale(.98)}.cap.rdy{border-color:var(--g20);background:rgba(22,163,74,.02)}
+.badge{padding:3px 10px;border-radius:8px;font-size:10px;font-weight:700;letter-spacing:.3px}
+.badge-p{background:var(--o05);color:var(--od)}.badge-r{background:var(--g10);color:var(--g)}
+
+/* ═══ PRODUCT DETAIL ═══ */
+.srch{width:100%;background:var(--bg2);border:1.5px solid var(--bdr);border-radius:14px;padding:12px 16px 12px 40px;font-size:14px;color:var(--t1);outline:none;transition:.25s;font-family:inherit}
+.srch:focus{border-color:var(--o);box-shadow:0 0 0 3px var(--o10)}
+.srch::placeholder{color:var(--t5)}
+.srch-w{position:relative}.srch-w svg{position:absolute;left:14px;top:50%;transform:translateY(-50%);pointer-events:none}
+.pc{background:var(--bg2);border:1.5px solid var(--bdr);border-radius:14px;padding:14px;display:flex;align-items:center;gap:12px;margin-bottom:8px;cursor:pointer;transition:.2s;box-shadow:0 1px 2px rgba(0,0,0,.03)}
+.pc:active{transform:scale(.98)}.pc.sel{border-color:var(--o);background:var(--o05)}
+.pc-ic{width:42px;height:42px;border-radius:12px;background:var(--o05);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.pc-nm{font-size:14px;font-weight:600;color:var(--t1)}.pc-mt{font-size:11px;color:var(--t4);margin-top:2px}
+.pc-ck{width:22px;height:22px;border-radius:7px;border:2px solid var(--bdr);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:11px;color:transparent;transition:.2s}
+.pc.sel .pc-ck{border-color:var(--o);background:var(--o);color:#fff}
+.pri{display:flex;align-items:center;gap:4px;margin-top:6px}
+.pri-s{color:var(--o);font-weight:700;font-size:14px;font-family:var(--sora)}
+.pri-in{background:var(--bg3);border:1.5px solid var(--bdr);border-radius:8px;padding:6px 8px;font-size:14px;font-weight:600;color:var(--t1);width:72px;outline:none;font-family:var(--sora);text-align:center}
+.pri-in:focus{border-color:var(--o)}
+.add-cust{width:100%;padding:14px;background:transparent;border:1.5px dashed var(--bdr);border-radius:14px;color:var(--t4);font-size:13px;font-weight:600;cursor:pointer;margin-top:8px;display:flex;align-items:center;justify-content:center;gap:6px;font-family:var(--out)}
+.add-cust:active{border-color:var(--o30);color:var(--o)}
+
+/* ═══ FLOATING THIYA ═══ */
+#ft{position:absolute;bottom:20px;right:20px;z-index:20;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:all .4s}
+#ft.hide{opacity:0;pointer-events:none;transform:translateY(20px) scale(.8)}
+.ft-ring{width:64px;height:64px;border-radius:18px;background:linear-gradient(135deg,var(--o),var(--od));display:flex;align-items:center;justify-content:center;position:relative;box-shadow:0 8px 24px var(--o30),0 2px 6px rgba(0,0,0,.08)}
+.ft-ring:active{transform:scale(.92)}
+
+/* ═══ CHAT OVERLAY ═══ */
+#chat{position:absolute;inset:0;z-index:40;background:var(--bg);display:flex;flex-direction:column;opacity:0;pointer-events:none;transition:all .35s;transform:translateY(16px)}
+#chat.on{opacity:1;pointer-events:auto;transform:none}
+.ch-head{padding:60px 24px 18px;border-bottom:1px solid var(--bdr);display:flex;flex-direction:column;align-items:center;flex-shrink:0;position:relative;background:var(--bg2)}
+.ch-close{position:absolute;top:60px;right:18px;padding:6px;cursor:pointer;border-radius:8px;color:var(--t5)}
+.ch-close:active{background:var(--bg3)}
+.ch-name{font-family:var(--sora);font-size:16px;font-weight:600;color:var(--t2);margin-top:8px}
+.ch-st{font-size:11px;color:var(--t5);margin-top:3px}
+.msgs{flex:1;overflow-y:auto;padding:16px 20px;display:flex;flex-direction:column;gap:10px;background:var(--bg3)}
+.msgs::-webkit-scrollbar{display:none}
+.msg{display:flex;gap:8px;align-items:flex-start;animation:msgIn .35s ease}
+@keyframes msgIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.msg-ai .m-av{width:26px;height:26px;border-radius:9px;background:var(--o10);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px}
+.m-bub{max-width:82%;padding:11px 15px;font-size:13px;line-height:1.6;border-radius:16px}
+.msg-ai .m-bub{background:var(--bg2);color:var(--t3);border:1px solid var(--bdr);border-bottom-left-radius:4px;box-shadow:0 1px 2px rgba(0,0,0,.04)}
+.msg-user{justify-content:flex-end}
+.msg-user .m-bub{background:var(--o);color:#fff;border-bottom-right-radius:4px}
+.ch-inp{border-top:1px solid var(--bdr);padding:14px 18px;background:var(--bg2);flex-shrink:0}
+.ch-row{display:flex;gap:8px;align-items:center}
+.mic{width:44px;height:44px;border-radius:50%;background:var(--o);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 4px 12px var(--o30);transition:.2s}
+.mic:active{transform:scale(.9)}
+.mic.on{animation:micP 1.5s ease infinite}
+@keyframes micP{0%,100%{box-shadow:0 0 0 4px var(--o15),0 4px 12px var(--o30)}50%{box-shadow:0 0 0 10px var(--o05),0 4px 12px var(--o30)}}
+.cinp{flex:1;background:var(--bg3);border:1.5px solid var(--bdr);border-radius:22px;padding:11px 16px;font-size:13px;color:var(--t1);outline:none;font-family:var(--out)}
+.cinp:focus{border-color:var(--o)}
+.cinp::placeholder{color:var(--t5)}
+.send{width:44px;height:44px;border-radius:50%;background:var(--o);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.send:active{transform:scale(.9)}
+
+/* Walking loader */
+.wl{position:relative;height:30px;overflow:hidden;margin:14px 0}
+.wl-trk{position:absolute;bottom:0;left:0;right:0;height:3px;background:var(--bdr);border-radius:2px}
+.wl-fl{position:absolute;bottom:0;left:0;height:3px;background:linear-gradient(90deg,var(--o),var(--ol));border-radius:2px;animation:wlF 2.5s ease-in-out}
+@keyframes wlF{0%{width:0}100%{width:100%}}
+
+/* Success / Congrats */
+.suc{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:40px 24px 24px;min-height:100%}
+.ck{width:88px;height:88px;border-radius:50%;background:var(--g10);border:2.5px solid var(--g20);display:flex;align-items:center;justify-content:center;animation:ckB .6s cubic-bezier(.34,1.56,.64,1);margin-bottom:20px}
+@keyframes ckB{0%{transform:scale(0);opacity:0}60%{transform:scale(1.15)}100%{transform:scale(1);opacity:1}}
+.sum{background:var(--bg2);border:1px solid var(--bdr);border-radius:18px;padding:20px;width:100%;max-width:320px;margin:16px 0;box-shadow:0 1px 3px rgba(0,0,0,.04)}
+.sr{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--bdr)}.sr:last-child{border:none}
+.sk{font-size:12px;color:var(--t4)}.sv{font-size:12px;color:var(--t1);font-weight:600;text-align:right;max-width:60%}
+.cfw{position:absolute;top:0;left:0;right:0;height:200px;pointer-events:none;overflow:hidden}
+.cf{position:absolute;opacity:0}
+@keyframes cfD{0%{transform:translateY(0) rotate(0);opacity:1}100%{transform:translateY(180px) rotate(var(--rot));opacity:0}}
+
+/* Splash — light version */
+.splash{background:linear-gradient(180deg,var(--bg) 0%,#EFF6FF 50%,var(--bg3) 100%);display:flex;flex-direction:column;align-items:center;justify-content:center;padding-top:54px}
+@keyframes spC{0%{opacity:0;transform:translateY(24px) scale(.6)}100%{opacity:1;transform:none}}
+@keyframes spL{0%{opacity:0;transform:translateY(16px)}100%{opacity:1;transform:none}}
+@keyframes spF{0%{opacity:0}100%{opacity:1}}
+
+/* ═══ ANIMATIONS ═══ */
+@keyframes v-bounce{0%{transform:translate(0,0)}15%{transform:translate(-6px,4px)}30%{transform:translate(0,8px)}45%{transform:translate(6px,4px)}60%{transform:translate(0,0)}100%{transform:translate(0,0)}}
+@keyframes step-l{0%,100%{transform:rotate(0)}25%{transform:rotate(-14deg)}75%{transform:rotate(14deg)}}
+@keyframes step-r{0%,100%{transform:rotate(0)}25%{transform:rotate(14deg)}75%{transform:rotate(-14deg)}}
+@keyframes idle-float{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}
+@keyframes blink{0%,42%,46%,100%{transform:scaleY(1)}44%{transform:scaleY(.1)}}
+@keyframes listen-tilt{0%,100%{transform:rotate(0)}30%{transform:rotate(8deg)}70%{transform:rotate(-4deg)}}
+@keyframes think-eyes{0%,100%{transform:translateY(0)}30%,70%{transform:translateY(-2px)}}
+@keyframes think-dot1{0%,20%{opacity:0;transform:translateY(0)}30%,80%{opacity:.6;transform:translateY(-2px)}100%{opacity:0;transform:translateY(-4px)}}
+@keyframes think-dot2{0%,35%{opacity:0}45%,85%{opacity:.5;transform:translateY(-2px)}100%{opacity:0;transform:translateY(-4px)}}
+@keyframes think-dot3{0%,50%{opacity:0}60%,90%{opacity:.4;transform:translateY(-2px)}100%{opacity:0;transform:translateY(-4px)}}
+@keyframes speak-w1{0%,100%{opacity:0;transform:translateX(0)}20%{opacity:.5;transform:translateX(2px)}60%{opacity:.3;transform:translateX(6px)}}
+@keyframes speak-w2{0%,100%{opacity:0}30%{opacity:.4;transform:translateX(2px)}70%{opacity:.2;transform:translateX(8px)}}
+@keyframes walkAcross{0%{transform:translateX(-12px)}100%{transform:translateX(340px)}}
+@keyframes walkBob{0%,100%{transform:translateY(0)}50%{transform:translateY(-2px)}}
+@keyframes walkLeg{0%,100%{transform:rotate(0)}25%{transform:rotate(-16deg)}75%{transform:rotate(16deg)}}
+
+@media(max-width:420px){.phone{width:100%;height:100vh;max-height:100vh;border-radius:0;border:none;box-shadow:none}.shell{padding:0}.ob{width:40px;height:50px;font-size:20px}.otp-r{gap:7px}}
+</style>
+</head>
+<body>
+<div class="shell"><div class="phone"><div class="pi">
+<div class="island"></div>
+<div class="sbar"><span>9:41</span><span style="display:flex;gap:5px;align-items:center"><svg width="16" height="12" viewBox="0 0 16 12" fill="#0F172A"><rect x="0" y="4" width="3" height="8" rx="1" opacity=".3"/><rect x="4.5" y="2.5" width="3" height="9.5" rx="1" opacity=".5"/><rect x="9" y="0" width="3" height="12" rx="1" opacity=".7"/><rect x="13" y="0" width="3" height="12" rx="1"/></svg><svg width="24" height="12" viewBox="0 0 24 12" fill="none"><rect x=".5" y=".5" width="21" height="11" rx="2.5" stroke="#0F172A" stroke-opacity=".3"/><rect x="22" y="3.5" width="2" height="5" rx="1" fill="#0F172A" opacity=".4"/><rect x="2" y="2" width="16" height="8" rx="1.5" fill="#0F172A"/></svg></span></div>
+<div class="hind"></div>
+
+<!-- Reusable Thiya avatar -->
+<svg style="display:none"><defs><g id="tAv"><circle cx="7" cy="5" r="3.5" fill="#FF6B35"/><circle cx="5.8" cy="4.7" r=".5" fill="#fff"/><circle cx="8.2" cy="4.7" r=".5" fill="#fff"/><rect x="3" y="9" width="8" height="5" rx="2" fill="#FF6B35"/><polygon points="5,14 7,17 9,14" fill="#FF6B35"/></g></defs></svg>
+
+<!-- ═══ S0: SPLASH ═══ -->
+<div class="sc splash on" id="s0">
+  <div style="animation:spC 1.2s cubic-bezier(.34,1.56,.64,1) .2s both;margin-bottom:20px"><svg width="72" height="96" viewBox="0 0 48 66" fill="none"><rect x="12" y="28" width="14" height="20" rx="4.5" fill="#FF6B35"/><polygon points="14.5,48 19,58 23.5,48" fill="#FF6B35"/><line x1="16" y1="58" x2="14" y2="64" stroke="#FF6B35" stroke-width="2.2" stroke-linecap="round"/><line x1="22" y1="58" x2="24" y2="64" stroke="#FF6B35" stroke-width="2.2" stroke-linecap="round"/><g style="animation:idle-float 2.5s ease-in-out infinite"><circle cx="19" cy="16" r="10" fill="#FF6B35"/><g style="animation:blink 4s ease-in-out infinite"><circle cx="15.5" cy="15" r="1.7" fill="#fff"/><circle cx="22.5" cy="15" r="1.7" fill="#fff"/></g><path d="M15 21 Q19 24.5 23 21" stroke="#fff" stroke-width="1.4" stroke-linecap="round" fill="none"/></g></svg></div>
+  <div style="animation:spL 1s ease .6s both;margin-bottom:8px"><svg width="160" height="44" viewBox="0 0 192 52" fill="none"><text x="8" y="40" font-family="'Sora',sans-serif" font-weight="700" font-size="36" fill="#1E293B" letter-spacing="-1.5">th</text><g transform="translate(51,4)"><rect x="0" y="18" width="7" height="13" rx="2" fill="#FF6B35"/><polygon points="1,31 3.5,37 6,31" fill="#FF6B35"/><line x1="2" y1="37" x2="0" y2="41" stroke="#FF6B35" stroke-width="1.5" stroke-linecap="round"/><line x1="5.5" y1="37" x2="7.5" y2="41" stroke="#FF6B35" stroke-width="1.5" stroke-linecap="round"/><circle cx="3.5" cy="10" r="4.5" fill="#FF6B35"/><circle cx="2" cy="9.5" r=".7" fill="#fff"/><circle cx="5" cy="9.5" r=".7" fill="#fff"/></g><text x="63" y="40" font-family="'Sora',sans-serif" font-weight="700" font-size="36" fill="#1E293B" letter-spacing="-1.5">ya</text></svg></div>
+  <p style="font-size:10px;letter-spacing:4px;color:var(--o);text-transform:uppercase;font-weight:600;animation:spF 1s ease 1.2s both">Vendor App</p>
+  <div style="width:140px;height:3px;background:var(--bdr);border-radius:2px;overflow:hidden;margin-top:20px;animation:spF 1s ease 1.4s both"><div style="height:100%;background:linear-gradient(90deg,var(--o),var(--ol));border-radius:2px;animation:wlF 2.2s ease-out"></div></div>
+</div>
+
+<!-- ═══ S1: PHONE ═══ -->
+<div class="sc" id="s1">
+  <div class="top"><svg width="80" height="28" viewBox="0 0 152 52" fill="none"><text x="4" y="38" font-family="'Sora',sans-serif" font-weight="700" font-size="32" fill="#1E293B" letter-spacing="-1">th</text><g transform="translate(42,2)"><rect x="0" y="18" width="7" height="13" rx="2" fill="#FF6B35"/><polygon points="1,31 3.5,37 6,31" fill="#FF6B35"/><g style="animation:step-l 1.2s ease-in-out infinite;transform-origin:2px 37px"><line x1="1.5" y1="37" x2="-.5" y2="42" stroke="#FF6B35" stroke-width="1.5" stroke-linecap="round"/></g><g style="animation:step-r 1.2s ease-in-out infinite;transform-origin:5px 37px"><line x1="5.5" y1="37" x2="7.5" y2="42" stroke="#FF6B35" stroke-width="1.5" stroke-linecap="round"/></g><g style="animation:v-bounce 3s ease-in-out infinite"><circle cx="3.5" cy="10" r="4.5" fill="#FF6B35"/><circle cx="2" cy="9.5" r=".8" fill="#fff"/><circle cx="5" cy="9.5" r=".8" fill="#fff"/></g></g><text x="54" y="38" font-family="'Sora',sans-serif" font-weight="700" font-size="32" fill="#1E293B" letter-spacing="-1">ya</text></svg></div>
+  <div class="bd" style="padding-top:28px">
+    <h1 style="font-family:var(--sora);font-size:24px;font-weight:700;line-height:1.2;margin-bottom:6px">Enter your number</h1>
+    <p style="font-size:14px;color:var(--t4);margin-bottom:28px">We'll send a 6-digit OTP to verify</p>
+    <div class="fld"><div class="fl">Mobile Number <span class="rq">●</span></div><div class="ph-row"><div class="ph-pre">+91</div><input class="inp" id="iPh" type="tel" maxlength="10" placeholder="98765 43210" oninput="vPh()"></div><div class="fld-h">10-digit Indian mobile (starts with 6-9)</div></div>
+    <button class="btn btn-o" id="bSnd" disabled onclick="goOtp()">Send OTP</button>
+    <div class="tb" style="margin-top:28px"><div class="tb-av"><svg width="16" height="18" viewBox="0 0 14 18" fill="none"><use href="#tAv"/></svg></div><div class="tb-bub"><div class="tb-nm">Thiya</div><div class="tb-tx">Hello! I'm Thiya, your setup assistant. Enter your phone number and let's get you started.</div></div></div>
+  </div>
+</div>
+
+<!-- ═══ S1B: OTP ═══ -->
+<div class="sc" id="s1b">
+  <div class="top"><div class="top-bk" onclick="go('s1')"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg></div><span class="top-t">Verify OTP</span></div>
+  <div class="bd" style="padding-top:28px">
+    <h1 style="font-family:var(--sora);font-size:24px;font-weight:700;margin-bottom:6px">Enter OTP</h1>
+    <p style="font-size:14px;color:var(--t4)">Sent to <span id="dPh" style="color:var(--o);font-weight:600">+91 98****10</span></p>
+    <div class="otp-r" onclick="document.getElementById('hO').focus()"><div class="ob c" id="o0"></div><div class="ob" id="o1"></div><div class="ob" id="o2"></div><div class="ob" id="o3"></div><div class="ob" id="o4"></div><div class="ob" id="o5"></div></div>
+    <input type="tel" id="hO" maxlength="6" style="position:absolute;opacity:0;height:0" oninput="oIn(this.value)">
+    <div style="text-align:center;font-size:13px;color:var(--o);font-weight:500" id="tmr">Resend in 0:30</div>
+    <button class="btn-txt" id="bRe" style="display:none;color:var(--o)" onclick="rS()">Resend OTP</button>
+    <button class="btn btn-o" id="bVer" disabled onclick="doV()" style="margin-top:16px">Verify & Continue</button>
+    <div class="wl" id="wl1" style="display:none"><div class="wl-trk"></div><div class="wl-fl"></div><svg width="100%" height="24" viewBox="0 0 360 24" fill="none" style="position:absolute;top:0"><g style="animation:walkAcross 2.5s ease-in-out"><rect x="0" y="4" width="6" height="9" rx="2" fill="#FF6B35"/><polygon points="1,13 3,17 5,13" fill="#FF6B35"/><g style="animation:walkLeg .3s ease infinite;transform-origin:1.5px 17px"><line x1="1.5" y1="17" x2="0" y2="21" stroke="#FF6B35" stroke-width="1.3" stroke-linecap="round"/></g><g style="animation:walkLeg .3s ease .15s infinite;transform-origin:4.5px 17px"><line x1="4.5" y1="17" x2="6" y2="21" stroke="#FF6B35" stroke-width="1.3" stroke-linecap="round"/></g><g style="animation:walkBob .3s ease infinite"><circle cx="3" cy="0" r="3.5" fill="#FF6B35"/><circle cx="1.8" cy="-.3" r=".5" fill="#fff"/><circle cx="4.2" cy="-.3" r=".5" fill="#fff"/></g></g></svg></div>
+    <div class="tb" style="margin-top:16px"><div class="tb-av"><svg width="16" height="18" viewBox="0 0 14 18" fill="none"><use href="#tAv"/></svg></div><div class="tb-bub" id="otpBub"><div class="tb-nm">Thiya</div><div class="tb-tx">OTP is on its way! Enter the 6-digit code you received.</div></div></div>
+  </div>
+</div>
+
+<!-- ═══ S2: PROFILE ═══ -->
+<div class="sc" id="s2">
+  <div class="top"><span class="top-t">Business Profile</span></div>
+  <div class="pw"><div class="pb"><div class="ps dn"></div><div class="ps ac"></div><div class="ps"></div></div><div class="pl"><span class="dn">✓ Phone</span><span class="ac">Profile</span><span>Location</span></div></div>
+  <div class="bd" style="padding-top:20px">
+    <h1 style="font-family:var(--sora);font-size:22px;font-weight:700;margin-bottom:4px">Tell us about your business</h1>
+    <p style="font-size:13px;color:var(--t4);margin-bottom:22px">This is what your customers will see</p>
+    <div class="fld"><div class="fl">Your Name <span class="rq">●</span></div><input class="inp" id="iOwn" placeholder="e.g. Ramesh Kumar" oninput="vPr()"></div>
+    <div class="fld"><div class="fl">Business / Shop Name <span class="rq">●</span></div><input class="inp" id="iBiz" placeholder="e.g. Ramesh Dairy Farm" oninput="vPr()"></div>
+    <div class="fld"><div class="fl">Profile Photo <span class="op">(optional — add later)</span></div><div style="display:flex;align-items:center;gap:14px;padding:14px 18px;background:var(--bg2);border:1.5px dashed var(--bdr);border-radius:14px;cursor:pointer"><div style="width:46px;height:46px;border-radius:14px;background:var(--o05);display:flex;align-items:center;justify-content:center;flex-shrink:0"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#FF6B35" stroke-width="1.5"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg></div><div><p style="font-size:13px;color:var(--t2);font-weight:500">Add a photo</p><p style="font-size:11px;color:var(--t5)">Helps build customer trust</p></div></div></div>
+    <button class="btn btn-o" id="bPr" disabled onclick="go('s3')">Continue →</button>
+    <div class="tb" style="margin-top:16px"><div class="tb-av"><svg width="16" height="18" viewBox="0 0 14 18" fill="none"><use href="#tAv"/></svg></div><div class="tb-bub"><div class="tb-nm">Thiya</div><div class="tb-tx">Enter your business name — this is what customers will see when they discover you!</div></div></div>
+  </div>
+</div>
+
+<!-- ═══ S3: ADDRESS + ZONE ═══ -->
+<div class="sc" id="s3">
+  <div class="top"><div class="top-bk" onclick="go('s2')"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg></div><span class="top-t">Location & Zone</span></div>
+  <div class="pw"><div class="pb"><div class="ps dn"></div><div class="ps dn"></div><div class="ps ac"></div></div><div class="pl"><span class="dn">✓ Phone</span><span class="dn">✓ Profile</span><span class="ac">Location</span></div></div>
+  <div class="bd" style="padding-top:16px">
+    <h1 style="font-family:var(--sora);font-size:22px;font-weight:700;margin-bottom:4px">Where's your shop?</h1>
+    <p style="font-size:13px;color:var(--t4);margin-bottom:14px">Nearby customers will discover you here</p>
+    <div class="map-box" style="height:110px;margin-bottom:16px"><div class="zone" style="width:80px;height:80px"></div><div style="font-size:30px;filter:drop-shadow(0 4px 8px var(--o30));position:relative;z-index:2">📍</div><div style="font-size:9px;color:var(--o50);letter-spacing:1px;margin-top:4px;z-index:2">Drag pin or use GPS</div></div>
+    <button class="btn-gps" id="gpsBtn" onclick="sGps()"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="2" x2="12" y2="6"/><line x1="12" y1="18" x2="12" y2="22"/><line x1="2" y1="12" x2="6" y2="12"/><line x1="18" y1="12" x2="22" y2="12"/></svg>Use my current location</button>
+    <div class="fld"><div class="fl">Address <span class="rq">●</span></div><input class="inp" id="iAd" placeholder="Shop no., Building, Street" oninput="vAd()"></div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px"><div class="fld"><div class="fl">Locality</div><input class="inp" id="iLo" placeholder="Area / Colony"></div><div class="fld"><div class="fl">Pincode <span class="rq">●</span></div><input class="inp" id="iPn" type="tel" maxlength="6" placeholder="411045" oninput="vAd()"></div></div>
+    <div class="fld"><div class="fl">City <span class="rq">●</span></div><input class="inp" id="iCi" placeholder="e.g. Pune" oninput="vAd()"></div>
+
+    <!-- Delivery Zone -->
+    <div style="margin-top:8px;padding-top:18px;border-top:1px solid var(--bdr)">
+      <h2 style="font-family:var(--sora);font-size:17px;font-weight:600;margin-bottom:2px">Delivery radius</h2>
+      <p style="font-size:12px;color:var(--t5);margin-bottom:6px">How far from your shop can you deliver?</p>
+      <div style="text-align:center;font-family:var(--sora);font-size:36px;font-weight:800;color:var(--o);margin:4px 0" id="rV">5</div>
+      <div style="text-align:center;font-size:10px;color:var(--t5);letter-spacing:2px;text-transform:uppercase">kilometers</div>
+      <div class="sl-trk" onclick="sC(event)" onmousedown="sSl(event)" ontouchstart="sSl(event)"><div class="sl-fl" id="sF" style="width:16.7%"></div><div class="sl-th" id="sT" style="left:calc(16.7% - 10px)"></div></div>
+      <div class="sl-lbl"><span>1 km</span><span>13 km</span><span>25 km</span></div>
+      <div class="map-box" style="height:72px;margin-top:12px"><div class="zone" id="zC" style="width:48px;height:48px"></div><div style="font-size:12px;color:var(--o);font-weight:600;z-index:2"><span id="rM">5</span> km zone</div></div>
+    </div>
+    <button class="btn btn-o" id="bAd" disabled onclick="goReg()" style="margin-top:18px">Register My Shop →</button>
+    <div class="tb" style="margin-top:14px"><div class="tb-av"><svg width="16" height="18" viewBox="0 0 14 18" fill="none"><use href="#tAv"/></svg></div><div class="tb-bub"><div class="tb-nm">Thiya</div><div class="tb-tx">Pin your shop on the map and set your delivery zone. One step to go!</div></div></div>
+  </div>
+</div>
+
+<!-- ═══ M1: REGISTERED! (Milestone 1 Congrats) ═══ -->
+<div class="sc" id="m1">
+  <div class="cfw" id="cW1"></div>
+  <div class="suc">
+    <div class="ck"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+    <h1 style="font-family:var(--sora);font-size:26px;font-weight:800;margin-bottom:4px">Shop Registered! 🎉</h1>
+    <p style="font-size:14px;color:var(--t3);max-width:280px;line-height:1.6;margin-bottom:4px">Your shop is on the map. Now let's set up your catalogue so customers can order.</p>
+    <div class="sum" id="m1Sum">
+      <div class="sr"><span class="sk">Business</span><span class="sv" id="xBiz">—</span></div>
+      <div class="sr"><span class="sk">Location</span><span class="sv" id="xCity">—</span></div>
+      <div class="sr"><span class="sk">Radius</span><span class="sv" style="color:var(--o)" id="xRad">—</span></div>
+    </div>
+    <button class="btn btn-o" style="max-width:300px" onclick="goShop()">Set Up My Shop →</button>
+    <button class="btn-txt" style="color:var(--t5)">I'll do this later</button>
+    <div class="tb" style="margin-top:12px;max-width:300px;width:100%"><div class="tb-av"><svg width="16" height="18" viewBox="0 0 14 18" fill="none"><use href="#tAv"/></svg></div><div class="tb-bub"><div class="tb-nm">Thiya</div><div class="tb-tx">Great start! Now add your services and products — it takes 2 minutes.</div></div></div>
+  </div>
+</div>
+
+<!-- ═══ S4: CAPABILITIES (Milestone 2 Start) ═══ -->
+<div class="sc" id="s4">
+  <div class="top"><span class="top-t">Your Services</span></div>
+  <div class="bd" style="padding-top:20px">
+    <h1 style="font-family:var(--sora);font-size:22px;font-weight:700;margin-bottom:4px">What do you deliver?</h1>
+    <p style="font-size:13px;color:var(--t4);margin-bottom:14px">Select all that apply — add more anytime</p>
+    <!-- Search -->
+    <div class="srch-w" style="margin-bottom:16px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#94A3B8" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><input class="srch" id="capSrch" placeholder="Search services..." oninput="filterCaps()"></div>
+    <!-- Selected count -->
+    <div id="selBar" style="display:none;background:var(--o05);border:1px solid var(--o15);border-radius:12px;padding:10px 14px;margin-bottom:14px;font-size:13px;color:var(--od);font-weight:600;display:flex;align-items:center;gap:6px"></div>
+    <!-- Quick Picks -->
+    <div id="qpWrap"><p style="font-size:11px;color:var(--t5);font-weight:600;letter-spacing:.5px;text-transform:uppercase;margin-bottom:8px">⚡ Quick Picks</p>
+    <div class="chips" id="qpChips"></div></div>
+    <!-- Categorized List -->
+    <div id="capList" style="margin-top:14px"></div>
+    <button class="btn btn-o" id="bSv" disabled onclick="gHub()" style="margin-top:18px">Continue → Add Products</button>
+    <div class="tb" style="margin-top:14px"><div class="tb-av"><svg width="16" height="18" viewBox="0 0 14 18" fill="none"><use href="#tAv"/></svg></div><div class="tb-bub" id="s4B"><div class="tb-nm">Thiya</div><div class="tb-tx">Pick your delivery services — you can always add more later!</div></div></div>
+  </div>
+</div>
+
+<!-- ═══ S5: CATALOGUE HUB ═══ -->
+<div class="sc" id="s5">
+  <div class="top"><div class="top-bk" onclick="go('s4')"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg></div><span class="top-t">Your Catalogue</span></div>
+  <div class="bd" style="padding-top:20px">
+    <h1 style="font-family:var(--sora);font-size:22px;font-weight:700;margin-bottom:4px">Add products to go live</h1>
+    <p style="font-size:13px;color:var(--t4);margin-bottom:20px">Tap a service to browse and add products</p>
+    <div id="cHub"></div>
+    <button class="btn btn-g" id="bGL" disabled onclick="gLive()" style="margin-top:16px;font-size:16px">🚀 Go Live!</button>
+    <button class="btn-txt" onclick="gLive()">Skip — add products later</button>
+    <div class="tb" style="margin-top:14px"><div class="tb-av"><svg width="16" height="18" viewBox="0 0 14 18" fill="none"><use href="#tAv"/></svg></div><div class="tb-bub"><div class="tb-nm">Thiya</div><div class="tb-tx">Tap any service card to browse and add products. Or tap me for voice! 🎙️</div></div></div>
+  </div>
+</div>
+
+<!-- ═══ S5D: PRODUCT DETAIL ═══ -->
+<div class="sc" id="s5d">
+  <div class="top"><div class="top-bk" onclick="gHub()"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg></div><span class="top-t" id="pdT">Milk Delivery</span></div>
+  <div class="bd" style="padding-top:16px">
+    <div class="srch-w"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#94A3B8" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><input class="srch" id="pdSrch" placeholder="Search brands or products..." oninput="filterP()"></div>
+    <p style="font-size:11px;color:var(--t5);margin:14px 0 8px;font-weight:600;letter-spacing:.5px;text-transform:uppercase">Popular Products</p>
+    <div id="pdList"></div>
+    <button class="add-cust" onclick="addCustom()">+ Add Custom Product</button>
+    <button class="btn btn-o" id="bPdSave" onclick="saveP()" style="margin-top:18px">Save Products →</button>
+  </div>
+</div>
+
+<!-- ═══ S6: SHOP LIVE! (Milestone 2 Complete) ═══ -->
+<div class="sc" id="s6">
+  <div class="cfw" id="cW2"></div>
+  <div class="suc">
+    <div class="ck"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+    <h1 style="font-family:var(--sora);font-size:26px;font-weight:800;margin-bottom:4px">You're Live! 🚀</h1>
+    <p style="font-size:14px;color:var(--t3);max-width:260px;line-height:1.6;margin-bottom:4px">Customers in your zone can now find and order from you.</p>
+    <div class="sum">
+      <div class="sr"><span class="sk">Business</span><span class="sv" id="yBiz">—</span></div>
+      <div class="sr"><span class="sk">Location</span><span class="sv" id="yCity">—</span></div>
+      <div class="sr"><span class="sk">Services</span><span class="sv" id="ySvc">—</span></div>
+      <div class="sr"><span class="sk">Products</span><span class="sv" id="yProd">—</span></div>
+      <div class="sr"><span class="sk">Radius</span><span class="sv" style="color:var(--o)" id="yRad">—</span></div>
+    </div>
+    <button class="btn btn-o" style="max-width:300px" onclick="restart()">Open Dashboard</button>
+    <button class="btn-txt" style="color:var(--o);font-weight:600;font-size:13px;margin-top:2px">Complete KYC to unlock payments →</button>
+    <div class="tb" style="margin-top:12px;max-width:300px;width:100%"><div class="tb-av"><svg width="16" height="18" viewBox="0 0 14 18" fill="none"><use href="#tAv"/></svg></div><div class="tb-bub"><div class="tb-nm">Thiya</div><div class="tb-tx">Welcome aboard! 🎉 Your shop is live. Complete KYC anytime to unlock payment features.</div></div></div>
+  </div>
+</div>
+
+<!-- ═══ FLOATING THIYA ═══ -->
+<div id="ft" class="hide" onclick="openChat()">
+  <div class="ft-ring"><svg width="28" height="38" viewBox="0 0 28 44" fill="none"><rect x="5" y="16" width="10" height="12" rx="3" fill="#fff"/><polygon points="7,28 10,33 13,28" fill="#fff"/><g style="animation:step-l .8s ease-in-out infinite;transform-origin:7.5px 33px"><line x1="7.5" y1="33" x2="6" y2="38" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/></g><g style="animation:step-r .8s ease-in-out infinite;transform-origin:12.5px 33px"><line x1="12.5" y1="33" x2="14" y2="38" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/></g><g style="animation:idle-float 3s ease-in-out infinite"><circle cx="10" cy="9" r="6" fill="#fff"/><g style="animation:blink 4s ease-in-out infinite"><circle cx="8" cy="8.5" r="1" fill="#FF6B35"/><circle cx="12" cy="8.5" r="1" fill="#FF6B35"/></g><path d="M7.5 12 Q10 14 12.5 12" stroke="#FF6B35" stroke-width=".8" stroke-linecap="round" fill="none"/></g></svg></div>
+</div>
+
+<!-- ═══ CHAT OVERLAY ═══ -->
+<div id="chat">
+  <div class="ch-head">
+    <div class="ch-close" onclick="closeChat()"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></div>
+    <svg width="80" height="100" viewBox="0 0 60 80" fill="none">
+      <rect x="17" y="38" width="16" height="24" rx="5" fill="#FF6B35"/><polygon points="20,62 25,72 30,62" fill="#FF6B35"/>
+      <g style="animation:step-l 1.2s ease infinite;transform-origin:22px 72px"><line x1="22" y1="72" x2="19" y2="80" stroke="#FF6B35" stroke-width="2.5" stroke-linecap="round"/></g>
+      <g style="animation:step-r 1.2s ease infinite;transform-origin:28px 72px"><line x1="28" y1="72" x2="31" y2="80" stroke="#FF6B35" stroke-width="2.5" stroke-linecap="round"/></g>
+      <g id="cHead" style="animation:idle-float 3s ease-in-out infinite"><circle cx="25" cy="22" r="13" fill="#FF6B35"/><g id="cEyes" style="animation:blink 4s ease-in-out infinite"><circle cx="20" cy="20.5" r="2.2" fill="#fff"/><circle cx="30" cy="20.5" r="2.2" fill="#fff"/></g><path id="cMouth" d="M20 27 Q25 31 30 27" stroke="#fff" stroke-width="1.8" stroke-linecap="round" fill="none"/></g>
+      <circle id="cR1" cx="0" cy="22" r="8" fill="none" stroke="#FF6B35" stroke-width="1" opacity="0"/>
+      <circle id="cR2" cx="0" cy="22" r="8" fill="none" stroke="#FF6B35" stroke-width=".8" opacity="0"/>
+      <path id="cW1" d="M42 16 A8 8 0 0 1 42 28" stroke="#FF6B35" stroke-width="1.5" stroke-linecap="round" fill="none" opacity="0"/>
+      <path id="cW2" d="M48 12 A12 12 0 0 1 48 32" stroke="#FF6B35" stroke-width="1.2" stroke-linecap="round" fill="none" opacity="0"/>
+      <circle id="cD1" cx="42" cy="12" r="3" fill="#FF6B35" opacity="0"/>
+      <circle id="cD2" cx="48" cy="7" r="2.2" fill="#FF6B35" opacity="0"/>
+      <circle id="cD3" cx="53" cy="3" r="1.5" fill="#FF6B35" opacity="0"/>
+    </svg>
+    <div class="ch-name">Thiya</div>
+    <p class="ch-st" id="cSt">Ready to help</p>
+  </div>
+  <div class="msgs" id="mBox"></div>
+  <div class="ch-inp">
+    <div class="ch-row">
+      <button class="mic" id="mBtn" onclick="doVo()"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><rect x="9" y="1" width="6" height="13" rx="3"/><path d="M5 10a7 7 0 0 0 14 0"/><line x1="12" y1="17" x2="12" y2="21"/><line x1="8" y1="21" x2="16" y2="21"/></svg></button>
+      <input class="cinp" id="cIn" placeholder="Hindi ya English mein type karo..." onkeydown="if(event.key==='Enter')sendM()">
+      <button class="send" onclick="sendM()"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg></button>
+    </div>
+  </div>
+</div>
+
+</div></div></div>
+
+<script>
+let otp='',tmI,svc=new Set(),rK=5,cat={},msgs=[],voP=0,curSvc='',allP={};
+const ic={Milk:'🥛',Water:'💧',Vegetables:'🥬',Tiffin:'🍱',Laundry:'👔',Bread:'🍞',Juice:'🧃',Eggs:'🥚',Sweets:'🍬','Tea & Coffee':'☕','Ice Cream':'🍦',Fruits:'🍎',Grocery:'🛒',Flowers:'💐',Medicine:'💊','Pet Food':'🐾',Cleaning:'🧹','Cooking Gas':'🔥','Pest Control':'🪲',Plumbing:'🔧',Electrician:'⚡',Newspaper:'📰',Stationery:'✏️',Courier:'📦','Car Wash':'🚗'};
+const prods={
+  Milk:[{n:'Amul Taaza 500ml',p:28},{n:'Amul Taaza 1L',p:54},{n:'Amul Gold 500ml',p:32},{n:'Amul Gold 1L',p:62},{n:'Mother Dairy Toned 500ml',p:27},{n:'Amul Paneer 200g',p:90},{n:'Amul Curd 400g',p:40}],
+  Water:[{n:'20L Water Can',p:40},{n:'25L Premium Can',p:55},{n:'Bisleri 1L Pack (12)',p:180}],
+  Vegetables:[{n:'Daily Veggie Box',p:150},{n:'Weekly Mix Basket',p:400},{n:'Seasonal Greens Box',p:120}],
+  Tiffin:[{n:'Veg Lunch Thali',p:80},{n:'Non-Veg Lunch',p:120},{n:'Diet Meal',p:100},{n:'Dinner Thali',p:90}],
+  Laundry:[{n:'Wash & Fold 1kg',p:60},{n:'Wash & Iron 1kg',p:80},{n:'Iron Only 1kg',p:40},{n:'Dry Clean (per piece)',p:150}],
+  Bread:[{n:'White Bread 400g',p:35},{n:'Brown Bread 400g',p:45},{n:'Multigrain Bread',p:55}]
+};
+
+function go(id){document.querySelectorAll('.sc').forEach(s=>s.classList.remove('on'));setTimeout(()=>{document.getElementById(id).classList.add('on');updFt(id)},80)}
+function updFt(id){const ft=document.getElementById('ft');if(id==='s0'||id==='m1'||id==='s6'){ft.classList.add('hide')}else{ft.classList.remove('hide')}}
+setTimeout(()=>go('s1'),2600);
+
+// ═══ S1: PHONE ═══
+function vPh(){document.getElementById('bSnd').disabled=!(document.getElementById('iPh').value.replace(/\D/g,'').length===10&&/^[6-9]/.test(document.getElementById('iPh').value))}
+function goOtp(){const p=document.getElementById('iPh').value;document.getElementById('dPh').textContent='+91 '+p.slice(0,2)+'****'+p.slice(-2);go('s1b');setTimeout(()=>document.getElementById('hO').focus(),500);sTmr(30)}
+
+// ═══ OTP ═══
+function oIn(v){otp=v.replace(/\D/g,'').slice(0,6);for(let i=0;i<6;i++){const b=document.getElementById('o'+i);b.textContent=otp[i]||'';b.className='ob'+(otp[i]?' f':'')+(i===otp.length&&i<6?' c':'')}document.getElementById('bVer').disabled=otp.length!==6}
+function sTmr(s){let t=s;document.getElementById('bRe').style.display='none';document.getElementById('tmr').style.display='block';tmI=setInterval(()=>{t--;document.getElementById('tmr').textContent='Resend in 0:'+String(t).padStart(2,'0');if(t<=0){clearInterval(tmI);document.getElementById('tmr').style.display='none';document.getElementById('bRe').style.display='block'}},1000)}
+function rS(){sTmr(30);document.querySelector('#otpBub .tb-tx').textContent='New OTP sent! Check your messages.'}
+function doV(){document.getElementById('bVer').disabled=true;document.getElementById('bVer').textContent='Verifying...';document.getElementById('wl1').style.display='block';setTimeout(()=>{clearInterval(tmI);go('s2');document.getElementById('bVer').textContent='Verify & Continue';document.getElementById('bVer').disabled=false},2200)}
+
+// ═══ PROFILE ═══
+function vPr(){document.getElementById('bPr').disabled=!(document.getElementById('iOwn').value.trim().length>=2&&document.getElementById('iBiz').value.trim().length>=2)}
+
+// ═══ ADDRESS + ZONE ═══
+function vAd(){document.getElementById('bAd').disabled=!(document.getElementById('iAd').value.trim().length>=3&&/^\d{6}$/.test(document.getElementById('iPn').value.trim())&&document.getElementById('iCi').value.trim().length>=2)}
+function sGps(){const btn=document.getElementById('gpsBtn');document.getElementById('iAd').value='Shop 4, Ganesh Nagar';document.getElementById('iLo').value='Baner';document.getElementById('iPn').value='411045';document.getElementById('iCi').value='Pune';vAd();btn.style.background='var(--o10)';btn.innerHTML='<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Location detected!';setTimeout(()=>{btn.style.background='';btn.innerHTML='<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="2" x2="12" y2="6"/><line x1="12" y1="18" x2="12" y2="22"/><line x1="2" y1="12" x2="6" y2="12"/><line x1="18" y1="12" x2="22" y2="12"/></svg>Use my current location'},2000)}
+function slSet(p){p=Math.max(0,Math.min(1,p));rK=Math.round(1+p*24);p=(rK-1)/24;document.getElementById('sF').style.width=(p*100)+'%';document.getElementById('sT').style.left='calc('+p*100+'% - 10px)';document.getElementById('rV').textContent=rK;document.getElementById('rM').textContent=rK;const sz=30+p*50;document.getElementById('zC').style.width=sz+'px';document.getElementById('zC').style.height=sz+'px'}
+function sC(e){slSet((e.clientX-e.currentTarget.getBoundingClientRect().left)/e.currentTarget.getBoundingClientRect().width)}
+function sSl(){const mv=v=>{const t=v.touches?v.touches[0]:v;const r=document.querySelector('.sl-trk').getBoundingClientRect();slSet((t.clientX-r.left)/r.width)};const up=()=>{document.removeEventListener('mousemove',mv);document.removeEventListener('mouseup',up);document.removeEventListener('touchmove',mv);document.removeEventListener('touchend',up)};document.addEventListener('mousemove',mv);document.addEventListener('mouseup',up);document.addEventListener('touchmove',mv,{passive:true});document.addEventListener('touchend',up)}
+
+// ═══ MILESTONE 1: REGISTER ═══
+function goReg(){const b=document.getElementById('bAd');b.disabled=true;b.textContent='Registering...';setTimeout(()=>{document.getElementById('xBiz').textContent=document.getElementById('iBiz').value||'Your Business';document.getElementById('xCity').textContent=(document.getElementById('iLo').value?document.getElementById('iLo').value+', ':'')+document.getElementById('iCi').value;document.getElementById('xRad').textContent=rK+' km';go('m1');lCf('cW1');b.textContent='Register My Shop →';b.disabled=false},1600)}
+// goShop is now in capabilities section below
+
+// ═══ CAPABILITIES (Scalable for 100s) ═══
+const capDB=[
+  {cat:'Food & Beverages',items:[
+    {v:'Milk',ic:'🥛',d:'Dairy & milk products'},{v:'Water',ic:'💧',d:'Water can delivery'},{v:'Bread',ic:'🍞',d:'Bakery & bread'},
+    {v:'Tiffin',ic:'🍱',d:'Tiffin & meal delivery'},{v:'Juice',ic:'🧃',d:'Fresh juice & smoothies'},{v:'Eggs',ic:'🥚',d:'Eggs & poultry'},
+    {v:'Sweets',ic:'🍬',d:'Mithai & desserts'},{v:'Tea & Coffee',ic:'☕',d:'Chai & coffee delivery'},{v:'Ice Cream',ic:'🍦',d:'Frozen desserts'}
+  ]},
+  {cat:'Daily Essentials',items:[
+    {v:'Vegetables',ic:'🥬',d:'Fresh veggies daily'},{v:'Fruits',ic:'🍎',d:'Seasonal fruits'},{v:'Grocery',ic:'🛒',d:'Daily groceries & staples'},
+    {v:'Flowers',ic:'💐',d:'Pooja flowers & bouquets'},{v:'Medicine',ic:'💊',d:'Pharmacy delivery'},{v:'Pet Food',ic:'🐾',d:'Pet food & supplies'}
+  ]},
+  {cat:'Home Services',items:[
+    {v:'Laundry',ic:'👔',d:'Wash, iron & dry clean'},{v:'Cleaning',ic:'🧹',d:'Home & office cleaning'},
+    {v:'Cooking Gas',ic:'🔥',d:'LPG cylinder delivery'},{v:'Pest Control',ic:'🪲',d:'Pest treatment'},{v:'Plumbing',ic:'🔧',d:'Plumbing services'},
+    {v:'Electrician',ic:'⚡',d:'Electrical repairs'}
+  ]},
+  {cat:'Other',items:[
+    {v:'Newspaper',ic:'📰',d:'Morning paper delivery'},{v:'Stationery',ic:'✏️',d:'Office & school supplies'},
+    {v:'Courier',ic:'📦',d:'Local courier & parcels'},{v:'Car Wash',ic:'🚗',d:'Vehicle cleaning'}
+  ]}
+];
+const quickPicks=['Milk','Water','Vegetables','Tiffin','Laundry','Bread'];
+function getCapMeta(v){for(const c of capDB)for(const i of c.items)if(i.v===v)return i;return{v,ic:'📦',d:''}}
+
+function goShop(){go('s4');renderCaps()}
+function renderCaps(q=''){
+  // Quick picks
+  const qp=document.getElementById('qpChips');
+  const qpW=document.getElementById('qpWrap');
+  if(q){qpW.style.display='none'}else{
+    qpW.style.display='';
+    qp.innerHTML=quickPicks.map(v=>{const m=getCapMeta(v);return`<div class="chip${svc.has(v)?' on':''}" onclick="togCap('${v}')" data-v="${v}"><span class="ci">${m.ic}</span>${v}</div>`}).join('');
+  }
+  // Categorized list
+  const cl=document.getElementById('capList');let html='';
+  capDB.forEach(cat=>{
+    const filtered=cat.items.filter(i=>!q||i.v.toLowerCase().includes(q)||i.d.toLowerCase().includes(q));
+    if(!filtered.length)return;
+    html+=`<div class="cat-hd">${cat.cat}</div>`;
+    filtered.forEach(i=>{
+      const on=svc.has(i.v);
+      html+=`<div class="cap-row${on?' on':''}" onclick="togCap('${i.v}')"><div class="cr-ic">${i.ic}</div><div style="flex:1;min-width:0"><div class="cr-nm">${i.v}</div><div class="cr-desc">${i.d}</div></div><div class="cr-ck">${on?'✓':''}</div></div>`;
+    });
+  });
+  cl.innerHTML=html;
+  updSelBar();
+}
+function filterCaps(){renderCaps(document.getElementById('capSrch').value.trim().toLowerCase())}
+function togCap(v){svc.has(v)?svc.delete(v):svc.add(v);renderCaps(document.getElementById('capSrch').value.trim().toLowerCase())}
+function updSelBar(){
+  const bar=document.getElementById('selBar');
+  document.getElementById('bSv').disabled=svc.size===0;
+  if(svc.size===0){bar.style.display='none';document.querySelector('#s4B .tb-tx').textContent='Pick your delivery services — you can always add more later!';return}
+  bar.style.display='flex';
+  bar.innerHTML='🟠 <b>'+svc.size+'</b> service'+(svc.size>1?'s':'')+' selected: '+[...svc].slice(0,4).join(', ')+(svc.size>4?' +more':'');
+  document.querySelector('#s4B .tb-tx').textContent='Great — '+[...svc].join(', ')+'! Now let\'s add products.';
+}
+
+// ═══ CATALOGUE HUB ═══
+function gHub(){const h=document.getElementById('cHub');h.innerHTML='';[...svc].forEach(s=>{if(!cat[s])cat[s]=[];const n=cat[s].length;const r=n>0;h.innerHTML+=`<div class="cap${r?' rdy':''}" onclick="openPD('${s}')"><div style="display:flex;align-items:center;justify-content:space-between"><div style="display:flex;align-items:center;gap:12px"><span style="font-size:24px">${ic[s]||'📦'}</span><div><div style="font-size:15px;font-weight:600">${s} Delivery</div><div style="font-size:11px;color:var(--t4);margin-top:3px">${n} product${n!==1?'s':''} added</div></div></div><span class="badge ${r?'badge-r':'badge-p'}">${r?'READY':'PENDING'}</span></div><div style="margin-top:12px;font-size:12px;color:var(--t5);display:flex;align-items:center;gap:4px">${r?'<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--g)" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Tap to add more':'<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--o)" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg> <span style="color:var(--o)">Tap to add products</span>'}</div></div>`});document.getElementById('bGL').disabled=![...svc].every(s=>cat[s]&&cat[s].length>0);go('s5')}
+
+// ═══ PRODUCT DETAIL ═══
+function openPD(s){curSvc=s;document.getElementById('pdT').textContent=s+' Delivery';document.getElementById('pdSrch').value='';allP={};(prods[s]||[]).forEach(p=>{allP[p.n]={...p,sel:!!(cat[s]&&cat[s].find(x=>x.n===p.n))}});renderPD();go('s5d')}
+function renderPD(q=''){const l=document.getElementById('pdList');l.innerHTML='';Object.values(allP).forEach(p=>{if(q&&!p.n.toLowerCase().includes(q.toLowerCase()))return;l.innerHTML+=`<div class="pc${p.sel?' sel':''}" onclick="togP('${p.n}')"><div class="pc-ic">${ic[curSvc]||'📦'}</div><div style="flex:1;min-width:0"><div class="pc-nm">${p.n}</div><div class="pc-mt">Suggested ₹${p.p}</div>${p.sel?`<div class="pri"><span class="pri-s">₹</span><input class="pri-in" value="${p.price||p.p}" onclick="event.stopPropagation()" oninput="updPri('${p.n}',this.value)"></div>`:''}</div><div class="pc-ck">${p.sel?'✓':''}</div></div>`})}
+function filterP(){renderPD(document.getElementById('pdSrch').value)}
+function togP(n){allP[n].sel=!allP[n].sel;if(allP[n].sel)allP[n].price=allP[n].p;renderPD(document.getElementById('pdSrch').value)}
+function updPri(n,v){if(allP[n])allP[n].price=v}
+function addCustom(){const nm=prompt('Product name:');if(!nm)return;const pr=prompt('Your price (₹):');if(!pr)return;allP[nm]={n:nm,p:parseInt(pr)||0,price:parseInt(pr)||0,sel:true};renderPD()}
+function saveP(){cat[curSvc]=Object.values(allP).filter(p=>p.sel).map(p=>({n:p.n,p:p.price||p.p}));gHub()}
+
+// ═══ MILESTONE 2: GO LIVE ═══
+function gLive(){const b=document.getElementById('bGL');b.disabled=true;b.textContent='Going live...';setTimeout(()=>{document.getElementById('yBiz').textContent=document.getElementById('iBiz').value||'Your Business';document.getElementById('yCity').textContent=(document.getElementById('iLo').value?document.getElementById('iLo').value+', ':'')+document.getElementById('iCi').value;document.getElementById('ySvc').textContent=[...svc].join(', ');let tot=0;Object.values(cat).forEach(a=>tot+=a.length);document.getElementById('yProd').textContent=tot+' products';document.getElementById('yRad').textContent=rK+' km';go('s6');lCf('cW2');b.textContent='🚀 Go Live!';b.disabled=false},1800)}
+
+// Confetti
+function lCf(wId){const w=document.getElementById(wId);w.innerHTML='';const c=['#FF6B35','#FF8F55','#16a34a','#5eead4','#fbbf24','#f472b6','#a78bfa','#3b82f6'];for(let i=0;i<30;i++){const d=document.createElement('div');d.className='cf';d.style.cssText=`left:${10+Math.random()*80}%;top:${20+Math.random()*40}%;width:${5+Math.random()*6}px;height:${5+Math.random()*6}px;background:${c[i%c.length]};border-radius:${Math.random()>.5?'50%':'2px'};--rot:${Math.random()*720}deg;animation:cfD ${1+Math.random()*1.5}s ease-out ${Math.random()*.4}s forwards`;w.appendChild(d)}}
+
+// ═══ CHAT ═══
+function openChat(){msgs=[];renderM();document.getElementById('chat').classList.add('on');document.getElementById('ft').classList.add('hide');setCh('idle');setTimeout(()=>addAI('Namaste! Main Thiya hoon. Aapko kya help chahiye? Bolo ya type karo — dono chalega.'),400)}
+function closeChat(){document.getElementById('chat').classList.remove('on');document.getElementById('ft').classList.remove('hide');voP=0}
+function addAI(t){msgs.push({r:'ai',t});renderM();setCh('responding');setTimeout(()=>setCh('idle'),2000)}
+function addU(t){msgs.push({r:'u',t});renderM()}
+function renderM(){const b=document.getElementById('mBox');if(!msgs.length){b.innerHTML='<div style="flex:1;display:flex;align-items:center;justify-content:center;text-align:center;color:var(--t5)">Aapko kya chahiye?</div>';return}b.innerHTML=msgs.map(m=>m.r==='u'?`<div class="msg msg-user"><div class="m-bub">${m.t}</div></div>`:`<div class="msg msg-ai"><div class="m-av"><svg width="14" height="16" viewBox="0 0 14 18" fill="none"><use href="#tAv"/></svg></div><div class="m-bub">${m.t}</div></div>`).join('');b.scrollTop=b.scrollHeight}
+function sendM(){const i=document.getElementById('cIn');const t=i.value.trim();if(!t)return;i.value='';addU(t);setCh('processing');setTimeout(()=>addAI('Samajh gayi! Aage screen pe fill karo ya mujhse voice mein baat karo — main help karungi.'),1500)}
+
+function setCh(s){
+  const h=document.getElementById('cHead'),e=document.getElementById('cEyes'),m=document.getElementById('cMouth');
+  const r1=document.getElementById('cR1'),r2=document.getElementById('cR2'),w1=document.getElementById('cW1'),w2=document.getElementById('cW2');
+  const d1=document.getElementById('cD1'),d2=document.getElementById('cD2'),d3=document.getElementById('cD3');
+  const st=document.getElementById('cSt');
+  r1.style.cssText='opacity:0';r2.style.cssText='opacity:0';w1.style.opacity='0';w2.style.opacity='0';d1.style.cssText='opacity:0';d2.style.cssText='opacity:0';d3.style.cssText='opacity:0';
+  if(s==='idle'){h.style.animation='idle-float 3s ease-in-out infinite';e.style.animation='blink 4s ease-in-out infinite';e.innerHTML='<circle cx="20" cy="20.5" r="2.2" fill="#fff"/><circle cx="30" cy="20.5" r="2.2" fill="#fff"/>';m.setAttribute('d','M20 27 Q25 31 30 27');m.setAttribute('fill','none');st.textContent='Ready to help'}
+  else if(s==='listening'){h.style.animation='listen-tilt 2.5s ease-in-out infinite';e.style.animation='none';e.innerHTML='<circle cx="20" cy="20" r="2.5" fill="#fff"/><circle cx="30" cy="20" r="2.5" fill="#fff"/>';m.setAttribute('d','M22 28 A3 2 0 0 0 28 28');r1.style.cssText='opacity:1;animation:speak-w1 2s ease-out infinite';r2.style.cssText='opacity:1;animation:speak-w2 2s ease-out .6s infinite';st.textContent='🎙️ Sun rahi hoon...'}
+  else if(s==='processing'){h.style.animation='idle-float 2s ease-in-out infinite';e.style.animation='none';e.innerHTML='<circle cx="20" cy="20" r="2.2" fill="#fff"/><circle cx="30" cy="20" r="2.2" fill="#fff"/><circle cx="21" cy="19" r=".8" fill="#C84E1B"/><circle cx="31" cy="19" r=".8" fill="#C84E1B"/>';m.setAttribute('d','M21 28 L29 28');d1.style.cssText='animation:think-dot1 2s ease-in-out infinite';d2.style.cssText='animation:think-dot2 2s ease-in-out infinite';d3.style.cssText='animation:think-dot3 2s ease-in-out infinite';st.textContent='🤔 Soch rahi hoon...'}
+  else if(s==='responding'){h.style.animation='idle-float 3s ease-in-out infinite';e.style.animation='blink 3s ease-in-out infinite';e.innerHTML='<circle cx="20" cy="20.5" r="2.2" fill="#fff"/><circle cx="30" cy="20.5" r="2.2" fill="#fff"/>';m.setAttribute('d','M22 27 A3 3 0 0 0 28 27');w1.style.cssText='animation:speak-w1 1s ease-out infinite;opacity:.4';w2.style.cssText='animation:speak-w2 1s ease-out .3s infinite;opacity:.3';st.textContent='💬 Bata rahi hoon...'}
+}
+
+function doVo(){const b=document.getElementById('mBtn');if(voP===0){voP=1;b.classList.add('on');setCh('listening');setTimeout(()=>{voP=0;b.classList.remove('on');addU('"Mere paas Amul ka doodh hai, Taaza aur Gold dono"');setCh('processing');setTimeout(()=>{const found=prods[Object.keys(prods).find(k=>svc.has(k))||'Milk']||prods.Milk;let html='Main ne ye products dhundhe:<br><br>';found.slice(0,4).forEach(p=>{html+=`• <b>${p.n}</b> — ₹${p.p}<br>`});html+='<br>Catalogue mein add karna hai?';addAI(html)},1500)},2500)}else{voP=0;b.classList.remove('on');setCh('idle')}}
+
+function restart(){otp='';svc.clear();cat={};rK=5;allP={};document.querySelectorAll('.inp,.srch').forEach(i=>i.value='');for(let i=0;i<6;i++){document.getElementById('o'+i).textContent='';document.getElementById('o'+i).className='ob'+(i===0?' c':'')}document.getElementById('hO').value='';slSet((5-1)/24);go('s0');setTimeout(()=>go('s1'),2600)}
+</script>
+<script>
+(function() {
+  var veil = document.getElementById('auth-veil');
+  if (sessionStorage.getItem('thiya_dev_session') === '1') {
+    veil.remove();
+  } else {
+    veil.textContent = 'body{margin:0;background:#E2E8F0;font-family:sans-serif}';
+    document.addEventListener('DOMContentLoaded', function() {
+      document.body.innerHTML =
+        '<div style="min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:28px;padding:24px;text-align:center">' +
+          '<div>' +
+            '<div style="width:52px;height:52px;background:#FF6B35;border-radius:12px;display:inline-flex;align-items:center;justify-content:center;font-weight:700;font-size:20px;color:#fff;margin-bottom:20px">th</div>' +
+            '<h2 style="color:#111;font-size:22px;font-weight:700;margin-bottom:10px">Restricted Access</h2>' +
+            '<p style="color:#666;font-size:14px;line-height:1.7;max-width:300px">This resource is only accessible through the Thiya Developer Portal.</p>' +
+          '</div>' +
+          '<a href="developer.html" style="display:inline-block;background:#FF6B35;color:#fff;text-decoration:none;padding:13px 28px;border-radius:8px;font-size:14px;font-weight:600">Go to Developer Portal &rarr;</a>' +
+        '</div>';
+    });
+  }
+})();
+</script>
+</body>
+</html>
