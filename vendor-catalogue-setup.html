@@ -1,0 +1,824 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="robots" content="noindex, nofollow">
+<style id="auth-veil">body{visibility:hidden;background:#FAFAFA}</style>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Milestone 2 — Catalogue Setup & Go Live</title>
+<style>
+:root {
+  --p:#6C3DF4; --pl:#EDE9FF; --g:#22C55E; --gl:#DCFCE7;
+  --o:#F97316; --ol:#FFF7ED; --b:#3B82F6; --bl:#EFF6FF;
+  --r:#EF4444; --rl:#FEF2F2; --th:#7C3AED; --thl:#F5F3FF;
+  --ca:#0D9488; --cal:#F0FDFA; --w:#F59E0B; --wl:#FFFBEB;
+  --gray:#6B7280; --light:#F9FAFB; --border:#E5E7EB; --text:#111827; --ts:#6B7280;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;font-size:14px;color:var(--text);background:#FAFAFA;line-height:1.6;}
+.page{max-width:1120px;margin:0 auto;padding:36px 24px 80px;}
+
+.doc-header{background:linear-gradient(135deg,var(--ca) 0%,var(--p) 100%);color:white;padding:28px 36px;border-radius:16px;margin-bottom:32px;}
+.doc-header h1{font-size:24px;font-weight:700;margin-bottom:4px;}
+.doc-header p{opacity:.85;font-size:13px;}
+.pills{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px;}
+.pill{background:rgba(255,255,255,.18);padding:3px 12px;border-radius:20px;font-size:11px;font-weight:500;}
+.pill.out{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.3);}
+
+.precond{background:var(--cal);border:1.5px solid var(--ca);border-radius:12px;padding:16px 20px;margin-bottom:24px;display:flex;gap:16px;align-items:flex-start;}
+.precond-icon{font-size:24px;flex-shrink:0;}
+.precond h3{font-size:14px;font-weight:700;color:#0F766E;margin-bottom:4px;}
+.precond ul{font-size:12px;color:#134E4A;padding-left:16px;}
+
+.scope-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:32px;}
+.scope-box{border-radius:10px;padding:14px 18px;font-size:13px;}
+.scope-in{background:var(--gl);border:1px solid var(--g);}
+.scope-out{background:var(--rl);border:1px solid var(--r);}
+.scope-box h4{font-size:12px;font-weight:700;margin-bottom:6px;text-transform:uppercase;letter-spacing:.05em;}
+.scope-in h4{color:#15803D;} .scope-out h4{color:#DC2626;}
+.scope-box ul{padding-left:16px;} .scope-box li{margin-bottom:2px;}
+
+.journey{background:white;border:1px solid var(--border);border-radius:12px;padding:20px 24px;margin-bottom:32px;overflow-x:auto;}
+.journey-title{font-weight:700;font-size:13px;color:var(--ts);margin-bottom:14px;text-transform:uppercase;letter-spacing:.05em;}
+.jsteps{display:flex;align-items:center;gap:0;min-width:max-content;}
+.jstep{text-align:center;min-width:90px;}
+.jstep-num{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 4px;font-size:12px;font-weight:700;}
+.jstep-num.done{background:#F1F5F9;color:#475569;border:2px solid #94A3B8;}
+.jstep-num.cat{background:var(--cal);color:var(--ca);border:2px solid var(--ca);}
+.jstep-num.go{background:var(--gl);color:#15803D;border:2px solid var(--g);}
+.jstep-label{font-size:10px;color:var(--ts);font-weight:500;line-height:1.3;}
+.jarrow{color:#CBD5E1;font-size:18px;padding:0 4px;align-self:flex-start;margin-top:6px;}
+.m1-badge{background:#94A3B8;color:white;font-size:10px;font-weight:700;padding:2px 6px;border-radius:8px;margin-top:3px;display:inline-block;}
+.m2-badge{background:var(--ca);color:white;font-size:10px;font-weight:700;padding:2px 6px;border-radius:8px;margin-top:3px;display:inline-block;}
+
+.section{margin-bottom:44px;}
+.sec-title{font-size:17px;font-weight:700;border-bottom:2px solid var(--border);padding-bottom:10px;margin-bottom:18px;display:flex;align-items:center;gap:10px;}
+.sec-num{width:26px;height:26px;border-radius:50%;background:var(--ca);color:white;font-size:12px;font-weight:700;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;}
+.sec-sub{font-size:12px;color:var(--ts);margin-top:-12px;margin-bottom:18px;}
+
+.screen-pair{display:grid;grid-template-columns:240px 1fr;gap:24px;margin-bottom:24px;align-items:start;}
+.screen-mock{border:2.5px solid #1F2937;border-radius:24px;overflow:hidden;background:white;box-shadow:0 4px 16px rgba(0,0,0,.12);}
+.s-bar{background:#1F2937;color:#9CA3AF;font-size:9px;padding:5px 14px;display:flex;justify-content:space-between;}
+.s-nav{background:white;border-bottom:1px solid var(--border);padding:10px 14px;font-weight:600;font-size:12px;display:flex;align-items:center;gap:8px;}
+.s-nav .back{color:var(--ca);font-size:11px;}
+.s-tab-row{display:flex;border-bottom:1px solid var(--border);background:white;}
+.s-tab{padding:6px 10px;font-size:10px;font-weight:500;color:var(--ts);}
+.s-tab.active{color:var(--ca);border-bottom:2px solid var(--ca);font-weight:700;}
+.s-body{padding:12px;min-height:200px;background:var(--light);}
+.s-field{background:white;border:1px solid var(--border);border-radius:8px;padding:8px 10px;margin-bottom:8px;font-size:11px;}
+.s-field-label{font-size:9px;color:var(--ts);text-transform:uppercase;letter-spacing:.05em;margin-bottom:2px;}
+.s-field-val{color:var(--ts);font-style:italic;}
+.s-field-val.filled{color:var(--text);font-style:normal;}
+.s-chip-row{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px;}
+.s-chip{font-size:10px;padding:3px 8px;border-radius:12px;border:1px solid var(--border);background:white;}
+.s-chip.sel{background:var(--cal);border-color:var(--ca);color:var(--ca);font-weight:600;}
+.s-card{background:white;border:1px solid var(--border);border-radius:8px;padding:8px 10px;margin-bottom:6px;font-size:10px;}
+.s-card.active-prod{border-left:3px solid var(--g);}
+.s-card.oos{border-left:3px solid var(--o);opacity:.8;}
+.s-card-row{display:flex;align-items:flex-start;gap:6px;}
+.s-cta{padding:10px 14px;border-top:1px solid var(--border);background:white;}
+.s-btn{background:var(--ca);color:white;border-radius:8px;padding:8px;text-align:center;font-size:11px;font-weight:600;}
+.s-btn.secondary{background:white;color:var(--ca);border:1px solid var(--ca);}
+.s-btn.danger{background:var(--rl);color:var(--r);border:1px solid var(--r);}
+.s-thiya{background:var(--thl);border:1px solid #DDD6FE;border-radius:8px;padding:6px 10px;margin-bottom:8px;font-size:10px;display:flex;align-items:center;gap:6px;}
+.s-thiya-orb{width:24px;height:24px;border-radius:50%;background:var(--th);display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0;}
+.s-badge{display:inline-block;font-size:9px;padding:2px 6px;border-radius:4px;font-weight:600;}
+.s-badge.active{background:#DCFCE7;color:#15803D;}
+.s-badge.oos{background:#FFF7ED;color:#C2410C;}
+.s-badge.hidden{background:#F1F5F9;color:#475569;}
+.s-badge.system{background:var(--cal);color:var(--ca);}
+.s-badge.custom{background:var(--pl);color:var(--p);}
+
+.spec{background:white;border:1px solid var(--border);border-radius:12px;padding:18px;}
+.spec-section{margin-bottom:14px;}
+.spec-section:last-child{margin-bottom:0;}
+.spec-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--ts);margin-bottom:6px;}
+.spec-label.api{color:var(--b);}
+.spec-label.thiya{color:var(--th);}
+.spec-label.edge{color:var(--o);}
+.api-block{background:#0F172A;color:#E2E8F0;border-radius:8px;padding:10px 12px;font-family:'Courier New',monospace;font-size:11px;line-height:1.7;}
+.api-block .method{color:#86EFAC;}
+.api-block .path{color:#93C5FD;}
+.api-block .key{color:#FCD34D;}
+.api-block .val{color:#E2E8F0;}
+.api-block .comment{color:#64748B;}
+.field-list{font-size:12px;}
+.field-list li{display:flex;gap:8px;align-items:baseline;padding:3px 0;border-bottom:1px solid var(--border);flex-wrap:wrap;}
+.field-list li:last-child{border:none;}
+.field-name{font-weight:600;color:var(--text);min-width:130px;}
+.field-desc{color:var(--ts);}
+.badge{font-size:9px;padding:1px 6px;border-radius:4px;font-weight:700;white-space:nowrap;}
+.badge.req{background:#FEF2F2;color:#DC2626;}
+.badge.opt{background:#F0FDF4;color:#15803D;}
+.badge.auto{background:var(--cal);color:#0F766E;}
+.badge.plan{background:var(--pl);color:var(--p);}
+
+.note{display:flex;gap:10px;padding:10px 14px;border-radius:8px;margin-bottom:10px;font-size:12px;line-height:1.6;}
+.note.info{background:var(--bl);border-left:3px solid var(--b);}
+.note.warn{background:var(--ol);border-left:3px solid var(--o);}
+.note.success{background:var(--gl);border-left:3px solid var(--g);}
+.note.danger{background:var(--rl);border-left:3px solid var(--r);}
+.note.thiya{background:var(--thl);border-left:3px solid var(--th);}
+.note.catalog{background:var(--cal);border-left:3px solid var(--ca);}
+.note-icon{font-size:15px;flex-shrink:0;margin-top:1px;}
+
+.thiya-flow{background:var(--thl);border:1px solid #DDD6FE;border-radius:12px;padding:16px;margin-bottom:16px;}
+.tf-header{display:flex;align-items:center;gap:8px;margin-bottom:12px;}
+.tf-orb{width:32px;height:32px;border-radius:50%;background:var(--th);color:white;display:flex;align-items:center;justify-content:center;font-size:16px;}
+.tf-title{font-weight:700;font-size:13px;color:var(--th);}
+.tf-subtitle{font-size:11px;color:#6D28D9;}
+.tf-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+.tf-col-label{font-size:10px;font-weight:700;text-transform:uppercase;color:var(--th);margin-bottom:6px;letter-spacing:.05em;}
+.bubble{border-radius:12px;padding:10px 12px;margin-bottom:6px;font-size:12px;}
+.bubble.vendor{background:#F1F5F9;border-bottom-left-radius:3px;}
+.bubble.thiya{background:var(--th);color:white;border-bottom-right-radius:3px;}
+.tf-card{background:white;border-radius:10px;padding:12px;border:1px solid #DDD6FE;}
+.tf-card-title{font-weight:600;font-size:12px;margin-bottom:8px;color:var(--th);}
+.tf-fill-row{display:flex;gap:6px;align-items:flex-start;font-size:11px;padding:3px 0;}
+.tf-fill-row .check{color:var(--g);font-weight:700;}
+.tf-fill-row .auto{color:var(--ca);font-size:9px;font-weight:600;margin-left:4px;}
+.tf-btns{display:flex;gap:8px;margin-top:10px;}
+.tf-btn-confirm{background:var(--th);color:white;border-radius:8px;padding:6px 12px;font-size:11px;font-weight:600;}
+.tf-btn-edit{background:white;color:var(--th);border:1px solid var(--th);border-radius:8px;padding:6px 12px;font-size:11px;}
+
+/* Product Model */
+.model-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:20px;}
+.model-card{border-radius:10px;padding:14px;border:1px solid;}
+.model-card.system{background:var(--cal);border-color:var(--ca);}
+.model-card.vendor{background:var(--pl);border-color:var(--p);}
+.model-card.template{background:var(--thl);border-color:var(--th);}
+.model-card h4{font-size:12px;font-weight:700;margin-bottom:6px;}
+.model-card.system h4{color:#0F766E;} .model-card.vendor h4{color:var(--p);} .model-card.template h4{color:var(--th);}
+.model-card p{font-size:11px;color:var(--ts);}
+
+/* Go Live */
+.golive-check{display:flex;flex-direction:column;gap:8px;margin-bottom:16px;}
+.check-item{display:flex;align-items:flex-start;gap:10px;padding:10px 14px;border-radius:8px;border:1px solid;}
+.check-item.pass{background:var(--gl);border-color:var(--g);}
+.check-item.fail{background:var(--rl);border-color:var(--r);}
+.check-item.warn{background:var(--wl);border-color:var(--w);}
+.check-icon{font-size:16px;flex-shrink:0;}
+.check-text{font-size:12px;}
+.check-text strong{display:block;font-size:13px;margin-bottom:2px;}
+
+/* Plan Table */
+.tbl{width:100%;border-collapse:collapse;font-size:12px;margin-bottom:16px;}
+.tbl th{background:var(--light);text-align:left;padding:8px 12px;border:1px solid var(--border);font-weight:600;font-size:11px;}
+.tbl td{padding:7px 12px;border:1px solid var(--border);vertical-align:top;}
+.tbl tr:nth-child(even) td{background:#FAFAFA;}
+.code{font-family:'Courier New',monospace;background:var(--light);padding:2px 5px;border-radius:4px;font-size:11px;}
+
+/* Status lifecycle */
+.status-flow{display:flex;align-items:center;gap:0;flex-wrap:wrap;margin-bottom:12px;}
+.status-node{border-radius:8px;padding:6px 12px;font-size:11px;font-weight:600;text-align:center;}
+.status-node.active{background:var(--gl);color:#15803D;}
+.status-node.oos{background:var(--ol);color:#C2410C;}
+.status-node.hidden{background:#F1F5F9;color:#475569;}
+.status-arrow{color:var(--gray);padding:0 8px;font-size:16px;align-self:center;}
+.status-label{font-size:10px;color:var(--ts);text-align:center;margin-top:2px;}
+
+/* Quick actions */
+.action-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:16px;}
+.action-card{border-radius:10px;padding:12px;border:1px solid var(--border);background:white;}
+.action-card h4{font-size:12px;font-weight:700;margin-bottom:6px;display:flex;align-items:center;gap:6px;}
+
+@media(max-width:700px){
+  .screen-pair{grid-template-columns:1fr;}
+  .scope-grid,.tf-row,.model-grid,.action-grid{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+<!-- ═══ HEADER ═══ -->
+<div class="doc-header">
+  <h1>Vendor App — Catalogue Setup & Go Live</h1>
+  <p>UX & Development Guide · Milestone 2 of 2 · Backend: http://localhost:8080 · Swagger: /swagger-ui/index.html</p>
+  <div class="pills">
+    <span class="pill">Audience: UX Designer + Flutter Developer</span>
+    <span class="pill">Requires: Milestone 1 Complete</span>
+    <span class="pill">AI: Thiya — Voice First</span>
+    <span class="pill out">❌ Does NOT cover: Auth, Onboarding, Orders</span>
+  </div>
+</div>
+
+<!-- ═══ PRE-CONDITIONS ═══ -->
+<div class="precond">
+  <div class="precond-icon">✅</div>
+  <div>
+    <h3>Starting Point — Milestone 1 Must Be Complete</h3>
+    <ul>
+      <li>Vendor is authenticated (valid Bearer token)</li>
+      <li>At least 1 active capability exists (e.g., MILK_DELIVERY)</li>
+      <li>Service zone is set for at least one capability</li>
+      <li>Business name is filled (ownerName + businessName not null)</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ═══ SCOPE ═══ -->
+<div class="scope-grid">
+  <div class="scope-box scope-in">
+    <h4>✅ Covered in This Guide</h4>
+    <ul>
+      <li>Product catalog home & navigation</li>
+      <li>Browsing system/master product catalog</li>
+      <li>Adding products from system catalog (pre-filled)</li>
+      <li>Adding fully custom products (Thiya-assisted)</li>
+      <li>Price & MRP management</li>
+      <li>Stock status management</li>
+      <li>Product media (images/videos)</li>
+      <li>Go Live checklist</li>
+      <li>Plan limits & upgrade prompts</li>
+    </ul>
+  </div>
+  <div class="scope-box scope-out">
+    <h4>❌ Not Covered Here</h4>
+    <ul>
+      <li>Auth / OTP flow → see Guide 1</li>
+      <li>Capability & zone setup → see Guide 1</li>
+      <li>Order management</li>
+      <li>Consumer onboarding</li>
+      <li>Subscription management</li>
+      <li>Payments & Khata</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ═══ JOURNEY MAP ═══ -->
+<div class="journey">
+  <div class="journey-title">Milestone 2 Journey — Shop Registered → Go Live</div>
+  <div class="jsteps">
+    <div class="jstep"><div class="jstep-num done">✓</div><div class="jstep-label">Shop Registered<div class="m1-badge">M1 Done</div></div></div>
+    <div class="jarrow">→</div>
+    <div class="jstep"><div class="jstep-num cat">1</div><div class="jstep-label">Catalog<br>Home</div></div>
+    <div class="jarrow">→</div>
+    <div class="jstep"><div class="jstep-num cat">2</div><div class="jstep-label">Browse<br>Products</div></div>
+    <div class="jarrow">→</div>
+    <div class="jstep"><div class="jstep-num cat">3</div><div class="jstep-label">Add<br>Product</div></div>
+    <div class="jarrow">→</div>
+    <div class="jstep"><div class="jstep-num cat">4</div><div class="jstep-label">Set Price<br>& Status</div></div>
+    <div class="jarrow">→</div>
+    <div class="jstep"><div class="jstep-num cat">5</div><div class="jstep-label">Review<br>Checklist</div></div>
+    <div class="jarrow">→</div>
+    <div class="jstep"><div class="jstep-num go">🚀</div><div class="jstep-label">Go Live<div class="m2-badge">M2 Done</div></div></div>
+  </div>
+</div>
+
+<!-- ═══ SECTION 1: PRODUCT MODEL ═══ -->
+<div class="section">
+  <div class="sec-title"><span class="sec-num">1</span> The 3-Layer Product Model</div>
+  <p class="sec-sub">Understand this before building any screen. Three distinct entities, each with a different purpose.</p>
+
+  <div class="model-grid">
+    <div class="model-card system">
+      <h4>🏛️ SystemProduct (Master Catalog)</h4>
+      <p><strong>Who manages:</strong> Platform admin<br><strong>What it is:</strong> A reference product (Amul Gold 1L, A2 Ghee, Water Can 20L). Has rich data: nutrition, shelf life, storage instructions, brand info.<br><strong>Vendor action:</strong> Browse &amp; copy to their shop. Cannot edit master data.</p>
+    </div>
+    <div class="model-card vendor">
+      <h4>🛒 VendorProduct (Your Shop)</h4>
+      <p><strong>Who manages:</strong> Vendor<br><strong>What it is:</strong> A product in the vendor's shop. Can be copied from SystemProduct (pre-filled) or created from scratch (custom). Vendor sets their own price. Has status: ACTIVE / OUT_OF_STOCK / HIDDEN.<br><strong>Created by:</strong> POST /vendors/{id}/products</p>
+    </div>
+    <div class="model-card template">
+      <h4>🧠 CategoryTemplate (Thiya's Brain)</h4>
+      <p><strong>Who manages:</strong> Platform admin<br><strong>What it is:</strong> AI suggestion data per product type. Provides: suggestedUnits, commonSizes, defaultDescription, defaultShelfLife.<br><strong>Used by:</strong> Thiya when vendor adds a CUSTOM product. Never shown directly to vendor.</p>
+    </div>
+  </div>
+
+  <div class="note catalog"><span class="note-icon">🔑</span><div><strong>Key rule:</strong> When adding from system catalog, send <code>systemProductId</code> → backend auto-fills name, brand, description, nutrition, shelf life. Vendor only needs to provide <code>price</code>. When adding a custom product, <code>systemProductId</code> is null → vendor fills all fields, Thiya helps via CategoryTemplate suggestions.</div></div>
+</div>
+
+<!-- ═══ SECTION 2: CATALOG HOME ═══ -->
+<div class="section">
+  <div class="sec-title"><span class="sec-num">2</span> Catalog Home — Product Dashboard (Screen 1)</div>
+  <p class="sec-sub">Entry point for catalog management. Tab per active capability. Shows product list, progress bar toward Go Live, and Thiya add shortcut.</p>
+
+  <div class="screen-pair">
+    <div class="screen-mock">
+      <div class="s-bar"><span>10:02 AM</span><span>●●● ▪▪▪</span></div>
+      <div class="s-nav"><span class="back">←</span><span>My Catalog</span></div>
+      <div class="s-tab-row">
+        <div class="s-tab active">🥛 Milk</div>
+        <div class="s-tab">🍱 Tiffin</div>
+        <div class="s-tab" style="color:var(--ca)">+ Add</div>
+      </div>
+      <div class="s-body">
+        <div class="s-thiya"><span class="s-thiya-orb">🎤</span><span>"Add Amul Gold at 70 rupees"</span></div>
+        <div style="background:var(--wl);border:1px solid var(--w);border-radius:6px;padding:6px 8px;font-size:10px;margin-bottom:8px;">
+          📊 1 of 5 products added · Add 1 more to be discoverable
+        </div>
+        <div class="s-card active-prod">
+          <div class="s-card-row">
+            <div style="flex:1;"><div style="font-weight:600;font-size:11px;">Amul Gold 1L <span class="s-badge active">ACTIVE</span></div><div style="font-size:9px;color:var(--ts);">₹70 · 1 Litre · <span class="s-badge system">System</span></div></div>
+            <div style="font-size:16px;color:var(--ts);">⋮</div>
+          </div>
+        </div>
+        <div style="border:1.5px dashed var(--border);border-radius:8px;padding:12px;text-align:center;font-size:10px;color:var(--ts);">
+          + Browse catalog<br>or say what to add
+        </div>
+      </div>
+      <div class="s-cta"><div class="s-btn">+ Add Product</div></div>
+    </div>
+    <div class="spec">
+      <div class="spec-section">
+        <div class="spec-label api">Load Catalog Home</div>
+        <div class="api-block">
+<span class="comment">// Load vendor's capabilities (tabs)</span>
+<span class="method">GET</span> <span class="path">/api/v1/vendor/capabilities/my</span>
+
+<span class="comment">// Load products per capability</span>
+<span class="method">GET</span> <span class="path">/api/v1/vendors/{vendorId}/products/capability/{capabilityId}</span>
+
+<span class="comment">// vendorId → from stored profile or GET /vendor/profile/me</span>
+        </div>
+      </div>
+      <div class="spec-section">
+        <div class="spec-label">Go Live Progress Indicator</div>
+        <p style="font-size:12px;color:var(--ts);">Show per-capability: "<strong>X of {MAX} products added.</strong>" Also show a "Go Live Checklist" banner (green when all conditions met). See Section 8 for full checklist logic.</p>
+      </div>
+      <div class="spec-section">
+        <div class="spec-label edge">Empty State</div>
+        <p style="font-size:12px;">If no products exist: large Thiya call-to-action. <em>"Your shop is empty. Say what you want to sell — I'll set it up for you."</em> Also show "Browse catalog" button as alternative.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SECTION 3: ADD FROM SYSTEM ═══ -->
+<div class="section">
+  <div class="sec-title"><span class="sec-num">3</span> Add Product from System Catalog (Screen 2 & 3)</div>
+  <p class="sec-sub">The fastest way to add products. Vendor picks from master catalog → backend pre-fills everything → vendor only sets price.</p>
+
+  <div class="thiya-flow">
+    <div class="tf-header">
+      <div class="tf-orb">🎙️</div>
+      <div><div class="tf-title">Thiya Voice Flow — Add System Product</div><div class="tf-subtitle">One sentence. All details auto-filled.</div></div>
+    </div>
+    <div class="tf-row">
+      <div class="tf-col">
+        <div class="tf-col-label">Conversation</div>
+        <div class="bubble thiya">What do you want to add to your shop? Say the product and price.</div>
+        <div class="bubble vendor">"Add Amul Gold at 70 rupees."</div>
+        <div class="bubble thiya">Found it! Amul Gold 1L from master catalog. I'll set everything up — is ₹70 correct, or do you want a different price?</div>
+        <div class="bubble vendor">"Yes, 70 is fine."</div>
+        <div class="bubble thiya">Done! Amul Gold added to your Milk Delivery shop. Add more?</div>
+      </div>
+      <div class="tf-col">
+        <div class="tf-col-label">Auto-filled Confirmation Card</div>
+        <div class="tf-card">
+          <div class="tf-card-title">✨ Adding to your shop</div>
+          <div class="tf-fill-row"><span class="check">✓</span><span>Name: <strong>Amul Gold</strong></span><span class="auto">auto</span></div>
+          <div class="tf-fill-row"><span class="check">✓</span><span>Brand: Amul</span><span class="auto">auto</span></div>
+          <div class="tf-fill-row"><span class="check">✓</span><span>Size: 1 Litre</span><span class="auto">auto</span></div>
+          <div class="tf-fill-row"><span class="check">✓</span><span>Description filled</span><span class="auto">auto</span></div>
+          <div class="tf-fill-row"><span class="check">✓</span><span>Shelf life filled</span><span class="auto">auto</span></div>
+          <div class="tf-fill-row"><span class="check">✓</span><span>Your Price: <strong>₹70.00</strong></span></div>
+          <div class="tf-fill-row" style="color:var(--ts)"><span>○</span><span>MRP: not set (optional)</span></div>
+          <div class="tf-btns"><span class="tf-btn-confirm">Add to Shop ✓</span><span class="tf-btn-edit">Edit</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="screen-pair">
+    <div class="screen-mock">
+      <div class="s-bar"><span>10:05 AM</span><span>●●● ▪▪▪</span></div>
+      <div class="s-nav"><span class="back">←</span><span>Browse Milk Products</span></div>
+      <div class="s-body">
+        <div class="s-field"><div class="s-field-label">Search</div><div class="s-field-val">Search products...</div></div>
+        <div class="s-card" style="border-left:3px solid var(--ca)">
+          <div class="s-card-row">
+            <div style="flex:1;"><div style="font-weight:600;font-size:11px;">Amul Gold</div><div style="font-size:9px;color:var(--ts);">Amul · 1 Litre · Pasteurized full-cream milk</div></div>
+            <div style="font-size:11px;color:var(--ca);font-weight:600;">+ Add</div>
+          </div>
+        </div>
+        <div class="s-card">
+          <div class="s-card-row"><div style="flex:1;"><div style="font-weight:600;font-size:11px;">Amul Taaza</div><div style="font-size:9px;color:var(--ts);">Amul · 500 mL · Low fat toned milk</div></div><div style="font-size:11px;color:var(--ca);font-weight:600;">+ Add</div></div>
+        </div>
+        <div class="s-card">
+          <div class="s-card-row"><div style="flex:1;"><div style="font-weight:600;font-size:11px;">Fresh Cow Milk</div><div style="font-size:9px;color:var(--ts);">Generic · per Litre · Standard full-cream</div></div><div style="font-size:11px;color:var(--ca);font-weight:600;">+ Add</div></div>
+        </div>
+        <div style="font-size:9px;color:var(--ts);text-align:center;padding:4px 0;">Can't find it? Add a custom product →</div>
+      </div>
+      <div class="s-cta"><div class="s-btn secondary">+ Add Custom Product</div></div>
+    </div>
+    <div class="spec">
+      <div class="spec-section">
+        <div class="spec-label api">Browse System Products</div>
+        <div class="api-block">
+<span class="comment">// By category (no auth required)</span>
+<span class="method">GET</span> <span class="path">/api/v1/catalog/system-products/category/{categoryId}</span>
+<span class="comment">// e.g. categoryId = MILK_DELIVERY</span>
+
+<span class="comment">// Search across categories</span>
+<span class="method">GET</span> <span class="path">/api/v1/catalog/system-products/search?q=ghee&amp;category=MILK_DELIVERY</span>
+        </div>
+      </div>
+      <div class="spec-section">
+        <div class="spec-label api">Add Product (System Source)</div>
+        <div class="api-block">
+<span class="method">POST</span> <span class="path">/api/v1/vendors/{vendorId}/products</span>
+<span class="comment">// Auth: Bearer token</span>
+{
+  <span class="key">"capabilityId"</span>: <span class="val">"uuid"</span>,          <span class="comment">← Required</span>
+  <span class="key">"systemProductId"</span>: <span class="val">"uuid"</span>,      <span class="comment">← Auto-fills everything</span>
+  <span class="key">"price"</span>: <span class="val">70.00</span>,               <span class="comment">← Required: your selling price</span>
+  <span class="key">"mrp"</span>: <span class="val">72.00</span>,                 <span class="comment">← Optional: original retail price</span>
+  <span class="key">"category"</span>: <span class="val">"MILK_DELIVERY"</span>    <span class="comment">← Required</span>
+}
+<span class="comment">// name/brand/unit/description/shelfLife etc.</span>
+<span class="comment">// all auto-filled from SystemProduct</span>
+        </div>
+      </div>
+      <div class="spec-section">
+        <div class="spec-label edge">Edge Cases</div>
+        <ul style="font-size:12px;padding-left:16px;">
+          <li><strong>Duplicate:</strong> Adding same systemProductId twice returns 422. Check vendor's product list before showing "+ Add" button — show "Already in your shop" if found.</li>
+          <li><strong>Plan limit:</strong> If vendor has 5 products (FREE limit), adding more returns 403 (PL01). Show upgrade prompt immediately.</li>
+          <li><strong>Price 0 or missing:</strong> Price is required. Validate &gt; 0 before API call.</li>
+          <li><strong>Vendor can override:</strong> Any pre-filled field can be overridden. E.g., vendor can send custom name over the system product's name.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SECTION 4: CUSTOM PRODUCT ═══ -->
+<div class="section">
+  <div class="sec-title"><span class="sec-num">4</span> Add Custom Product — Thiya-Assisted (Screen 4)</div>
+  <p class="sec-sub">When the product isn't in the master catalog. Thiya uses CategoryTemplate data to pre-suggest units, sizes, and description. Vendor just confirms or adjusts.</p>
+
+  <div class="thiya-flow">
+    <div class="tf-header">
+      <div class="tf-orb">✨</div>
+      <div><div class="tf-title">Thiya Voice Flow — Custom Product</div><div class="tf-subtitle">Thiya fetches CategoryTemplate → suggests fields → vendor confirms</div></div>
+    </div>
+    <div class="tf-row">
+      <div class="tf-col">
+        <div class="tf-col-label">Conversation</div>
+        <div class="bubble vendor">"Add my special A2 ghee, 500 grams, 550 rupees."</div>
+        <div class="bubble thiya">Got it — A2 Ghee, 500g at ₹550. I've used your description since this is a custom product. Want me to write a product description for you?</div>
+        <div class="bubble vendor">"Yes, write it."</div>
+        <div class="bubble thiya">Done! I've added: "Pure A2 Gir cow bilona ghee, handcrafted in small batches. Rich flavor, 6-month shelf life." Like it?</div>
+        <div class="bubble vendor">"Perfect."</div>
+      </div>
+      <div class="tf-col">
+        <div class="tf-col-label">Suggestion Card (CategoryTemplate)</div>
+        <div class="tf-card">
+          <div class="tf-card-title">🧠 Thiya's Suggestions for Ghee</div>
+          <div class="tf-fill-row"><span class="check">✓</span><span>You said: <strong>A2 Ghee, 500g, ₹550</strong></span></div>
+          <div style="border-top:1px solid var(--border);margin:8px 0;"></div>
+          <div style="font-size:10px;color:var(--ts);margin-bottom:4px;">Suggested from template:</div>
+          <div class="tf-fill-row"><span style="color:var(--b)">?</span><span>Other common sizes: 200g, 1kg</span></div>
+          <div class="tf-fill-row"><span style="color:var(--b)">?</span><span>Shelf life: 6–9 months</span></div>
+          <div class="tf-fill-row"><span style="color:var(--b)">?</span><span>Storage: Cool, dry place</span></div>
+          <div class="tf-fill-row"><span style="color:var(--b)">🤖</span><span>Description: AI-generated (STARTER+)</span></div>
+          <div class="tf-btns"><span class="tf-btn-confirm">Use These</span><span class="tf-btn-edit">Edit</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="screen-pair">
+    <div class="screen-mock">
+      <div class="s-bar"><span>10:08 AM</span><span>●●● ▪▪▪</span></div>
+      <div class="s-nav"><span class="back">←</span><span>Add Custom Product</span></div>
+      <div class="s-body">
+        <div class="s-thiya"><span class="s-thiya-orb">🎤</span><span>Say: "product name, size, price"</span></div>
+        <div class="s-field"><div class="s-field-label">Product Name <span class="s-badge req" style="background:#FEF2F2;color:#DC2626;">Required</span></div><div class="s-field-val filled">Farm Fresh A2 Ghee</div></div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;">
+          <div class="s-field"><div class="s-field-label">Unit</div><div class="s-field-val filled">GRAM</div></div>
+          <div class="s-field"><div class="s-field-label">Size</div><div class="s-field-val filled">500</div></div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;">
+          <div class="s-field"><div class="s-field-label">Price ₹</div><div class="s-field-val filled">550</div></div>
+          <div class="s-field"><div class="s-field-label">MRP ₹ <span class="s-badge opt" style="background:#F0FDF4;color:#15803D;">Opt</span></div><div class="s-field-val">—</div></div>
+        </div>
+        <div class="s-field"><div class="s-field-label">Description <span class="s-badge opt" style="background:var(--pl);color:var(--p);">AI ✨</span></div><div class="s-field-val filled" style="font-style:normal;font-size:10px;">Pure A2 Gir cow bilona ghee, rich flavor...</div></div>
+      </div>
+      <div class="s-cta"><div class="s-btn">Add to Shop →</div></div>
+    </div>
+    <div class="spec">
+      <div class="spec-section">
+        <div class="spec-label api">Get Thiya Suggestions</div>
+        <div class="api-block">
+<span class="comment">// Thiya fetches template for this category</span>
+<span class="method">GET</span> <span class="path">/api/v1/catalog/templates/category/{categoryId}</span>
+<span class="comment">// e.g. MILK_DELIVERY — returns ghee/paneer/butter templates</span>
+
+<span class="method">GET</span> <span class="path">/api/v1/catalog/templates/search?q=ghee</span>
+<span class="comment">// Response fields:</span>
+<span class="comment">// suggestedUnits, commonSizes, defaultDescription</span>
+<span class="comment">// defaultShelfLife, defaultStorageInstructions</span>
+        </div>
+      </div>
+      <div class="spec-section">
+        <div class="spec-label api">Add Custom Product (no systemProductId)</div>
+        <div class="api-block">
+<span class="method">POST</span> <span class="path">/api/v1/vendors/{vendorId}/products</span>
+{
+  <span class="key">"capabilityId"</span>: <span class="val">"uuid"</span>,
+  <span class="comment">// No systemProductId → fully custom</span>
+  <span class="key">"name"</span>: <span class="val">"Farm Fresh A2 Ghee"</span>,      <span class="comment">← Required</span>
+  <span class="key">"brand"</span>: <span class="val">"Raju Dairy"</span>,             <span class="comment">← Optional</span>
+  <span class="key">"price"</span>: <span class="val">550.00</span>,                   <span class="comment">← Required</span>
+  <span class="key">"unit"</span>: <span class="val">"GRAM"</span>,                     <span class="comment">← Required</span>
+  <span class="key">"unitValue"</span>: <span class="val">500</span>,                  <span class="comment">← Required</span>
+  <span class="key">"category"</span>: <span class="val">"MILK_DELIVERY"</span>,
+  <span class="key">"description"</span>: <span class="val">"..."</span>,             <span class="comment">← AI or manual</span>
+  <span class="key">"shelfLife"</span>: <span class="val">"6 months"</span>,           <span class="comment">← Optional</span>
+  <span class="key">"mrp"</span>: <span class="val">600.00</span>                    <span class="comment">← Optional</span>
+}
+        </div>
+      </div>
+      <div class="spec-section">
+        <div class="spec-label">Product Units Available</div>
+        <div style="font-size:12px;display:flex;flex-wrap:wrap;gap:6px;">
+          <span style="background:var(--light);padding:2px 8px;border-radius:4px;border:1px solid var(--border);">ML</span>
+          <span style="background:var(--light);padding:2px 8px;border-radius:4px;border:1px solid var(--border);">LITRE</span>
+          <span style="background:var(--light);padding:2px 8px;border-radius:4px;border:1px solid var(--border);">GRAM</span>
+          <span style="background:var(--light);padding:2px 8px;border-radius:4px;border:1px solid var(--border);">KG</span>
+          <span style="background:var(--light);padding:2px 8px;border-radius:4px;border:1px solid var(--border);">PIECE</span>
+          <span style="background:var(--light);padding:2px 8px;border-radius:4px;border:1px solid var(--border);">PACKET</span>
+          <span style="background:var(--light);padding:2px 8px;border-radius:4px;border:1px solid var(--border);">DOZEN</span>
+          <span style="background:var(--light);padding:2px 8px;border-radius:4px;border:1px solid var(--border);">BUNDLE</span>
+          <span style="background:var(--light);padding:2px 8px;border-radius:4px;border:1px solid var(--border);">PLATE</span>
+          <span style="background:var(--light);padding:2px 8px;border-radius:4px;border:1px solid var(--border);">MEAL</span>
+          <span style="background:var(--light);padding:2px 8px;border-radius:4px;border:1px solid var(--border);">SET</span>
+        </div>
+      </div>
+      <div class="spec-section">
+        <div class="spec-label edge">Plan Feature: AI Description</div>
+        <p style="font-size:12px;"><strong>STARTER+ only:</strong> <code class="code">AI_PRODUCT_DESCRIPTION: true</code>. On FREE, show the AI description field as locked with "✨ Upgrade to STARTER for AI-written descriptions." Vendor must write manually. Also: <strong>BRAND_LOGO_ON_CATALOGUE</strong> is STARTER+ only.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SECTION 5: PRODUCT MANAGEMENT ═══ -->
+<div class="section">
+  <div class="sec-title"><span class="sec-num">5</span> Product Management — Price, Status & Media</div>
+  <p class="sec-sub">Day-to-day actions on existing products. Designed for speed — each action should be 1-2 taps or one voice command.</p>
+
+  <!-- Status Lifecycle -->
+  <div class="note catalog" style="margin-bottom:16px;"><span class="note-icon">🔄</span><div><strong>Product Status Lifecycle:</strong> Products start as ACTIVE after creation. Vendor can toggle between states at any time. HIDDEN hides the product from consumers (without deleting it). OUT_OF_STOCK still shows the product but marks it unavailable.</div></div>
+  <div style="display:flex;align-items:flex-start;gap:12px;margin-bottom:20px;flex-wrap:wrap;">
+    <div style="text-align:center;"><div class="status-node active">ACTIVE</div><div class="status-label">Visible &amp; orderable</div></div>
+    <div class="status-arrow">⇄</div>
+    <div style="text-align:center;"><div class="status-node oos">OUT_OF_STOCK</div><div class="status-label">Visible, not orderable</div></div>
+    <div class="status-arrow">⇄</div>
+    <div style="text-align:center;"><div class="status-node hidden">HIDDEN</div><div class="status-label">Not visible to consumers</div></div>
+  </div>
+
+  <div class="action-grid">
+    <div class="action-card">
+      <h4>💰 Quick Price Update</h4>
+      <div class="api-block" style="margin-top:6px;">
+<span class="method">PATCH</span> <span class="path">/vendors/{vid}/products/{pid}/price</span>
+<span class="comment">// Params: price=75.00&amp;mrp=80.00</span>
+<span class="comment">// Event: catalog.price-changed</span>
+      </div>
+      <p style="font-size:11px;margin-top:6px;color:var(--ts);">Thiya: "Change milk price to 72." Also accessible via long-press on product card.</p>
+    </div>
+    <div class="action-card">
+      <h4>📦 Stock Status Shortcuts</h4>
+      <div class="api-block" style="margin-top:6px;">
+<span class="method">POST</span> <span class="path">/vendors/{vid}/products/{pid}/out-of-stock</span>
+<span class="method">POST</span> <span class="path">/vendors/{vid}/products/{pid}/in-stock</span>
+<span class="comment">// Event: catalog.status-changed</span>
+      </div>
+      <p style="font-size:11px;margin-top:6px;color:var(--ts);">Thiya: "Mark ghee out of stock." Or show toggle switch on product card.</p>
+    </div>
+    <div class="action-card">
+      <h4>🖼️ Product Images</h4>
+      <div style="font-size:11px;margin-top:6px;">
+        <p>Upload to storage first → pass to product.</p>
+        <ul style="padding-left:14px;font-size:11px;color:var(--ts);">
+          <li><strong>FREE:</strong> up to 3 images, 0 videos</li>
+          <li><strong>STARTER:</strong> 5 images, 1 video</li>
+          <li><strong>GROWTH:</strong> 10 images, 3 videos</li>
+        </ul>
+        <p style="margin-top:4px;">Storage ownerType: <code class="code">VENDOR_PRODUCT</code></p>
+      </div>
+    </div>
+  </div>
+
+  <div class="screen-pair">
+    <div class="screen-mock">
+      <div class="s-bar"><span>10:15 AM</span><span>●●● ▪▪▪</span></div>
+      <div class="s-nav"><span class="back">←</span><span>Amul Gold 1L</span></div>
+      <div class="s-body" style="padding:12px;">
+        <div style="background:white;border-radius:8px;padding:10px;margin-bottom:8px;border:1px solid var(--border);">
+          <div style="font-weight:600;font-size:12px;">Amul Gold — 1 Litre</div>
+          <div style="font-size:10px;color:var(--ts);">From master catalog · Milk Delivery</div>
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-top:8px;">
+            <div><div style="font-size:14px;font-weight:700;">₹70</div><div style="font-size:9px;color:var(--ts);">MRP ₹72</div></div>
+            <span class="s-badge active">ACTIVE</span>
+          </div>
+        </div>
+        <div class="s-card"><div class="s-card-row"><span style="font-size:14px;">💰</span><span style="font-weight:600;font-size:11px;">Edit Price</span></div></div>
+        <div class="s-card"><div class="s-card-row"><span style="font-size:14px;">📦</span><span style="font-weight:600;font-size:11px;">Mark Out of Stock</span></div></div>
+        <div class="s-card"><div class="s-card-row"><span style="font-size:14px;">🙈</span><span style="font-weight:600;font-size:11px;">Hide from Shop</span></div></div>
+        <div class="s-card"><div class="s-card-row"><span style="font-size:14px;">🖼️</span><span style="font-weight:600;font-size:11px;">Add Photo (1/3 used)</span></div></div>
+      </div>
+      <div class="s-cta"><div class="s-btn danger" style="background:var(--rl);color:var(--r);border:1px solid var(--r);">Remove from Shop</div></div>
+    </div>
+    <div class="spec">
+      <div class="spec-section">
+        <div class="spec-label api">Full Product Update</div>
+        <div class="api-block">
+<span class="comment">// Update any product fields</span>
+<span class="method">PUT</span> <span class="path">/api/v1/vendors/{vendorId}/products/{productId}</span>
+<span class="comment">// Send full product body with updated fields</span>
+
+<span class="comment">// Change any status directly</span>
+<span class="method">PATCH</span> <span class="path">/vendors/{vid}/products/{pid}/status?status=HIDDEN</span>
+
+<span class="comment">// Soft delete (recoverable)</span>
+<span class="method">DELETE</span> <span class="path">/api/v1/vendors/{vendorId}/products/{productId}</span>
+<span class="comment">// Sets is_active=false. Data preserved.</span>
+        </div>
+      </div>
+      <div class="spec-section">
+        <div class="spec-label edge">Important UX Rules</div>
+        <ul style="font-size:12px;padding-left:16px;">
+          <li>"Remove from shop" → soft delete (data preserved). Show confirmation dialog. Not a destructive action.</li>
+          <li>If a vendor removes their LAST ACTIVE product, show warning: "You'll go offline — no more orders will come in."</li>
+          <li>OUT_OF_STOCK: still shows in consumer feed but with "Not available" badge. Consumers can set reminders (future).</li>
+          <li>HIDDEN: completely invisible to consumers. Use for seasonal items.</li>
+          <li>Price edit: validate price &gt; 0. MRP must be ≥ price if set.</li>
+          <li>Events <code class="code">catalog.price-changed</code> and <code class="code">catalog.status-changed</code> are fired — will trigger consumer notifications in future releases.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SECTION 6: THIYA VOICE PATTERNS ═══ -->
+<div class="section">
+  <div class="sec-title"><span class="sec-num">6</span> Thiya — All Voice Patterns for Catalog</div>
+  <p class="sec-sub">Comprehensive list of voice commands Thiya must understand. Design for natural language — vendors won't speak "API language."</p>
+
+  <div class="note thiya"><span class="note-icon">🧠</span><div><strong>Design vision (2026–2030):</strong> A vendor should be able to manage their entire catalog without touching a single form. Voice is the keyboard. Thiya handles disambiguation — if "milk" maps to 3 products, Thiya asks which one. If price is ambiguous, Thiya confirms before acting.</div></div>
+
+  <table class="tbl">
+    <tr><th>Voice Command</th><th>Thiya Action</th><th>API Called</th></tr>
+    <tr><td>"Add Amul Gold at 70"</td><td>Search system products, match "Amul Gold", show confirm card with price ₹70</td><td>GET system-products/search → POST /products</td></tr>
+    <tr><td>"Add everything from milk category"</td><td>Show all system products for capability, select all, ask price per product or batch</td><td>GET system-products/category/MILK_DELIVERY → batch POST</td></tr>
+    <tr><td>"My A2 ghee, 500g, ₹550"</td><td>No system match → custom product. Fetch template for MILK_DELIVERY. Pre-fill suggestions.</td><td>GET templates/category/MILK_DELIVERY → POST /products</td></tr>
+    <tr><td>"Amul Gold out of stock"</td><td>Find "Amul Gold" in vendor's products, POST out-of-stock</td><td>GET /products (search local) → POST /out-of-stock</td></tr>
+    <tr><td>"Back in stock" or "Amul Gold available again"</td><td>POST in-stock for the product</td><td>POST /products/{id}/in-stock</td></tr>
+    <tr><td>"Change Amul Gold price to 72"</td><td>Find product, PATCH price</td><td>PATCH /products/{id}/price?price=72</td></tr>
+    <tr><td>"Hide the ghee product"</td><td>PATCH status=HIDDEN</td><td>PATCH /products/{id}/status?status=HIDDEN</td></tr>
+    <tr><td>"Show my products" or "My menu"</td><td>Navigate to catalog home screen</td><td>App navigation (no API)</td></tr>
+    <tr><td>"Remove Amul Gold from my shop"</td><td>Show confirm dialog → DELETE /products/{id}</td><td>DELETE /products/{id}</td></tr>
+    <tr><td>"Not 70, make it 75" (correction)</td><td>Update the pending confirm card or last-changed product's price</td><td>PATCH /products/{id}/price?price=75</td></tr>
+    <tr><td>Ambiguous: "Change milk price" (multiple milk products)</td><td>Thiya: "You have 3 milk products. Which one? Amul Gold, Amul Taaza, or Fresh Cow Milk?"</td><td>Await clarification, then PATCH</td></tr>
+  </table>
+</div>
+
+<!-- ═══ SECTION 7: PLAN LIMITS ═══ -->
+<div class="section">
+  <div class="sec-title"><span class="sec-num">7</span> Plan Limits & Upgrade Prompts</div>
+  <p class="sec-sub">Based on actual vendor-plans.yml config. These are the hard backend limits — design upgrade prompts at 80% and 100% of each limit.</p>
+
+  <table class="tbl">
+    <tr>
+      <th>Limit</th>
+      <th>FREE (₹0)</th>
+      <th>STARTER (₹299/mo)</th>
+      <th>GROWTH (₹799/mo)</th>
+      <th>ENTERPRISE</th>
+    </tr>
+    <tr><td>Products per capability</td><td style="color:var(--r);font-weight:600;">5</td><td>50</td><td>Unlimited</td><td>Unlimited</td></tr>
+    <tr><td>Total products (all caps)</td><td style="color:var(--r);font-weight:600;">5</td><td>50</td><td>Unlimited</td><td>Unlimited</td></tr>
+    <tr><td>Images per product</td><td>3</td><td>5</td><td>10</td><td>Unlimited</td></tr>
+    <tr><td>Videos per product</td><td style="color:var(--r);font-weight:600;">0</td><td>1</td><td>3</td><td>Unlimited</td></tr>
+    <tr><td>AI product description</td><td style="color:var(--r);">❌</td><td style="color:var(--g);">✅</td><td style="color:var(--g);">✅</td><td style="color:var(--g);">✅</td></tr>
+    <tr><td>Brand logo on catalog</td><td style="color:var(--r);">❌</td><td style="color:var(--g);">✅</td><td style="color:var(--g);">✅</td><td style="color:var(--g);">✅</td></tr>
+  </table>
+
+  <div class="note warn"><span class="note-icon">⚠️</span><div><strong>Upgrade prompt trigger:</strong> When vendor tries to add a 6th product on FREE plan, API returns 403 with error code <code>PL01</code> and body: <code>{"limitKey":"MAX_PRODUCTS_PER_CAPABILITY","planTier":"FREE","maxAllowed":5}</code>. Show an inline bottom sheet: "You've hit the FREE plan limit of 5 products. Upgrade to STARTER (₹299/mo) for 50 products." Show comparison table. CTA: "Upgrade" or "Not now."</div></div>
+</div>
+
+<!-- ═══ SECTION 8: GO LIVE CHECKLIST ═══ -->
+<div class="section">
+  <div class="sec-title"><span class="sec-num">8</span> Go Live Checklist (Screen 5)</div>
+  <p class="sec-sub">Go Live is automatic — no separate API call. When all conditions are met, the vendor appears in consumer search. Show this checklist so vendors know exactly what's needed.</p>
+
+  <div class="note info"><span class="note-icon">ℹ️</span><div><strong>How discovery works:</strong> Consumers search by location. The discovery engine finds vendors whose service zone covers the consumer's location AND whose capability is ACTIVE AND who have ACTIVE products. A vendor with no active products won't generate orders even if they're discoverable. Ensure vendors understand this link.</div></div>
+
+  <div class="golive-check">
+    <div class="check-item pass">
+      <span class="check-icon">✅</span>
+      <div class="check-text"><strong>Shop registered (Milestone 1 done)</strong>Business name, at least 1 capability, service zone set.</div>
+    </div>
+    <div class="check-item pass">
+      <span class="check-icon">✅</span>
+      <div class="check-text"><strong>Capability is ACTIVE</strong>Check: GET /vendor/capabilities/my → capability.status == "ACTIVE". If PAUSED, show "Resume capability" button.</div>
+    </div>
+    <div class="check-item pass">
+      <span class="check-icon">✅</span>
+      <div class="check-text"><strong>At least 1 ACTIVE product per active capability</strong>Check: GET /vendors/{id}/products/capability/{capId} → count items with status == "ACTIVE" ≥ 1. If zero: "Add at least 1 product to your Milk Delivery catalog."</div>
+    </div>
+    <div class="check-item warn">
+      <span class="check-icon">⚠️</span>
+      <div class="check-text"><strong>KYC submitted (recommended)</strong>Without KYC approval, payment features stay locked. Vendor can still go live and take orders, but can't receive payments. Show warning, not a blocker.</div>
+    </div>
+    <div class="check-item warn">
+      <span class="check-icon">⚠️</span>
+      <div class="check-text"><strong>Service zone covers a reasonable area</strong>Reminder only: if radiusKm &lt; 1km, Thiya says "Your delivery area seems very small. Consider increasing to at least 2-3 km to get more customers." Not a hard block.</div>
+    </div>
+  </div>
+
+  <div class="note success"><span class="note-icon">🚀</span><div><strong>When all required conditions are met (items 1-3):</strong> Show a "You're Live!" celebration screen. Summary: services live, products count, service radius. Confetti animation. Next steps: "Add more products", "Set up your first consumer", "Check your profile." This is Milestone 2 complete.</div></div>
+</div>
+
+<!-- ═══ SECTION 9: NOTIFICATIONS ═══ -->
+<div class="section">
+  <div class="sec-title"><span class="sec-num">9</span> Events & Notifications Triggered</div>
+  <p class="sec-sub">Catalog actions publish events to the notification system. Consumer-facing notifications are future-planned — build the catalog UI knowing these events will have consequences.</p>
+
+  <table class="tbl">
+    <tr><th>Action</th><th>Event Published</th><th>Who Gets Notified</th><th>Status</th></tr>
+    <tr><td>Product added</td><td><code class="code">catalog.product-added</code></td><td>None currently</td><td>Event fired, no consumer notification yet</td></tr>
+    <tr><td>Price changed</td><td><code class="code">catalog.price-changed</code></td><td>Future: consumers subscribed to product</td><td>⚙️ Planned</td></tr>
+    <tr><td>Out of stock</td><td><code class="code">catalog.status-changed</code></td><td>Future: consumers with active subscriptions</td><td>⚙️ Planned</td></tr>
+    <tr><td>Back in stock (ACTIVE)</td><td><code class="code">catalog.status-changed</code></td><td>Future: consumers who wanted this product</td><td>⚙️ Planned</td></tr>
+  </table>
+  <p style="font-size:12px;color:var(--ts);">These events are already being published via <code class="code">geekrabit-messaging</code>. When the notification layer is wired up, consumers will automatically get updates. No catalog UI changes needed at that point.</p>
+</div>
+
+<!-- ═══ SECTION 10: ERRORS ═══ -->
+<div class="section">
+  <div class="sec-title"><span class="sec-num">10</span> Error Handling & Edge Cases</div>
+
+  <table class="tbl">
+    <tr><th>Scenario</th><th>Cause</th><th>User-Facing Action</th><th>API Response</th></tr>
+    <tr><td>Duplicate product add</td><td>Same systemProductId added twice</td><td>"Amul Gold is already in your shop. Update its price?" with quick-edit option</td><td>422</td></tr>
+    <tr><td>Plan limit hit (products)</td><td>FREE: 6th product attempt</td><td>Bottom sheet: upgrade prompt. Error code PL01. Show exact limit and next tier.</td><td>403 + limitKey, maxAllowed</td></tr>
+    <tr><td>Custom product, name missing</td><td>Required field null</td><td>Inline validation: "Product name is required" before API call</td><td>400 (if not caught)</td></tr>
+    <tr><td>Price = 0 or negative</td><td>Validation miss</td><td>Inline: "Price must be greater than ₹0"</td><td>400</td></tr>
+    <tr><td>MRP < price</td><td>Logic error</td><td>Inline: "MRP should be ≥ your selling price"</td><td>400</td></tr>
+    <tr><td>Image upload fails</td><td>Network / file size</td><td>"Image upload failed. Try a smaller file (under 5MB)." Skip option.</td><td>Network error / 413</td></tr>
+    <tr><td>No active products on Go Live</td><td>Catalog empty or all HIDDEN</td><td>"Add at least 1 product before going live" — highlight add button</td><td>UI-level check</td></tr>
+    <tr><td>Capability PAUSED</td><td>Vendor paused service</td><td>Show "Capability paused" banner with Resume button. Products not discoverable.</td><td>UI-level check</td></tr>
+    <tr><td>Plan FROZEN</td><td>Paid plan expired + grace period over</td><td>"Account frozen — renew your plan to continue adding products." All writes blocked.</td><td>403 (all write APIs)</td></tr>
+    <tr><td>AI description feature on FREE</td><td>Plan feature disabled</td><td>Lock icon on AI button. "Upgrade to STARTER for AI descriptions." Manual field still editable.</td><td>403 PLAN_FEATURE_DISABLED</td></tr>
+  </table>
+</div>
+
+<!-- ═══ SECTION 11: API REFERENCE ═══ -->
+<div class="section">
+  <div class="sec-title"><span class="sec-num">11</span> API Quick Reference — Milestone 2</div>
+
+  <table class="tbl">
+    <tr><th>Method</th><th>Endpoint</th><th>Auth</th><th>Used In</th><th>Notes</th></tr>
+    <tr><td>GET</td><td><code class="code">/api/v1/catalog/system-products</code></td><td>Bearer</td><td>Browse</td><td>All system products</td></tr>
+    <tr><td>GET</td><td><code class="code">/api/v1/catalog/system-products/category/{cat}</code></td><td>Bearer</td><td>Browse tab</td><td>cat = MILK_DELIVERY, TIFFIN_SERVICE etc.</td></tr>
+    <tr><td>GET</td><td><code class="code">/api/v1/catalog/system-products/search?q=&amp;category=</code></td><td>Bearer</td><td>Thiya search</td><td>Used by Thiya to match voice command to product</td></tr>
+    <tr><td>GET</td><td><code class="code">/api/v1/catalog/templates/category/{cat}</code></td><td>Bearer</td><td>Custom product</td><td>Thiya's suggestions for custom products</td></tr>
+    <tr><td>GET</td><td><code class="code">/api/v1/catalog/templates/search?q=</code></td><td>Bearer</td><td>Thiya search</td><td>Find template for specific product type</td></tr>
+    <tr><td>GET</td><td><code class="code">/api/v1/vendors/{vendorId}/products</code></td><td>Bearer</td><td>Catalog home</td><td>All vendor products</td></tr>
+    <tr><td>GET</td><td><code class="code">/api/v1/vendors/{vendorId}/products/capability/{capId}</code></td><td>Bearer</td><td>Catalog tab</td><td>Products per capability tab</td></tr>
+    <tr><td>POST</td><td><code class="code">/api/v1/vendors/{vendorId}/products</code></td><td>Bearer</td><td>Add product</td><td>With systemProductId = pre-fill. Without = custom.</td></tr>
+    <tr><td>PUT</td><td><code class="code">/api/v1/vendors/{vendorId}/products/{productId}</code></td><td>Bearer</td><td>Edit product</td><td>Full update</td></tr>
+    <tr><td>DELETE</td><td><code class="code">/api/v1/vendors/{vendorId}/products/{productId}</code></td><td>Bearer</td><td>Remove</td><td>Soft delete. Data preserved.</td></tr>
+    <tr><td>PATCH</td><td><code class="code">/api/v1/vendors/{vendorId}/products/{productId}/price</code></td><td>Bearer</td><td>Quick price</td><td>Params: price=&amp;mrp= (both optional, at least price)</td></tr>
+    <tr><td>PATCH</td><td><code class="code">/api/v1/vendors/{vendorId}/products/{productId}/status</code></td><td>Bearer</td><td>Status change</td><td>Params: status=ACTIVE|OUT_OF_STOCK|HIDDEN</td></tr>
+    <tr><td>POST</td><td><code class="code">/api/v1/vendors/{vendorId}/products/{productId}/out-of-stock</code></td><td>Bearer</td><td>Quick OOS</td><td>Shortcut for status PATCH</td></tr>
+    <tr><td>POST</td><td><code class="code">/api/v1/vendors/{vendorId}/products/{productId}/in-stock</code></td><td>Bearer</td><td>Quick restore</td><td>Sets status back to ACTIVE</td></tr>
+  </table>
+
+  <div class="note info"><span class="note-icon">💡</span><div><code>vendorId</code> is available from: (1) stored after Milestone 1 login, or (2) <code>GET /api/v1/vendor/profile/me → response.id</code>. Cache this. <code>capabilityId</code> from <code>GET /vendor/capabilities/my → response[0].id</code>. Both must be stored in app state after Milestone 1.</div></div>
+</div>
+
+<div style="text-align:center;font-size:12px;color:var(--ts);margin-top:40px;padding-top:20px;border-top:1px solid var(--border);">
+  Vinimay Platform · Milestone 2 Guide · Branch: develop_AS · <strong>Go Live → Consumers can now discover and order from your shop 🚀</strong>
+</div>
+
+</div>
+<script>
+(function() {
+  var veil = document.getElementById('auth-veil');
+  if (sessionStorage.getItem('thiya_dev_session') === '1') {
+    veil.remove();
+  } else {
+    veil.textContent = 'body{margin:0;background:#FAFAFA;font-family:sans-serif}';
+    document.addEventListener('DOMContentLoaded', function() {
+      document.body.innerHTML =
+        '<div style="min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:28px;padding:24px;text-align:center">' +
+          '<div>' +
+            '<div style="width:52px;height:52px;background:#FF6B35;border-radius:12px;display:inline-flex;align-items:center;justify-content:center;font-weight:700;font-size:20px;color:#fff;margin-bottom:20px">th</div>' +
+            '<h2 style="color:#111;font-size:22px;font-weight:700;margin-bottom:10px">Restricted Access</h2>' +
+            '<p style="color:#666;font-size:14px;line-height:1.7;max-width:300px">This resource is only accessible through the Thiya Developer Portal.</p>' +
+          '</div>' +
+          '<a href="developer.html" style="display:inline-block;background:#FF6B35;color:#fff;text-decoration:none;padding:13px 28px;border-radius:8px;font-size:14px;font-weight:600">Go to Developer Portal &rarr;</a>' +
+        '</div>';
+    });
+  }
+})();
+</script>
+</body>
+</html>
