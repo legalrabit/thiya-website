@@ -1,0 +1,1019 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="robots" content="noindex, nofollow">
+<style id="auth-veil">body{visibility:hidden;background:#FAFAFA}</style>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Milestone 3 — Consumer Onboarding & Subscription Setup</title>
+<style>
+:root {
+  --p:#4F46E5; --pl:#EEF2FF; --g:#22C55E; --gl:#DCFCE7;
+  --o:#F97316; --ol:#FFF7ED; --b:#3B82F6; --bl:#EFF6FF;
+  --r:#EF4444; --rl:#FEF2F2; --th:#7C3AED; --thl:#F5F3FF;
+  --wa:#25D366; --wal:#DCFCE7; --sky:#0EA5E9; --skyl:#F0F9FF;
+  --gray:#6B7280; --light:#F9FAFB; --border:#E5E7EB; --text:#111827; --ts:#6B7280;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;font-size:14px;color:var(--text);background:#FAFAFA;line-height:1.6;}
+.page{max-width:1120px;margin:0 auto;padding:36px 24px 80px;}
+
+.doc-header{background:linear-gradient(135deg,#1E3A8A 0%,var(--p) 60%,var(--th) 100%);color:white;padding:28px 36px;border-radius:16px;margin-bottom:32px;}
+.doc-header h1{font-size:24px;font-weight:700;margin-bottom:4px;}
+.doc-header p{opacity:.85;font-size:13px;}
+.pills{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px;}
+.pill{background:rgba(255,255,255,.18);padding:3px 12px;border-radius:20px;font-size:11px;font-weight:500;}
+.pill.out{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.3);}
+
+.precond{background:var(--skyl);border:1.5px solid var(--sky);border-radius:12px;padding:16px 20px;margin-bottom:24px;display:flex;gap:16px;align-items:flex-start;}
+.precond-icon{font-size:24px;flex-shrink:0;}
+.precond h3{font-size:14px;font-weight:700;color:#0369A1;margin-bottom:4px;}
+.precond ul{font-size:12px;color:#0C4A6E;padding-left:16px;}
+
+.scope-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:32px;}
+.scope-box{border-radius:10px;padding:14px 18px;font-size:13px;}
+.scope-in{background:var(--gl);border:1px solid var(--g);}
+.scope-out{background:var(--rl);border:1px solid var(--r);}
+.scope-box h4{font-size:12px;font-weight:700;margin-bottom:6px;text-transform:uppercase;letter-spacing:.05em;}
+.scope-in h4{color:#15803D;} .scope-out h4{color:#DC2626;}
+.scope-box ul{padding-left:16px;} .scope-box li{margin-bottom:2px;}
+
+.journey{background:white;border:1px solid var(--border);border-radius:12px;padding:20px 24px;margin-bottom:32px;overflow-x:auto;}
+.journey-title{font-weight:700;font-size:13px;color:var(--ts);margin-bottom:14px;text-transform:uppercase;letter-spacing:.05em;}
+.jsteps{display:flex;align-items:center;gap:0;min-width:max-content;}
+.jstep{text-align:center;min-width:90px;}
+.jstep-num{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 4px;font-size:12px;font-weight:700;}
+.jstep-num.done{background:#F1F5F9;color:#475569;border:2px solid #94A3B8;}
+.jstep-num.cons{background:var(--pl);color:var(--p);border:2px solid var(--p);}
+.jstep-num.sub{background:var(--skyl);color:var(--sky);border:2px solid var(--sky);}
+.jstep-num.win{background:var(--gl);color:#15803D;border:2px solid var(--g);}
+.jstep-label{font-size:10px;color:var(--ts);font-weight:500;line-height:1.3;}
+.jarrow{color:#CBD5E1;font-size:18px;padding:0 4px;align-self:flex-start;margin-top:6px;}
+.badge-done{background:#94A3B8;color:white;font-size:10px;font-weight:700;padding:2px 6px;border-radius:8px;margin-top:3px;display:inline-block;}
+.badge-m3{background:var(--p);color:white;font-size:10px;font-weight:700;padding:2px 6px;border-radius:8px;margin-top:3px;display:inline-block;}
+
+.section{margin-bottom:44px;}
+.sec-title{font-size:17px;font-weight:700;border-bottom:2px solid var(--border);padding-bottom:10px;margin-bottom:18px;display:flex;align-items:center;gap:10px;}
+.sec-num{width:26px;height:26px;border-radius:50%;background:var(--p);color:white;font-size:12px;font-weight:700;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;}
+.sec-sub{font-size:12px;color:var(--ts);margin-top:-12px;margin-bottom:18px;}
+
+.screen-pair{display:grid;grid-template-columns:240px 1fr;gap:24px;margin-bottom:24px;align-items:start;}
+.screen-mock{border:2.5px solid #1F2937;border-radius:24px;overflow:hidden;background:white;box-shadow:0 4px 16px rgba(0,0,0,.12);}
+.s-bar{background:#1F2937;color:#9CA3AF;font-size:9px;padding:5px 14px;display:flex;justify-content:space-between;}
+.s-nav{background:white;border-bottom:1px solid var(--border);padding:10px 14px;font-weight:600;font-size:12px;display:flex;align-items:center;gap:8px;}
+.s-nav .back{color:var(--p);font-size:11px;}
+.s-body{padding:12px;min-height:200px;background:var(--light);}
+.s-field{background:white;border:1px solid var(--border);border-radius:8px;padding:8px 10px;margin-bottom:8px;font-size:11px;}
+.s-field-label{font-size:9px;color:var(--ts);text-transform:uppercase;letter-spacing:.05em;margin-bottom:2px;}
+.s-field-val{color:var(--ts);font-style:italic;}
+.s-field-val.filled{color:var(--text);font-style:normal;}
+.s-chip-row{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px;}
+.s-chip{font-size:10px;padding:3px 8px;border-radius:12px;border:1px solid var(--border);background:white;}
+.s-chip.sel{background:var(--pl);border-color:var(--p);color:var(--p);font-weight:600;}
+.s-chip.wa{background:var(--wal);border-color:var(--wa);color:#15803D;font-weight:600;}
+.s-card{background:white;border:1px solid var(--border);border-radius:8px;padding:8px 10px;margin-bottom:6px;font-size:10px;}
+.s-card.pending{border-left:3px solid var(--o);}
+.s-card.active-c{border-left:3px solid var(--g);}
+.s-card-row{display:flex;align-items:flex-start;gap:6px;}
+.s-cta{padding:10px 14px;border-top:1px solid var(--border);background:white;}
+.s-btn{background:var(--p);color:white;border-radius:8px;padding:8px;text-align:center;font-size:11px;font-weight:600;}
+.s-btn.secondary{background:white;color:var(--p);border:1px solid var(--p);}
+.s-btn.wa{background:var(--wa);color:white;}
+.s-btn.sky{background:var(--sky);color:white;}
+.s-badge{display:inline-block;font-size:9px;padding:2px 6px;border-radius:4px;font-weight:600;}
+.s-badge.pending{background:var(--ol);color:#C2410C;}
+.s-badge.active{background:#DCFCE7;color:#15803D;}
+.s-badge.active-sub{background:var(--skyl);color:#0369A1;}
+
+.spec{background:white;border:1px solid var(--border);border-radius:12px;padding:18px;}
+.spec-section{margin-bottom:14px;}
+.spec-section:last-child{margin-bottom:0;}
+.spec-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--ts);margin-bottom:6px;}
+.spec-label.api{color:var(--b);}
+.spec-label.edge{color:var(--o);}
+.spec-label.logic{color:var(--p);}
+.api-block{background:#0F172A;color:#E2E8F0;border-radius:8px;padding:10px 12px;font-family:'Courier New',monospace;font-size:11px;line-height:1.7;}
+.api-block .method{color:#86EFAC;}
+.api-block .path{color:#93C5FD;}
+.api-block .key{color:#FCD34D;}
+.api-block .val{color:#E2E8F0;}
+.api-block .comment{color:#64748B;}
+.field-list{font-size:12px;}
+.field-list li{display:flex;gap:8px;align-items:baseline;padding:3px 0;border-bottom:1px solid var(--border);flex-wrap:wrap;}
+.field-list li:last-child{border:none;}
+.field-name{font-weight:600;color:var(--text);min-width:150px;}
+.field-desc{color:var(--ts);}
+.badge{font-size:9px;padding:1px 6px;border-radius:4px;font-weight:700;white-space:nowrap;}
+.badge.req{background:#FEF2F2;color:#DC2626;}
+.badge.opt{background:#F0FDF4;color:#15803D;}
+.badge.auto{background:var(--skyl);color:#0369A1;}
+
+.note{display:flex;gap:10px;padding:10px 14px;border-radius:8px;margin-bottom:10px;font-size:12px;line-height:1.6;}
+.note.info{background:var(--bl);border-left:3px solid var(--b);}
+.note.warn{background:var(--ol);border-left:3px solid var(--o);}
+.note.success{background:var(--gl);border-left:3px solid var(--g);}
+.note.danger{background:var(--rl);border-left:3px solid var(--r);}
+.note.purple{background:var(--pl);border-left:3px solid var(--p);}
+.note.sky{background:var(--skyl);border-left:3px solid var(--sky);}
+.note-icon{font-size:15px;flex-shrink:0;margin-top:1px;}
+
+/* Entity model */
+.model-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px;}
+.model-card{border-radius:10px;padding:14px;border:1px solid;}
+.model-card.consumer{background:var(--pl);border-color:var(--p);}
+.model-card.relationship{background:var(--skyl);border-color:var(--sky);}
+.model-card h4{font-size:12px;font-weight:700;margin-bottom:6px;}
+.model-card.consumer h4{color:var(--p);} .model-card.relationship h4{color:#0369A1;}
+.model-card p{font-size:11px;color:var(--ts);}
+
+/* Status lifecycle */
+.status-flow{display:flex;align-items:center;gap:0;flex-wrap:wrap;margin-bottom:12px;}
+.status-node{border-radius:8px;padding:6px 12px;font-size:11px;font-weight:600;text-align:center;}
+.status-node.pending{background:var(--ol);color:#C2410C;}
+.status-node.active{background:var(--gl);color:#15803D;}
+.status-node.rejected{background:var(--rl);color:#DC2626;}
+.status-node.blocked{background:#F1F5F9;color:#475569;}
+.status-node.disconnected{background:#F1F5F9;color:#475569;}
+.status-arrow{color:var(--gray);padding:0 8px;font-size:16px;align-self:center;}
+.status-label{font-size:10px;color:var(--ts);text-align:center;margin-top:2px;}
+
+/* WhatsApp mockup */
+.wa-phone{background:#ECE5DD;border:2.5px solid #1F2937;border-radius:24px;overflow:hidden;box-shadow:0 4px 16px rgba(0,0,0,.12);}
+.wa-header{background:#075E54;color:white;padding:10px 14px;display:flex;align-items:center;gap:10px;}
+.wa-avatar{width:32px;height:32px;border-radius:50%;background:#128C7E;display:flex;align-items:center;justify-content:center;font-size:14px;}
+.wa-hname{font-size:12px;font-weight:600;}
+.wa-hsub{font-size:9px;opacity:.7;}
+.wa-body{padding:12px;min-height:180px;}
+.wa-bubble{background:white;border-radius:12px;border-bottom-left-radius:3px;padding:10px 12px;margin-bottom:8px;font-size:11px;box-shadow:0 1px 3px rgba(0,0,0,.1);}
+.wa-bubble-text{color:#1F2937;line-height:1.5;}
+.wa-bubble-time{font-size:9px;color:#667781;text-align:right;margin-top:4px;}
+.wa-btns{display:flex;flex-direction:column;gap:4px;margin-top:8px;}
+.wa-btn{background:white;border:1px solid #25D366;color:#25D366;border-radius:8px;padding:7px 10px;font-size:11px;font-weight:600;text-align:center;}
+.wa-btn.reject{border-color:var(--r);color:var(--r);}
+.wa-footer{background:white;padding:8px 12px;display:flex;gap:8px;align-items:center;}
+.wa-input{flex:1;background:#F0F2F5;border-radius:20px;padding:6px 12px;font-size:11px;color:var(--ts);}
+
+/* Subscription item */
+.sub-item-card{background:white;border:1px solid var(--border);border-radius:10px;padding:12px;margin-bottom:10px;}
+.sub-item-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;}
+.sub-item-title{font-weight:700;font-size:13px;}
+.sub-schedule-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:8px;}
+.sub-sched{border:1px solid var(--border);border-radius:6px;padding:4px 6px;font-size:10px;text-align:center;cursor:pointer;}
+.sub-sched.sel{background:var(--skyl);border-color:var(--sky);color:#0369A1;font-weight:700;}
+
+/* Table */
+.tbl{width:100%;border-collapse:collapse;font-size:12px;margin-bottom:16px;}
+.tbl th{background:var(--light);text-align:left;padding:8px 12px;border:1px solid var(--border);font-weight:600;font-size:11px;}
+.tbl td{padding:7px 12px;border:1px solid var(--border);vertical-align:top;}
+.tbl tr:nth-child(even) td{background:#FAFAFA;}
+.code{font-family:'Courier New',monospace;background:var(--light);padding:2px 5px;border-radius:4px;font-size:11px;}
+
+/* Event flow */
+.event-chain{display:flex;flex-direction:column;gap:8px;margin-bottom:16px;}
+.event-item{display:flex;align-items:flex-start;gap:12px;padding:10px 14px;background:white;border:1px solid var(--border);border-radius:8px;}
+.event-icon{font-size:18px;flex-shrink:0;}
+.event-text{font-size:12px;}
+.event-text strong{display:block;font-size:13px;}
+.event-conn{border-left:2px dashed var(--border);height:12px;margin-left:22px;}
+
+@media(max-width:700px){
+  .screen-pair{grid-template-columns:1fr;}
+  .scope-grid,.model-grid{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+<!-- ═══ HEADER ═══ -->
+<div class="doc-header">
+  <h1>Vendor App — Consumer Onboarding &amp; Subscription Setup</h1>
+  <p>UX &amp; Development Guide · Milestone 3 · Backend: http://localhost:8080 · Swagger: /swagger-ui/index.html</p>
+  <div class="pills">
+    <span class="pill">Audience: UX Designer + Flutter Developer</span>
+    <span class="pill">Requires: Milestones 1 &amp; 2 Complete</span>
+    <span class="pill">Phase: Vendor Adds First Customer</span>
+    <span class="pill out">❌ Does NOT cover: Consumer App, Orders, Payments</span>
+  </div>
+</div>
+
+<!-- ═══ PRE-CONDITIONS ═══ -->
+<div class="precond">
+  <div class="precond-icon">✅</div>
+  <div>
+    <h3>Starting Point — Milestones 1 &amp; 2 Must Be Complete</h3>
+    <ul>
+      <li>Vendor is authenticated and has a valid Bearer token</li>
+      <li>At least 1 active capability exists (e.g., MILK_DELIVERY)</li>
+      <li>Vendor has at least 1 ACTIVE product in their catalog (Go Live condition met)</li>
+      <li>Vendor's service zone is set (required for address matching)</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ═══ SCOPE ═══ -->
+<div class="scope-grid">
+  <div class="scope-box scope-in">
+    <h4>✅ Covered in This Guide</h4>
+    <ul>
+      <li>Customers list screen (empty state + loaded state)</li>
+      <li>Search consumer by phone number before adding</li>
+      <li>Add Consumer form — new vs. existing consumer</li>
+      <li>WhatsApp invite flow (what consumer sees)</li>
+      <li>Consumer accept / reject invite</li>
+      <li>Vendor views PENDING → ACTIVE status transitions</li>
+      <li>Create subscription for accepted consumer</li>
+      <li>Add subscription items (product + qty + schedule)</li>
+      <li>Subscription activated — first delivery scheduled</li>
+      <li>Edge cases: duplicate, wrong phone, existing consumer</li>
+    </ul>
+  </div>
+  <div class="scope-box scope-out">
+    <h4>❌ Not Covered Here</h4>
+    <ul>
+      <li>Auth / OTP → see Guide 1</li>
+      <li>Catalog &amp; Go Live → see Guide 2</li>
+      <li>Daily order generation (Scheduler)</li>
+      <li>Order management (confirm / deliver)</li>
+      <li>Consumer app self-registration</li>
+      <li>Consumer vacation / delivery override</li>
+      <li>Payments &amp; Khata</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ═══ JOURNEY MAP ═══ -->
+<div class="journey">
+  <div class="journey-title">Full Platform Journey — Where We Are</div>
+  <div class="jsteps">
+    <div class="jstep"><div class="jstep-num done">✓</div><div class="jstep-label">OTP &amp; Profile<div class="badge-done">M1 Done</div></div></div>
+    <div class="jarrow">→</div>
+    <div class="jstep"><div class="jstep-num done">✓</div><div class="jstep-label">Catalog &amp; Go Live<div class="badge-done">M2 Done</div></div></div>
+    <div class="jarrow">→</div>
+    <div class="jstep"><div class="jstep-num cons">S7</div><div class="jstep-label">Add<br>Customer<div class="badge-m3">M3 Now</div></div></div>
+    <div class="jarrow">→</div>
+    <div class="jstep"><div class="jstep-num cons">S8</div><div class="jstep-label">Consumer<br>Accepts</div></div>
+    <div class="jarrow">→</div>
+    <div class="jstep"><div class="jstep-num sub">S9</div><div class="jstep-label">Create<br>Subscription</div></div>
+    <div class="jarrow">→</div>
+    <div class="jstep"><div class="jstep-num win">🎯</div><div class="jstep-label">First Delivery<br>Tomorrow</div></div>
+  </div>
+</div>
+
+<!-- ═══ SECTION 1: ENTITY MODEL ═══ -->
+<div class="section">
+  <div class="sec-title"><span class="sec-num">1</span> The 2-Entity Consumer Model</div>
+  <p class="sec-sub">Two distinct database entities drive this flow. Understand them before building any screen.</p>
+
+  <div class="model-grid">
+    <div class="model-card consumer">
+      <h4>👤 Consumer (Platform Profile)</h4>
+      <p><strong>Unique by: phone number</strong><br>
+      The person — their name, phone, email, default address. Created once on the platform. If vendor A adds Raju and vendor B also adds Raju (same phone), they both link to the <em>same</em> Consumer record.<br><br>
+      <strong>Status:</strong> <code>PENDING</code> (invite sent) → <code>ACTIVE</code> (accepted) or <code>REJECTED</code><br>
+      <strong>Origin:</strong> <code>VENDOR_CREATED</code> (this flow) | <code>SELF_REGISTERED</code> (future consumer app)</p>
+    </div>
+    <div class="model-card relationship">
+      <h4>🔗 ConsumerVendor (Relationship)</h4>
+      <p><strong>One record per vendor × consumer × capability × address</strong><br>
+      The connection — which vendor is serving which consumer, at what address, for which service (MILK_DELIVERY, TIFFIN_SERVICE, etc.). Same consumer can have multiple of these.<br><br>
+      <strong>Status:</strong> <code>PENDING</code> → <code>ACTIVE</code> → <code>BLOCKED</code> / <code>DISCONNECTED</code><br>
+      <strong>Holds:</strong> capabilityId, addressId, preferredDeliverySlot, deliveryInstructions</p>
+    </div>
+  </div>
+
+  <div class="note info">
+    <span class="note-icon">💡</span>
+    <div><strong>Real-world example:</strong> Raju (9876543210) → Consumer record (1 entry). Raju buys milk from Sharma Dairy AND water from AquaPure AND tiffin from FreshBox → 3 ConsumerVendor records, all pointing to the same Consumer. This is intentional and by design.</div>
+  </div>
+
+  <!-- Status flows -->
+  <div style="margin-top:20px;">
+    <div style="font-size:12px;font-weight:700;color:var(--ts);text-transform:uppercase;letter-spacing:.05em;margin-bottom:8px;">Consumer Status Flow</div>
+    <div class="status-flow">
+      <div><div class="status-node pending">PENDING</div><div class="status-label">Invite Sent</div></div>
+      <div class="status-arrow">→ Accept →</div>
+      <div><div class="status-node active">ACTIVE</div><div class="status-label">Accepted</div></div>
+      <div style="padding:0 16px;color:var(--ts);align-self:center;">|</div>
+      <div><div class="status-node pending">PENDING</div><div class="status-label">Invite Sent</div></div>
+      <div class="status-arrow">→ Reject →</div>
+      <div><div class="status-node rejected">REJECTED</div><div class="status-label">Declined</div></div>
+    </div>
+    <div style="font-size:12px;font-weight:700;color:var(--ts);text-transform:uppercase;letter-spacing:.05em;margin-bottom:8px;margin-top:12px;">ConsumerVendor Relationship Status Flow</div>
+    <div class="status-flow">
+      <div><div class="status-node pending">PENDING</div><div class="status-label">Invite Sent</div></div>
+      <div class="status-arrow">→</div>
+      <div><div class="status-node active">ACTIVE</div><div class="status-label">Serving</div></div>
+      <div class="status-arrow">→</div>
+      <div><div class="status-node blocked">BLOCKED</div><div class="status-label">Paused</div></div>
+      <div class="status-arrow">→</div>
+      <div><div class="status-node disconnected">DISCONNECTED</div><div class="status-label">Ended</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SECTION 2: CUSTOMERS LIST ═══ -->
+<div class="section">
+  <div class="sec-title"><span class="sec-num">2</span> Customers List — Home Screen (Screen S7-Entry)</div>
+  <p class="sec-sub">First entry after "Go Live". Vendor sees all their consumers. Empty state drives the first add-customer action.</p>
+
+  <div class="screen-pair">
+    <div class="screen-mock">
+      <div class="s-bar"><span>10:02 AM</span><span>●●● ▪▪▪</span></div>
+      <div class="s-nav"><span>My Customers</span><span style="margin-left:auto;color:var(--p);font-weight:700;font-size:11px;">+ Add</span></div>
+      <div style="display:flex;border-bottom:1px solid var(--border);background:white;">
+        <div style="flex:1;text-align:center;padding:8px;font-size:10px;font-weight:700;color:var(--p);border-bottom:2px solid var(--p);">All (0)</div>
+        <div style="flex:1;text-align:center;padding:8px;font-size:10px;color:var(--ts);">Active (0)</div>
+        <div style="flex:1;text-align:center;padding:8px;font-size:10px;color:var(--ts);">Pending (0)</div>
+      </div>
+      <div class="s-body" style="display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;min-height:220px;">
+        <div style="font-size:40px;margin-bottom:12px;">👥</div>
+        <div style="font-weight:600;font-size:13px;margin-bottom:4px;">No customers yet</div>
+        <div style="font-size:10px;color:var(--ts);margin-bottom:16px;">Add your existing customers to<br>start tracking deliveries</div>
+        <div style="background:var(--p);color:white;border-radius:8px;padding:8px 16px;font-size:11px;font-weight:600;">+ Add First Customer</div>
+      </div>
+    </div>
+    <div class="spec">
+      <div class="spec-section">
+        <div class="spec-label api">APIs to Call on Screen Load</div>
+        <div class="api-block">
+<span class="comment">// Load all consumer relationships for this vendor</span>
+<span class="method">GET</span> <span class="path">/api/v1/vendors/{vendorId}/consumer-relationships</span>
+<span class="comment">// Auth: vendor:consumer:read</span>
+<span class="comment">// Returns all statuses: PENDING, ACTIVE, BLOCKED, DISCONNECTED</span>
+
+<span class="comment">// For the count badge on "Active" tab</span>
+<span class="method">GET</span> <span class="path">/api/v1/vendors/{vendorId}/consumer-relationships/count</span>
+        </div>
+      </div>
+      <div class="spec-section">
+        <div class="spec-label logic">Tab Logic</div>
+        <ul class="field-list">
+          <li><span class="field-name">All</span><span class="field-desc">Total consumer-relationships (all statuses)</span></li>
+          <li><span class="field-name">Active</span><span class="field-desc">Only ConsumerVendorStatus = ACTIVE</span></li>
+          <li><span class="field-name">Pending</span><span class="field-desc">Only ConsumerVendorStatus = PENDING (invite sent, not yet accepted)</span></li>
+        </ul>
+      </div>
+      <div class="spec-section">
+        <div class="spec-label edge">Loaded State (after consumers exist)</div>
+        <p style="font-size:12px;color:var(--ts);">Show consumer name, phone, capability badge (e.g., "Milk"), status badge (ACTIVE/PENDING), and address (locality). Tap → go to consumer detail page. "+" FAB always visible to add more consumers.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SECTION 3: SEARCH BY PHONE ═══ -->
+<div class="section">
+  <div class="sec-title"><span class="sec-num">3</span> Add Customer — Step 1: Search by Phone (Screen S7a)</div>
+  <p class="sec-sub">Before filling a form, vendor searches by phone to check if this consumer already exists on the platform. This prevents duplicate consumer records and speeds up the flow for existing Vinimay users.</p>
+
+  <div class="screen-pair">
+    <div class="screen-mock">
+      <div class="s-bar"><span>10:05 AM</span><span>●●● ▪▪▪</span></div>
+      <div class="s-nav"><span class="back">←</span><span>Add Customer</span></div>
+      <div class="s-body">
+        <div style="font-size:11px;color:var(--ts);margin-bottom:10px;">Enter customer's phone number. We'll check if they already have a Vinimay account.</div>
+        <div class="s-field">
+          <div class="s-field-label">Mobile Number *</div>
+          <div style="display:flex;align-items:center;gap:6px;">
+            <span style="font-size:11px;color:var(--ts);">🇮🇳 +91</span>
+            <span class="s-field-val filled" style="font-size:13px;font-weight:600;">9876543210</span>
+          </div>
+        </div>
+        <!-- Found state -->
+        <div style="background:var(--gl);border:1px solid var(--g);border-radius:8px;padding:10px;font-size:11px;">
+          <div style="font-weight:700;color:#15803D;margin-bottom:4px;">✅ Customer Found on Vinimay!</div>
+          <div style="color:#166534;"><strong>Raju Sharma</strong></div>
+          <div style="font-size:10px;color:#15803D;">Already on platform · You are linking as new vendor</div>
+        </div>
+      </div>
+      <div class="s-cta"><div class="s-btn">Continue →</div></div>
+    </div>
+    <div class="spec">
+      <div class="spec-section">
+        <div class="spec-label api">Search API (call on blur / after 10 digits entered)</div>
+        <div class="api-block">
+<span class="method">GET</span> <span class="path">/api/v1/vendors/{vendorId}/consumers/search?phone=9876543210</span>
+<span class="comment">// Auth: vendor:consumer:read</span>
+<span class="comment">// Returns: ConsumerDTO or null (data: null)</span>
+        </div>
+      </div>
+      <div class="spec-section">
+        <div class="spec-label logic">3 Possible States After Search</div>
+        <table class="tbl">
+          <tr><th>State</th><th>What To Show</th><th>Next Step</th></tr>
+          <tr><td><strong>Found — new to this vendor</strong></td><td>Green banner: "Customer found! Raju Sharma"</td><td>Pre-fill name in form, skip name input</td></tr>
+          <tr><td><strong>Found — already linked to this vendor</strong></td><td>Orange warning: "Already your customer"</td><td>Block further action, show existing relationship</td></tr>
+          <tr><td><strong>Not found</strong></td><td>Gray info: "New to Vinimay, fill details below"</td><td>Show full form (name field required)</td></tr>
+        </table>
+      </div>
+      <div class="spec-section">
+        <div class="spec-label edge">Validation</div>
+        <p style="font-size:12px;color:var(--ts);">Phone must match regex <code>^[6-9]\d{9}$</code> (Indian mobile, 10 digits, starts with 6-9). Show inline error if format invalid. Do NOT call search API until 10 valid digits entered.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SECTION 4: FILL DETAILS FORM ═══ -->
+<div class="section">
+  <div class="sec-title"><span class="sec-num">4</span> Add Customer — Step 2: Fill Details (Screen S7b)</div>
+  <p class="sec-sub">Vendor fills the service details. If consumer was found in previous step, name is pre-filled and locked. Capability, address, and slot are always required.</p>
+
+  <div class="screen-pair">
+    <div class="screen-mock">
+      <div class="s-bar"><span>10:06 AM</span><span>●●● ▪▪▪</span></div>
+      <div class="s-nav"><span class="back">←</span><span>Customer Details</span></div>
+      <div class="s-body" style="padding-bottom:4px;">
+        <div class="s-field">
+          <div class="s-field-label">Name *</div>
+          <div class="s-field-val filled">Raju Sharma</div>
+        </div>
+        <div class="s-field">
+          <div class="s-field-label">Service Type *</div>
+          <div class="s-chip-row">
+            <div class="s-chip sel">🥛 Milk Delivery</div>
+            <div class="s-chip">💧 Water</div>
+            <div class="s-chip">🍱 Tiffin</div>
+          </div>
+        </div>
+        <div class="s-field">
+          <div class="s-field-label">Delivery Address *</div>
+          <div class="s-field-val" style="font-size:10px;">Enter customer's home/office address...</div>
+        </div>
+        <div class="s-field">
+          <div class="s-field-label">Preferred Delivery Slot</div>
+          <div class="s-chip-row">
+            <div class="s-chip sel">⏰ 6–7 AM</div>
+            <div class="s-chip">☀️ 7–8 AM</div>
+            <div class="s-chip">🌅 8–9 AM</div>
+          </div>
+        </div>
+        <div class="s-field">
+          <div class="s-field-label">Special Instructions (Optional)</div>
+          <div class="s-field-val">e.g., Leave at door</div>
+        </div>
+      </div>
+      <div class="s-cta"><div class="s-btn wa">Send Invite via WhatsApp</div></div>
+    </div>
+    <div class="spec">
+      <div class="spec-section">
+        <div class="spec-label api">POST — Add Consumer</div>
+        <div class="api-block">
+<span class="method">POST</span> <span class="path">/api/v1/vendors/{vendorId}/consumers</span>
+<span class="comment">// Auth: vendor:consumer:write</span>
+<span class="comment">// Body:</span>
+{
+  <span class="key">"phone"</span>: <span class="val">"9876543210"</span>,
+  <span class="key">"name"</span>: <span class="val">"Raju Sharma"</span>,
+  <span class="key">"capabilityId"</span>: <span class="val">"uuid-of-milk-capability"</span>,
+  <span class="key">"category"</span>: <span class="val">"MILK_DELIVERY"</span>,
+  <span class="key">"addressId"</span>: <span class="val">"uuid-of-delivery-address"</span>,
+  <span class="key">"preferredDeliverySlot"</span>: <span class="val">"06:00-07:00"</span>,
+  <span class="key">"deliveryInstructions"</span>: <span class="val">"Ring bell twice"</span>
+}
+        </div>
+      </div>
+      <div class="spec-section">
+        <div class="spec-label">Request Fields</div>
+        <ul class="field-list">
+          <li><span class="field-name">phone</span><span class="badge req">required</span><span class="field-desc">Indian mobile, 10 digits, starts 6–9</span></li>
+          <li><span class="field-name">name</span><span class="badge req">required</span><span class="field-desc">Consumer's name (vendor-set, editable by consumer later)</span></li>
+          <li><span class="field-name">capabilityId</span><span class="badge req">required</span><span class="field-desc">UUID of vendor's capability (from capabilities/my list)</span></li>
+          <li><span class="field-name">category</span><span class="badge opt">optional</span><span class="field-desc">e.g. "MILK_DELIVERY" — auto-derived from capabilityId on backend but send anyway</span></li>
+          <li><span class="field-name">addressId</span><span class="badge req">required</span><span class="field-desc">UUID of consumer's delivery address (must be created first via address module)</span></li>
+          <li><span class="field-name">preferredDeliverySlot</span><span class="badge opt">optional</span><span class="field-desc">Time string "HH:mm-HH:mm" e.g. "06:00-07:00"</span></li>
+          <li><span class="field-name">deliveryInstructions</span><span class="badge opt">optional</span><span class="field-desc">Free text, max 255 chars</span></li>
+        </ul>
+      </div>
+      <div class="spec-section">
+        <div class="spec-label logic">Handling the Address</div>
+        <p style="font-size:12px;color:var(--ts);">The <code>addressId</code> refers to an address already stored in the address module. In the vendor app, this step should either: <strong>(a)</strong> let the vendor enter a new address inline (create via address API first, then use returned ID), or <strong>(b)</strong> select from a list of previously-entered consumer addresses. Use the address module's POST endpoint to create the address if new, capture the UUID, and pass it here.</p>
+      </div>
+      <div class="spec-section">
+        <div class="spec-label logic">What Happens on Backend After POST</div>
+        <div style="font-size:12px;color:var(--ts);">
+          <div style="margin-bottom:4px;">1. If phone is NEW → Consumer record created with <code>status=PENDING</code>, <code>origin=VENDOR_CREATED</code></div>
+          <div style="margin-bottom:4px;">2. If phone EXISTS → Same Consumer record reused (no duplicate)</div>
+          <div style="margin-bottom:4px;">3. ConsumerVendor relationship created with <code>status=PENDING</code>, <code>invitedAt=now()</code></div>
+          <div>4. <code>consumer.created</code> event published (for new consumers only)</div>
+        </div>
+      </div>
+      <div class="spec-section">
+        <div class="spec-label edge">Duplicate Handling (DUPLICATE_RESOURCE error)</div>
+        <p style="font-size:12px;color:var(--ts);">If the same vendor tries to add the <em>same consumer</em> for the <em>same capability</em> at the <em>same address</em>, backend throws <code>DUPLICATE_RESOURCE</code>. Show: <em>"This customer is already linked to you for this service at this address."</em><br>
+        But: same consumer at a DIFFERENT address or DIFFERENT capability = allowed (creates a new relationship).</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SECTION 5: INVITE SENT + WHATSAPP FLOW ═══ -->
+<div class="section">
+  <div class="sec-title"><span class="sec-num">5</span> Invite Sent &amp; WhatsApp Flow (Screens S7c + S8)</div>
+  <p class="sec-sub">After the vendor sends the invite, the consumer receives a WhatsApp message from Thiya. They tap Accept or Reject. This is the handover point from Vendor App to consumer's phone.</p>
+
+  <div style="display:grid;grid-template-columns:240px 240px 1fr;gap:24px;margin-bottom:24px;align-items:start;">
+    <!-- Vendor confirmation screen -->
+    <div>
+      <div style="font-size:11px;font-weight:700;color:var(--ts);text-transform:uppercase;margin-bottom:8px;">Vendor sees:</div>
+      <div class="screen-mock">
+        <div class="s-bar"><span>10:07 AM</span><span>●●● ▪▪▪</span></div>
+        <div class="s-nav"><span class="back">←</span><span>Invite Sent</span></div>
+        <div class="s-body" style="display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;min-height:200px;">
+          <div style="font-size:48px;margin-bottom:8px;">📤</div>
+          <div style="font-weight:700;font-size:13px;margin-bottom:4px;">Invite Sent!</div>
+          <div style="font-size:10px;color:var(--ts);margin-bottom:4px;">WhatsApp message sent to</div>
+          <div style="font-size:12px;font-weight:600;">Raju Sharma</div>
+          <div style="font-size:11px;color:var(--ts);">+91 9876543210</div>
+          <div style="margin-top:12px;background:var(--ol);border-radius:6px;padding:6px 12px;font-size:10px;color:#C2410C;">⏳ Waiting for acceptance</div>
+        </div>
+        <div class="s-cta" style="display:flex;gap:8px;">
+          <div class="s-btn secondary" style="flex:1;font-size:10px;">Add Another</div>
+          <div class="s-btn" style="flex:1;font-size:10px;">View List</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- WhatsApp consumer side -->
+    <div>
+      <div style="font-size:11px;font-weight:700;color:var(--ts);text-transform:uppercase;margin-bottom:8px;">Consumer's WhatsApp:</div>
+      <div class="wa-phone">
+        <div class="wa-header">
+          <div class="wa-avatar">🤖</div>
+          <div><div class="wa-hname">Thiya (Vinimay)</div><div class="wa-hsub">Online</div></div>
+        </div>
+        <div class="wa-body">
+          <div class="wa-bubble">
+            <div class="wa-bubble-text">
+              Hi Raju! 👋<br><br>
+              <strong>Sharma Dairy</strong> has added you as their customer on Vinimay.<br><br>
+              Service: 🥛 <strong>Milk Delivery</strong><br>
+              Slot: ⏰ <strong>6:00 – 7:00 AM</strong><br>
+              Address: <strong>Baner, Pune</strong><br><br>
+              Do you want to receive deliveries from them?
+            </div>
+            <div class="wa-bubble-time">10:07 AM ✓✓</div>
+            <div class="wa-btns">
+              <div class="wa-btn">✅ Yes, Accept</div>
+              <div class="wa-btn reject">❌ No, Decline</div>
+            </div>
+          </div>
+        </div>
+        <div class="wa-footer"><div class="wa-input">Type a message...</div><span style="font-size:18px;color:var(--wa);">📨</span></div>
+      </div>
+    </div>
+
+    <!-- Right side spec -->
+    <div class="spec">
+      <div class="spec-section">
+        <div class="spec-label api">Consumer Accept API</div>
+        <div class="api-block">
+<span class="comment">// Called when consumer taps "Accept" in WhatsApp</span>
+<span class="comment">// (deep link or web redirect → app calls this)</span>
+<span class="method">POST</span> <span class="path">/api/v1/consumers/{consumerId}/accept?vendorId={vendorId}</span>
+<span class="comment">// Auth: consumer:invite:manage</span>
+<span class="comment">// ⚠️ For MVP: if consumer is not yet an app user,</span>
+<span class="comment">//    this may need to be accessible with minimal auth</span>
+        </div>
+      </div>
+      <div class="spec-section">
+        <div class="spec-label api">Consumer Reject API</div>
+        <div class="api-block">
+<span class="method">POST</span> <span class="path">/api/v1/consumers/{consumerId}/reject?vendorId={vendorId}</span>
+<span class="comment">// Auth: consumer:invite:manage</span>
+        </div>
+      </div>
+      <div class="spec-section">
+        <div class="spec-label logic">What Happens on Accept</div>
+        <div class="event-chain">
+          <div class="event-item">
+            <span class="event-icon">1️⃣</span>
+            <div class="event-text"><strong>Consumer.status → ACTIVE</strong>Consumer is fully onboarded onto the platform. acceptedAt = now()</div>
+          </div>
+          <div class="event-conn"></div>
+          <div class="event-item">
+            <span class="event-icon">2️⃣</span>
+            <div class="event-text"><strong>ConsumerVendor.status → ACTIVE</strong>This specific vendor-consumer relationship is now active. acceptedAt = now()</div>
+          </div>
+          <div class="event-conn"></div>
+          <div class="event-item">
+            <span class="event-icon">3️⃣</span>
+            <div class="event-text"><strong>consumer.accepted event published</strong>Notification module listens → sends "Raju accepted your invite!" to vendor. Subscription module will listen for future automation.</div>
+          </div>
+        </div>
+      </div>
+      <div class="spec-section">
+        <div class="spec-label edge">What Happens on Reject</div>
+        <p style="font-size:12px;color:var(--ts);">ConsumerVendor.status → DISCONNECTED. If consumer has no other active relationships and is still PENDING status → Consumer.status → REJECTED. No notification to vendor in current implementation (future TODO).</p>
+      </div>
+      <div class="spec-section">
+        <div class="spec-label edge">Pending Invites — Vendor View</div>
+        <div class="api-block">
+<span class="comment">// Vendor polls this to see PENDING consumers</span>
+<span class="method">GET</span> <span class="path">/api/v1/vendors/{vendorId}/consumer-relationships</span>
+<span class="comment">// Filter by status=PENDING client-side</span>
+<span class="comment">// Or use /active to see accepted ones</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="note warn">
+    <span class="note-icon">⚠️</span>
+    <div><strong>WhatsApp integration is currently TODO in backend.</strong> The <code>ConsumerService.addConsumerByVendor()</code> method has a commented-out block for sending WhatsApp via geekrabit-notify. For the MVP build, plan for this screen to show a "WhatsApp sending" state, but the actual WA delivery will be wired later. The Accept/Reject API endpoints themselves are fully functional.</div>
+  </div>
+</div>
+
+<!-- ═══ SECTION 6: VENDOR VIEWS ACTIVE CONSUMER ═══ -->
+<div class="section">
+  <div class="sec-title"><span class="sec-num">6</span> Customer Accepted — Vendor Sees ACTIVE State (Screen S8a)</div>
+  <p class="sec-sub">After consumer accepts, vendor's customer list updates. The ACTIVE consumer now shows a "Set Up Plan" CTA — the prompt to create a subscription and start deliveries.</p>
+
+  <div class="screen-pair">
+    <div class="screen-mock">
+      <div class="s-bar"><span>10:15 AM</span><span>●●● ▪▪▪</span></div>
+      <div class="s-nav"><span>My Customers</span><span style="margin-left:auto;color:var(--p);font-weight:700;font-size:11px;">+ Add</span></div>
+      <div style="display:flex;border-bottom:1px solid var(--border);background:white;">
+        <div style="flex:1;text-align:center;padding:8px;font-size:10px;font-weight:700;color:var(--p);border-bottom:2px solid var(--p);">All (1)</div>
+        <div style="flex:1;text-align:center;padding:8px;font-size:10px;color:var(--ts);">Active (1)</div>
+        <div style="flex:1;text-align:center;padding:8px;font-size:10px;color:var(--ts);">Pending (0)</div>
+      </div>
+      <div class="s-body">
+        <div class="s-card active-c">
+          <div class="s-card-row" style="margin-bottom:4px;">
+            <div style="flex:1;">
+              <div style="font-weight:600;font-size:11px;">Raju Sharma <span class="s-badge active">ACTIVE</span></div>
+              <div style="font-size:9px;color:var(--ts);">+91 9876543210 · Baner, Pune</div>
+              <div style="font-size:9px;color:var(--p);margin-top:2px;">🥛 Milk Delivery · 6:00–7:00 AM</div>
+            </div>
+            <div style="font-size:16px;color:var(--ts);">⋮</div>
+          </div>
+          <div style="background:var(--skyl);border:1px solid var(--sky);border-radius:6px;padding:5px 8px;font-size:10px;color:#0369A1;font-weight:600;">
+            📋 No subscription yet · Tap to set up →
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="spec">
+      <div class="spec-section">
+        <div class="spec-label api">Consumer Detail — Check Subscription Status</div>
+        <div class="api-block">
+<span class="comment">// When vendor taps on a customer card</span>
+<span class="method">GET</span> <span class="path">/api/v1/vendors/{vendorId}/consumer-relationships/active</span>
+<span class="comment">// Check if subscription exists for this consumer-vendor</span>
+<span class="method">GET</span> <span class="path">/api/v1/vendors/{vendorId}/subscriptions</span>
+<span class="comment">// Filter by consumerId client-side to see if active sub exists</span>
+        </div>
+      </div>
+      <div class="spec-section">
+        <div class="spec-label logic">Consumer Card — What to Show</div>
+        <ul class="field-list">
+          <li><span class="field-name">Name + phone</span><span class="field-desc">From Consumer entity</span></li>
+          <li><span class="field-name">Address locality</span><span class="field-desc">Short form of delivery address</span></li>
+          <li><span class="field-name">Capability + slot</span><span class="field-desc">From ConsumerVendor entity</span></li>
+          <li><span class="field-name">Status badge</span><span class="field-desc">ACTIVE (green) / PENDING (orange) / BLOCKED (gray)</span></li>
+          <li><span class="field-name">Subscription status</span><span class="field-desc">Blue prompt if no active subscription, else shows "Plan Active" with items count</span></li>
+        </ul>
+      </div>
+      <div class="spec-section">
+        <div class="spec-label edge">Multi-Capability Consumer</div>
+        <p style="font-size:12px;color:var(--ts);">Same consumer can have multiple ConsumerVendor relationships with this vendor (e.g., milk at home + tiffin at office). Show each as a separate card or group them under the consumer's name with sub-rows per capability.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SECTION 7: CREATE SUBSCRIPTION ═══ -->
+<div class="section">
+  <div class="sec-title"><span class="sec-num">7</span> Create Subscription (Screen S9)</div>
+  <p class="sec-sub">The vendor sets up the recurring delivery plan for the accepted consumer. This creates a Subscription + SubscriptionItems. Once saved, the scheduler automatically creates orders every morning.</p>
+
+  <div class="note purple">
+    <span class="note-icon">📦</span>
+    <div><strong>What a Subscription is:</strong> A standing order — "Deliver X items on Y schedule at Z address." The subscription scheduler runs every morning, looks at all ACTIVE subscriptions, checks which items are scheduled for that day, and auto-creates Order records. The vendor then sees these in their daily manifest.</div>
+  </div>
+
+  <div class="screen-pair">
+    <div class="screen-mock">
+      <div class="s-bar"><span>10:20 AM</span><span>●●● ▪▪▪</span></div>
+      <div class="s-nav"><span class="back">←</span><span>Set Up Plan — Raju</span></div>
+      <div class="s-body">
+        <div class="s-field">
+          <div class="s-field-label">Start Date *</div>
+          <div class="s-field-val filled">Tomorrow (01 Mar 2026)</div>
+        </div>
+        <div class="s-field">
+          <div class="s-field-label">Billing Cycle</div>
+          <div class="s-chip-row">
+            <div class="s-chip sel">📅 Monthly</div>
+            <div class="s-chip">📆 Weekly</div>
+          </div>
+        </div>
+        <div style="font-size:11px;font-weight:700;color:var(--text);margin-bottom:6px;">Delivery Items</div>
+        <div style="background:white;border:1px solid var(--border);border-radius:8px;padding:8px;margin-bottom:6px;">
+          <div style="font-size:10px;font-weight:600;margin-bottom:4px;">Amul Gold 1L</div>
+          <div style="display:flex;gap:6px;margin-bottom:4px;">
+            <span style="font-size:10px;background:var(--light);border:1px solid var(--border);border-radius:4px;padding:2px 6px;">Qty: 1</span>
+            <span style="font-size:10px;background:var(--skyl);border:1px solid var(--sky);color:#0369A1;border-radius:4px;padding:2px 6px;">Daily</span>
+          </div>
+          <div style="font-size:9px;color:var(--ts);">Slot: 06:00–07:00 · Home, Baner</div>
+        </div>
+        <div style="border:1.5px dashed var(--border);border-radius:8px;padding:8px;text-align:center;font-size:10px;color:var(--ts);">+ Add Another Item</div>
+      </div>
+      <div class="s-cta"><div class="s-btn sky">Activate Plan →</div></div>
+    </div>
+    <div class="spec">
+      <div class="spec-section">
+        <div class="spec-label api">POST — Create Subscription with Items</div>
+        <div class="api-block">
+<span class="method">POST</span> <span class="path">/api/v1/vendors/{vendorId}/subscriptions</span>
+<span class="comment">// Auth: vendor:subscription:write</span>
+{
+  <span class="key">"consumerId"</span>: <span class="val">"uuid-of-raju"</span>,
+  <span class="key">"vendorId"</span>: <span class="val">"uuid-of-vendor"</span>,
+  <span class="key">"consumerVendorId"</span>: <span class="val">"uuid-of-cv-relationship"</span>,
+  <span class="key">"capabilityId"</span>: <span class="val">"uuid-of-milk-capability"</span>,
+  <span class="key">"category"</span>: <span class="val">"MILK_DELIVERY"</span>,
+  <span class="key">"startDate"</span>: <span class="val">"2026-03-01"</span>,
+  <span class="key">"billingCycle"</span>: <span class="val">"MONTHLY"</span>,
+  <span class="key">"items"</span>: [
+    {
+      <span class="key">"vendorProductId"</span>: <span class="val">"uuid-of-amul-gold"</span>,
+      <span class="key">"productName"</span>: <span class="val">"Amul Gold 1L"</span>,
+      <span class="key">"quantity"</span>: <span class="val">1</span>,
+      <span class="key">"schedule"</span>: <span class="val">"DAILY"</span>,
+      <span class="key">"deliveryAddressId"</span>: <span class="val">"uuid-of-raju-home"</span>,
+      <span class="key">"deliverySlot"</span>: <span class="val">"06:00-07:00"</span>
+    }
+  ]
+}
+        </div>
+      </div>
+      <div class="spec-section">
+        <div class="spec-label">Subscription Top-Level Fields</div>
+        <ul class="field-list">
+          <li><span class="field-name">consumerId</span><span class="badge req">required</span><span class="field-desc">From consumer object</span></li>
+          <li><span class="field-name">consumerVendorId</span><span class="badge req">required</span><span class="field-desc">The ConsumerVendor relationship UUID</span></li>
+          <li><span class="field-name">capabilityId</span><span class="badge req">required</span><span class="field-desc">Vendor's capability UUID</span></li>
+          <li><span class="field-name">startDate</span><span class="badge req">required</span><span class="field-desc">Cannot be in the past. Default: tomorrow</span></li>
+          <li><span class="field-name">billingCycle</span><span class="badge opt">optional</span><span class="field-desc">MONTHLY (default) | WEEKLY</span></li>
+          <li><span class="field-name">items</span><span class="badge opt">optional</span><span class="field-desc">Provide inline — backend creates items in one transaction</span></li>
+        </ul>
+      </div>
+      <div class="spec-section">
+        <div class="spec-label">Subscription Item Fields</div>
+        <ul class="field-list">
+          <li><span class="field-name">vendorProductId</span><span class="badge req">required</span><span class="field-desc">UUID of VendorProduct from catalog</span></li>
+          <li><span class="field-name">quantity</span><span class="badge req">required</span><span class="field-desc">How many units per delivery</span></li>
+          <li><span class="field-name">schedule</span><span class="badge req">required</span><span class="field-desc">See schedule options below</span></li>
+          <li><span class="field-name">deliveryAddressId</span><span class="badge req">required</span><span class="field-desc">Per-item (supports different addresses per item)</span></li>
+          <li><span class="field-name">deliverySlot</span><span class="badge opt">optional</span><span class="field-desc">Overrides subscription-level slot</span></li>
+          <li><span class="field-name">customDays</span><span class="badge auto">if CUSTOM</span><span class="field-desc">"MON,WED,FRI" or "15" for MONTHLY_DAY</span></li>
+          <li><span class="field-name">startDate / endDate</span><span class="badge opt">optional</span><span class="field-desc">Item-level override of subscription date range</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SECTION 8: SCHEDULE PICKER ═══ -->
+<div class="section">
+  <div class="sec-title"><span class="sec-num">8</span> Delivery Schedule Picker — UI Component</div>
+  <p class="sec-sub">The DeliverySchedule enum has 8 options. Design this as a segmented picker or chips. CUSTOM and MONTHLY_DAY require an additional input for customDays.</p>
+
+  <table class="tbl">
+    <thead><tr><th>Schedule Value</th><th>Display Label</th><th>When Delivered</th><th>customDays Required?</th></tr></thead>
+    <tbody>
+      <tr><td><span class="code">DAILY</span></td><td>Every Day</td><td>7 days a week</td><td>No</td></tr>
+      <tr><td><span class="code">ALTERNATE</span></td><td>Alternate Days</td><td>Day 1, Day 3, Day 5... (from startDate)</td><td>No</td></tr>
+      <tr><td><span class="code">WEEKDAYS</span></td><td>Mon–Fri</td><td>Monday to Friday only</td><td>No</td></tr>
+      <tr><td><span class="code">WEEKEND</span></td><td>Sat–Sun</td><td>Saturday and Sunday only</td><td>No</td></tr>
+      <tr><td><span class="code">CUSTOM</span></td><td>Custom Days</td><td>Only selected days — e.g. "MON,WED,FRI"</td><td>Yes — comma-separated: "MON,WED,FRI"</td></tr>
+      <tr><td><span class="code">MONTHLY_FIRST</span></td><td>1st of Month</td><td>1st day of each month</td><td>No</td></tr>
+      <tr><td><span class="code">MONTHLY_LAST</span></td><td>Last of Month</td><td>Last day of each month</td><td>No</td></tr>
+      <tr><td><span class="code">MONTHLY_DAY</span></td><td>Specific Date</td><td>e.g., every 15th of the month</td><td>Yes — number 1–28: "15"</td></tr>
+    </tbody>
+  </table>
+
+  <div class="note info">
+    <span class="note-icon">💡</span>
+    <div><strong>Recommended UX:</strong> For milk/tiffin vendors, <strong>DAILY</strong> and <strong>ALTERNATE</strong> will be the most common choices. Show these first. CUSTOM should expand a day-of-week selector. MONTHLY_DAY should show a number input (1–28). Keep the UI simple — avoid showing all 8 options at once.</div>
+  </div>
+</div>
+
+<!-- ═══ SECTION 9: SUBSCRIPTION ACTIVATED ═══ -->
+<div class="section">
+  <div class="sec-title"><span class="sec-num">9</span> Subscription Activated — Confirmation (Screen S9b)</div>
+  <p class="sec-sub">After successful POST, show a clear confirmation. The vendor now knows deliveries will start from the chosen start date. This is the "first win" moment in the vendor journey.</p>
+
+  <div class="screen-pair">
+    <div class="screen-mock">
+      <div class="s-bar"><span>10:22 AM</span><span>●●● ▪▪▪</span></div>
+      <div class="s-nav"><span class="back">←</span><span>Plan Activated!</span></div>
+      <div class="s-body" style="display:flex;flex-direction:column;align-items:center;text-align:center;min-height:240px;padding-top:20px;">
+        <div style="width:64px;height:64px;background:var(--gl);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:32px;margin-bottom:12px;">✅</div>
+        <div style="font-weight:700;font-size:14px;margin-bottom:4px;">Raju's Plan is Active!</div>
+        <div style="font-size:10px;color:var(--ts);margin-bottom:16px;">First delivery: Tomorrow, 6:00–7:00 AM</div>
+        <div style="background:white;border:1px solid var(--border);border-radius:8px;padding:10px;width:100%;text-align:left;font-size:10px;margin-bottom:10px;">
+          <div style="font-weight:600;margin-bottom:4px;">📦 Plan Summary</div>
+          <div style="color:var(--ts);">🥛 Amul Gold 1L × 1 · Daily</div>
+          <div style="color:var(--ts);">📍 Baner, Pune · ⏰ 6–7 AM</div>
+          <div style="color:var(--ts);margin-top:4px;">💰 Billing: Monthly</div>
+        </div>
+        <div style="font-size:10px;color:var(--ts);">Raju will see tomorrow's delivery in their app</div>
+      </div>
+      <div class="s-cta" style="display:flex;gap:8px;">
+        <div class="s-btn secondary" style="flex:1;font-size:10px;">Add Customer</div>
+        <div class="s-btn" style="flex:1;font-size:10px;">View Dashboard</div>
+      </div>
+    </div>
+    <div class="spec">
+      <div class="spec-section">
+        <div class="spec-label">What Happens Next (Backend Automation)</div>
+        <div class="event-chain">
+          <div class="event-item">
+            <span class="event-icon">🌙</span>
+            <div class="event-text"><strong>Next morning: OrderGenerationScheduler runs</strong>Checks all ACTIVE subscriptions. For each, calls <code>isScheduledForDate(today)</code> on each item. Creates Order records automatically.</div>
+          </div>
+          <div class="event-conn"></div>
+          <div class="event-item">
+            <span class="event-icon">📋</span>
+            <div class="event-text"><strong>Vendor sees order in Daily Manifest</strong>GET <code>/api/v1/vendors/{vendorId}/orders/daily-manifest?date=2026-03-01</code> — order appears with status CONFIRMED (if auto-confirm is on) or PENDING_VENDOR_CONFIRMATION.</div>
+          </div>
+          <div class="event-conn"></div>
+          <div class="event-item">
+            <span class="event-icon">🚚</span>
+            <div class="event-text"><strong>Vendor delivers → marks as delivered</strong>PUT <code>/api/v1/vendors/{vendorId}/orders/{orderId}/deliver</code> — or bulk: PUT <code>/vendors/{vendorId}/orders/bulk-deliver?date=...</code></div>
+          </div>
+        </div>
+      </div>
+      <div class="spec-section">
+        <div class="spec-label edge">Duplicate Active Subscription Error</div>
+        <p style="font-size:12px;color:var(--ts);">If vendor tries to create a second active subscription for the same consumer + same capability, backend throws <code>DUPLICATE_RESOURCE</code>: "Active subscription already exists for this vendor and capability." Show: <em>"This customer already has an active plan for Milk Delivery."</em> Guide vendor to modify the existing subscription instead.</p>
+      </div>
+      <div class="spec-section">
+        <div class="spec-label edge">Past Start Date</div>
+        <p style="font-size:12px;color:var(--ts);">Backend validation: <code>startDate cannot be in the past</code>. Client-side: disable all past dates in the date picker. Default to tomorrow.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SECTION 10: MULTI-CONSUMER FLOW ═══ -->
+<div class="section">
+  <div class="sec-title"><span class="sec-num">10</span> Multi-Consumer Scenarios &amp; Edge Cases</div>
+
+  <table class="tbl">
+    <thead>
+      <tr><th>Scenario</th><th>What Backend Does</th><th>UX Handling</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Same consumer, same vendor, different capability</strong><br><small>Raju already gets milk from Sharma Dairy; now vendor adds water too</small></td>
+        <td>New ConsumerVendor record created (different capabilityId). Existing Consumer reused. No duplicate error.</td>
+        <td>On "Add Customer" flow, if phone is found, pre-fill name. Capability selector shows. New invite sent for new capability.</td>
+      </tr>
+      <tr>
+        <td><strong>Same consumer, same vendor, same capability, different address</strong><br><small>Raju wants milk at office too</small></td>
+        <td>New ConsumerVendor record (different addressId). Allowed.</td>
+        <td>Let vendor enter a different address. Both ConsumerVendor records appear in the list.</td>
+      </tr>
+      <tr>
+        <td><strong>Same consumer, same vendor, same capability, same address</strong><br><small>Duplicate add</small></td>
+        <td>Throws <code>DUPLICATE_RESOURCE</code> 409</td>
+        <td>Show: "This customer already has Milk Delivery at this address from you." Redirect to existing record.</td>
+      </tr>
+      <tr>
+        <td><strong>Consumer on platform, linked to multiple vendors</strong><br><small>Raju buys from 3 different vendors</small></td>
+        <td>One Consumer record, 3 ConsumerVendor records. Each vendor only sees their own relationship.</td>
+        <td>When vendor searches Raju's phone → "Found on Vinimay" (green). Vendor adds normally; other vendors' data invisible.</td>
+      </tr>
+      <tr>
+        <td><strong>Consumer has not accepted yet (PENDING)</strong></td>
+        <td>ConsumerVendor.status = PENDING. No subscription can be created yet (subscription requires ACTIVE relationship).</td>
+        <td>Show "Waiting for acceptance" banner. Disable "Set Up Plan" button. Show "Resend Invite" option.</td>
+      </tr>
+      <tr>
+        <td><strong>Consumer rejects invite</strong></td>
+        <td>ConsumerVendor.status = DISCONNECTED. Consumer.status may become REJECTED.</td>
+        <td>Show status as "Declined" on the card. Vendor can try re-inviting or remove from list. No automatic retry.</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ═══ SECTION 11: API REFERENCE ═══ -->
+<div class="section">
+  <div class="sec-title"><span class="sec-num">11</span> API Reference Summary — This Milestone</div>
+
+  <table class="tbl">
+    <thead>
+      <tr><th>Method</th><th>Endpoint</th><th>Description</th><th>Permission</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><span class="code" style="color:#15803D;">GET</span></td><td><span class="code">/api/v1/vendors/{vendorId}/consumers/search?phone=...</span></td><td>Search consumer by phone before adding</td><td><code>vendor:consumer:read</code></td></tr>
+      <tr><td><span class="code" style="color:#2563EB;">POST</span></td><td><span class="code">/api/v1/vendors/{vendorId}/consumers</span></td><td>Add consumer (create consumer + relationship + invite)</td><td><code>vendor:consumer:write</code></td></tr>
+      <tr><td><span class="code" style="color:#15803D;">GET</span></td><td><span class="code">/api/v1/vendors/{vendorId}/consumers</span></td><td>Get all consumers onboarded by this vendor</td><td><code>vendor:consumer:read</code></td></tr>
+      <tr><td><span class="code" style="color:#15803D;">GET</span></td><td><span class="code">/api/v1/vendors/{vendorId}/consumer-relationships</span></td><td>All relationships (all statuses)</td><td><code>vendor:consumer:read</code></td></tr>
+      <tr><td><span class="code" style="color:#15803D;">GET</span></td><td><span class="code">/api/v1/vendors/{vendorId}/consumer-relationships/active</span></td><td>Only ACTIVE relationships</td><td><code>vendor:consumer:read</code></td></tr>
+      <tr><td><span class="code" style="color:#15803D;">GET</span></td><td><span class="code">/api/v1/vendors/{vendorId}/consumer-relationships/count</span></td><td>Active consumer count (dashboard badge)</td><td><code>vendor:consumer:read</code></td></tr>
+      <tr><td><span class="code" style="color:#15803D;">GET</span></td><td><span class="code">/api/v1/vendors/{vendorId}/consumer-relationships/capability/{capId}</span></td><td>Consumers for specific capability (e.g., milk only)</td><td><code>vendor:consumer:read</code></td></tr>
+      <tr><td><span class="code" style="color:#2563EB;">POST</span></td><td><span class="code">/api/v1/consumers/{consumerId}/accept?vendorId=...</span></td><td>Consumer accepts vendor invite</td><td><code>consumer:invite:manage</code></td></tr>
+      <tr><td><span class="code" style="color:#2563EB;">POST</span></td><td><span class="code">/api/v1/consumers/{consumerId}/reject?vendorId=...</span></td><td>Consumer rejects vendor invite</td><td><code>consumer:invite:manage</code></td></tr>
+      <tr><td><span class="code" style="color:#7C3AED;">PATCH</span></td><td><span class="code">/api/v1/consumer-relationships/{id}/preferences</span></td><td>Update delivery slot / instructions</td><td><code>vendor:consumer:write</code></td></tr>
+      <tr><td><span class="code" style="color:#2563EB;">POST</span></td><td><span class="code">/api/v1/vendors/{vendorId}/subscriptions</span></td><td>Create subscription with items</td><td><code>vendor:subscription:write</code></td></tr>
+      <tr><td><span class="code" style="color:#15803D;">GET</span></td><td><span class="code">/api/v1/vendors/{vendorId}/subscriptions</span></td><td>All subscriptions for vendor</td><td><code>vendor:subscription:read</code></td></tr>
+      <tr><td><span class="code" style="color:#15803D;">GET</span></td><td><span class="code">/api/v1/vendors/{vendorId}/subscriptions/{subscriptionId}</span></td><td>Get subscription with all items</td><td><code>vendor:subscription:read</code></td></tr>
+      <tr><td><span class="code" style="color:#2563EB;">POST</span></td><td><span class="code">/api/v1/vendors/{vendorId}/subscriptions/{id}/items</span></td><td>Add item to existing subscription</td><td><code>vendor:subscription:write</code></td></tr>
+      <tr><td><span class="code" style="color:#DC2626;">DELETE</span></td><td><span class="code">/api/v1/vendors/{vendorId}/subscriptions/{id}/items/{itemId}</span></td><td>Remove item from subscription</td><td><code>vendor:subscription:write</code></td></tr>
+      <tr><td><span class="code" style="color:#2563EB;">POST</span></td><td><span class="code">/api/v1/vendors/{vendorId}/subscriptions/{id}/cancel</span></td><td>Cancel subscription</td><td><code>vendor:subscription:write</code></td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ═══ SECTION 12: EVENTS FLOW ═══ -->
+<div class="section">
+  <div class="sec-title"><span class="sec-num">12</span> Events Published in This Flow</div>
+  <p class="sec-sub">Internal events used for notification wiring and cross-module communication. Useful for the developer to understand async side effects.</p>
+
+  <table class="tbl">
+    <thead>
+      <tr><th>Topic</th><th>Event Class</th><th>Triggered When</th><th>Current Listeners</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><span class="code">consumer.created</span></td><td><span class="code">ConsumerCreatedEvent</span></td><td>New consumer created (first-ever vendor adds them)</td><td>Notification module (future: send WhatsApp invite)</td></tr>
+      <tr><td><span class="code">consumer.accepted</span></td><td><span class="code">ConsumerAcceptedEvent</span></td><td>Consumer accepts a vendor invite</td><td>Future: "Raju accepted!" notification to vendor</td></tr>
+      <tr><td><span class="code">subscription.created</span></td><td><span class="code">SubscriptionCreatedEvent</span></td><td>New subscription activated by vendor</td><td>Future: "Your milk delivery plan is set!" to consumer</td></tr>
+      <tr><td><span class="code">subscription.status-changed</span></td><td><span class="code">SubscriptionStatusChangedEvent</span></td><td>Subscription paused / cancelled / resumed</td><td>Notification module</td></tr>
+      <tr><td><span class="code">order.generation-requested</span></td><td><span class="code">OrderGenerationRequestedEvent</span></td><td>Scheduler triggers order generation for the day</td><td>Order module creates Order + OrderItem records</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ═══ SECTION 13: RBAC REFERENCE ═══ -->
+<div class="section">
+  <div class="sec-title"><span class="sec-num">13</span> Permissions Reference</div>
+
+  <table class="tbl">
+    <thead><tr><th>Permission</th><th>Who Has It</th><th>Used For</th></tr></thead>
+    <tbody>
+      <tr><td><span class="code">vendor:consumer:write</span></td><td>VENDOR role</td><td>Add consumers, update relationships, block/disconnect</td></tr>
+      <tr><td><span class="code">vendor:consumer:read</span></td><td>VENDOR role</td><td>View consumer list, search, count</td></tr>
+      <tr><td><span class="code">vendor:subscription:write</span></td><td>VENDOR role</td><td>Create/cancel subscriptions, add/remove items</td></tr>
+      <tr><td><span class="code">vendor:subscription:read</span></td><td>VENDOR role</td><td>View subscriptions and items</td></tr>
+      <tr><td><span class="code">consumer:invite:manage</span></td><td>CONSUMER role</td><td>Accept/reject vendor invites, view pending invites</td></tr>
+      <tr><td><span class="code">consumer:vendor:read</span></td><td>CONSUMER role</td><td>View their linked vendors (future consumer app)</td></tr>
+      <tr><td><span class="code">consumer:subscription:read</span></td><td>CONSUMER role</td><td>View own subscriptions (future consumer app)</td></tr>
+      <tr><td><span class="code">consumer:subscription:write</span></td><td>CONSUMER role</td><td>Pause, cancel, override subscriptions (future)</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ═══ SECTION 14: WHAT'S NEXT ═══ -->
+<div class="section">
+  <div class="sec-title"><span class="sec-num">14</span> What's Next — Milestone 4 Preview</div>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;">
+    <div style="background:var(--skyl);border:1px solid var(--sky);border-radius:10px;padding:14px;">
+      <div style="font-size:18px;margin-bottom:6px;">📋</div>
+      <div style="font-weight:700;font-size:13px;color:#0369A1;margin-bottom:4px;">Daily Order Flow</div>
+      <div style="font-size:11px;color:var(--ts);">Scheduler auto-generates orders every morning. Vendor views daily manifest, confirms, and marks deliveries done. Includes bulk-deliver for efficiency.</div>
+    </div>
+    <div style="background:var(--pl);border:1px solid var(--p);border-radius:10px;padding:14px;">
+      <div style="font-size:18px;margin-bottom:6px;">✏️</div>
+      <div style="font-weight:700;font-size:13px;color:var(--p);margin-bottom:4px;">Subscription Modifications</div>
+      <div style="font-size:11px;color:var(--ts);">Consumer skips a day, changes quantity, or pauses for vacation. Overrides (one-time changes per date), pause/resume flows, vendor holiday management.</div>
+    </div>
+    <div style="background:var(--ol);border:1px solid var(--o);border-radius:10px;padding:14px;">
+      <div style="font-size:18px;margin-bottom:6px;">💰</div>
+      <div style="font-weight:700;font-size:13px;color:#C2410C;margin-bottom:4px;">Payments &amp; Khata</div>
+      <div style="font-size:11px;color:var(--ts);">Monthly billing cycle settlement, UPI collection, outstanding balance tracking (Khata), payment reminders, invoice generation.</div>
+    </div>
+  </div>
+</div>
+
+</div>
+<script>
+(function() {
+  var veil = document.getElementById('auth-veil');
+  if (sessionStorage.getItem('thiya_dev_session') === '1') {
+    veil.remove();
+  } else {
+    veil.textContent = 'body{margin:0;background:#FAFAFA;font-family:sans-serif}';
+    document.addEventListener('DOMContentLoaded', function() {
+      document.body.innerHTML =
+        '<div style="min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:28px;padding:24px;text-align:center">' +
+          '<div>' +
+            '<div style="width:52px;height:52px;background:#FF6B35;border-radius:12px;display:inline-flex;align-items:center;justify-content:center;font-weight:700;font-size:20px;color:#fff;margin-bottom:20px">th</div>' +
+            '<h2 style="color:#111;font-size:22px;font-weight:700;margin-bottom:10px">Restricted Access</h2>' +
+            '<p style="color:#666;font-size:14px;line-height:1.7;max-width:300px">This resource is only accessible through the Thiya Developer Portal.</p>' +
+          '</div>' +
+          '<a href="developer.html" style="display:inline-block;background:#FF6B35;color:#fff;text-decoration:none;padding:13px 28px;border-radius:8px;font-size:14px;font-weight:600">Go to Developer Portal &rarr;</a>' +
+        '</div>';
+    });
+  }
+})();
+</script>
+</body>
+</html>
