@@ -5,7 +5,7 @@
 <meta name="robots" content="noindex, nofollow">
 <style id="auth-veil">body{visibility:hidden;background:#FAFAFA}</style>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Milestone 3 — Consumer Onboarding & Subscription Setup</title>
+<title>Milestone 3 — Consumer Onboarding &amp; Subscription Setup</title>
 <style>
 :root {
   --p:#4F46E5; --pl:#EEF2FF; --g:#22C55E; --gl:#DCFCE7;
@@ -13,10 +13,11 @@
   --r:#EF4444; --rl:#FEF2F2; --th:#7C3AED; --thl:#F5F3FF;
   --wa:#25D366; --wal:#DCFCE7; --sky:#0EA5E9; --skyl:#F0F9FF;
   --gray:#6B7280; --light:#F9FAFB; --border:#E5E7EB; --text:#111827; --ts:#6B7280;
+  --amber:#F59E0B; --amberl:#FFFBEB;
 }
 *{box-sizing:border-box;margin:0;padding:0;}
 body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;font-size:14px;color:var(--text);background:#FAFAFA;line-height:1.6;}
-.page{max-width:1120px;margin:0 auto;padding:36px 24px 80px;}
+.page{max-width:1140px;margin:0 auto;padding:36px 24px 80px;}
 
 .doc-header{background:linear-gradient(135deg,#1E3A8A 0%,var(--p) 60%,var(--th) 100%);color:white;padding:28px 36px;border-radius:16px;margin-bottom:32px;}
 .doc-header h1{font-size:24px;font-weight:700;margin-bottom:4px;}
@@ -52,12 +53,12 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;font-siz
 .badge-done{background:#94A3B8;color:white;font-size:10px;font-weight:700;padding:2px 6px;border-radius:8px;margin-top:3px;display:inline-block;}
 .badge-m3{background:var(--p);color:white;font-size:10px;font-weight:700;padding:2px 6px;border-radius:8px;margin-top:3px;display:inline-block;}
 
-.section{margin-bottom:44px;}
+.section{margin-bottom:52px;}
 .sec-title{font-size:17px;font-weight:700;border-bottom:2px solid var(--border);padding-bottom:10px;margin-bottom:18px;display:flex;align-items:center;gap:10px;}
 .sec-num{width:26px;height:26px;border-radius:50%;background:var(--p);color:white;font-size:12px;font-weight:700;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;}
 .sec-sub{font-size:12px;color:var(--ts);margin-top:-12px;margin-bottom:18px;}
 
-.screen-pair{display:grid;grid-template-columns:240px 1fr;gap:24px;margin-bottom:24px;align-items:start;}
+.screen-pair{display:grid;grid-template-columns:220px 1fr;gap:24px;margin-bottom:24px;align-items:start;}
 .screen-mock{border:2.5px solid #1F2937;border-radius:24px;overflow:hidden;background:white;box-shadow:0 4px 16px rgba(0,0,0,.12);}
 .s-bar{background:#1F2937;color:#9CA3AF;font-size:9px;padding:5px 14px;display:flex;justify-content:space-between;}
 .s-nav{background:white;border-bottom:1px solid var(--border);padding:10px 14px;font-weight:600;font-size:12px;display:flex;align-items:center;gap:8px;}
@@ -71,27 +72,33 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;font-siz
 .s-chip{font-size:10px;padding:3px 8px;border-radius:12px;border:1px solid var(--border);background:white;}
 .s-chip.sel{background:var(--pl);border-color:var(--p);color:var(--p);font-weight:600;}
 .s-chip.wa{background:var(--wal);border-color:var(--wa);color:#15803D;font-weight:600;}
+.s-chip.orange{background:var(--ol);border-color:var(--o);color:#C2410C;font-weight:600;}
 .s-card{background:white;border:1px solid var(--border);border-radius:8px;padding:8px 10px;margin-bottom:6px;font-size:10px;}
 .s-card.pending{border-left:3px solid var(--o);}
 .s-card.active-c{border-left:3px solid var(--g);}
+.s-card.highlight{border-left:3px solid var(--p);background:var(--pl);}
 .s-card-row{display:flex;align-items:flex-start;gap:6px;}
 .s-cta{padding:10px 14px;border-top:1px solid var(--border);background:white;}
 .s-btn{background:var(--p);color:white;border-radius:8px;padding:8px;text-align:center;font-size:11px;font-weight:600;}
 .s-btn.secondary{background:white;color:var(--p);border:1px solid var(--p);}
 .s-btn.wa{background:var(--wa);color:white;}
 .s-btn.sky{background:var(--sky);color:white;}
+.s-btn.danger{background:var(--r);color:white;}
+.s-btn.amber{background:var(--amber);color:white;}
 .s-badge{display:inline-block;font-size:9px;padding:2px 6px;border-radius:4px;font-weight:600;}
 .s-badge.pending{background:var(--ol);color:#C2410C;}
 .s-badge.active{background:#DCFCE7;color:#15803D;}
-.s-badge.active-sub{background:var(--skyl);color:#0369A1;}
+.s-badge.exists{background:var(--bl);color:#1D4ED8;}
+.s-badge.new{background:var(--gl);color:#15803D;}
 
-.spec{background:white;border:1px solid var(--border);border-radius:12px;padding:18px;}
+.spec{background:white;border:1px solid var(--border);border-radius:12px;padding:18px;margin-bottom:16px;}
 .spec-section{margin-bottom:14px;}
 .spec-section:last-child{margin-bottom:0;}
 .spec-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--ts);margin-bottom:6px;}
 .spec-label.api{color:var(--b);}
 .spec-label.edge{color:var(--o);}
 .spec-label.logic{color:var(--p);}
+.spec-label.backend{color:#15803D;}
 .api-block{background:#0F172A;color:#E2E8F0;border-radius:8px;padding:10px 12px;font-family:'Courier New',monospace;font-size:11px;line-height:1.7;}
 .api-block .method{color:#86EFAC;}
 .api-block .path{color:#93C5FD;}
@@ -101,12 +108,13 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;font-siz
 .field-list{font-size:12px;}
 .field-list li{display:flex;gap:8px;align-items:baseline;padding:3px 0;border-bottom:1px solid var(--border);flex-wrap:wrap;}
 .field-list li:last-child{border:none;}
-.field-name{font-weight:600;color:var(--text);min-width:150px;}
-.field-desc{color:var(--ts);}
+.field-name{font-weight:600;color:var(--text);min-width:160px;font-family:'Courier New',monospace;font-size:11px;}
+.field-desc{color:var(--ts);font-size:12px;}
 .badge{font-size:9px;padding:1px 6px;border-radius:4px;font-weight:700;white-space:nowrap;}
 .badge.req{background:#FEF2F2;color:#DC2626;}
 .badge.opt{background:#F0FDF4;color:#15803D;}
 .badge.auto{background:var(--skyl);color:#0369A1;}
+.badge.cond{background:var(--ol);color:#C2410C;}
 
 .note{display:flex;gap:10px;padding:10px 14px;border-radius:8px;margin-bottom:10px;font-size:12px;line-height:1.6;}
 .note.info{background:var(--bl);border-left:3px solid var(--b);}
@@ -115,9 +123,9 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;font-siz
 .note.danger{background:var(--rl);border-left:3px solid var(--r);}
 .note.purple{background:var(--pl);border-left:3px solid var(--p);}
 .note.sky{background:var(--skyl);border-left:3px solid var(--sky);}
+.note.amber{background:var(--amberl);border-left:3px solid var(--amber);}
 .note-icon{font-size:15px;flex-shrink:0;margin-top:1px;}
 
-/* Entity model */
 .model-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px;}
 .model-card{border-radius:10px;padding:14px;border:1px solid;}
 .model-card.consumer{background:var(--pl);border-color:var(--p);}
@@ -126,7 +134,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;font-siz
 .model-card.consumer h4{color:var(--p);} .model-card.relationship h4{color:#0369A1;}
 .model-card p{font-size:11px;color:var(--ts);}
 
-/* Status lifecycle */
 .status-flow{display:flex;align-items:center;gap:0;flex-wrap:wrap;margin-bottom:12px;}
 .status-node{border-radius:8px;padding:6px 12px;font-size:11px;font-weight:600;text-align:center;}
 .status-node.pending{background:var(--ol);color:#C2410C;}
@@ -137,7 +144,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;font-siz
 .status-arrow{color:var(--gray);padding:0 8px;font-size:16px;align-self:center;}
 .status-label{font-size:10px;color:var(--ts);text-align:center;margin-top:2px;}
 
-/* WhatsApp mockup */
 .wa-phone{background:#ECE5DD;border:2.5px solid #1F2937;border-radius:24px;overflow:hidden;box-shadow:0 4px 16px rgba(0,0,0,.12);}
 .wa-header{background:#075E54;color:white;padding:10px 14px;display:flex;align-items:center;gap:10px;}
 .wa-avatar{width:32px;height:32px;border-radius:50%;background:#128C7E;display:flex;align-items:center;justify-content:center;font-size:14px;}
@@ -153,22 +159,19 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;font-siz
 .wa-footer{background:white;padding:8px 12px;display:flex;gap:8px;align-items:center;}
 .wa-input{flex:1;background:#F0F2F5;border-radius:20px;padding:6px 12px;font-size:11px;color:var(--ts);}
 
-/* Subscription item */
 .sub-item-card{background:white;border:1px solid var(--border);border-radius:10px;padding:12px;margin-bottom:10px;}
 .sub-item-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;}
 .sub-item-title{font-weight:700;font-size:13px;}
 .sub-schedule-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:8px;}
-.sub-sched{border:1px solid var(--border);border-radius:6px;padding:4px 6px;font-size:10px;text-align:center;cursor:pointer;}
+.sub-sched{border:1px solid var(--border);border-radius:6px;padding:4px 6px;font-size:10px;text-align:center;}
 .sub-sched.sel{background:var(--skyl);border-color:var(--sky);color:#0369A1;font-weight:700;}
 
-/* Table */
 .tbl{width:100%;border-collapse:collapse;font-size:12px;margin-bottom:16px;}
 .tbl th{background:var(--light);text-align:left;padding:8px 12px;border:1px solid var(--border);font-weight:600;font-size:11px;}
 .tbl td{padding:7px 12px;border:1px solid var(--border);vertical-align:top;}
 .tbl tr:nth-child(even) td{background:#FAFAFA;}
 .code{font-family:'Courier New',monospace;background:var(--light);padding:2px 5px;border-radius:4px;font-size:11px;}
 
-/* Event flow */
 .event-chain{display:flex;flex-direction:column;gap:8px;margin-bottom:16px;}
 .event-item{display:flex;align-items:flex-start;gap:12px;padding:10px 14px;background:white;border:1px solid var(--border);border-radius:8px;}
 .event-icon{font-size:18px;flex-shrink:0;}
@@ -176,9 +179,48 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;font-siz
 .event-text strong{display:block;font-size:13px;}
 .event-conn{border-left:2px dashed var(--border);height:12px;margin-left:22px;}
 
+/* Decision tree */
+.dtree{background:white;border:1px solid var(--border);border-radius:12px;padding:20px 24px;margin-bottom:20px;}
+.dtree-title{font-size:12px;font-weight:700;color:var(--ts);text-transform:uppercase;letter-spacing:.05em;margin-bottom:16px;}
+.dtree-row{display:flex;align-items:stretch;gap:16px;}
+.dtree-center{text-align:center;min-width:120px;display:flex;flex-direction:column;align-items:center;gap:8px;}
+.dtree-box{border-radius:10px;padding:10px 14px;font-size:12px;font-weight:600;text-align:center;}
+.dtree-box.start{background:var(--pl);border:2px solid var(--p);color:var(--p);}
+.dtree-box.found{background:var(--bl);border:2px solid var(--b);color:#1D4ED8;}
+.dtree-box.notfound{background:var(--gl);border:2px solid var(--g);color:#15803D;}
+.dtree-box.duplicate{background:var(--rl);border:2px solid var(--r);color:#DC2626;}
+.dtree-box.ok{background:var(--gl);border:2px solid var(--g);color:#15803D;}
+.dtree-branch{display:flex;flex-direction:column;gap:12px;flex:1;}
+.dtree-branch-box{border-radius:10px;padding:12px 14px;font-size:12px;}
+.dtree-branch-box.blue{background:var(--bl);border:1px solid var(--b);}
+.dtree-branch-box.green{background:var(--gl);border:1px solid var(--g);}
+.dtree-branch-box.red{background:var(--rl);border:1px solid var(--r);}
+.dtree-branch-label{font-weight:700;margin-bottom:4px;font-size:12px;}
+.dtree-arrow-down{text-align:center;color:var(--gray);font-size:20px;line-height:1;}
+
+/* Flow path cards */
+.path-cards{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-bottom:24px;}
+.path-card{border-radius:12px;padding:16px;border:2px solid;}
+.path-card.new{background:#F0FDF4;border-color:var(--g);}
+.path-card.existing{background:#EFF6FF;border-color:var(--b);}
+.path-card.dup{background:#FEF2F2;border-color:var(--r);}
+.path-card h4{font-size:13px;font-weight:700;margin-bottom:8px;}
+.path-card.new h4{color:#15803D;}
+.path-card.existing h4{color:#1D4ED8;}
+.path-card.dup h4{color:#DC2626;}
+.path-card p{font-size:12px;color:var(--ts);}
+.path-card ul{font-size:11px;padding-left:16px;color:var(--ts);}
+
+/* Planned feature card */
+.planned-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px;}
+.planned-card{background:var(--amberl);border:1.5px dashed var(--amber);border-radius:10px;padding:14px;}
+.planned-card h5{font-size:12px;font-weight:700;color:#92400E;margin-bottom:4px;}
+.planned-card p{font-size:11px;color:#78350F;}
+
 @media(max-width:700px){
   .screen-pair{grid-template-columns:1fr;}
-  .scope-grid,.model-grid{grid-template-columns:1fr;}
+  .scope-grid,.model-grid,.path-cards,.planned-grid{grid-template-columns:1fr;}
+  .dtree-row{flex-direction:column;}
 }
 </style>
 </head>
@@ -203,10 +245,10 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;font-siz
   <div>
     <h3>Starting Point — Milestones 1 &amp; 2 Must Be Complete</h3>
     <ul>
-      <li>Vendor is authenticated and has a valid Bearer token</li>
-      <li>At least 1 active capability exists (e.g., MILK_DELIVERY)</li>
-      <li>Vendor has at least 1 ACTIVE product in their catalog (Go Live condition met)</li>
-      <li>Vendor's service zone is set (required for address matching)</li>
+      <li>Vendor authenticated → valid Bearer token available</li>
+      <li>At least 1 active capability exists (e.g., MILK_DELIVERY) → <code>capabilityId</code> available</li>
+      <li>Vendor has at least 1 ACTIVE product in catalog (Go Live condition)</li>
+      <li>Consumer's delivery address must exist — either vendor creates it first via Address module, or consumer provides it after accepting</li>
     </ul>
   </div>
 </div>
@@ -216,16 +258,17 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;font-siz
   <div class="scope-box scope-in">
     <h4>✅ Covered in This Guide</h4>
     <ul>
-      <li>Customers list screen (empty state + loaded state)</li>
-      <li>Search consumer by phone number before adding</li>
-      <li>Add Consumer form — new vs. existing consumer</li>
-      <li>WhatsApp invite flow (what consumer sees)</li>
-      <li>Consumer accept / reject invite</li>
-      <li>Vendor views PENDING → ACTIVE status transitions</li>
+      <li><strong>All vendor-side consumer creation flows</strong> (manual, existing consumer, duplicate detection)</li>
+      <li>Search-first UX before adding any consumer</li>
+      <li>Flow A: Brand-new consumer (not on platform yet)</li>
+      <li>Flow B: Consumer already on platform (another vendor added them)</li>
+      <li>Flow C: Duplicate same-vendor+same-service+same-address → error</li>
+      <li>Multi-capability: same consumer, different service</li>
+      <li>WhatsApp invite experience (consumer side mockup)</li>
+      <li>Consumer accept / reject invite flow</li>
       <li>Create subscription for accepted consumer</li>
-      <li>Add subscription items (product + qty + schedule)</li>
-      <li>Subscription activated — first delivery scheduled</li>
-      <li>Edge cases: duplicate, wrong phone, existing consumer</li>
+      <li>Subscription items — product + qty + schedule</li>
+      <li>Planned future flows: CSV bulk import, first-order auto-link, voice, OCR</li>
     </ul>
   </div>
   <div class="scope-box scope-out">
@@ -233,10 +276,10 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;font-siz
     <ul>
       <li>Auth / OTP → see Guide 1</li>
       <li>Catalog &amp; Go Live → see Guide 2</li>
+      <li>Consumer app self-registration</li>
       <li>Daily order generation (Scheduler)</li>
       <li>Order management (confirm / deliver)</li>
-      <li>Consumer app self-registration</li>
-      <li>Consumer vacation / delivery override</li>
+      <li>Consumer vacation / subscription overrides</li>
       <li>Payments &amp; Khata</li>
     </ul>
   </div>
@@ -250,7 +293,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;font-siz
     <div class="jarrow">→</div>
     <div class="jstep"><div class="jstep-num done">✓</div><div class="jstep-label">Catalog &amp; Go Live<div class="badge-done">M2 Done</div></div></div>
     <div class="jarrow">→</div>
-    <div class="jstep"><div class="jstep-num cons">S7</div><div class="jstep-label">Add<br>Customer<div class="badge-m3">M3 Now</div></div></div>
+    <div class="jstep"><div class="jstep-num cons">S7</div><div class="jstep-label">Add<br>Consumer<div class="badge-m3">M3 Now</div></div></div>
     <div class="jarrow">→</div>
     <div class="jstep"><div class="jstep-num cons">S8</div><div class="jstep-label">Consumer<br>Accepts</div></div>
     <div class="jarrow">→</div>
@@ -262,21 +305,21 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;font-siz
 
 <!-- ═══ SECTION 1: ENTITY MODEL ═══ -->
 <div class="section">
-  <div class="sec-title"><span class="sec-num">1</span> The 2-Entity Consumer Model</div>
-  <p class="sec-sub">Two distinct database entities drive this flow. Understand them before building any screen.</p>
+  <div class="sec-title"><span class="sec-num">1</span> The 2-Entity Consumer Model — Samajhna Zaroori Hai</div>
+  <p class="sec-sub">Yeh do alag database entities hain. Inhe samjhe bina koi bhi screen galat ban sakti hai.</p>
 
   <div class="model-grid">
     <div class="model-card consumer">
-      <h4>👤 Consumer (Platform Profile)</h4>
+      <h4>👤 Consumer — Platform Profile</h4>
       <p><strong>Unique by: phone number</strong><br>
-      The person — their name, phone, email, default address. Created once on the platform. If vendor A adds Raju and vendor B also adds Raju (same phone), they both link to the <em>same</em> Consumer record.<br><br>
-      <strong>Status:</strong> <code>PENDING</code> (invite sent) → <code>ACTIVE</code> (accepted) or <code>REJECTED</code><br>
-      <strong>Origin:</strong> <code>VENDOR_CREATED</code> (this flow) | <code>SELF_REGISTERED</code> (future consumer app)</p>
+      Yeh person hai — naam, phone, email, default address. Platform pe ek baar banta hai. Agar Vendor A ne Raju ko add kiya aur Vendor B ne bhi Raju ka same phone diya, toh <em>same Consumer record</em> use hoga — naya nahi banega.<br><br>
+      <strong>Status:</strong> <code>PENDING</code> (invite sent) → <code>ACTIVE</code> (accepted) | <code>REJECTED</code> (declined)<br>
+      <strong>Origin:</strong> <code>VENDOR_CREATED</code> (is guide ka flow) | <code>SELF_REGISTERED</code> (future consumer app)</p>
     </div>
     <div class="model-card relationship">
-      <h4>🔗 ConsumerVendor (Relationship)</h4>
-      <p><strong>One record per vendor × consumer × capability × address</strong><br>
-      The connection — which vendor is serving which consumer, at what address, for which service (MILK_DELIVERY, TIFFIN_SERVICE, etc.). Same consumer can have multiple of these.<br><br>
+      <h4>🔗 ConsumerVendor — Relationship</h4>
+      <p><strong>One record per: Vendor × Consumer × Capability × Address</strong><br>
+      Yeh connection hai — kaun vendor, kaun consumer ko, kis address pe, kaun si service (MILK_DELIVERY, TIFFIN etc.) de raha hai. Same consumer ke multiple relationships ho sakte hain.<br><br>
       <strong>Status:</strong> <code>PENDING</code> → <code>ACTIVE</code> → <code>BLOCKED</code> / <code>DISCONNECTED</code><br>
       <strong>Holds:</strong> capabilityId, addressId, preferredDeliverySlot, deliveryInstructions</p>
     </div>
@@ -284,17 +327,16 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;font-siz
 
   <div class="note info">
     <span class="note-icon">💡</span>
-    <div><strong>Real-world example:</strong> Raju (9876543210) → Consumer record (1 entry). Raju buys milk from Sharma Dairy AND water from AquaPure AND tiffin from FreshBox → 3 ConsumerVendor records, all pointing to the same Consumer. This is intentional and by design.</div>
+    <div><strong>Real Example:</strong> Raju (9876543210) → 1 Consumer record. Raju milk Sharma Dairy se leta hai, water AquaPure se, tiffin FreshBox se → 3 ConsumerVendor records, teeno ek hi Consumer se link. Yeh intentional hai.</div>
   </div>
 
-  <!-- Status flows -->
   <div style="margin-top:20px;">
     <div style="font-size:12px;font-weight:700;color:var(--ts);text-transform:uppercase;letter-spacing:.05em;margin-bottom:8px;">Consumer Status Flow</div>
     <div class="status-flow">
       <div><div class="status-node pending">PENDING</div><div class="status-label">Invite Sent</div></div>
       <div class="status-arrow">→ Accept →</div>
       <div><div class="status-node active">ACTIVE</div><div class="status-label">Accepted</div></div>
-      <div style="padding:0 16px;color:var(--ts);align-self:center;">|</div>
+      <div style="padding:0 20px;color:var(--ts);align-self:center;font-size:12px;">OR</div>
       <div><div class="status-node pending">PENDING</div><div class="status-label">Invite Sent</div></div>
       <div class="status-arrow">→ Reject →</div>
       <div><div class="status-node rejected">REJECTED</div><div class="status-label">Declined</div></div>
@@ -303,7 +345,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;font-siz
     <div class="status-flow">
       <div><div class="status-node pending">PENDING</div><div class="status-label">Invite Sent</div></div>
       <div class="status-arrow">→</div>
-      <div><div class="status-node active">ACTIVE</div><div class="status-label">Serving</div></div>
+      <div><div class="status-node active">ACTIVE</div><div class="status-label">Consumer Accepted</div></div>
       <div class="status-arrow">→</div>
       <div><div class="status-node blocked">BLOCKED</div><div class="status-label">Paused</div></div>
       <div class="status-arrow">→</div>
@@ -312,684 +354,1742 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;font-siz
   </div>
 </div>
 
-<!-- ═══ SECTION 2: CUSTOMERS LIST ═══ -->
+<!-- ═══ SECTION 2: S7 — CONSUMER ADD FLOW DECISION TREE ═══ -->
 <div class="section">
-  <div class="sec-title"><span class="sec-num">2</span> Customers List — Home Screen (Screen S7-Entry)</div>
-  <p class="sec-sub">First entry after "Go Live". Vendor sees all their consumers. Empty state drives the first add-customer action.</p>
+  <div class="sec-title"><span class="sec-num">2</span> S7 — Vendor Adds Consumer: Complete Decision Tree</div>
+  <p class="sec-sub">Ek hi API call hai — POST /vendors/{id}/consumers — lekin backend internally 3 alag scenarios handle karta hai. UX ko yeh teeno dikhana chahiye.</p>
 
-  <div class="screen-pair">
-    <div class="screen-mock">
-      <div class="s-bar"><span>10:02 AM</span><span>●●● ▪▪▪</span></div>
-      <div class="s-nav"><span>My Customers</span><span style="margin-left:auto;color:var(--p);font-weight:700;font-size:11px;">+ Add</span></div>
-      <div style="display:flex;border-bottom:1px solid var(--border);background:white;">
-        <div style="flex:1;text-align:center;padding:8px;font-size:10px;font-weight:700;color:var(--p);border-bottom:2px solid var(--p);">All (0)</div>
-        <div style="flex:1;text-align:center;padding:8px;font-size:10px;color:var(--ts);">Active (0)</div>
-        <div style="flex:1;text-align:center;padding:8px;font-size:10px;color:var(--ts);">Pending (0)</div>
-      </div>
-      <div class="s-body" style="display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;min-height:220px;">
-        <div style="font-size:40px;margin-bottom:12px;">👥</div>
-        <div style="font-weight:600;font-size:13px;margin-bottom:4px;">No customers yet</div>
-        <div style="font-size:10px;color:var(--ts);margin-bottom:16px;">Add your existing customers to<br>start tracking deliveries</div>
-        <div style="background:var(--p);color:white;border-radius:8px;padding:8px 16px;font-size:11px;font-weight:600;">+ Add First Customer</div>
-      </div>
+  <!-- Decision Tree -->
+  <div class="dtree">
+    <div class="dtree-title">Backend Logic — addConsumerByVendor()</div>
+    <div style="text-align:center;margin-bottom:16px;">
+      <div class="dtree-box start" style="display:inline-block;padding:10px 20px;">Vendor calls POST /vendors/{id}/consumers<br><small style="font-weight:400;">{ phone, name, capabilityId, category, addressId, slot, instructions }</small></div>
     </div>
-    <div class="spec">
-      <div class="spec-section">
-        <div class="spec-label api">APIs to Call on Screen Load</div>
-        <div class="api-block">
-<span class="comment">// Load all consumer relationships for this vendor</span>
-<span class="method">GET</span> <span class="path">/api/v1/vendors/{vendorId}/consumer-relationships</span>
-<span class="comment">// Auth: vendor:consumer:read</span>
-<span class="comment">// Returns all statuses: PENDING, ACTIVE, BLOCKED, DISCONNECTED</span>
-
-<span class="comment">// For the count badge on "Active" tab</span>
-<span class="method">GET</span> <span class="path">/api/v1/vendors/{vendorId}/consumer-relationships/count</span>
+    <div class="dtree-arrow-down">↓</div>
+    <div style="text-align:center;margin:10px 0 16px;font-size:12px;color:var(--ts);">Backend checks: <strong>findByPhoneAndActiveTrue(request.getPhone())</strong></div>
+    <div style="display:grid;grid-template-columns:1fr auto 1fr;gap:12px;align-items:start;">
+      <!-- Found branch -->
+      <div style="background:var(--bl);border:1.5px solid var(--b);border-radius:10px;padding:14px;">
+        <div style="font-weight:700;color:#1D4ED8;font-size:12px;margin-bottom:8px;">📱 Consumer FOUND (existing.isPresent() = true)</div>
+        <div style="font-size:11px;color:var(--ts);">
+          Same phone already on platform. <code>isNew = false</code>.<br>
+          Consumer record is <strong>reused</strong>.<br><br>
+          Then checks duplicate relationship:<br>
+          <code>existsByConsumerIdAndVendorIdAndCapabilityIdAndAddressId</code><br><br>
+          <span style="color:#DC2626;font-weight:600;">→ If SAME vendor + SAME capability + SAME address: 409 DUPLICATE error</span><br>
+          <span style="color:#15803D;font-weight:600;">→ Otherwise: new ConsumerVendor created + WhatsApp sent</span>
         </div>
       </div>
-      <div class="spec-section">
-        <div class="spec-label logic">Tab Logic</div>
-        <ul class="field-list">
-          <li><span class="field-name">All</span><span class="field-desc">Total consumer-relationships (all statuses)</span></li>
-          <li><span class="field-name">Active</span><span class="field-desc">Only ConsumerVendorStatus = ACTIVE</span></li>
-          <li><span class="field-name">Pending</span><span class="field-desc">Only ConsumerVendorStatus = PENDING (invite sent, not yet accepted)</span></li>
-        </ul>
-      </div>
-      <div class="spec-section">
-        <div class="spec-label edge">Loaded State (after consumers exist)</div>
-        <p style="font-size:12px;color:var(--ts);">Show consumer name, phone, capability badge (e.g., "Milk"), status badge (ACTIVE/PENDING), and address (locality). Tap → go to consumer detail page. "+" FAB always visible to add more consumers.</p>
+      <div style="display:flex;align-items:center;font-size:24px;color:var(--border);padding-top:40px;">|</div>
+      <!-- Not found branch -->
+      <div style="background:var(--gl);border:1.5px solid var(--g);border-radius:10px;padding:14px;">
+        <div style="font-weight:700;color:#15803D;font-size:12px;margin-bottom:8px;">🆕 Consumer NOT FOUND (existing.isPresent() = false)</div>
+        <div style="font-size:11px;color:var(--ts);">
+          Brand new person. <code>isNew = true</code>.<br>
+          New Consumer record created:<br>
+          • status = <code>PENDING</code><br>
+          • origin = <code>VENDOR_CREATED</code><br>
+          • onboardedBy = vendorId<br>
+          • language = "hi" (default)<br><br>
+          Then: new ConsumerVendor created<br>
+          Then: <code>CONSUMER_CREATED</code> event published<br>
+          <span style="color:#15803D;font-weight:600;">→ WhatsApp invite sent to consumer</span>
+        </div>
       </div>
     </div>
   </div>
+
+  <!-- 3 Path Summary Cards -->
+  <div class="path-cards">
+    <div class="path-card new">
+      <h4>🆕 Path A: New Consumer</h4>
+      <p style="margin-bottom:8px;">Phone number pehle kabhi platform pe register nahi hua.</p>
+      <ul>
+        <li>Consumer record banega (PENDING)</li>
+        <li>ConsumerVendor record banega (PENDING)</li>
+        <li>CONSUMER_CREATED event fire hoga</li>
+        <li>WhatsApp invite jayega</li>
+      </ul>
+      <div class="note success" style="margin-top:10px;padding:6px 10px;font-size:11px;"><span>✅</span> <div>UX: Show "Consumer added! Invite sent." success state</div></div>
+    </div>
+    <div class="path-card existing">
+      <h4>🔗 Path B: Existing Consumer</h4>
+      <p style="margin-bottom:8px;">Phone already on platform — kisi aur vendor ne add kiya tha ya self-registered hai.</p>
+      <ul>
+        <li>Consumer record naya <strong>nahi</strong> banega</li>
+        <li>Sirf naya ConsumerVendor banega</li>
+        <li>CONSUMER_CREATED event <strong>nahi</strong> fire hoga</li>
+        <li>WhatsApp invite <strong>jayega</strong> is vendor ke liye</li>
+      </ul>
+      <div class="note info" style="margin-top:10px;padding:6px 10px;font-size:11px;"><span>💡</span> <div>UX: Search screen pe "Consumer already on platform" card dikhao, phir proceed karwa</div></div>
+    </div>
+    <div class="path-card dup">
+      <h4>🚫 Path C: Duplicate</h4>
+      <p style="margin-bottom:8px;">Same vendor + same consumer + same capability + same address. Already serving!</p>
+      <ul>
+        <li>Backend throws <code>DUPLICATE_RESOURCE</code> error</li>
+        <li>HTTP 400 response</li>
+        <li>Kuch naya nahi banega</li>
+      </ul>
+      <div class="note danger" style="margin-top:10px;padding:6px 10px;font-size:11px;"><span>⛔</span> <div>UX: "Already linked! Aap pehle se yeh service is address pe de rahe hain."</div></div>
+    </div>
+  </div>
+
+  <div class="note amber">
+    <span class="note-icon">⚡</span>
+    <div><strong>Allowed: Same consumer, different scenario.</strong> Same consumer + same vendor + <em>different capability</em> (e.g., milk aur water dono) = allowed. Same consumer + same vendor + <em>different address</em> (ghar aur office) = allowed. Backend check sirf exact 4-way match karta hai: vendorId + consumerId + capabilityId + addressId.</div>
+  </div>
 </div>
 
-<!-- ═══ SECTION 3: SEARCH BY PHONE ═══ -->
+<!-- ═══ SECTION 3: S7 UX SCREENS ═══ -->
 <div class="section">
-  <div class="sec-title"><span class="sec-num">3</span> Add Customer — Step 1: Search by Phone (Screen S7a)</div>
-  <p class="sec-sub">Before filling a form, vendor searches by phone to check if this consumer already exists on the platform. This prevents duplicate consumer records and speeds up the flow for existing Vinimay users.</p>
+  <div class="sec-title"><span class="sec-num">3</span> S7 — Screen-by-Screen UX Flow</div>
+  <p class="sec-sub">Vendor "Add Consumer" flow mein pehle search karna mandatory hai — UX rule yeh hai ki seedha form pe mat bhejo.</p>
 
-  <div class="screen-pair">
+  <!-- Screen 3.1: Consumers List -->
+  <div class="screen-pair" style="margin-bottom:32px;">
     <div class="screen-mock">
-      <div class="s-bar"><span>10:05 AM</span><span>●●● ▪▪▪</span></div>
-      <div class="s-nav"><span class="back">←</span><span>Add Customer</span></div>
+      <div class="s-bar"><span>9:41</span><span>📶 ⬛</span></div>
+      <div class="s-nav"><span class="back">← </span>My Customers</div>
       <div class="s-body">
-        <div style="font-size:11px;color:var(--ts);margin-bottom:10px;">Enter customer's phone number. We'll check if they already have a Vinimay account.</div>
-        <div class="s-field">
-          <div class="s-field-label">Mobile Number *</div>
-          <div style="display:flex;align-items:center;gap:6px;">
-            <span style="font-size:11px;color:var(--ts);">🇮🇳 +91</span>
-            <span class="s-field-val filled" style="font-size:13px;font-weight:600;">9876543210</span>
+        <div style="text-align:center;padding:24px 16px;">
+          <div style="font-size:36px;margin-bottom:8px;">👥</div>
+          <div style="font-size:13px;font-weight:600;margin-bottom:4px;">No customers yet</div>
+          <div style="font-size:11px;color:var(--ts);">Add your first customer<br>to start deliveries</div>
+        </div>
+      </div>
+      <div class="s-cta">
+        <div class="s-btn">+ Add Customer</div>
+      </div>
+    </div>
+    <div>
+      <div class="spec">
+        <div class="spec-section">
+          <div class="spec-label api">Screen: Customers List (Empty State)</div>
+          <p style="font-size:12px;color:var(--ts);margin-bottom:10px;">Pehli baar aane pe empty state dikhao. "Add Customer" CTA visible hona chahiye.</p>
+          <div class="api-block">
+<span class="comment">// Load vendor's active consumers</span>
+<span class="method">GET</span> <span class="path">/api/v1/vendors/{vendorId}/consumer-relationships/active</span>
+<span class="comment">// Auth: vendor:consumer:read</span>
+<span class="comment">// Returns: [] when no consumers yet</span>
           </div>
         </div>
-        <!-- Found state -->
-        <div style="background:var(--gl);border:1px solid var(--g);border-radius:8px;padding:10px;font-size:11px;">
-          <div style="font-weight:700;color:#15803D;margin-bottom:4px;">✅ Customer Found on Vinimay!</div>
-          <div style="color:#166534;"><strong>Raju Sharma</strong></div>
-          <div style="font-size:10px;color:#15803D;">Already on platform · You are linking as new vendor</div>
+        <div class="spec-section">
+          <div class="spec-label logic">UX Behavior</div>
+          <ul style="font-size:12px;color:var(--ts);padding-left:16px;">
+            <li>Empty state pe "Add Customer" button prominently dikhao</li>
+            <li>Consumer list mein PENDING wale alag section mein dikhao (awaiting acceptance)</li>
+            <li>ACTIVE wale main list mein</li>
+            <li>Each card pe: naam, phone, capability badge, status</li>
+          </ul>
         </div>
-      </div>
-      <div class="s-cta"><div class="s-btn">Continue →</div></div>
-    </div>
-    <div class="spec">
-      <div class="spec-section">
-        <div class="spec-label api">Search API (call on blur / after 10 digits entered)</div>
-        <div class="api-block">
-<span class="method">GET</span> <span class="path">/api/v1/vendors/{vendorId}/consumers/search?phone=9876543210</span>
-<span class="comment">// Auth: vendor:consumer:read</span>
-<span class="comment">// Returns: ConsumerDTO or null (data: null)</span>
-        </div>
-      </div>
-      <div class="spec-section">
-        <div class="spec-label logic">3 Possible States After Search</div>
-        <table class="tbl">
-          <tr><th>State</th><th>What To Show</th><th>Next Step</th></tr>
-          <tr><td><strong>Found — new to this vendor</strong></td><td>Green banner: "Customer found! Raju Sharma"</td><td>Pre-fill name in form, skip name input</td></tr>
-          <tr><td><strong>Found — already linked to this vendor</strong></td><td>Orange warning: "Already your customer"</td><td>Block further action, show existing relationship</td></tr>
-          <tr><td><strong>Not found</strong></td><td>Gray info: "New to Vinimay, fill details below"</td><td>Show full form (name field required)</td></tr>
-        </table>
-      </div>
-      <div class="spec-section">
-        <div class="spec-label edge">Validation</div>
-        <p style="font-size:12px;color:var(--ts);">Phone must match regex <code>^[6-9]\d{9}$</code> (Indian mobile, 10 digits, starts with 6-9). Show inline error if format invalid. Do NOT call search API until 10 valid digits entered.</p>
       </div>
     </div>
   </div>
-</div>
 
-<!-- ═══ SECTION 4: FILL DETAILS FORM ═══ -->
-<div class="section">
-  <div class="sec-title"><span class="sec-num">4</span> Add Customer — Step 2: Fill Details (Screen S7b)</div>
-  <p class="sec-sub">Vendor fills the service details. If consumer was found in previous step, name is pre-filled and locked. Capability, address, and slot are always required.</p>
+  <!-- Screen 3.2: Phone Search (MANDATORY FIRST STEP) -->
+  <div class="note warn" style="margin-bottom:16px;">
+    <span class="note-icon">⚠️</span>
+    <div><strong>Mandatory UX Rule:</strong> "Add Consumer" tap karne ke baad <strong>seedha form mat dikhao</strong>. Pehle phone number search screen dikhao. Yeh isliye ki agar consumer already platform pe hai toh unka data pre-fill ho jaye aur duplicate consumer records na banein.</div>
+  </div>
 
-  <div class="screen-pair">
+  <div class="screen-pair" style="margin-bottom:32px;">
     <div class="screen-mock">
-      <div class="s-bar"><span>10:06 AM</span><span>●●● ▪▪▪</span></div>
-      <div class="s-nav"><span class="back">←</span><span>Customer Details</span></div>
-      <div class="s-body" style="padding-bottom:4px;">
+      <div class="s-bar"><span>9:41</span><span>📶 ⬛</span></div>
+      <div class="s-nav"><span class="back">← </span>Add Customer — Step 1</div>
+      <div class="s-body">
+        <div style="font-size:11px;color:var(--ts);margin-bottom:12px;">Customer ka phone number enter karein:</div>
         <div class="s-field">
-          <div class="s-field-label">Name *</div>
-          <div class="s-field-val filled">Raju Sharma</div>
+          <div class="s-field-label">Mobile Number</div>
+          <div class="s-field-val">+91 98765 43210</div>
         </div>
-        <div class="s-field">
-          <div class="s-field-label">Service Type *</div>
-          <div class="s-chip-row">
-            <div class="s-chip sel">🥛 Milk Delivery</div>
-            <div class="s-chip">💧 Water</div>
-            <div class="s-chip">🍱 Tiffin</div>
+        <div class="s-btn sky" style="margin-top:8px;">Search 🔍</div>
+        <div style="margin-top:16px;font-size:10px;color:var(--ts);">Platform pe check karega — naya hai ya pehle se registered</div>
+      </div>
+    </div>
+    <div>
+      <div class="spec">
+        <div class="spec-section">
+          <div class="spec-label api">Step 1 — Search First</div>
+          <div class="api-block">
+<span class="comment">// Vendor searches before adding</span>
+<span class="method">GET</span> <span class="path">/api/v1/vendors/{vendorId}/consumers/search</span>
+    <span class="key">?phone</span>=<span class="val">9876543210</span>
+<span class="comment">// Auth: vendor:consumer:read</span>
+<span class="comment">// Returns: ConsumerDTO or null</span>
           </div>
         </div>
-        <div class="s-field">
-          <div class="s-field-label">Delivery Address *</div>
-          <div class="s-field-val" style="font-size:10px;">Enter customer's home/office address...</div>
-        </div>
-        <div class="s-field">
-          <div class="s-field-label">Preferred Delivery Slot</div>
-          <div class="s-chip-row">
-            <div class="s-chip sel">⏰ 6–7 AM</div>
-            <div class="s-chip">☀️ 7–8 AM</div>
-            <div class="s-chip">🌅 8–9 AM</div>
-          </div>
-        </div>
-        <div class="s-field">
-          <div class="s-field-label">Special Instructions (Optional)</div>
-          <div class="s-field-val">e.g., Leave at door</div>
+        <div class="spec-section">
+          <div class="spec-label logic">Two Possible Responses</div>
+          <table class="tbl">
+            <tr><th>Response</th><th>Kya dikhao</th></tr>
+            <tr><td><code>null</code></td><td>🆕 "Naya consumer hai" — full form dikhao (naam required)</td></tr>
+            <tr><td>ConsumerDTO object</td><td>🔗 "Already on platform!" — pre-filled card dikhao, sirf address+service select karwao</td></tr>
+          </table>
         </div>
       </div>
-      <div class="s-cta"><div class="s-btn wa">Send Invite via WhatsApp</div></div>
     </div>
-    <div class="spec">
-      <div class="spec-section">
-        <div class="spec-label api">POST — Add Consumer</div>
-        <div class="api-block">
+  </div>
+
+  <!-- Screen 3.3a: New Consumer Form -->
+  <div style="font-size:13px;font-weight:700;margin-bottom:12px;color:var(--text);">Path A — Consumer NOT Found (Brand New)</div>
+  <div class="screen-pair" style="margin-bottom:32px;">
+    <div class="screen-mock">
+      <div class="s-bar"><span>9:41</span><span>📶 ⬛</span></div>
+      <div class="s-nav"><span class="back">← </span>Add Customer — New</div>
+      <div class="s-body">
+        <div class="s-chip-row"><span class="s-chip new">🆕 New Customer</span></div>
+        <div class="s-field"><div class="s-field-label">Name *</div><div class="s-field-val">Raju Sharma</div></div>
+        <div class="s-field"><div class="s-field-label">Phone</div><div class="s-field-val filled">9876543210 ✓</div></div>
+        <div class="s-field"><div class="s-field-label">Service *</div><div class="s-field-val filled">Milk Delivery</div></div>
+        <div class="s-field"><div class="s-field-label">Delivery Address *</div><div class="s-field-val">Flat 203, Baner Road</div></div>
+        <div class="s-field"><div class="s-field-label">Delivery Slot</div><div class="s-field-val">06:00 – 07:00</div></div>
+        <div class="s-field"><div class="s-field-label">Instructions</div><div class="s-field-val">Gate pe rakh do</div></div>
+      </div>
+      <div class="s-cta">
+        <div class="s-btn wa">Send WhatsApp Invite</div>
+      </div>
+    </div>
+    <div>
+      <div class="spec">
+        <div class="spec-section">
+          <div class="spec-label api">Path A — POST (New Consumer)</div>
+          <div class="api-block">
 <span class="method">POST</span> <span class="path">/api/v1/vendors/{vendorId}/consumers</span>
 <span class="comment">// Auth: vendor:consumer:write</span>
-<span class="comment">// Body:</span>
-{
-  <span class="key">"phone"</span>: <span class="val">"9876543210"</span>,
-  <span class="key">"name"</span>: <span class="val">"Raju Sharma"</span>,
-  <span class="key">"capabilityId"</span>: <span class="val">"uuid-of-milk-capability"</span>,
-  <span class="key">"category"</span>: <span class="val">"MILK_DELIVERY"</span>,
-  <span class="key">"addressId"</span>: <span class="val">"uuid-of-delivery-address"</span>,
-  <span class="key">"preferredDeliverySlot"</span>: <span class="val">"06:00-07:00"</span>,
-  <span class="key">"deliveryInstructions"</span>: <span class="val">"Ring bell twice"</span>
-}
+
+<span class="key">phone</span>: <span class="val">"9876543210"</span>        <span class="comment">// required</span>
+<span class="key">name</span>: <span class="val">"Raju Sharma"</span>       <span class="comment">// required</span>
+<span class="key">capabilityId</span>: <span class="val">"uuid-milk"</span>  <span class="comment">// required</span>
+<span class="key">category</span>: <span class="val">"MILK_DELIVERY"</span>  <span class="comment">// optional</span>
+<span class="key">addressId</span>: <span class="val">"uuid-addr"</span>    <span class="comment">// required</span>
+<span class="key">preferredDeliverySlot</span>: <span class="val">"06:00-07:00"</span>
+<span class="key">deliveryInstructions</span>: <span class="val">"Gate pe rakh do"</span>
+          </div>
+        </div>
+        <div class="spec-section">
+          <div class="spec-label backend">Backend Actions (isNew = true)</div>
+          <div class="event-chain">
+            <div class="event-item"><span class="event-icon">1️⃣</span><div class="event-text"><strong>Consumer record banega</strong> status=PENDING, origin=VENDOR_CREATED, onboardedBy=vendorId</div></div>
+            <div class="event-conn"></div>
+            <div class="event-item"><span class="event-icon">2️⃣</span><div class="event-text"><strong>ConsumerVendor record banega</strong> status=PENDING, invitedAt=now()</div></div>
+            <div class="event-conn"></div>
+            <div class="event-item"><span class="event-icon">3️⃣</span><div class="event-text"><strong>CONSUMER_CREATED event fire hoga</strong> → notification module receive karega</div></div>
+            <div class="event-conn"></div>
+            <div class="event-item"><span class="event-icon">4️⃣</span><div class="event-text"><strong>WhatsApp invite bheja jayega</strong> (TODO: geekrabit-notify integration pending)</div></div>
+          </div>
+        </div>
+        <div class="spec-section">
+          <div class="spec-label">Fields</div>
+          <ul class="field-list">
+            <li><span class="field-name">phone</span><span class="badge req">REQ</span><span class="field-desc">Indian mobile (6-9 se shuru, 10 digits)</span></li>
+            <li><span class="field-name">name</span><span class="badge req">REQ</span><span class="field-desc">Consumer ka naam (vendor likhta hai)</span></li>
+            <li><span class="field-name">capabilityId</span><span class="badge req">REQ</span><span class="field-desc">Vendor ki kaun si capability ke liye (UUID)</span></li>
+            <li><span class="field-name">category</span><span class="badge opt">OPT</span><span class="field-desc">e.g., "MILK_DELIVERY" (string)</span></li>
+            <li><span class="field-name">addressId</span><span class="badge req">REQ</span><span class="field-desc">Consumer ki delivery address UUID</span></li>
+            <li><span class="field-name">preferredDeliverySlot</span><span class="badge opt">OPT</span><span class="field-desc">"06:00-07:00" format</span></li>
+            <li><span class="field-name">deliveryInstructions</span><span class="badge opt">OPT</span><span class="field-desc">Special instructions</span></li>
+          </ul>
         </div>
       </div>
-      <div class="spec-section">
-        <div class="spec-label">Request Fields</div>
-        <ul class="field-list">
-          <li><span class="field-name">phone</span><span class="badge req">required</span><span class="field-desc">Indian mobile, 10 digits, starts 6–9</span></li>
-          <li><span class="field-name">name</span><span class="badge req">required</span><span class="field-desc">Consumer's name (vendor-set, editable by consumer later)</span></li>
-          <li><span class="field-name">capabilityId</span><span class="badge req">required</span><span class="field-desc">UUID of vendor's capability (from capabilities/my list)</span></li>
-          <li><span class="field-name">category</span><span class="badge opt">optional</span><span class="field-desc">e.g. "MILK_DELIVERY" — auto-derived from capabilityId on backend but send anyway</span></li>
-          <li><span class="field-name">addressId</span><span class="badge req">required</span><span class="field-desc">UUID of consumer's delivery address (must be created first via address module)</span></li>
-          <li><span class="field-name">preferredDeliverySlot</span><span class="badge opt">optional</span><span class="field-desc">Time string "HH:mm-HH:mm" e.g. "06:00-07:00"</span></li>
-          <li><span class="field-name">deliveryInstructions</span><span class="badge opt">optional</span><span class="field-desc">Free text, max 255 chars</span></li>
-        </ul>
+    </div>
+  </div>
+
+  <!-- Screen 3.3b: Existing Consumer Found -->
+  <div style="font-size:13px;font-weight:700;margin-bottom:12px;color:var(--text);">Path B — Consumer Already on Platform (Another Vendor Added Them)</div>
+  <div class="note info" style="margin-bottom:16px;">
+    <span class="note-icon">💡</span>
+    <div><strong>Yeh important scenario hai:</strong> Raju pehle se AquaPure vendor ka customer hai (water delivery ke liye). Ab Sharma Dairy (milk vendor) Raju ko add karne ki koshish karta hai. Search result mein Raju ka card dikhega — naam, phone, existing vendors info ke saath. Sharma Dairy ko sirf apni service + address set karni hai, naam dubara type karne ki zaroorat nahi.</div>
+  </div>
+
+  <div class="screen-pair" style="margin-bottom:32px;">
+    <div class="screen-mock">
+      <div class="s-bar"><span>9:41</span><span>📶 ⬛</span></div>
+      <div class="s-nav"><span class="back">← </span>Add Customer — Existing</div>
+      <div class="s-body">
+        <div class="s-card highlight">
+          <div class="s-card-row">
+            <div style="width:28px;height:28px;border-radius:50%;background:var(--p);color:white;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;flex-shrink:0;">R</div>
+            <div style="flex:1;">
+              <div style="font-weight:700;font-size:11px;">Raju Sharma</div>
+              <div style="font-size:9px;color:var(--ts);">📱 9876543210</div>
+              <div style="margin-top:3px;"><span class="s-badge exists">Already on platform</span></div>
+            </div>
+          </div>
+          <div style="font-size:10px;color:var(--ts);margin-top:6px;">Currently served by: AquaPure (Water Delivery)</div>
+        </div>
+        <div style="font-size:10px;color:var(--ts);margin:8px 0 4px;">Select your service for this customer:</div>
+        <div class="s-field"><div class="s-field-label">Service *</div><div class="s-field-val filled">Milk Delivery ✓</div></div>
+        <div class="s-field"><div class="s-field-label">Delivery Address *</div><div class="s-field-val">Flat 203, Baner</div></div>
+        <div class="s-field"><div class="s-field-label">Slot</div><div class="s-field-val">06:00 – 07:00</div></div>
       </div>
-      <div class="spec-section">
-        <div class="spec-label logic">Handling the Address</div>
-        <p style="font-size:12px;color:var(--ts);">The <code>addressId</code> refers to an address already stored in the address module. In the vendor app, this step should either: <strong>(a)</strong> let the vendor enter a new address inline (create via address API first, then use returned ID), or <strong>(b)</strong> select from a list of previously-entered consumer addresses. Use the address module's POST endpoint to create the address if new, capture the UUID, and pass it here.</p>
+      <div class="s-cta">
+        <div class="s-btn wa">Send Invite for Milk Service</div>
       </div>
-      <div class="spec-section">
-        <div class="spec-label logic">What Happens on Backend After POST</div>
-        <div style="font-size:12px;color:var(--ts);">
-          <div style="margin-bottom:4px;">1. If phone is NEW → Consumer record created with <code>status=PENDING</code>, <code>origin=VENDOR_CREATED</code></div>
-          <div style="margin-bottom:4px;">2. If phone EXISTS → Same Consumer record reused (no duplicate)</div>
-          <div style="margin-bottom:4px;">3. ConsumerVendor relationship created with <code>status=PENDING</code>, <code>invitedAt=now()</code></div>
-          <div>4. <code>consumer.created</code> event published (for new consumers only)</div>
+    </div>
+    <div>
+      <div class="spec">
+        <div class="spec-section">
+          <div class="spec-label api">Path B — Same POST endpoint</div>
+          <div class="api-block">
+<span class="comment">// Same API call — backend detects existing</span>
+<span class="method">POST</span> <span class="path">/api/v1/vendors/{vendorId}/consumers</span>
+
+<span class="key">phone</span>: <span class="val">"9876543210"</span>  <span class="comment">// Already exists!</span>
+<span class="key">name</span>: <span class="val">"Raju Sharma"</span>
+<span class="key">capabilityId</span>: <span class="val">"uuid-milk"</span>
+<span class="key">addressId</span>: <span class="val">"uuid-addr-baner"</span>
+          </div>
+        </div>
+        <div class="spec-section">
+          <div class="spec-label backend">Backend Actions (isNew = false)</div>
+          <div class="event-chain">
+            <div class="event-item"><span class="event-icon">✅</span><div class="event-text"><strong>Existing Consumer reuse</strong> — no new record, same consumerId</div></div>
+            <div class="event-conn"></div>
+            <div class="event-item"><span class="event-icon">2️⃣</span><div class="event-text"><strong>Naya ConsumerVendor banega</strong> Sharma Dairy × Raju × MILK_DELIVERY × Baner address</div></div>
+            <div class="event-conn"></div>
+            <div class="event-item"><span class="event-icon">3️⃣</span><div class="event-text"><strong>CONSUMER_CREATED event nahi fire hoga</strong> (isNew=false)</div></div>
+            <div class="event-conn"></div>
+            <div class="event-item"><span class="event-icon">4️⃣</span><div class="event-text"><strong>WhatsApp invite jayega</strong> specifically for milk delivery from Sharma Dairy</div></div>
+          </div>
+        </div>
+        <div class="spec-section">
+          <div class="spec-label logic">UX Notes for Path B</div>
+          <ul style="font-size:12px;color:var(--ts);padding-left:16px;">
+            <li>Naam auto-fill karo from existing Consumer record</li>
+            <li>Show badge: "Already on Vinimay platform"</li>
+            <li>Show how many vendors they're already with (if API returns this)</li>
+            <li>Naam field read-only kar sakte ho (consumer ne khud set kiya hoga)</li>
+            <li>Sirf address + capability + slot vendor set karega</li>
+          </ul>
         </div>
       </div>
-      <div class="spec-section">
-        <div class="spec-label edge">Duplicate Handling (DUPLICATE_RESOURCE error)</div>
-        <p style="font-size:12px;color:var(--ts);">If the same vendor tries to add the <em>same consumer</em> for the <em>same capability</em> at the <em>same address</em>, backend throws <code>DUPLICATE_RESOURCE</code>. Show: <em>"This customer is already linked to you for this service at this address."</em><br>
-        But: same consumer at a DIFFERENT address or DIFFERENT capability = allowed (creates a new relationship).</p>
+    </div>
+  </div>
+
+  <!-- Screen 3.3c: Duplicate -->
+  <div style="font-size:13px;font-weight:700;margin-bottom:12px;color:var(--text);">Path C — Already Serving This Consumer at Same Address (Duplicate Error)</div>
+  <div class="screen-pair" style="margin-bottom:32px;">
+    <div class="screen-mock">
+      <div class="s-bar"><span>9:41</span><span>📶 ⬛</span></div>
+      <div class="s-nav"><span class="back">← </span>Add Customer</div>
+      <div class="s-body">
+        <div style="text-align:center;padding:20px 16px;">
+          <div style="font-size:32px;margin-bottom:8px;">🚫</div>
+          <div style="font-size:12px;font-weight:700;color:var(--r);margin-bottom:6px;">Already Connected!</div>
+          <div style="font-size:11px;color:var(--ts);">Raju Sharma already linked to your Milk Delivery service at this address.</div>
+          <div style="margin-top:12px;font-size:11px;background:var(--rl);padding:8px;border-radius:8px;color:#DC2626;">Error: DUPLICATE_RESOURCE</div>
+        </div>
+        <div class="s-field"><div class="s-field-label">Existing Relationship</div><div class="s-field-val filled">Milk Delivery · Baner · ACTIVE</div></div>
+      </div>
+      <div class="s-cta">
+        <div class="s-btn secondary">View Existing Customer</div>
+      </div>
+    </div>
+    <div>
+      <div class="spec">
+        <div class="spec-section">
+          <div class="spec-label edge">Duplicate Scenarios</div>
+          <table class="tbl">
+            <tr><th>Situation</th><th>Result</th></tr>
+            <tr><td>Same vendor + consumer + capability + address</td><td style="color:var(--r);font-weight:600;">❌ DUPLICATE_RESOURCE error</td></tr>
+            <tr><td>Same vendor + consumer + same capability + <strong>different address</strong></td><td style="color:#15803D;font-weight:600;">✅ Allowed (e.g., ghar + office)</td></tr>
+            <tr><td>Same vendor + consumer + <strong>different capability</strong> + same address</td><td style="color:#15803D;font-weight:600;">✅ Allowed (milk + water)</td></tr>
+            <tr><td>Different vendor + same consumer + same phone</td><td style="color:#15803D;font-weight:600;">✅ Allowed (competitive vendors)</td></tr>
+          </table>
+        </div>
+        <div class="spec-section">
+          <div class="spec-label logic">UX Handling</div>
+          <ul style="font-size:12px;color:var(--ts);padding-left:16px;">
+            <li>HTTP 400 + errorCode=DUPLICATE_RESOURCE aayega</li>
+            <li>User-friendly message dikhao, technical error nahi</li>
+            <li>"View existing customer" link do</li>
+            <li>Option: "Add different service" ya "Different address?" suggest karo</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Multi-capability scenario -->
+  <div style="font-size:13px;font-weight:700;margin-bottom:12px;color:var(--text);">Allowed Scenario: Same Consumer, Multiple Services / Addresses</div>
+  <div class="spec">
+    <div class="spec-section">
+      <div class="spec-label logic">Multi-Relationship Example — Raju (9876543210)</div>
+      <table class="tbl">
+        <tr>
+          <th>Vendor</th><th>Service</th><th>Address</th><th>Status</th>
+        </tr>
+        <tr><td>Sharma Dairy</td><td>MILK_DELIVERY</td><td>Baner (Home)</td><td><span style="color:#15803D;font-weight:600;">ACTIVE</span></td></tr>
+        <tr><td>Sharma Dairy</td><td>WATER_DELIVERY</td><td>Baner (Home)</td><td><span style="color:#C2410C;font-weight:600;">PENDING</span></td></tr>
+        <tr><td>AquaPure</td><td>WATER_DELIVERY</td><td>Hinjewadi (Office)</td><td><span style="color:#15803D;font-weight:600;">ACTIVE</span></td></tr>
+        <tr><td>FreshTiffin</td><td>TIFFIN_SERVICE</td><td>Hinjewadi (Office)</td><td><span style="color:#C2410C;font-weight:600;">PENDING</span></td></tr>
+      </table>
+      <p style="font-size:12px;color:var(--ts);">Teeno vendors ke liye alag ConsumerVendor records — same Raju Consumer record se link.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SECTION 4: PLANNED FUTURE FLOWS ═══ -->
+<div class="section">
+  <div class="sec-title"><span class="sec-num">4</span> Planned Consumer Creation Flows (Backend mein abhi nahi hain)</div>
+  <p class="sec-sub">Yeh flows backend mein currently implement nahi hain lekin roadmap mein clearly chahiye. Har flow ke liye backend improvement needed hai.</p>
+
+  <div class="note warn" style="margin-bottom:20px;">
+    <span class="note-icon">⚠️</span>
+    <div><strong>Current State:</strong> Abhi sirf ek hi vendor-side creation flow hai — manual phone input (POST /vendors/{id}/consumers). Niche likhe flows <strong>planned improvements</strong> hain — inhe UI mein "Coming Soon" ya separate development items ke roop mein treat karo.</div>
+  </div>
+
+  <div class="planned-grid">
+    <div class="planned-card">
+      <h5>📋 CSV Bulk Import</h5>
+      <p><strong>Use case:</strong> Vendor ke paas 50+ customers hain jo ek register mein hain. Ek CSV upload se sab add ho jayein.<br><br>
+      <strong>Expected behavior:</strong> CSV mein phone, name, address, slot columns → backend loop karke har row ke liye addConsumerByVendor() call kare → existing consumers auto-detect karke sirf relationship banaye → bulk result (success count + error rows) return kare.<br><br>
+      <strong>API needed:</strong> POST /vendors/{id}/consumers/bulk (multipart CSV ya JSON array)<br>
+      <strong>Backend status:</strong> Not implemented — needs new endpoint + CSV parser + batch transaction</p>
+    </div>
+
+    <div class="planned-card">
+      <h5>📦 First-Order Auto-Consumer Link</h5>
+      <p><strong>Use case:</strong> DYNAMIC_PRICING vendors ke liye (laundry, cleaning etc.) — vendor directly ek order create karta hai kisi ke liye bina consumer onboarding ke. Order creation pe consumer auto-create hona chahiye.<br><br>
+      <strong>Expected behavior:</strong> Vendor creates order → if no consumerId but phone given → backend consumer lookup → create if new → link to order. Consumer baad mein WhatsApp pe invite dekhta hai.<br><br>
+      <strong>API change needed:</strong> VendorOrderController mein phone-based consumer auto-create logic<br>
+      <strong>Backend status:</strong> Not implemented — FIRST_ORDER_FREE enum sirf discount type hai, consumer creation nahi</p>
+    </div>
+
+    <div class="planned-card">
+      <h5>🎙️ Voice Dictation Add</h5>
+      <p><strong>Use case:</strong> Vendor subah 5 baje milk route pe hai, haath geela hai. "Add Raju, 9876543210, Baner, milk, 6 to 7" bol ke consumer add kare.<br><br>
+      <strong>Expected behavior:</strong> Flutter speech-to-text → parse phone/name/service/slot → pre-fill form → vendor confirms → same POST /consumers API call.<br><br>
+      <strong>Backend change needed:</strong> No backend change — sirf Flutter speech-to-text integration<br>
+      <strong>Status:</strong> Flutter work only — backend already handles the request</p>
+    </div>
+
+    <div class="planned-card">
+      <h5>📷 OCR from Written Register</h5>
+      <p><strong>Use case:</strong> Vendor ke paas purana haath ka register hai — Raju, 9876543210, Ghar, 2 litre milk, daily — woh photo khichta hai aur sab auto-add ho jata hai.<br><br>
+      <strong>Expected behavior:</strong> Camera → ML Kit / Tesseract OCR → structured data extract → bulk confirmation screen → vendor verify karke sab approve → bulk POST to API.<br><br>
+      <strong>Backend change needed:</strong> Bulk endpoint zaroor chahiye (CSV bulk se same)<br>
+      <strong>Status:</strong> Flutter ML Kit + bulk API endpoint — dono needed</p>
+    </div>
+  </div>
+
+  <div class="note sky">
+    <span class="note-icon">🎯</span>
+    <div><strong>Developer Note:</strong> In flows ke liye sabse pehle <strong>Bulk Create API</strong> banana zaroori hai — CSV, OCR, aur voice teeno ke liye base yahi API hogi. Ek hi endpoint: <code>POST /vendors/{id}/consumers/bulk</code> jo <code>List&lt;VendorAddConsumerRequest&gt;</code> accept kare aur <code>BulkCreateResult</code> (success[], failed[]) return kare.</div>
+  </div>
+</div>
+
+<!-- ═══ SECTION 5: S8 — WHATSAPP + ACCEPT/REJECT ═══ -->
+<div class="section">
+  <div class="sec-title"><span class="sec-num">5</span> S8 — Consumer Receives WhatsApp Invite &amp; Responds</div>
+  <p class="sec-sub">Consumer ke side ka experience. Vendor ne add kiya → WhatsApp aaya → consumer accept ya reject karta hai.</p>
+
+  <div class="screen-pair" style="margin-bottom:32px;">
+    <div class="wa-phone" style="max-width:220px;">
+      <div class="wa-header">
+        <div class="wa-avatar">V</div>
+        <div>
+          <div class="wa-hname">Vinimay</div>
+          <div class="wa-hsub">Official Platform</div>
+        </div>
+      </div>
+      <div class="wa-body">
+        <div class="wa-bubble">
+          <div class="wa-bubble-text">
+            Namaste Raju ji! 🙏<br><br>
+            <strong>Sharma Dairy</strong> ne aapko apne <strong>Milk Delivery</strong> service ke liye add kiya hai.<br><br>
+            📍 Address: Flat 203, Baner Road<br>
+            ⏰ Slot: 06:00 – 07:00 AM<br><br>
+            Kya aap yeh service accept karna chahte hain?
+          </div>
+          <div class="wa-bubble-time">9:42 AM ✓✓</div>
+          <div class="wa-btns">
+            <div class="wa-btn">✅ Accept Karo</div>
+            <div class="wa-btn reject">❌ Reject</div>
+          </div>
+        </div>
+      </div>
+      <div class="wa-footer">
+        <div class="wa-input">Reply karein...</div>
+        <span style="font-size:18px;">📤</span>
+      </div>
+    </div>
+    <div>
+      <div class="spec">
+        <div class="spec-section">
+          <div class="spec-label api">Accept — POST (Consumer Action)</div>
+          <div class="api-block">
+<span class="method">POST</span> <span class="path">/api/v1/consumers/{consumerId}/accept</span>
+    <span class="key">?vendorId</span>=<span class="val">{vendorId}</span>
+<span class="comment">// Auth: consumer:invite:manage</span>
+          </div>
+        </div>
+        <div class="spec-section">
+          <div class="spec-label backend">Accept ke baad kya hoga</div>
+          <div class="event-chain">
+            <div class="event-item"><span class="event-icon">1️⃣</span><div class="event-text"><strong>Consumer status → ACTIVE</strong> (agar PENDING tha)</div></div>
+            <div class="event-conn"></div>
+            <div class="event-item"><span class="event-icon">2️⃣</span><div class="event-text"><strong>ConsumerVendor status → ACTIVE</strong> specific vendor relationship</div></div>
+            <div class="event-conn"></div>
+            <div class="event-item"><span class="event-icon">3️⃣</span><div class="event-text"><strong>CONSUMER_ACCEPTED event fire</strong> → vendor ko notification</div></div>
+            <div class="event-conn"></div>
+            <div class="event-item"><span class="event-icon">4️⃣</span><div class="event-text"><strong>Identity module mein User banega</strong> (TODO: currently commented in code)</div></div>
+          </div>
+        </div>
+        <div class="spec-section">
+          <div class="spec-label api">Reject — POST</div>
+          <div class="api-block">
+<span class="method">POST</span> <span class="path">/api/v1/consumers/{consumerId}/reject</span>
+    <span class="key">?vendorId</span>=<span class="val">{vendorId}</span>
+<span class="comment">// Auth: consumer:invite:manage</span>
+          </div>
+        </div>
+        <div class="spec-section">
+          <div class="spec-label edge">Reject Logic</div>
+          <ul style="font-size:12px;color:var(--ts);padding-left:16px;">
+            <li>ConsumerVendor status → DISCONNECTED</li>
+            <li>Agar koi aur active relationship nahi + consumer PENDING tha → Consumer status → REJECTED</li>
+            <li>Agar consumer kisi aur vendor se already ACTIVE hai → Consumer ACTIVE rahega, sirf is vendor ki relationship disconnect hogi</li>
+          </ul>
+        </div>
+        <div class="spec-section">
+          <div class="spec-label warn">WhatsApp Implementation Status</div>
+          <div class="note warn" style="margin-bottom:0;">
+            <span class="note-icon">⚠️</span>
+            <div>WhatsApp invite <code>ConsumerService.java</code> mein <strong>TODO hai</strong> — geekrabit-notify integration abhi implement nahi hua. Development phase mein manually accept API call karni padegi testing ke liye.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Vendor sees the update -->
+  <div class="screen-pair">
+    <div class="screen-mock">
+      <div class="s-bar"><span>9:41</span><span>📶 ⬛</span></div>
+      <div class="s-nav">My Customers</div>
+      <div class="s-body">
+        <div style="font-size:10px;font-weight:700;color:var(--ts);margin-bottom:8px;text-transform:uppercase;">Active (1)</div>
+        <div class="s-card active-c">
+          <div class="s-card-row">
+            <div style="width:26px;height:26px;border-radius:50%;background:var(--g);color:white;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0;">R</div>
+            <div style="flex:1;"><div style="font-weight:700;font-size:11px;">Raju Sharma</div><div style="font-size:9px;color:var(--ts);">Milk Delivery · Baner</div></div>
+            <span class="s-badge active">ACTIVE</span>
+          </div>
+        </div>
+        <div style="font-size:10px;font-weight:700;color:var(--ts);margin:10px 0 8px;text-transform:uppercase;">Pending Acceptance (1)</div>
+        <div class="s-card pending">
+          <div class="s-card-row">
+            <div style="width:26px;height:26px;border-radius:50%;background:var(--o);color:white;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0;">S</div>
+            <div style="flex:1;"><div style="font-weight:700;font-size:11px;">Sunita Devi</div><div style="font-size:9px;color:var(--ts);">Milk Delivery · Wakad</div></div>
+            <span class="s-badge pending">PENDING</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="spec">
+        <div class="spec-section">
+          <div class="spec-label api">Vendor Checks Status</div>
+          <div class="api-block">
+<span class="comment">// Active consumers list</span>
+<span class="method">GET</span> <span class="path">/api/v1/vendors/{vendorId}/consumer-relationships/active</span>
+
+<span class="comment">// All (pending + active + blocked)</span>
+<span class="method">GET</span> <span class="path">/api/v1/vendors/{vendorId}/consumer-relationships</span>
+
+<span class="comment">// Count for dashboard</span>
+<span class="method">GET</span> <span class="path">/api/v1/vendors/{vendorId}/consumer-relationships/count</span>
+
+<span class="comment">// By capability (milk only)</span>
+<span class="method">GET</span> <span class="path">/api/v1/vendors/{vendorId}/consumer-relationships/capability/{capabilityId}</span>
+          </div>
+        </div>
+        <div class="spec-section">
+          <div class="spec-label logic">List Screen UX</div>
+          <ul style="font-size:12px;color:var(--ts);padding-left:16px;">
+            <li>Active aur Pending ko alag sections mein dikhao</li>
+            <li>PENDING cards pe "Awaiting acceptance" text + orange border</li>
+            <li>ACTIVE cards pe green border</li>
+            <li>Real-time ya pull-to-refresh for status update</li>
+          </ul>
+        </div>
       </div>
     </div>
   </div>
 </div>
 
-<!-- ═══ SECTION 5: INVITE SENT + WHATSAPP FLOW ═══ -->
+<!-- ═══ SECTION 6: S9 — SUBSCRIPTION SETUP ═══ -->
 <div class="section">
-  <div class="sec-title"><span class="sec-num">5</span> Invite Sent &amp; WhatsApp Flow (Screens S7c + S8)</div>
-  <p class="sec-sub">After the vendor sends the invite, the consumer receives a WhatsApp message from Thiya. They tap Accept or Reject. This is the handover point from Vendor App to consumer's phone.</p>
+  <div class="sec-title"><span class="sec-num">6</span> S9 — Create Subscription for Accepted Consumer</div>
+  <p class="sec-sub">Consumer ACTIVE hone ke baad vendor subscription banata hai — yeh daily order generation ka base hai. S9 tabhi start karo jab relationship ACTIVE ho.</p>
 
-  <div style="display:grid;grid-template-columns:240px 240px 1fr;gap:24px;margin-bottom:24px;align-items:start;">
-    <!-- Vendor confirmation screen -->
-    <div>
-      <div style="font-size:11px;font-weight:700;color:var(--ts);text-transform:uppercase;margin-bottom:8px;">Vendor sees:</div>
-      <div class="screen-mock">
-        <div class="s-bar"><span>10:07 AM</span><span>●●● ▪▪▪</span></div>
-        <div class="s-nav"><span class="back">←</span><span>Invite Sent</span></div>
-        <div class="s-body" style="display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;min-height:200px;">
-          <div style="font-size:48px;margin-bottom:8px;">📤</div>
-          <div style="font-weight:700;font-size:13px;margin-bottom:4px;">Invite Sent!</div>
-          <div style="font-size:10px;color:var(--ts);margin-bottom:4px;">WhatsApp message sent to</div>
-          <div style="font-size:12px;font-weight:600;">Raju Sharma</div>
-          <div style="font-size:11px;color:var(--ts);">+91 9876543210</div>
-          <div style="margin-top:12px;background:var(--ol);border-radius:6px;padding:6px 12px;font-size:10px;color:#C2410C;">⏳ Waiting for acceptance</div>
+  <div class="note success" style="margin-bottom:20px;">
+    <span class="note-icon">✅</span>
+    <div><strong>Trigger:</strong> ConsumerVendor status = ACTIVE. Tab vendor "Setup Subscription" option dekhe consumer ke profile mein.</div>
+  </div>
+
+  <!-- Screen 6.1: Create Subscription -->
+  <div class="screen-pair" style="margin-bottom:32px;">
+    <div class="screen-mock">
+      <div class="s-bar"><span>9:41</span><span>📶 ⬛</span></div>
+      <div class="s-nav"><span class="back">← </span>Raju — Subscription</div>
+      <div class="s-body">
+        <div class="sub-item-card">
+          <div class="sub-item-header">
+            <span class="sub-item-title">Subscription Details</span>
+            <span class="s-badge active-sub">New</span>
+          </div>
+          <div class="s-field"><div class="s-field-label">Start Date</div><div class="s-field-val filled">Today (2026-03-01)</div></div>
+          <div style="font-size:10px;font-weight:600;margin-bottom:6px;">Products:</div>
+          <div class="s-card">
+            <div style="font-weight:600;font-size:11px;">Full Cream Milk — 500ml</div>
+            <div style="font-size:10px;color:var(--ts);">Qty: 2 · ₹32/day</div>
+            <div style="font-size:10px;margin-top:4px;font-weight:600;">Schedule:</div>
+            <div class="sub-schedule-grid" style="grid-template-columns:repeat(3,1fr);">
+              <div class="sub-sched sel">DAILY</div>
+              <div class="sub-sched">ALT</div>
+              <div class="sub-sched">WEEKDAY</div>
+            </div>
+          </div>
+          <div style="font-size:10px;color:var(--p);cursor:pointer;">+ Add Another Product</div>
         </div>
-        <div class="s-cta" style="display:flex;gap:8px;">
-          <div class="s-btn secondary" style="flex:1;font-size:10px;">Add Another</div>
-          <div class="s-btn" style="flex:1;font-size:10px;">View List</div>
+      </div>
+      <div class="s-cta">
+        <div class="s-btn">Activate Subscription ✓</div>
+      </div>
+    </div>
+    <div>
+      <div class="spec">
+        <div class="spec-section">
+          <div class="spec-label api">Create Subscription</div>
+          <div class="api-block">
+<span class="method">POST</span> <span class="path">/api/v1/vendors/{vendorId}/subscriptions</span>
+<span class="comment">// Auth: vendor:subscription:write</span>
+
+<span class="key">consumerId</span>: <span class="val">"uuid-raju"</span>
+<span class="key">capabilityId</span>: <span class="val">"uuid-milk"</span>
+<span class="key">category</span>: <span class="val">"MILK_DELIVERY"</span>
+<span class="key">startDate</span>: <span class="val">"2026-03-01"</span>  <span class="comment">// optional, default=today</span>
+<span class="key">items</span>: [
+  {
+    <span class="key">vendorProductId</span>: <span class="val">"uuid-milk-500"</span>,
+    <span class="key">productName</span>: <span class="val">"Full Cream Milk 500ml"</span>,
+    <span class="key">quantity</span>: <span class="val">2</span>,
+    <span class="key">price</span>: <span class="val">32.00</span>,
+    <span class="key">unit</span>: <span class="val">"PIECE"</span>,
+    <span class="key">deliverySchedule</span>: <span class="val">"DAILY"</span>,
+    <span class="key">deliveryAddressId</span>: <span class="val">"uuid-addr"</span>,
+    <span class="key">deliverySlot</span>: <span class="val">"06:00-07:00"</span>
+  }
+]
+          </div>
+        </div>
+        <div class="spec-section">
+          <div class="spec-label backend">Backend Actions</div>
+          <div class="event-chain">
+            <div class="event-item"><span class="event-icon">1️⃣</span><div class="event-text"><strong>Duplicate check:</strong> Same consumer+vendor+capability ACTIVE subscription exists? → DUPLICATE error</div></div>
+            <div class="event-conn"></div>
+            <div class="event-item"><span class="event-icon">2️⃣</span><div class="event-text"><strong>Subscription record banega</strong> status=ACTIVE, startDate=today (default)</div></div>
+            <div class="event-conn"></div>
+            <div class="event-item"><span class="event-icon">3️⃣</span><div class="event-text"><strong>SubscriptionItems saved</strong> for each product in items[]</div></div>
+            <div class="event-conn"></div>
+            <div class="event-item"><span class="event-icon">4️⃣</span><div class="event-text"><strong>SUBSCRIPTION_CREATED event fire</strong> → next day se order generation start</div></div>
+          </div>
+        </div>
+        <div class="spec-section">
+          <div class="spec-label">Delivery Schedule Options</div>
+          <table class="tbl">
+            <tr><th>Schedule</th><th>Matlab</th></tr>
+            <tr><td><code>DAILY</code></td><td>Roz delivery</td></tr>
+            <tr><td><code>ALTERNATE</code></td><td>Ek din haan, ek din nahi</td></tr>
+            <tr><td><code>WEEKDAYS</code></td><td>Mon–Fri only</td></tr>
+            <tr><td><code>WEEKEND</code></td><td>Sat–Sun only</td></tr>
+            <tr><td><code>CUSTOM</code></td><td>Specific days set karo</td></tr>
+            <tr><td><code>MONTHLY_FIRST</code></td><td>Month ke pehle din</td></tr>
+            <tr><td><code>MONTHLY_LAST</code></td><td>Month ke aakhri din</td></tr>
+            <tr><td><code>MONTHLY_DAY</code></td><td>Specific date har mahine</td></tr>
+          </table>
         </div>
       </div>
     </div>
+  </div>
 
-    <!-- WhatsApp consumer side -->
-    <div>
-      <div style="font-size:11px;font-weight:700;color:var(--ts);text-transform:uppercase;margin-bottom:8px;">Consumer's WhatsApp:</div>
-      <div class="wa-phone">
-        <div class="wa-header">
-          <div class="wa-avatar">🤖</div>
-          <div><div class="wa-hname">Thiya (Vinimay)</div><div class="wa-hsub">Online</div></div>
+  <!-- First Delivery Explanation -->
+  <div style="font-size:13px;font-weight:700;margin-bottom:12px;">First Delivery — Kab Hogi?</div>
+  <div class="spec">
+    <div class="spec-section">
+      <div class="spec-label logic">Daily Order Generation Flow</div>
+      <div class="event-chain">
+        <div class="event-item"><span class="event-icon">🌙</span><div class="event-text"><strong>Raat 1 AM IST</strong> — OrderGenerationScheduler chalega (<code>cron: 0 0 1 * * *</code>)</div></div>
+        <div class="event-conn"></div>
+        <div class="event-item"><span class="event-icon">📋</span><div class="event-text"><strong>Sab ACTIVE subscriptions fetch hoti hain</strong> — <code>findByStatusAndActiveTrue(ACTIVE)</code></div></div>
+        <div class="event-conn"></div>
+        <div class="event-item"><span class="event-icon">✅</span><div class="event-text"><strong>Har subscription ke liye check:</strong> vendor holiday nahi? Consumer vacation nahi? Items scheduled for today?</div></div>
+        <div class="event-conn"></div>
+        <div class="event-item"><span class="event-icon">📨</span><div class="event-text"><strong>ORDER_GENERATION_REQUESTED event publish</strong> → order module listener pakarega</div></div>
+        <div class="event-conn"></div>
+        <div class="event-item"><span class="event-icon">📦</span><div class="event-text"><strong>Order banega</strong> status=CONFIRMED (ya PENDING_VENDOR_CONFIRMATION based on config)</div></div>
+      </div>
+      <div class="note amber" style="margin-top:10px;">
+        <span class="note-icon">⏰</span>
+        <div><strong>Important:</strong> Agar aaj subscription create kiya aur startDate = today hai, toh <strong>pehla order kal raat 1 AM ke baad banega</strong>. Same day delivery ke liye cutoff time check hoga. Developer ko yeh user ko clearly communicate karna chahiye.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SECTION 7: COMPLETE API REFERENCE ═══ -->
+<div class="section">
+  <div class="sec-title"><span class="sec-num">7</span> Complete API Reference — Is Guide ke Saare Endpoints</div>
+
+  <table class="tbl">
+    <tr>
+      <th>Method</th><th>Endpoint</th><th>Use Case</th><th>Permission</th>
+    </tr>
+    <tr>
+      <td><span style="color:#15803D;font-weight:700;">GET</span></td>
+      <td><code>/api/v1/vendors/{id}/consumers/search?phone=</code></td>
+      <td>Search consumer by phone (Step 1)</td>
+      <td><code>vendor:consumer:read</code></td>
+    </tr>
+    <tr>
+      <td><span style="color:#1D4ED8;font-weight:700;">POST</span></td>
+      <td><code>/api/v1/vendors/{id}/consumers</code></td>
+      <td>Add consumer (new + existing both)</td>
+      <td><code>vendor:consumer:write</code></td>
+    </tr>
+    <tr>
+      <td><span style="color:#15803D;font-weight:700;">GET</span></td>
+      <td><code>/api/v1/vendors/{id}/consumer-relationships</code></td>
+      <td>All relationships (all statuses)</td>
+      <td><code>vendor:consumer:read</code></td>
+    </tr>
+    <tr>
+      <td><span style="color:#15803D;font-weight:700;">GET</span></td>
+      <td><code>/api/v1/vendors/{id}/consumer-relationships/active</code></td>
+      <td>Active consumers list</td>
+      <td><code>vendor:consumer:read</code></td>
+    </tr>
+    <tr>
+      <td><span style="color:#15803D;font-weight:700;">GET</span></td>
+      <td><code>/api/v1/vendors/{id}/consumer-relationships/capability/{capId}</code></td>
+      <td>Filter by capability (milk only)</td>
+      <td><code>vendor:consumer:read</code></td>
+    </tr>
+    <tr>
+      <td><span style="color:#15803D;font-weight:700;">GET</span></td>
+      <td><code>/api/v1/vendors/{id}/consumer-relationships/count</code></td>
+      <td>Active count for dashboard</td>
+      <td><code>vendor:consumer:read</code></td>
+    </tr>
+    <tr>
+      <td><span style="color:#1D4ED8;font-weight:700;">POST</span></td>
+      <td><code>/api/v1/consumers/{id}/accept?vendorId=</code></td>
+      <td>Consumer accepts invite</td>
+      <td><code>consumer:invite:manage</code></td>
+    </tr>
+    <tr>
+      <td><span style="color:#1D4ED8;font-weight:700;">POST</span></td>
+      <td><code>/api/v1/consumers/{id}/reject?vendorId=</code></td>
+      <td>Consumer rejects invite</td>
+      <td><code>consumer:invite:manage</code></td>
+    </tr>
+    <tr>
+      <td><span style="color:#15803D;font-weight:700;">GET</span></td>
+      <td><code>/api/v1/consumers/{id}/vendor-relationships/pending</code></td>
+      <td>Consumer ka pending invites list</td>
+      <td><code>consumer:invite:manage</code></td>
+    </tr>
+    <tr>
+      <td><span style="color:#1D4ED8;font-weight:700;">POST</span></td>
+      <td><code>/api/v1/vendors/{id}/subscriptions</code></td>
+      <td>Create subscription (with items inline)</td>
+      <td><code>vendor:subscription:write</code></td>
+    </tr>
+    <tr>
+      <td><span style="color:#15803D;font-weight:700;">GET</span></td>
+      <td><code>/api/v1/vendors/{id}/subscriptions</code></td>
+      <td>All vendor subscriptions</td>
+      <td><code>vendor:subscription:read</code></td>
+    </tr>
+    <tr>
+      <td><span style="color:#15803D;font-weight:700;">GET</span></td>
+      <td><code>/api/v1/vendors/{id}/subscriptions/{subId}</code></td>
+      <td>Subscription with all items</td>
+      <td><code>vendor:subscription:read</code></td>
+    </tr>
+    <tr style="background:var(--amberl);">
+      <td><span style="color:#1D4ED8;font-weight:700;">POST</span></td>
+      <td><code>/api/v1/vendors/{id}/consumers/bulk</code></td>
+      <td>🔜 Bulk add (NOT YET IMPLEMENTED)</td>
+      <td><code>vendor:consumer:write</code></td>
+    </tr>
+  </table>
+
+  <!-- Events Reference -->
+  <div style="font-size:13px;font-weight:700;margin-bottom:12px;margin-top:24px;">Events Published — Is Guide ke Flow Mein</div>
+  <table class="tbl">
+    <tr><th>Topic</th><th>Kab fire hoga</th><th>Backend Class</th></tr>
+    <tr><td><code>consumer.created</code></td><td>New consumer created (isNew=true only)</td><td>ConsumerCreatedEvent</td></tr>
+    <tr><td><code>consumer.accepted</code></td><td>Consumer accepts vendor invite</td><td>ConsumerAcceptedEvent</td></tr>
+    <tr><td><code>subscription.created</code></td><td>Subscription activated</td><td>SubscriptionCreatedEvent</td></tr>
+    <tr><td><code>order.generation.requested</code></td><td>Daily 1 AM — per active subscription</td><td>OrderGenerationRequestedEvent</td></tr>
+  </table>
+</div>
+
+<!-- ═══ SECTION 8: EDGE CASES QUICK REF ═══ -->
+<div class="section">
+  <div class="sec-title"><span class="sec-num">8</span> Edge Cases Quick Reference</div>
+
+  <table class="tbl">
+    <tr><th>Scenario</th><th>Backend Behavior</th><th>HTTP Code</th><th>UX Action</th></tr>
+    <tr>
+      <td>Consumer phone already exists (different vendor)</td>
+      <td>Existing consumer reused, new ConsumerVendor created</td>
+      <td>200</td>
+      <td>Show "Existing customer linked" success</td>
+    </tr>
+    <tr>
+      <td>Same vendor + same consumer + same capability + same address</td>
+      <td>DUPLICATE_RESOURCE exception thrown</td>
+      <td>400</td>
+      <td>"Already serving at this address" error + redirect to existing</td>
+    </tr>
+    <tr>
+      <td>Same vendor + same consumer + different address</td>
+      <td>New ConsumerVendor created (allowed)</td>
+      <td>200</td>
+      <td>Success — serving at multiple addresses</td>
+    </tr>
+    <tr>
+      <td>Consumer rejects invite</td>
+      <td>ConsumerVendor → DISCONNECTED, Consumer → REJECTED (if no other active)</td>
+      <td>200</td>
+      <td>Show rejected status, option to re-invite later</td>
+    </tr>
+    <tr>
+      <td>Subscription create for PENDING consumer</td>
+      <td>Not blocked by backend — but delivery won't happen till consumer ACTIVE</td>
+      <td>200</td>
+      <td>Warn vendor: "Subscription created but will activate after consumer accepts invite"</td>
+    </tr>
+    <tr>
+      <td>Invalid phone format (not Indian mobile)</td>
+      <td>Validation error: regex ^[6-9]\d{9}$</td>
+      <td>400</td>
+      <td>Inline field validation in Flutter</td>
+    </tr>
+    <tr>
+      <td>Subscription already active for same consumer+vendor+capability</td>
+      <td>DUPLICATE_RESOURCE exception</td>
+      <td>400</td>
+      <td>"Active subscription exists" — show existing subscription</td>
+    </tr>
+  </table>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════════════ -->
+<!-- SECTION 9: MULTI-VENDOR CONSUMER SHARING — ARCHITECTURE CLARITY       -->
+<!-- ═══════════════════════════════════════════════════════════════════════ -->
+<div class="section">
+  <div class="sec-title"><span class="sec-num">9</span> Multi-Vendor Consumer Sharing — Yeh Exactly Kaise Kaam Karta Hai</div>
+  <div class="sec-sub">Ek hi consumer alag-alag vendors ke saath linked ho sakta hai — phone number unique identity hai</div>
+
+  <div class="note info" style="margin-bottom:20px;">
+    <span class="note-icon">🏗️</span>
+    <div><strong>Core Architecture Rule:</strong> Consumer platform par ek hi baar create hota hai, phone number se identify hota hai. Vendor relationship (ConsumerVendor) alag entity hai — ek consumer ke multiple vendor relationships ho sakte hain, alag addresses aur capabilities ke saath.</div>
+  </div>
+
+  <!-- Visual: V1 → C1 ← V2 diagram -->
+  <div style="background:white;border:1px solid var(--border);border-radius:12px;padding:24px;margin-bottom:20px;">
+    <div style="font-size:13px;font-weight:700;color:var(--ts);text-transform:uppercase;letter-spacing:.05em;margin-bottom:20px;">Consumer Sharing — Data Flow Diagram</div>
+
+    <div style="display:grid;grid-template-columns:1fr 80px 1fr 80px 1fr;gap:8px;align-items:center;text-align:center;margin-bottom:24px;">
+
+      <!-- Vendor 1 -->
+      <div style="background:var(--pl);border:2px solid var(--p);border-radius:12px;padding:16px;">
+        <div style="font-size:18px;margin-bottom:6px;">🏪</div>
+        <div style="font-weight:700;font-size:13px;color:var(--p);">Vendor V1</div>
+        <div style="font-size:11px;color:var(--ts);margin-top:4px;">Sharma Dairy<br>MILK_DELIVERY<br>Baner Area</div>
+        <div style="margin-top:8px;background:var(--p);color:white;border-radius:6px;padding:4px 8px;font-size:10px;font-weight:600;">Adds C1 (phone: 9876543210)</div>
+      </div>
+
+      <div style="font-size:24px;color:var(--p);">→</div>
+
+      <!-- Consumer C1 — Central -->
+      <div style="background:linear-gradient(135deg,var(--gl) 0%,var(--wal) 100%);border:2.5px solid var(--g);border-radius:12px;padding:16px;">
+        <div style="font-size:20px;margin-bottom:6px;">👤</div>
+        <div style="font-weight:700;font-size:14px;color:#15803D;">Consumer C1</div>
+        <div style="font-size:11px;color:#166534;margin-top:4px;">Ramesh Kumar<br>phone: 9876543210<br><strong>Platform par 1 hi record</strong></div>
+        <div style="margin-top:8px;display:flex;gap:6px;justify-content:center;flex-wrap:wrap;">
+          <span style="background:white;border:1px solid var(--g);color:#15803D;font-size:9px;font-weight:700;padding:2px 6px;border-radius:4px;">ACTIVE</span>
+          <span style="background:white;border:1px solid var(--b);color:#1D4ED8;font-size:9px;font-weight:700;padding:2px 6px;border-radius:4px;">consumerId: uuid</span>
         </div>
-        <div class="wa-body">
-          <div class="wa-bubble">
-            <div class="wa-bubble-text">
-              Hi Raju! 👋<br><br>
-              <strong>Sharma Dairy</strong> has added you as their customer on Vinimay.<br><br>
-              Service: 🥛 <strong>Milk Delivery</strong><br>
-              Slot: ⏰ <strong>6:00 – 7:00 AM</strong><br>
-              Address: <strong>Baner, Pune</strong><br><br>
-              Do you want to receive deliveries from them?
-            </div>
-            <div class="wa-bubble-time">10:07 AM ✓✓</div>
-            <div class="wa-btns">
-              <div class="wa-btn">✅ Yes, Accept</div>
-              <div class="wa-btn reject">❌ No, Decline</div>
-            </div>
-          </div>
-        </div>
-        <div class="wa-footer"><div class="wa-input">Type a message...</div><span style="font-size:18px;color:var(--wa);">📨</span></div>
+      </div>
+
+      <div style="font-size:24px;color:var(--b);">←</div>
+
+      <!-- Vendor 2 -->
+      <div style="background:var(--bl);border:2px solid var(--b);border-radius:12px;padding:16px;">
+        <div style="font-size:18px;margin-bottom:6px;">🏪</div>
+        <div style="font-weight:700;font-size:13px;color:#1D4ED8;">Vendor V2</div>
+        <div style="font-size:11px;color:var(--ts);margin-top:4px;">Aqua Pure<br>WATER_DELIVERY<br>Hinjewadi Area</div>
+        <div style="margin-top:8px;background:var(--b);color:white;border-radius:6px;padding:4px 8px;font-size:10px;font-weight:600;">Also adds C1 (same phone)</div>
       </div>
     </div>
 
-    <!-- Right side spec -->
-    <div class="spec">
-      <div class="spec-section">
-        <div class="spec-label api">Consumer Accept API</div>
-        <div class="api-block">
-<span class="comment">// Called when consumer taps "Accept" in WhatsApp</span>
-<span class="comment">// (deep link or web redirect → app calls this)</span>
-<span class="method">POST</span> <span class="path">/api/v1/consumers/{consumerId}/accept?vendorId={vendorId}</span>
-<span class="comment">// Auth: consumer:invite:manage</span>
-<span class="comment">// ⚠️ For MVP: if consumer is not yet an app user,</span>
-<span class="comment">//    this may need to be accessible with minimal auth</span>
+    <!-- ConsumerVendor records -->
+    <div style="font-size:12px;font-weight:700;color:var(--ts);margin-bottom:10px;text-transform:uppercase;letter-spacing:.05em;">Database: consumer_vendors table — Kya banta hai</div>
+    <table class="tbl">
+      <tr>
+        <th>Record</th><th>consumer_id</th><th>vendor_id</th><th>capability</th><th>address_id</th><th>status</th>
+      </tr>
+      <tr style="background:var(--pl);">
+        <td><strong>CV-1</strong> (V1 ne banaya)</td>
+        <td><code>C1-uuid</code></td>
+        <td><code>V1-uuid</code></td>
+        <td>MILK_DELIVERY</td>
+        <td>Baner Home</td>
+        <td><span class="s-badge active">ACTIVE</span></td>
+      </tr>
+      <tr style="background:var(--bl);">
+        <td><strong>CV-2</strong> (V2 ne banaya)</td>
+        <td><code>C1-uuid</code> (same!)</td>
+        <td><code>V2-uuid</code></td>
+        <td>WATER_DELIVERY</td>
+        <td>Hinjewadi Office</td>
+        <td><span class="s-badge active">ACTIVE</span></td>
+      </tr>
+      <tr style="background:#F5F3FF;">
+        <td><strong>CV-3</strong> (V1 ne banaya — diff address)</td>
+        <td><code>C1-uuid</code> (same!)</td>
+        <td><code>V1-uuid</code></td>
+        <td>MILK_DELIVERY</td>
+        <td>Hinjewadi Office</td>
+        <td><span class="s-badge active">ACTIVE</span></td>
+      </tr>
+    </table>
+
+    <div class="note success" style="margin-top:8px;">
+      <span class="note-icon">✅</span>
+      <div><strong>Key Point:</strong> Consumer table mein sirf ek row hai C1 ke liye. ConsumerVendor table mein teen rows hain. V1 C1 ko do addresses par serve kar sakta hai. V2 alag service par serve kar sakta hai. Dono ko C1 ka data independently dikhta hai, lekin same consumerId se linked hai.</div>
+    </div>
+  </div>
+
+  <!-- Backend logic explanation -->
+  <div style="background:white;border:1px solid var(--border);border-radius:12px;padding:18px;margin-bottom:16px;">
+    <div style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:#15803D;margin-bottom:12px;">Backend Logic — ConsumerService.addConsumerByVendor() kya karta hai</div>
+    <div class="event-chain">
+      <div class="event-item">
+        <div class="event-icon">🔍</div>
+        <div class="event-text"><strong>Step 1: Phone se consumer dhoondo</strong><br><code>consumerRepository.findByPhoneAndActiveTrue(phone)</code></div>
+      </div>
+      <div class="event-conn"></div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:0 0 0 30px;">
+        <div style="background:var(--gl);border:1px solid var(--g);border-radius:8px;padding:12px;font-size:12px;">
+          <strong style="color:#15803D;">Consumer NAHI mila (naya user)</strong><br>
+          → Consumer table mein new row create karo (PENDING status)<br>
+          → ConsumerVendor relationship create karo<br>
+          → <code>consumer.created</code> event fire karo<br>
+          → WhatsApp invite bhejo (TODO — abhi commented)
+        </div>
+        <div style="background:var(--bl);border:1px solid var(--b);border-radius:8px;padding:12px;font-size:12px;">
+          <strong style="color:#1D4ED8;">Consumer MILA (pehle se exists)</strong><br>
+          → Existing consumer object use karo<br>
+          → Sirf nayi ConsumerVendor relationship banao<br>
+          → <code>consumer.created</code> event fire NAHI hoga<br>
+          → Consumer ka status change NAHI hoga
         </div>
       </div>
-      <div class="spec-section">
-        <div class="spec-label api">Consumer Reject API</div>
-        <div class="api-block">
-<span class="method">POST</span> <span class="path">/api/v1/consumers/{consumerId}/reject?vendorId={vendorId}</span>
-<span class="comment">// Auth: consumer:invite:manage</span>
-        </div>
-      </div>
-      <div class="spec-section">
-        <div class="spec-label logic">What Happens on Accept</div>
-        <div class="event-chain">
-          <div class="event-item">
-            <span class="event-icon">1️⃣</span>
-            <div class="event-text"><strong>Consumer.status → ACTIVE</strong>Consumer is fully onboarded onto the platform. acceptedAt = now()</div>
-          </div>
-          <div class="event-conn"></div>
-          <div class="event-item">
-            <span class="event-icon">2️⃣</span>
-            <div class="event-text"><strong>ConsumerVendor.status → ACTIVE</strong>This specific vendor-consumer relationship is now active. acceptedAt = now()</div>
-          </div>
-          <div class="event-conn"></div>
-          <div class="event-item">
-            <span class="event-icon">3️⃣</span>
-            <div class="event-text"><strong>consumer.accepted event published</strong>Notification module listens → sends "Raju accepted your invite!" to vendor. Subscription module will listen for future automation.</div>
-          </div>
-        </div>
-      </div>
-      <div class="spec-section">
-        <div class="spec-label edge">What Happens on Reject</div>
-        <p style="font-size:12px;color:var(--ts);">ConsumerVendor.status → DISCONNECTED. If consumer has no other active relationships and is still PENDING status → Consumer.status → REJECTED. No notification to vendor in current implementation (future TODO).</p>
-      </div>
-      <div class="spec-section">
-        <div class="spec-label edge">Pending Invites — Vendor View</div>
-        <div class="api-block">
-<span class="comment">// Vendor polls this to see PENDING consumers</span>
-<span class="method">GET</span> <span class="path">/api/v1/vendors/{vendorId}/consumer-relationships</span>
-<span class="comment">// Filter by status=PENDING client-side</span>
-<span class="comment">// Or use /active to see accepted ones</span>
-        </div>
+      <div class="event-conn"></div>
+      <div class="event-item">
+        <div class="event-icon">🚫</div>
+        <div class="event-text"><strong>Duplicate Check: Same vendor + same consumer + same capability + same address?</strong><br>
+        Agar pehle se yahi combination exist karta hai → <code>DUPLICATE_RESOURCE</code> exception throw hoga (400 error)</div>
       </div>
     </div>
   </div>
 
   <div class="note warn">
     <span class="note-icon">⚠️</span>
-    <div><strong>WhatsApp integration is currently TODO in backend.</strong> The <code>ConsumerService.addConsumerByVendor()</code> method has a commented-out block for sending WhatsApp via geekrabit-notify. For the MVP build, plan for this screen to show a "WhatsApp sending" state, but the actual WA delivery will be wired later. The Accept/Reject API endpoints themselves are fully functional.</div>
+    <div><strong>Important Backend TODOs (code mein commented hai):</strong><br>
+    1. <code>ConsumerService.java:146</code> — WhatsApp invite <em>abhi bhi commented out hai</em> — actual notification nahi jaati currently<br>
+    2. <code>ConsumerService.java:175</code> — Consumer accept karne par User creation in identity module <em>abhi bhi TODO hai</em> — ye complete karna zaroori hai production ke liye</div>
   </div>
 </div>
 
-<!-- ═══ SECTION 6: VENDOR VIEWS ACTIVE CONSUMER ═══ -->
+<!-- ═══════════════════════════════════════════════════════════════════════ -->
+<!-- SECTION 10: THE MANUAL FLOW PROBLEM — HONEST ANALYSIS                 -->
+<!-- ═══════════════════════════════════════════════════════════════════════ -->
 <div class="section">
-  <div class="sec-title"><span class="sec-num">6</span> Customer Accepted — Vendor Sees ACTIVE State (Screen S8a)</div>
-  <p class="sec-sub">After consumer accepts, vendor's customer list updates. The ACTIVE consumer now shows a "Set Up Plan" CTA — the prompt to create a subscription and start deliveries.</p>
+  <div class="sec-title"><span class="sec-num">10</span> Manual Flow ki Problem — Honest Analysis</div>
+  <div class="sec-sub">"AI-powered, voice-driven, minimal click" ka claim vs. current reality</div>
 
-  <div class="screen-pair">
-    <div class="screen-mock">
-      <div class="s-bar"><span>10:15 AM</span><span>●●● ▪▪▪</span></div>
-      <div class="s-nav"><span>My Customers</span><span style="margin-left:auto;color:var(--p);font-weight:700;font-size:11px;">+ Add</span></div>
-      <div style="display:flex;border-bottom:1px solid var(--border);background:white;">
-        <div style="flex:1;text-align:center;padding:8px;font-size:10px;font-weight:700;color:var(--p);border-bottom:2px solid var(--p);">All (1)</div>
-        <div style="flex:1;text-align:center;padding:8px;font-size:10px;color:var(--ts);">Active (1)</div>
-        <div style="flex:1;text-align:center;padding:8px;font-size:10px;color:var(--ts);">Pending (0)</div>
+  <div style="background:white;border:1px solid var(--border);border-radius:12px;padding:20px;margin-bottom:20px;">
+    <div style="font-size:13px;font-weight:700;color:var(--ts);text-transform:uppercase;letter-spacing:.05em;margin-bottom:16px;">Ek Consumer Manually Add Karne Mein Kitne Steps Hain?</div>
+    <table class="tbl">
+      <tr><th>#</th><th>Action</th><th>Effort</th><th>Notes</th></tr>
+      <tr><td>1</td><td>"Add Consumer" button tap karo</td><td>1 tap</td><td></td></tr>
+      <tr><td>2</td><td>Phone number type karo (10 digits)</td><td>10 keystrokes</td><td>Manual entry</td></tr>
+      <tr><td>3</td><td>"Search" tap karo — existing check</td><td>1 tap + wait</td><td>API call</td></tr>
+      <tr><td>4</td><td>Consumer ka naam type karo</td><td>~15 keystrokes</td><td>Manual entry</td></tr>
+      <tr><td>5</td><td>Capability select karo (dropdown)</td><td>2 taps</td><td></td></tr>
+      <tr><td>6</td><td>Address enter karo / select karo</td><td>3-5 taps or typing</td><td>Agar nahi hai to address module mein banana padega</td></tr>
+      <tr><td>7</td><td>Delivery slot select (optional)</td><td>2 taps</td><td></td></tr>
+      <tr><td>8</td><td>"Send Invite" tap</td><td>1 tap + wait</td><td>API call</td></tr>
+      <tr><td>9</td><td>Consumer accept karne ka wait karo</td><td>Minutes to hours</td><td>Blocking step</td></tr>
+      <tr><td>10</td><td>"Create Subscription" tab mein jao</td><td>2 taps</td><td>Navigation</td></tr>
+      <tr><td>11</td><td>Consumer select karo</td><td>2 taps + scroll</td><td></td></tr>
+      <tr><td>12</td><td>Product select karo</td><td>2 taps + scroll</td><td></td></tr>
+      <tr><td>13</td><td>Quantity enter karo</td><td>3 taps</td><td></td></tr>
+      <tr><td>14</td><td>Schedule select karo (DAILY/WEEKLY etc.)</td><td>2 taps</td><td></td></tr>
+      <tr><td>15</td><td>Start date pick karo</td><td>2 taps</td><td></td></tr>
+      <tr><td>16</td><td>"Save Subscription" tap</td><td>1 tap + wait</td><td>API call</td></tr>
+      <tr style="background:var(--rl);font-weight:700;"><td colspan="2">Total: 1 consumer ke liye</td><td>~15 taps + typing</td><td>3-5 minutes minimum</td></tr>
+    </table>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-top:16px;">
+      <div style="background:var(--ol);border:1px solid var(--o);border-radius:10px;padding:14px;text-align:center;">
+        <div style="font-size:24px;font-weight:800;color:#C2410C;">5 min</div>
+        <div style="font-size:11px;color:#7C2D12;margin-top:4px;">1 consumer manually add karne ka time</div>
       </div>
-      <div class="s-body">
-        <div class="s-card active-c">
-          <div class="s-card-row" style="margin-bottom:4px;">
-            <div style="flex:1;">
-              <div style="font-weight:600;font-size:11px;">Raju Sharma <span class="s-badge active">ACTIVE</span></div>
-              <div style="font-size:9px;color:var(--ts);">+91 9876543210 · Baner, Pune</div>
-              <div style="font-size:9px;color:var(--p);margin-top:2px;">🥛 Milk Delivery · 6:00–7:00 AM</div>
+      <div style="background:var(--rl);border:1px solid var(--r);border-radius:10px;padding:14px;text-align:center;">
+        <div style="font-size:24px;font-weight:800;color:#DC2626;">4+ hrs</div>
+        <div style="font-size:11px;color:#7F1D1D;margin-top:4px;">50 consumers ke liye (typical milk vendor)</div>
+      </div>
+      <div style="background:var(--rl);border:1px solid var(--r);border-radius:10px;padding:14px;text-align:center;">
+        <div style="font-size:24px;font-weight:800;color:#DC2626;">750+</div>
+        <div style="font-size:11px;color:#7F1D1D;margin-top:4px;">Total taps / keystrokes — unacceptable</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="note danger">
+    <span class="note-icon">🚨</span>
+    <div><strong>Real problem:</strong> Sharma ji ke paas 80 customers hain. Sabka data unke paas ek purani diary mein hai, kisi WhatsApp group mein hai, ya dimag mein hai. Unse expect karna ki wo ek ek consumer manually app mein type karein — ye user ka time barbad karna hai aur app abandon karne ka reason ban sakta hai. Isko fix karna <strong>critical for adoption</strong> hai.</div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════════════ -->
+<!-- SECTION 11: THIYA AI TURBO ONBOARDING — THE VISION                    -->
+<!-- ═══════════════════════════════════════════════════════════════════════ -->
+<div class="section">
+  <div class="sec-title"><span class="sec-num" style="background:var(--th);">11</span> Thiya AI Turbo Onboarding — Poora Vision</div>
+  <div class="sec-sub">Manual ki jagah AI — 50 consumers ko 4 ghante se 10 minute mein onboard karo</div>
+
+  <div class="note purple" style="margin-bottom:20px;">
+    <span class="note-icon">🤖</span>
+    <div><strong>Thiya ka Promise:</strong> Vendor apna kaam karta rahe — diary dikhaao, bol do, screenshot do, file upload karo — Thiya sab parse karega, verify karega, aur confirm ke baad platform par add kar dega. Zero manual typing.</div>
+  </div>
+
+  <!-- 5 approaches overview grid -->
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:24px;">
+
+    <div style="background:var(--thl);border:2px solid var(--th);border-radius:12px;padding:16px;">
+      <div style="font-size:16px;margin-bottom:6px;">🎙️</div>
+      <div style="font-weight:700;font-size:13px;color:var(--th);">Approach 1: Voice Batch Entry</div>
+      <div style="font-size:11px;color:var(--ts);margin-top:4px;">"Sharma ji 500ml doodh daily, Gupta ji 1 litre alternate days" — bol do, Thiya parse karega</div>
+      <div style="margin-top:8px;background:var(--th);color:white;border-radius:6px;padding:3px 8px;font-size:10px;font-weight:600;display:inline-block;">Backend: AI Parse API needed</div>
+    </div>
+
+    <div style="background:var(--wal);border:2px solid var(--wa);border-radius:12px;padding:16px;">
+      <div style="font-size:16px;margin-bottom:6px;">📸</div>
+      <div style="font-weight:700;font-size:13px;color:#166534;">Approach 2: Screenshot / Image OCR</div>
+      <div style="font-size:11px;color:var(--ts);margin-top:4px;">WhatsApp group messages, customer list photo — scan karo, auto-fill</div>
+      <div style="margin-top:8px;background:var(--wa);color:white;border-radius:6px;padding:3px 8px;font-size:10px;font-weight:600;display:inline-block;">Backend: OCR Parse API needed</div>
+    </div>
+
+    <div style="background:var(--gl);border:2px solid var(--g);border-radius:12px;padding:16px;">
+      <div style="font-size:16px;margin-bottom:6px;">📊</div>
+      <div style="font-weight:700;font-size:13px;color:#15803D;">Approach 3: CSV / Excel Import</div>
+      <div style="font-size:11px;color:var(--ts);margin-top:4px;">JhakaasKirana, Milkbasket, Google Sheets se export → Vinimay mein import</div>
+      <div style="margin-top:8px;background:var(--g);color:white;border-radius:6px;padding:3px 8px;font-size:10px;font-weight:600;display:inline-block;">Backend: CSV Import API needed</div>
+    </div>
+
+    <div style="background:var(--amberl);border:2px dashed var(--amber);border-radius:12px;padding:16px;">
+      <div style="font-size:16px;margin-bottom:6px;">📓</div>
+      <div style="font-weight:700;font-size:13px;color:#92400E;">Approach 4: Physical Register / Diary Scan</div>
+      <div style="font-size:11px;color:var(--ts);margin-top:4px;">Kaafi vendors ke paas physical khata/diary hai — phone camera se scan karo</div>
+      <div style="margin-top:8px;background:var(--amber);color:white;border-radius:6px;padding:3px 8px;font-size:10px;font-weight:600;display:inline-block;">Backend: OCR + handwriting recognition</div>
+    </div>
+
+  </div>
+
+  <div style="background:white;border:1px solid var(--border);border-radius:12px;padding:16px;margin-bottom:16px;">
+    <div style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--ts);margin-bottom:10px;">Approach 5: Smart Template Detection (Backend already can support)</div>
+    <div style="font-size:12px;color:var(--ts);">Agar vendor ke paas 30 customers hain jo sab 500ml milk daily lete hain — Thiya detect karega pattern aur ek template suggest karega. Naaya customer add karo → "Same as your 30 Baner customers?" → 1 tap confirm.</div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════════════ -->
+<!-- SECTION 12: APPROACH 1 — VOICE BATCH ENTRY                            -->
+<!-- ═══════════════════════════════════════════════════════════════════════ -->
+<div class="section">
+  <div class="sec-title"><span class="sec-num" style="background:var(--th);">12</span> Approach 1 — Voice Batch Entry (Thiya Bolta Hai)</div>
+  <div class="sec-sub">Vendor bolega, Thiya sunега, parse karega, confirm karega</div>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:20px;align-items:start;">
+
+    <!-- Left: UX Flow -->
+    <div>
+      <div style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--ts);margin-bottom:12px;">UX Flow — Vendor ki Journey</div>
+      <div class="event-chain">
+        <div class="event-item" style="background:var(--thl);border-color:var(--th);">
+          <div class="event-icon">1️⃣</div>
+          <div class="event-text"><strong>Vendor: "Bulk Add" → "Voice" tap karta hai</strong><br>Thiya mic activate hota hai, instructions dikhata hai: "Bolo — naam, phone, product, quantity, schedule"</div>
+        </div>
+        <div class="event-conn"></div>
+        <div class="event-item" style="background:var(--thl);border-color:var(--th);">
+          <div class="event-icon">2️⃣</div>
+          <div class="event-text"><strong>Vendor bolta hai:</strong><br>"Sharma ji — nau aat saat chhe paanch char teen do — ek litre doodh daily subah saath baje. Gupta ji — nau saat chhe paanch char teen do ek — paanch so ml alternate days."</div>
+        </div>
+        <div class="event-conn"></div>
+        <div class="event-item" style="background:var(--thl);border-color:var(--th);">
+          <div class="event-icon">3️⃣</div>
+          <div class="event-text"><strong>Thiya processes → Preview dikhata hai</strong><br>Parsed cards show hote hain — har consumer ek card. Vendor edit kar sakta hai ya confirm.</div>
+        </div>
+        <div class="event-conn"></div>
+        <div class="event-item" style="background:var(--gl);border-color:var(--g);">
+          <div class="event-icon">4️⃣</div>
+          <div class="event-text"><strong>"Confirm &amp; Add All" → Bulk API call</strong><br>Ek API call mein saare consumers add, relationships create, invites queue ho jaate hain.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right: Parsed preview mockup -->
+    <div>
+      <div style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--ts);margin-bottom:12px;">Thiya Parsed Preview — App Screen</div>
+      <div class="screen-mock" style="max-width:240px;">
+        <div class="s-bar">9:41 AM<span>● ● ●</span></div>
+        <div class="s-nav">
+          <span class="back">←</span>
+          <span style="font-size:11px;font-weight:700;">Thiya Voice Parse — 2 consumers</span>
+        </div>
+        <div class="s-body" style="padding:10px;">
+          <div style="font-size:9px;color:var(--th);font-weight:700;margin-bottom:8px;text-transform:uppercase;">Parsed from voice — verify karo</div>
+
+          <div style="background:white;border:1px solid var(--border);border-radius:8px;padding:8px;margin-bottom:8px;">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;">
+              <span style="font-size:11px;font-weight:700;">Sharma ji</span>
+              <span style="background:var(--gl);color:#15803D;font-size:9px;font-weight:700;padding:1px 5px;border-radius:4px;">PARSED ✓</span>
             </div>
-            <div style="font-size:16px;color:var(--ts);">⋮</div>
+            <div style="font-size:10px;color:var(--ts);">📱 9876543210</div>
+            <div style="font-size:10px;color:var(--ts);">🥛 1L Milk · Daily · 7:00am</div>
+            <div style="display:flex;gap:4px;margin-top:6px;">
+              <div style="flex:1;background:var(--pl);border:1px solid var(--p);border-radius:4px;padding:4px;text-align:center;font-size:9px;color:var(--p);font-weight:600;">Edit</div>
+              <div style="flex:1;background:var(--rl);border:1px solid var(--r);border-radius:4px;padding:4px;text-align:center;font-size:9px;color:var(--r);font-weight:600;">Remove</div>
+            </div>
           </div>
-          <div style="background:var(--skyl);border:1px solid var(--sky);border-radius:6px;padding:5px 8px;font-size:10px;color:#0369A1;font-weight:600;">
-            📋 No subscription yet · Tap to set up →
+
+          <div style="background:white;border:1px solid var(--border);border-radius:8px;padding:8px;margin-bottom:8px;">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;">
+              <span style="font-size:11px;font-weight:700;">Gupta ji</span>
+              <span style="background:var(--ol);color:#C2410C;font-size:9px;font-weight:700;padding:1px 5px;border-radius:4px;">CHECK PHONE</span>
+            </div>
+            <div style="font-size:10px;color:var(--r);">📱 9765432010 (?)</div>
+            <div style="font-size:10px;color:var(--ts);">🥛 500ml Milk · Alt. Days</div>
+            <div style="display:flex;gap:4px;margin-top:6px;">
+              <div style="flex:1;background:var(--ol);border:1px solid var(--o);border-radius:4px;padding:4px;text-align:center;font-size:9px;color:#C2410C;font-weight:600;">Fix Phone</div>
+            </div>
           </div>
+
+          <div style="background:var(--p);color:white;border-radius:8px;padding:8px;text-align:center;font-size:10px;font-weight:700;margin-top:8px;">Confirm &amp; Add Both →</div>
+          <div style="text-align:center;margin-top:6px;font-size:9px;color:var(--th);font-weight:600;">+ Add more by voice</div>
         </div>
       </div>
     </div>
-    <div class="spec">
-      <div class="spec-section">
-        <div class="spec-label api">Consumer Detail — Check Subscription Status</div>
-        <div class="api-block">
-<span class="comment">// When vendor taps on a customer card</span>
-<span class="method">GET</span> <span class="path">/api/v1/vendors/{vendorId}/consumer-relationships/active</span>
-<span class="comment">// Check if subscription exists for this consumer-vendor</span>
-<span class="method">GET</span> <span class="path">/api/v1/vendors/{vendorId}/subscriptions</span>
-<span class="comment">// Filter by consumerId client-side to see if active sub exists</span>
-        </div>
+  </div>
+
+  <!-- Backend API needed -->
+  <div class="spec">
+    <div class="spec-section">
+      <div class="spec-label backend">Backend APIs — Kya Banana Hai (Currently Missing)</div>
+      <div class="note warn" style="margin-bottom:12px;">
+        <span class="note-icon">🔧</span>
+        <div>Ye APIs abhi backend mein exist NAHI karti. Inhe build karna padega Turbo Onboarding ke liye.</div>
       </div>
-      <div class="spec-section">
-        <div class="spec-label logic">Consumer Card — What to Show</div>
-        <ul class="field-list">
-          <li><span class="field-name">Name + phone</span><span class="field-desc">From Consumer entity</span></li>
-          <li><span class="field-name">Address locality</span><span class="field-desc">Short form of delivery address</span></li>
-          <li><span class="field-name">Capability + slot</span><span class="field-desc">From ConsumerVendor entity</span></li>
-          <li><span class="field-name">Status badge</span><span class="field-desc">ACTIVE (green) / PENDING (orange) / BLOCKED (gray)</span></li>
-          <li><span class="field-name">Subscription status</span><span class="field-desc">Blue prompt if no active subscription, else shows "Plan Active" with items count</span></li>
-        </ul>
+
+      <div class="api-block" style="margin-bottom:10px;">
+        <span class="method">POST</span> <span class="path">/api/v1/ai/parse/voice-text</span><br>
+        <span class="comment">// NLP: raw text/transcript → structured consumer list</span><br>
+        <span class="key">Request:</span> <span class="val">{ "text": "Sharma ji 9876543210 500ml daily...", "vendorId": "uuid", "capabilityCategory": "MILK_DELIVERY" }</span><br>
+        <span class="key">Response:</span> <span class="val">[ { "name": "Sharma ji", "phone": "9876543210", "products": [{...}], "schedule": "DAILY", "confidence": 0.95 } ]</span><br>
+        <span class="comment">// confidence &lt; 0.7 → flag as needs review</span>
       </div>
-      <div class="spec-section">
-        <div class="spec-label edge">Multi-Capability Consumer</div>
-        <p style="font-size:12px;color:var(--ts);">Same consumer can have multiple ConsumerVendor relationships with this vendor (e.g., milk at home + tiffin at office). Show each as a separate card or group them under the consumer's name with sub-rows per capability.</p>
+
+      <div class="api-block" style="margin-bottom:10px;">
+        <span class="method">POST</span> <span class="path">/api/v1/vendors/{vendorId}/consumers/bulk-onboard</span><br>
+        <span class="comment">// Single call: consumer create + relationship + subscription + invite</span><br>
+        <span class="key">Request:</span> <span class="val">{ "consumers": [ { "phone": "...", "name": "...", "addressId": "...", "capabilityId": "...", "subscription": { "items": [...] } } ] }</span><br>
+        <span class="key">Response:</span> <span class="val">{ "created": 2, "existing": 0, "invitesSent": 2, "subscriptionsQueued": 2, "errors": [] }</span>
+      </div>
+
+      <div class="note info">
+        <span class="note-icon">💡</span>
+        <div><strong>Architecture Note:</strong> Voice-to-text conversion frontend par ho sakti hai (device STT API). Thiya AI parsing ek lightweight NLP service hogi jo structured JSON return kare. Bulk onboard API backend mein add karna hai — ye loop nahi hai, ek transactional batch call hai.</div>
       </div>
     </div>
   </div>
 </div>
 
-<!-- ═══ SECTION 7: CREATE SUBSCRIPTION ═══ -->
+<!-- ═══════════════════════════════════════════════════════════════════════ -->
+<!-- SECTION 13: APPROACH 2 — WHATSAPP SCREENSHOT / IMAGE OCR              -->
+<!-- ═══════════════════════════════════════════════════════════════════════ -->
 <div class="section">
-  <div class="sec-title"><span class="sec-num">7</span> Create Subscription (Screen S9)</div>
-  <p class="sec-sub">The vendor sets up the recurring delivery plan for the accepted consumer. This creates a Subscription + SubscriptionItems. Once saved, the scheduler automatically creates orders every morning.</p>
+  <div class="sec-title"><span class="sec-num" style="background:var(--wa);color:white;">13</span> Approach 2 — WhatsApp Screenshot / Image OCR</div>
+  <div class="sec-sub">Vendor ke WhatsApp groups, customer lists ke screenshots — scan karke auto-fill</div>
 
-  <div class="note purple">
-    <span class="note-icon">📦</span>
-    <div><strong>What a Subscription is:</strong> A standing order — "Deliver X items on Y schedule at Z address." The subscription scheduler runs every morning, looks at all ACTIVE subscriptions, checks which items are scheduled for that day, and auto-creates Order records. The vendor then sees these in their daily manifest.</div>
+  <div class="note info" style="margin-bottom:20px;">
+    <span class="note-icon">💬</span>
+    <div><strong>Real scenario:</strong> Kaafi vendors ke WhatsApp groups hote hain jahan customers ne apna address, order, ya details share kiya hoga. Ya vendor ne khud ek Excel screenshot share kiya hoga. Ya doodh waala apne customers ki list ka screenshot rakhta hai. Ye sab raw data hai — Thiya use parse kar sakta hai.</div>
   </div>
 
-  <div class="screen-pair">
-    <div class="screen-mock">
-      <div class="s-bar"><span>10:20 AM</span><span>●●● ▪▪▪</span></div>
-      <div class="s-nav"><span class="back">←</span><span>Set Up Plan — Raju</span></div>
-      <div class="s-body">
-        <div class="s-field">
-          <div class="s-field-label">Start Date *</div>
-          <div class="s-field-val filled">Tomorrow (01 Mar 2026)</div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:20px;align-items:start;">
+
+    <!-- Sources list -->
+    <div>
+      <div style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--ts);margin-bottom:12px;">Kahan Se Data Aa Sakta Hai</div>
+
+      <div style="display:flex;flex-direction:column;gap:8px;">
+        <div style="background:var(--wal);border:1px solid var(--wa);border-radius:8px;padding:10px 14px;font-size:12px;">
+          <strong style="color:#166534;">📱 WhatsApp Group Messages</strong><br>
+          <span style="color:var(--ts);">Group mein customers ne apna naam, address share kiya → screenshot lo</span>
         </div>
-        <div class="s-field">
-          <div class="s-field-label">Billing Cycle</div>
-          <div class="s-chip-row">
-            <div class="s-chip sel">📅 Monthly</div>
-            <div class="s-chip">📆 Weekly</div>
-          </div>
+        <div style="background:var(--bl);border:1px solid var(--b);border-radius:8px;padding:10px 14px;font-size:12px;">
+          <strong style="color:#1D4ED8;">📊 Printed Sheet / Excel Screenshot</strong><br>
+          <span style="color:var(--ts);">Vendor ke paas printed customer list hai → camera se photo lo</span>
         </div>
-        <div style="font-size:11px;font-weight:700;color:var(--text);margin-bottom:6px;">Delivery Items</div>
-        <div style="background:white;border:1px solid var(--border);border-radius:8px;padding:8px;margin-bottom:6px;">
-          <div style="font-size:10px;font-weight:600;margin-bottom:4px;">Amul Gold 1L</div>
-          <div style="display:flex;gap:6px;margin-bottom:4px;">
-            <span style="font-size:10px;background:var(--light);border:1px solid var(--border);border-radius:4px;padding:2px 6px;">Qty: 1</span>
-            <span style="font-size:10px;background:var(--skyl);border:1px solid var(--sky);color:#0369A1;border-radius:4px;padding:2px 6px;">Daily</span>
-          </div>
-          <div style="font-size:9px;color:var(--ts);">Slot: 06:00–07:00 · Home, Baner</div>
+        <div style="background:var(--amberl);border:1px solid var(--amber);border-radius:8px;padding:10px 14px;font-size:12px;">
+          <strong style="color:#92400E;">📝 Handwritten Slip / Register Photo</strong><br>
+          <span style="color:var(--ts);">Purana register ya handwritten list → photo click karo</span>
         </div>
-        <div style="border:1.5px dashed var(--border);border-radius:8px;padding:8px;text-align:center;font-size:10px;color:var(--ts);">+ Add Another Item</div>
+        <div style="background:var(--thl);border:1px solid var(--th);border-radius:8px;padding:10px 14px;font-size:12px;">
+          <strong style="color:var(--th);">🏪 Other App Screenshots</strong><br>
+          <span style="color:var(--ts);">JhakaasKirana, Milkbasket, DoodhWala app ka customer list screen</span>
+        </div>
       </div>
-      <div class="s-cta"><div class="s-btn sky">Activate Plan →</div></div>
     </div>
-    <div class="spec">
-      <div class="spec-section">
-        <div class="spec-label api">POST — Create Subscription with Items</div>
-        <div class="api-block">
-<span class="method">POST</span> <span class="path">/api/v1/vendors/{vendorId}/subscriptions</span>
-<span class="comment">// Auth: vendor:subscription:write</span>
-{
-  <span class="key">"consumerId"</span>: <span class="val">"uuid-of-raju"</span>,
-  <span class="key">"vendorId"</span>: <span class="val">"uuid-of-vendor"</span>,
-  <span class="key">"consumerVendorId"</span>: <span class="val">"uuid-of-cv-relationship"</span>,
-  <span class="key">"capabilityId"</span>: <span class="val">"uuid-of-milk-capability"</span>,
-  <span class="key">"category"</span>: <span class="val">"MILK_DELIVERY"</span>,
-  <span class="key">"startDate"</span>: <span class="val">"2026-03-01"</span>,
-  <span class="key">"billingCycle"</span>: <span class="val">"MONTHLY"</span>,
-  <span class="key">"items"</span>: [
-    {
-      <span class="key">"vendorProductId"</span>: <span class="val">"uuid-of-amul-gold"</span>,
-      <span class="key">"productName"</span>: <span class="val">"Amul Gold 1L"</span>,
-      <span class="key">"quantity"</span>: <span class="val">1</span>,
-      <span class="key">"schedule"</span>: <span class="val">"DAILY"</span>,
-      <span class="key">"deliveryAddressId"</span>: <span class="val">"uuid-of-raju-home"</span>,
-      <span class="key">"deliverySlot"</span>: <span class="val">"06:00-07:00"</span>
-    }
-  ]
-}
+
+    <!-- UX Flow -->
+    <div>
+      <div style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--ts);margin-bottom:12px;">UX Flow</div>
+      <div class="event-chain">
+        <div class="event-item">
+          <div class="event-icon">📸</div>
+          <div class="event-text"><strong>"Import from Image" button tap</strong><br>Gallery ya camera open hota hai</div>
+        </div>
+        <div class="event-conn"></div>
+        <div class="event-item">
+          <div class="event-icon">🤖</div>
+          <div class="event-text"><strong>Image upload → Thiya OCR</strong><br>Backend image process karta hai, text extract karta hai, consumer patterns dhundhta hai</div>
+        </div>
+        <div class="event-conn"></div>
+        <div class="event-item">
+          <div class="event-icon">👀</div>
+          <div class="event-text"><strong>Extracted data preview</strong><br>Har detected consumer ek editable card — confidence score dikhaata hai. Low confidence wale orange mein highlight</div>
+        </div>
+        <div class="event-conn"></div>
+        <div class="event-item" style="background:var(--gl);border-color:var(--g);">
+          <div class="event-icon">✅</div>
+          <div class="event-text"><strong>Confirm → Bulk Onboard</strong><br>Same bulk-onboard API se process</div>
         </div>
       </div>
-      <div class="spec-section">
-        <div class="spec-label">Subscription Top-Level Fields</div>
-        <ul class="field-list">
-          <li><span class="field-name">consumerId</span><span class="badge req">required</span><span class="field-desc">From consumer object</span></li>
-          <li><span class="field-name">consumerVendorId</span><span class="badge req">required</span><span class="field-desc">The ConsumerVendor relationship UUID</span></li>
-          <li><span class="field-name">capabilityId</span><span class="badge req">required</span><span class="field-desc">Vendor's capability UUID</span></li>
-          <li><span class="field-name">startDate</span><span class="badge req">required</span><span class="field-desc">Cannot be in the past. Default: tomorrow</span></li>
-          <li><span class="field-name">billingCycle</span><span class="badge opt">optional</span><span class="field-desc">MONTHLY (default) | WEEKLY</span></li>
-          <li><span class="field-name">items</span><span class="badge opt">optional</span><span class="field-desc">Provide inline — backend creates items in one transaction</span></li>
-        </ul>
+    </div>
+  </div>
+
+  <!-- API needed -->
+  <div class="spec">
+    <div class="spec-section">
+      <div class="spec-label backend">Backend API — Image OCR Parse (Currently Missing)</div>
+      <div class="api-block">
+        <span class="method">POST</span> <span class="path">/api/v1/ai/parse/image</span> <span class="comment">// multipart/form-data</span><br>
+        <span class="key">Request:</span> <span class="val">file: image/jpeg|png|webp (max 10MB), vendorId, capabilityCategory</span><br>
+        <span class="key">Response:</span> <span class="val">{ "parsedConsumers": [...], "rawExtractedText": "...", "confidence": 0.82, "unrecognizedParts": [...] }</span><br>
+        <span class="comment">// Google Vision API / AWS Textract ya local Tesseract se implement kar sakte hain</span>
       </div>
-      <div class="spec-section">
-        <div class="spec-label">Subscription Item Fields</div>
-        <ul class="field-list">
-          <li><span class="field-name">vendorProductId</span><span class="badge req">required</span><span class="field-desc">UUID of VendorProduct from catalog</span></li>
-          <li><span class="field-name">quantity</span><span class="badge req">required</span><span class="field-desc">How many units per delivery</span></li>
-          <li><span class="field-name">schedule</span><span class="badge req">required</span><span class="field-desc">See schedule options below</span></li>
-          <li><span class="field-name">deliveryAddressId</span><span class="badge req">required</span><span class="field-desc">Per-item (supports different addresses per item)</span></li>
-          <li><span class="field-name">deliverySlot</span><span class="badge opt">optional</span><span class="field-desc">Overrides subscription-level slot</span></li>
-          <li><span class="field-name">customDays</span><span class="badge auto">if CUSTOM</span><span class="field-desc">"MON,WED,FRI" or "15" for MONTHLY_DAY</span></li>
-          <li><span class="field-name">startDate / endDate</span><span class="badge opt">optional</span><span class="field-desc">Item-level override of subscription date range</span></li>
-        </ul>
-      </div>
+    </div>
+    <div class="spec-section">
+      <div class="spec-label edge">What OCR Should Extract</div>
+      <ul class="field-list">
+        <li><span class="field-name">name</span><span class="field-desc">Consumer ka naam — first priority</span></li>
+        <li><span class="field-name">phone</span><span class="field-desc">10-digit Indian mobile — most reliable identifier</span></li>
+        <li><span class="field-name">address_hint</span><span class="field-desc">Area / colony name — address module se match karne ki koshish</span></li>
+        <li><span class="field-name">product_hint</span><span class="field-desc">"doodh", "milk", "500ml" jaise keywords se product suggest karo</span></li>
+        <li><span class="field-name">quantity</span><span class="field-desc">Numbers near product keywords</span></li>
+      </ul>
     </div>
   </div>
 </div>
 
-<!-- ═══ SECTION 8: SCHEDULE PICKER ═══ -->
+<!-- ═══════════════════════════════════════════════════════════════════════ -->
+<!-- SECTION 14: APPROACH 3 — CSV / EXCEL IMPORT                           -->
+<!-- ═══════════════════════════════════════════════════════════════════════ -->
 <div class="section">
-  <div class="sec-title"><span class="sec-num">8</span> Delivery Schedule Picker — UI Component</div>
-  <p class="sec-sub">The DeliverySchedule enum has 8 options. Design this as a segmented picker or chips. CUSTOM and MONTHLY_DAY require an additional input for customDays.</p>
+  <div class="sec-title"><span class="sec-num" style="background:var(--g);color:white;">14</span> Approach 3 — CSV / Excel Import (Existing App Migration)</div>
+  <div class="sec-sub">JhakaasKirana, Milkbasket, Google Sheets se data seedha import karo</div>
 
-  <table class="tbl">
-    <thead><tr><th>Schedule Value</th><th>Display Label</th><th>When Delivered</th><th>customDays Required?</th></tr></thead>
-    <tbody>
-      <tr><td><span class="code">DAILY</span></td><td>Every Day</td><td>7 days a week</td><td>No</td></tr>
-      <tr><td><span class="code">ALTERNATE</span></td><td>Alternate Days</td><td>Day 1, Day 3, Day 5... (from startDate)</td><td>No</td></tr>
-      <tr><td><span class="code">WEEKDAYS</span></td><td>Mon–Fri</td><td>Monday to Friday only</td><td>No</td></tr>
-      <tr><td><span class="code">WEEKEND</span></td><td>Sat–Sun</td><td>Saturday and Sunday only</td><td>No</td></tr>
-      <tr><td><span class="code">CUSTOM</span></td><td>Custom Days</td><td>Only selected days — e.g. "MON,WED,FRI"</td><td>Yes — comma-separated: "MON,WED,FRI"</td></tr>
-      <tr><td><span class="code">MONTHLY_FIRST</span></td><td>1st of Month</td><td>1st day of each month</td><td>No</td></tr>
-      <tr><td><span class="code">MONTHLY_LAST</span></td><td>Last of Month</td><td>Last day of each month</td><td>No</td></tr>
-      <tr><td><span class="code">MONTHLY_DAY</span></td><td>Specific Date</td><td>e.g., every 15th of the month</td><td>Yes — number 1–28: "15"</td></tr>
-    </tbody>
-  </table>
+  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:20px;">
 
-  <div class="note info">
-    <span class="note-icon">💡</span>
-    <div><strong>Recommended UX:</strong> For milk/tiffin vendors, <strong>DAILY</strong> and <strong>ALTERNATE</strong> will be the most common choices. Show these first. CUSTOM should expand a day-of-week selector. MONTHLY_DAY should show a number input (1–28). Keep the UI simple — avoid showing all 8 options at once.</div>
+    <div style="background:var(--gl);border:2px solid var(--g);border-radius:12px;padding:14px;text-align:center;">
+      <div style="font-size:22px;margin-bottom:6px;">📊</div>
+      <div style="font-weight:700;font-size:12px;color:#15803D;">Google Sheets</div>
+      <div style="font-size:10px;color:var(--ts);margin-top:4px;">Vendor ka existing customer sheet → Download as CSV → Import</div>
+    </div>
+
+    <div style="background:var(--ol);border:2px solid var(--o);border-radius:12px;padding:14px;text-align:center;">
+      <div style="font-size:22px;margin-bottom:6px;">🥛</div>
+      <div style="font-weight:700;font-size:12px;color:#C2410C;">DoodhWala / SuprDaily</div>
+      <div style="font-size:10px;color:var(--ts);margin-top:4px;">In apps se "Export customers" → CSV → Vinimay import</div>
+    </div>
+
+    <div style="background:var(--bl);border:2px solid var(--b);border-radius:12px;padding:14px;text-align:center;">
+      <div style="font-size:22px;margin-bottom:6px;">📱</div>
+      <div style="font-weight:700;font-size:12px;color:#1D4ED8;">Any CSV/Excel</div>
+      <div style="font-size:10px;color:var(--ts);margin-top:4px;">Standardized template ya flexible column mapping UI</div>
+    </div>
   </div>
-</div>
 
-<!-- ═══ SECTION 9: SUBSCRIPTION ACTIVATED ═══ -->
-<div class="section">
-  <div class="sec-title"><span class="sec-num">9</span> Subscription Activated — Confirmation (Screen S9b)</div>
-  <p class="sec-sub">After successful POST, show a clear confirmation. The vendor now knows deliveries will start from the chosen start date. This is the "first win" moment in the vendor journey.</p>
+  <div style="background:white;border:1px solid var(--border);border-radius:12px;padding:18px;margin-bottom:16px;">
+    <div style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--ts);margin-bottom:12px;">Vinimay Import CSV — Template Format</div>
+    <div style="background:#0F172A;color:#E2E8F0;border-radius:8px;padding:12px;font-family:'Courier New',monospace;font-size:11px;overflow-x:auto;">
+      <span style="color:#86EFAC;">name</span>,<span style="color:#86EFAC;">phone</span>,<span style="color:#86EFAC;">address_text</span>,<span style="color:#86EFAC;">product_name</span>,<span style="color:#86EFAC;">quantity</span>,<span style="color:#86EFAC;">unit</span>,<span style="color:#86EFAC;">schedule</span>,<span style="color:#86EFAC;">delivery_slot</span><br>
+      <span style="color:#FCD34D;">Ramesh Sharma</span>,9876543210,<span style="color:#FCD34D;">Flat 302 Silver Oak Baner</span>,Full Cream Milk,1,LITRE,DAILY,06:00-07:00<br>
+      <span style="color:#FCD34D;">Sunita Gupta</span>,9765432100,<span style="color:#FCD34D;">B-12 Suyog Park</span>,Toned Milk,500,ML,ALTERNATE,07:00-08:00<br>
+      <span style="color:#64748B;">// schedule values: DAILY | ALTERNATE | WEEKDAYS | WEEKEND | CUSTOM</span>
+    </div>
+    <div style="font-size:11px;color:var(--ts);margin-top:8px;">Template download link app se available hoga. Vendor apna data is format mein fill karega.</div>
+  </div>
 
-  <div class="screen-pair">
-    <div class="screen-mock">
-      <div class="s-bar"><span>10:22 AM</span><span>●●● ▪▪▪</span></div>
-      <div class="s-nav"><span class="back">←</span><span>Plan Activated!</span></div>
-      <div class="s-body" style="display:flex;flex-direction:column;align-items:center;text-align:center;min-height:240px;padding-top:20px;">
-        <div style="width:64px;height:64px;background:var(--gl);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:32px;margin-bottom:12px;">✅</div>
-        <div style="font-weight:700;font-size:14px;margin-bottom:4px;">Raju's Plan is Active!</div>
-        <div style="font-size:10px;color:var(--ts);margin-bottom:16px;">First delivery: Tomorrow, 6:00–7:00 AM</div>
-        <div style="background:white;border:1px solid var(--border);border-radius:8px;padding:10px;width:100%;text-align:left;font-size:10px;margin-bottom:10px;">
-          <div style="font-weight:600;margin-bottom:4px;">📦 Plan Summary</div>
-          <div style="color:var(--ts);">🥛 Amul Gold 1L × 1 · Daily</div>
-          <div style="color:var(--ts);">📍 Baner, Pune · ⏰ 6–7 AM</div>
-          <div style="color:var(--ts);margin-top:4px;">💰 Billing: Monthly</div>
-        </div>
-        <div style="font-size:10px;color:var(--ts);">Raju will see tomorrow's delivery in their app</div>
-      </div>
-      <div class="s-cta" style="display:flex;gap:8px;">
-        <div class="s-btn secondary" style="flex:1;font-size:10px;">Add Customer</div>
-        <div class="s-btn" style="flex:1;font-size:10px;">View Dashboard</div>
+  <!-- Flexible column mapping UI concept -->
+  <div class="note info" style="margin-bottom:12px;">
+    <span class="note-icon">🔧</span>
+    <div><strong>Flexible Column Mapping:</strong> Agar vendor ka CSV Vinimay template se match nahi karta — UI mein column mapping screen dikhao. Vendor apne CSV ke columns ko Vinimay fields se map kare (dropdown). Ye Google Sheets "Import" feature jaisi UX hai — kaafi friendly.</div>
+  </div>
+
+  <!-- API needed -->
+  <div class="spec">
+    <div class="spec-section">
+      <div class="spec-label backend">Backend API — CSV Import (Currently Missing)</div>
+      <div class="api-block">
+        <span class="method">POST</span> <span class="path">/api/v1/vendors/{vendorId}/consumers/import-csv</span> <span class="comment">// multipart/form-data</span><br>
+        <span class="key">Phase 1 — Dry Run:</span> <span class="val">?dryRun=true → validate, return preview + errors, don't save</span><br>
+        <span class="key">Phase 2 — Confirm:</span> <span class="val">?dryRun=false → actually save, return results</span><br>
+        <span class="key">Response:</span> <span class="val">{ "total": 50, "valid": 48, "errors": [{ "row": 5, "field": "phone", "message": "Invalid" }], "preview": [...] }</span>
       </div>
     </div>
-    <div class="spec">
-      <div class="spec-section">
-        <div class="spec-label">What Happens Next (Backend Automation)</div>
-        <div class="event-chain">
-          <div class="event-item">
-            <span class="event-icon">🌙</span>
-            <div class="event-text"><strong>Next morning: OrderGenerationScheduler runs</strong>Checks all ACTIVE subscriptions. For each, calls <code>isScheduledForDate(today)</code> on each item. Creates Order records automatically.</div>
-          </div>
-          <div class="event-conn"></div>
-          <div class="event-item">
-            <span class="event-icon">📋</span>
-            <div class="event-text"><strong>Vendor sees order in Daily Manifest</strong>GET <code>/api/v1/vendors/{vendorId}/orders/daily-manifest?date=2026-03-01</code> — order appears with status CONFIRMED (if auto-confirm is on) or PENDING_VENDOR_CONFIRMATION.</div>
-          </div>
-          <div class="event-conn"></div>
-          <div class="event-item">
-            <span class="event-icon">🚚</span>
-            <div class="event-text"><strong>Vendor delivers → marks as delivered</strong>PUT <code>/api/v1/vendors/{vendorId}/orders/{orderId}/deliver</code> — or bulk: PUT <code>/vendors/{vendorId}/orders/bulk-deliver?date=...</code></div>
-          </div>
-        </div>
-      </div>
-      <div class="spec-section">
-        <div class="spec-label edge">Duplicate Active Subscription Error</div>
-        <p style="font-size:12px;color:var(--ts);">If vendor tries to create a second active subscription for the same consumer + same capability, backend throws <code>DUPLICATE_RESOURCE</code>: "Active subscription already exists for this vendor and capability." Show: <em>"This customer already has an active plan for Milk Delivery."</em> Guide vendor to modify the existing subscription instead.</p>
-      </div>
-      <div class="spec-section">
-        <div class="spec-label edge">Past Start Date</div>
-        <p style="font-size:12px;color:var(--ts);">Backend validation: <code>startDate cannot be in the past</code>. Client-side: disable all past dates in the date picker. Default to tomorrow.</p>
-      </div>
+    <div class="spec-section">
+      <div class="spec-label edge">Validation Rules for CSV Import</div>
+      <ul style="font-size:12px;padding-left:16px;color:var(--ts);">
+        <li>Phone: exactly 10 digits, starts with 6-9 (existing regex)</li>
+        <li>Duplicate phone in same CSV: warn, skip second occurrence</li>
+        <li>Existing consumer (already on platform): reuse — create only relationship</li>
+        <li>Max 500 rows per import (to prevent abuse)</li>
+        <li>Address: if address_text given, geocode attempt + create Address entity via address module</li>
+        <li>Product name: fuzzy match against vendor's active products catalog</li>
+      </ul>
     </div>
   </div>
 </div>
 
-<!-- ═══ SECTION 10: MULTI-CONSUMER FLOW ═══ -->
+<!-- ═══════════════════════════════════════════════════════════════════════ -->
+<!-- SECTION 15: APPROACH 4 — PHYSICAL REGISTER SCAN + TEMPLATE DETECTION  -->
+<!-- ═══════════════════════════════════════════════════════════════════════ -->
 <div class="section">
-  <div class="sec-title"><span class="sec-num">10</span> Multi-Consumer Scenarios &amp; Edge Cases</div>
+  <div class="sec-title"><span class="sec-num" style="background:var(--amber);color:white;">15</span> Approach 4 — Physical Register Scan &amp; Smart Templates</div>
 
-  <table class="tbl">
-    <thead>
-      <tr><th>Scenario</th><th>What Backend Does</th><th>UX Handling</th></tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><strong>Same consumer, same vendor, different capability</strong><br><small>Raju already gets milk from Sharma Dairy; now vendor adds water too</small></td>
-        <td>New ConsumerVendor record created (different capabilityId). Existing Consumer reused. No duplicate error.</td>
-        <td>On "Add Customer" flow, if phone is found, pre-fill name. Capability selector shows. New invite sent for new capability.</td>
-      </tr>
-      <tr>
-        <td><strong>Same consumer, same vendor, same capability, different address</strong><br><small>Raju wants milk at office too</small></td>
-        <td>New ConsumerVendor record (different addressId). Allowed.</td>
-        <td>Let vendor enter a different address. Both ConsumerVendor records appear in the list.</td>
-      </tr>
-      <tr>
-        <td><strong>Same consumer, same vendor, same capability, same address</strong><br><small>Duplicate add</small></td>
-        <td>Throws <code>DUPLICATE_RESOURCE</code> 409</td>
-        <td>Show: "This customer already has Milk Delivery at this address from you." Redirect to existing record.</td>
-      </tr>
-      <tr>
-        <td><strong>Consumer on platform, linked to multiple vendors</strong><br><small>Raju buys from 3 different vendors</small></td>
-        <td>One Consumer record, 3 ConsumerVendor records. Each vendor only sees their own relationship.</td>
-        <td>When vendor searches Raju's phone → "Found on Vinimay" (green). Vendor adds normally; other vendors' data invisible.</td>
-      </tr>
-      <tr>
-        <td><strong>Consumer has not accepted yet (PENDING)</strong></td>
-        <td>ConsumerVendor.status = PENDING. No subscription can be created yet (subscription requires ACTIVE relationship).</td>
-        <td>Show "Waiting for acceptance" banner. Disable "Set Up Plan" button. Show "Resend Invite" option.</td>
-      </tr>
-      <tr>
-        <td><strong>Consumer rejects invite</strong></td>
-        <td>ConsumerVendor.status = DISCONNECTED. Consumer.status may become REJECTED.</td>
-        <td>Show status as "Declined" on the card. Vendor can try re-inviting or remove from list. No automatic retry.</td>
-      </tr>
-    </tbody>
-  </table>
-</div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:20px;align-items:start;">
 
-<!-- ═══ SECTION 11: API REFERENCE ═══ -->
-<div class="section">
-  <div class="sec-title"><span class="sec-num">11</span> API Reference Summary — This Milestone</div>
-
-  <table class="tbl">
-    <thead>
-      <tr><th>Method</th><th>Endpoint</th><th>Description</th><th>Permission</th></tr>
-    </thead>
-    <tbody>
-      <tr><td><span class="code" style="color:#15803D;">GET</span></td><td><span class="code">/api/v1/vendors/{vendorId}/consumers/search?phone=...</span></td><td>Search consumer by phone before adding</td><td><code>vendor:consumer:read</code></td></tr>
-      <tr><td><span class="code" style="color:#2563EB;">POST</span></td><td><span class="code">/api/v1/vendors/{vendorId}/consumers</span></td><td>Add consumer (create consumer + relationship + invite)</td><td><code>vendor:consumer:write</code></td></tr>
-      <tr><td><span class="code" style="color:#15803D;">GET</span></td><td><span class="code">/api/v1/vendors/{vendorId}/consumers</span></td><td>Get all consumers onboarded by this vendor</td><td><code>vendor:consumer:read</code></td></tr>
-      <tr><td><span class="code" style="color:#15803D;">GET</span></td><td><span class="code">/api/v1/vendors/{vendorId}/consumer-relationships</span></td><td>All relationships (all statuses)</td><td><code>vendor:consumer:read</code></td></tr>
-      <tr><td><span class="code" style="color:#15803D;">GET</span></td><td><span class="code">/api/v1/vendors/{vendorId}/consumer-relationships/active</span></td><td>Only ACTIVE relationships</td><td><code>vendor:consumer:read</code></td></tr>
-      <tr><td><span class="code" style="color:#15803D;">GET</span></td><td><span class="code">/api/v1/vendors/{vendorId}/consumer-relationships/count</span></td><td>Active consumer count (dashboard badge)</td><td><code>vendor:consumer:read</code></td></tr>
-      <tr><td><span class="code" style="color:#15803D;">GET</span></td><td><span class="code">/api/v1/vendors/{vendorId}/consumer-relationships/capability/{capId}</span></td><td>Consumers for specific capability (e.g., milk only)</td><td><code>vendor:consumer:read</code></td></tr>
-      <tr><td><span class="code" style="color:#2563EB;">POST</span></td><td><span class="code">/api/v1/consumers/{consumerId}/accept?vendorId=...</span></td><td>Consumer accepts vendor invite</td><td><code>consumer:invite:manage</code></td></tr>
-      <tr><td><span class="code" style="color:#2563EB;">POST</span></td><td><span class="code">/api/v1/consumers/{consumerId}/reject?vendorId=...</span></td><td>Consumer rejects vendor invite</td><td><code>consumer:invite:manage</code></td></tr>
-      <tr><td><span class="code" style="color:#7C3AED;">PATCH</span></td><td><span class="code">/api/v1/consumer-relationships/{id}/preferences</span></td><td>Update delivery slot / instructions</td><td><code>vendor:consumer:write</code></td></tr>
-      <tr><td><span class="code" style="color:#2563EB;">POST</span></td><td><span class="code">/api/v1/vendors/{vendorId}/subscriptions</span></td><td>Create subscription with items</td><td><code>vendor:subscription:write</code></td></tr>
-      <tr><td><span class="code" style="color:#15803D;">GET</span></td><td><span class="code">/api/v1/vendors/{vendorId}/subscriptions</span></td><td>All subscriptions for vendor</td><td><code>vendor:subscription:read</code></td></tr>
-      <tr><td><span class="code" style="color:#15803D;">GET</span></td><td><span class="code">/api/v1/vendors/{vendorId}/subscriptions/{subscriptionId}</span></td><td>Get subscription with all items</td><td><code>vendor:subscription:read</code></td></tr>
-      <tr><td><span class="code" style="color:#2563EB;">POST</span></td><td><span class="code">/api/v1/vendors/{vendorId}/subscriptions/{id}/items</span></td><td>Add item to existing subscription</td><td><code>vendor:subscription:write</code></td></tr>
-      <tr><td><span class="code" style="color:#DC2626;">DELETE</span></td><td><span class="code">/api/v1/vendors/{vendorId}/subscriptions/{id}/items/{itemId}</span></td><td>Remove item from subscription</td><td><code>vendor:subscription:write</code></td></tr>
-      <tr><td><span class="code" style="color:#2563EB;">POST</span></td><td><span class="code">/api/v1/vendors/{vendorId}/subscriptions/{id}/cancel</span></td><td>Cancel subscription</td><td><code>vendor:subscription:write</code></td></tr>
-    </tbody>
-  </table>
-</div>
-
-<!-- ═══ SECTION 12: EVENTS FLOW ═══ -->
-<div class="section">
-  <div class="sec-title"><span class="sec-num">12</span> Events Published in This Flow</div>
-  <p class="sec-sub">Internal events used for notification wiring and cross-module communication. Useful for the developer to understand async side effects.</p>
-
-  <table class="tbl">
-    <thead>
-      <tr><th>Topic</th><th>Event Class</th><th>Triggered When</th><th>Current Listeners</th></tr>
-    </thead>
-    <tbody>
-      <tr><td><span class="code">consumer.created</span></td><td><span class="code">ConsumerCreatedEvent</span></td><td>New consumer created (first-ever vendor adds them)</td><td>Notification module (future: send WhatsApp invite)</td></tr>
-      <tr><td><span class="code">consumer.accepted</span></td><td><span class="code">ConsumerAcceptedEvent</span></td><td>Consumer accepts a vendor invite</td><td>Future: "Raju accepted!" notification to vendor</td></tr>
-      <tr><td><span class="code">subscription.created</span></td><td><span class="code">SubscriptionCreatedEvent</span></td><td>New subscription activated by vendor</td><td>Future: "Your milk delivery plan is set!" to consumer</td></tr>
-      <tr><td><span class="code">subscription.status-changed</span></td><td><span class="code">SubscriptionStatusChangedEvent</span></td><td>Subscription paused / cancelled / resumed</td><td>Notification module</td></tr>
-      <tr><td><span class="code">order.generation-requested</span></td><td><span class="code">OrderGenerationRequestedEvent</span></td><td>Scheduler triggers order generation for the day</td><td>Order module creates Order + OrderItem records</td></tr>
-    </tbody>
-  </table>
-</div>
-
-<!-- ═══ SECTION 13: RBAC REFERENCE ═══ -->
-<div class="section">
-  <div class="sec-title"><span class="sec-num">13</span> Permissions Reference</div>
-
-  <table class="tbl">
-    <thead><tr><th>Permission</th><th>Who Has It</th><th>Used For</th></tr></thead>
-    <tbody>
-      <tr><td><span class="code">vendor:consumer:write</span></td><td>VENDOR role</td><td>Add consumers, update relationships, block/disconnect</td></tr>
-      <tr><td><span class="code">vendor:consumer:read</span></td><td>VENDOR role</td><td>View consumer list, search, count</td></tr>
-      <tr><td><span class="code">vendor:subscription:write</span></td><td>VENDOR role</td><td>Create/cancel subscriptions, add/remove items</td></tr>
-      <tr><td><span class="code">vendor:subscription:read</span></td><td>VENDOR role</td><td>View subscriptions and items</td></tr>
-      <tr><td><span class="code">consumer:invite:manage</span></td><td>CONSUMER role</td><td>Accept/reject vendor invites, view pending invites</td></tr>
-      <tr><td><span class="code">consumer:vendor:read</span></td><td>CONSUMER role</td><td>View their linked vendors (future consumer app)</td></tr>
-      <tr><td><span class="code">consumer:subscription:read</span></td><td>CONSUMER role</td><td>View own subscriptions (future consumer app)</td></tr>
-      <tr><td><span class="code">consumer:subscription:write</span></td><td>CONSUMER role</td><td>Pause, cancel, override subscriptions (future)</td></tr>
-    </tbody>
-  </table>
-</div>
-
-<!-- ═══ SECTION 14: WHAT'S NEXT ═══ -->
-<div class="section">
-  <div class="sec-title"><span class="sec-num">14</span> What's Next — Milestone 4 Preview</div>
-
-  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;">
-    <div style="background:var(--skyl);border:1px solid var(--sky);border-radius:10px;padding:14px;">
-      <div style="font-size:18px;margin-bottom:6px;">📋</div>
-      <div style="font-weight:700;font-size:13px;color:#0369A1;margin-bottom:4px;">Daily Order Flow</div>
-      <div style="font-size:11px;color:var(--ts);">Scheduler auto-generates orders every morning. Vendor views daily manifest, confirms, and marks deliveries done. Includes bulk-deliver for efficiency.</div>
+    <!-- Physical register -->
+    <div>
+      <div style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--ts);margin-bottom:12px;">Physical Register / Khata Scan</div>
+      <div class="note amber">
+        <span class="note-icon">📓</span>
+        <div><strong>Reality Check:</strong> India mein kaafi small vendors (doodhwala, tiffinwala) ke paas physical register ya printed list hai. Ye log digitally naye hain. Unke liye paper → app ka shortcut zaroori hai.</div>
+      </div>
+      <div style="background:white;border:1px solid var(--border);border-radius:10px;padding:14px;margin-top:12px;">
+        <div style="font-size:12px;font-weight:700;margin-bottom:8px;">Flow:</div>
+        <ol style="font-size:12px;color:var(--ts);padding-left:16px;">
+          <li style="margin-bottom:6px;">"Scan Register" tap → camera open</li>
+          <li style="margin-bottom:6px;">Multiple pages scan kar sakte hain (multi-page support)</li>
+          <li style="margin-bottom:6px;">Thiya OCR → handwriting recognition attempt</li>
+          <li style="margin-bottom:6px;">Extracted list preview — unconfident items flagged</li>
+          <li style="margin-bottom:6px;">Manual correction UI for flagged items</li>
+          <li>Confirm → Bulk onboard</li>
+        </ol>
+        <div class="note warn" style="margin-top:10px;">
+          <span class="note-icon">⚠️</span>
+          <div style="font-size:11px;"><strong>Handwritten text OCR accuracy ~60-75%</strong> — Confirm/edit step zaroori hai. Typed/printed text ~95%+. Manage expectations accordingly.</div>
+        </div>
+      </div>
     </div>
-    <div style="background:var(--pl);border:1px solid var(--p);border-radius:10px;padding:14px;">
-      <div style="font-size:18px;margin-bottom:6px;">✏️</div>
-      <div style="font-weight:700;font-size:13px;color:var(--p);margin-bottom:4px;">Subscription Modifications</div>
-      <div style="font-size:11px;color:var(--ts);">Consumer skips a day, changes quantity, or pauses for vacation. Overrides (one-time changes per date), pause/resume flows, vendor holiday management.</div>
+
+    <!-- Smart Templates -->
+    <div>
+      <div style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--ts);margin-bottom:12px;">Smart Subscription Templates</div>
+      <div class="note purple">
+        <span class="note-icon">🧠</span>
+        <div><strong>Pattern Detection:</strong> Backend analyze kar sakta hai ki vendor ke kitne consumers same product + same schedule le rahe hain. Agar pattern milta hai → template suggest karo.</div>
+      </div>
+      <div style="background:white;border:1px solid var(--border);border-radius:10px;padding:14px;margin-top:12px;">
+        <div style="font-size:11px;color:var(--ts);margin-bottom:8px;">Example scenario:</div>
+        <div style="background:var(--pl);border-radius:8px;padding:10px;font-size:11px;margin-bottom:8px;">
+          <strong style="color:var(--p);">Thiya detects:</strong><br>
+          "Aapke 28 customers DAILY 500ml Full Cream Milk lete hain, slot 6-7am.<br>Kya naaye customer ke liye yahi default use karein?"
+        </div>
+        <div style="display:flex;gap:6px;">
+          <div style="flex:1;background:var(--p);color:white;border-radius:6px;padding:6px;text-align:center;font-size:10px;font-weight:700;">Haan, use karo</div>
+          <div style="flex:1;background:white;border:1px solid var(--p);color:var(--p);border-radius:6px;padding:6px;text-align:center;font-size:10px;font-weight:700;">Custom</div>
+        </div>
+        <div style="margin-top:10px;font-size:11px;color:var(--ts);">Templates can be saved as named presets: "Standard Morning Milk", "Office Water Pack" — vendor ke templates library mein.</div>
+      </div>
     </div>
-    <div style="background:var(--ol);border:1px solid var(--o);border-radius:10px;padding:14px;">
-      <div style="font-size:18px;margin-bottom:6px;">💰</div>
-      <div style="font-weight:700;font-size:13px;color:#C2410C;margin-bottom:4px;">Payments &amp; Khata</div>
-      <div style="font-size:11px;color:var(--ts);">Monthly billing cycle settlement, UPI collection, outstanding balance tracking (Khata), payment reminders, invoice generation.</div>
+  </div>
+
+  <!-- Backend for templates -->
+  <div class="spec">
+    <div class="spec-section">
+      <div class="spec-label backend">Backend API — Subscription Templates (Currently Missing)</div>
+      <div class="api-block">
+        <span class="method">GET</span> <span class="path">/api/v1/vendors/{vendorId}/subscription-templates</span><br>
+        <span class="comment">// Returns vendor's saved templates + suggested patterns</span><br>
+        <br>
+        <span class="method">POST</span> <span class="path">/api/v1/vendors/{vendorId}/subscription-templates</span><br>
+        <span class="comment">// Save a template: { name, capabilityId, items: [{productId, qty, schedule, slot}] }</span><br>
+        <br>
+        <span class="method">GET</span> <span class="path">/api/v1/vendors/{vendorId}/subscription-templates/suggestions</span><br>
+        <span class="comment">// AI-detected patterns from existing subscriptions</span>
+      </div>
     </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════════════ -->
+<!-- SECTION 16: BACKEND GAPS — COMPLETE GAP ANALYSIS FROM CODE REVIEW     -->
+<!-- ═══════════════════════════════════════════════════════════════════════ -->
+<div class="section">
+  <div class="sec-title"><span class="sec-num" style="background:var(--r);color:white;">16</span> Backend Gap Analysis — Code Review Se Jo Pata Chala</div>
+  <div class="sec-sub">Actual code dekh ke identified gaps — ye production mein jaane se pehle fix karna zaroori hai</div>
+
+  <!-- Critical TODOs first -->
+  <div class="note danger" style="margin-bottom:20px;">
+    <span class="note-icon">🚨</span>
+    <div><strong>Critical Production Gaps (Existing Code Mein TODO/Commented):</strong><br>
+    Ye features implementation mein hain lekin abhi commented out hain — inke bina production deployment incomplete hai.</div>
+  </div>
+
+  <table class="tbl" style="margin-bottom:20px;">
+    <tr>
+      <th>Gap Type</th>
+      <th>File : Line</th>
+      <th>Kya Missing Hai</th>
+      <th>Impact</th>
+      <th>Priority</th>
+    </tr>
+    <tr style="background:var(--rl);">
+      <td><strong>Critical TODO</strong></td>
+      <td><code>ConsumerService.java : 146</code></td>
+      <td>WhatsApp invite send karna — geekrabit-notify integration commented out</td>
+      <td>Consumers ko invite nahi jaayega. Vendor add karta hai but consumer ko kuch pata nahi chalta.</td>
+      <td><span style="background:var(--r);color:white;padding:2px 6px;border-radius:4px;font-size:10px;font-weight:700;">P0</span></td>
+    </tr>
+    <tr style="background:var(--rl);">
+      <td><strong>Critical TODO</strong></td>
+      <td><code>ConsumerService.java : 175</code></td>
+      <td>Consumer accept par User creation in identity module — <code>userService.createConsumerUser()</code> commented</td>
+      <td>Consumer accept karta hai but identity module mein user nahi banta → login nahi ho sakta</td>
+      <td><span style="background:var(--r);color:white;padding:2px 6px;border-radius:4px;font-size:10px;font-weight:700;">P0</span></td>
+    </tr>
+    <tr style="background:var(--ol);">
+      <td><strong>Missing API</strong></td>
+      <td>ConsumerController.java</td>
+      <td><code>POST /vendors/{id}/consumers/bulk-onboard</code> — bulk consumer + subscription ek call mein</td>
+      <td>Turbo onboarding possible nahi</td>
+      <td><span style="background:var(--o);color:white;padding:2px 6px;border-radius:4px;font-size:10px;font-weight:700;">P1</span></td>
+    </tr>
+    <tr style="background:var(--ol);">
+      <td><strong>Missing API</strong></td>
+      <td>ConsumerController.java</td>
+      <td><code>POST /vendors/{id}/consumers/import-csv</code> — CSV upload + bulk parse</td>
+      <td>Existing vendors migrate nahi kar sakte efficiently</td>
+      <td><span style="background:var(--o);color:white;padding:2px 6px;border-radius:4px;font-size:10px;font-weight:700;">P1</span></td>
+    </tr>
+    <tr style="background:var(--amberl);">
+      <td><strong>Missing API</strong></td>
+      <td>New module needed</td>
+      <td><code>POST /ai/parse/voice-text</code> — NLP text → structured consumer</td>
+      <td>Voice-first onboarding ka core</td>
+      <td><span style="background:var(--amber);color:white;padding:2px 6px;border-radius:4px;font-size:10px;font-weight:700;">P2</span></td>
+    </tr>
+    <tr style="background:var(--amberl);">
+      <td><strong>Missing API</strong></td>
+      <td>New module needed</td>
+      <td><code>POST /ai/parse/image</code> — OCR + parse from screenshot</td>
+      <td>Image-based import ka core</td>
+      <td><span style="background:var(--amber);color:white;padding:2px 6px;border-radius:4px;font-size:10px;font-weight:700;">P2</span></td>
+    </tr>
+    <tr style="background:var(--skyl);">
+      <td><strong>Missing API</strong></td>
+      <td>SubscriptionController.java</td>
+      <td>Subscription templates CRUD — save / reuse / suggest</td>
+      <td>Smart template feature nahi milega</td>
+      <td><span style="background:var(--sky);color:white;padding:2px 6px;border-radius:4px;font-size:10px;font-weight:700;">P3</span></td>
+    </tr>
+    <tr>
+      <td><strong>Logic Gap</strong></td>
+      <td><code>ConsumerService.java : 84</code></td>
+      <td><code>findByPhoneAndActiveTrue</code> — "activeTrue" flag check is unclear; might miss PENDING consumers with same phone</td>
+      <td>Edge case: vendor-created PENDING consumer ki existing check mein inconsistency possible</td>
+      <td><span style="background:var(--b);color:white;padding:2px 6px;border-radius:4px;font-size:10px;font-weight:700;">P2</span></td>
+    </tr>
+  </table>
+
+  <!-- What already works well -->
+  <div style="font-size:13px;font-weight:700;margin-bottom:12px;">Jo Abhi Sahi Kaam Karta Hai ✅</div>
+  <table class="tbl">
+    <tr><th>Feature</th><th>Location</th><th>Status</th></tr>
+    <tr>
+      <td>Multi-vendor consumer sharing (V1 adds C1, V2 adds same phone → reuse)</td>
+      <td><code>ConsumerService.addConsumerByVendor()</code></td>
+      <td><span style="background:var(--gl);color:#15803D;font-size:10px;font-weight:700;padding:2px 6px;border-radius:4px;">Implemented</span></td>
+    </tr>
+    <tr>
+      <td>Duplicate relationship prevention (same vendor + consumer + capability + address)</td>
+      <td><code>ConsumerService.java:113</code></td>
+      <td><span style="background:var(--gl);color:#15803D;font-size:10px;font-weight:700;padding:2px 6px;border-radius:4px;">Implemented</span></td>
+    </tr>
+    <tr>
+      <td>Same vendor serving same consumer at different addresses</td>
+      <td><code>ConsumerVendor</code> model</td>
+      <td><span style="background:var(--gl);color:#15803D;font-size:10px;font-weight:700;padding:2px 6px;border-radius:4px;">Implemented</span></td>
+    </tr>
+    <tr>
+      <td>Consumer self-registration upgrade (vendor-created → app user)</td>
+      <td><code>ConsumerService.selfRegister()</code></td>
+      <td><span style="background:var(--gl);color:#15803D;font-size:10px;font-weight:700;padding:2px 6px;border-radius:4px;">Implemented</span></td>
+    </tr>
+    <tr>
+      <td>Subscription with inline items in one call</td>
+      <td><code>SubscriptionService.afterCreate()</code></td>
+      <td><span style="background:var(--gl);color:#15803D;font-size:10px;font-weight:700;padding:2px 6px;border-radius:4px;">Implemented</span></td>
+    </tr>
+    <tr>
+      <td>Event-driven notifications (CONSUMER_CREATED, CONSUMER_ACCEPTED)</td>
+      <td><code>ConsumerNotificationListener</code></td>
+      <td><span style="background:var(--gl);color:#15803D;font-size:10px;font-weight:700;padding:2px 6px;border-radius:4px;">Implemented</span></td>
+    </tr>
+    <tr>
+      <td>Invite accept/reject flow + ConsumerVendor status management</td>
+      <td><code>ConsumerService.acceptInvite/rejectInvite</code></td>
+      <td><span style="background:var(--ol);color:#C2410C;font-size:10px;font-weight:700;padding:2px 6px;border-radius:4px;">Partial (userId link missing)</span></td>
+    </tr>
+  </table>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════════════ -->
+<!-- SECTION 17: IMPLEMENTATION ROADMAP                                     -->
+<!-- ═══════════════════════════════════════════════════════════════════════ -->
+<div class="section">
+  <div class="sec-title"><span class="sec-num">17</span> Implementation Roadmap — Kya Pehle, Kya Baad</div>
+  <div class="sec-sub">Practical phased approach — critical fixes pehle, AI features baad mein</div>
+
+  <div style="display:flex;flex-direction:column;gap:16px;margin-bottom:24px;">
+
+    <!-- Phase 0: Fix TODOs -->
+    <div style="background:var(--rl);border:2px solid var(--r);border-radius:12px;padding:16px;">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
+        <div style="background:var(--r);color:white;border-radius:50%;width:28px;height:28px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;flex-shrink:0;">0</div>
+        <div>
+          <div style="font-weight:700;font-size:13px;color:#DC2626;">Phase 0 — Critical Fixes (Production ke Liye Blocking)</div>
+          <div style="font-size:11px;color:var(--ts);">Iske bina production deploy mat karo</div>
+        </div>
+      </div>
+      <ul style="font-size:12px;color:#7F1D1D;padding-left:16px;">
+        <li><strong>WhatsApp invite integration</strong> — <code>ConsumerService.java:146</code> uncomment + geekrabit-notify wire up</li>
+        <li><strong>Identity user creation on accept</strong> — <code>ConsumerService.java:175</code> — userService.createConsumerUser() implement karo</li>
+        <li><strong>WhatsApp deeplink</strong> — invite message mein accept/reject link hona chahiye jo consumer ko app download ya web page tak le jaaye</li>
+      </ul>
+    </div>
+
+    <!-- Phase 1: Bulk API -->
+    <div style="background:var(--ol);border:2px solid var(--o);border-radius:12px;padding:16px;">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
+        <div style="background:var(--o);color:white;border-radius:50%;width:28px;height:28px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;flex-shrink:0;">1</div>
+        <div>
+          <div style="font-weight:700;font-size:13px;color:#C2410C;">Phase 1 — Bulk Onboard API (2-3 weeks)</div>
+          <div style="font-size:11px;color:var(--ts);">Biggest impact on vendor adoption — manual flow ki bottleneck hatao</div>
+        </div>
+      </div>
+      <ul style="font-size:12px;color:#7C2D12;padding-left:16px;">
+        <li><code>POST /vendors/{id}/consumers/bulk-onboard</code> — batch create consumers + relationships + subscriptions</li>
+        <li>Response with created/existing/error counts</li>
+        <li>Flutter side: manual entry mein "Add Another" button — ek ke baad ek add karo without navigating away</li>
+        <li>Preview confirmation screen before final submit</li>
+      </ul>
+    </div>
+
+    <!-- Phase 2: CSV Import -->
+    <div style="background:var(--amberl);border:2px solid var(--amber);border-radius:12px;padding:16px;">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
+        <div style="background:var(--amber);color:white;border-radius:50%;width:28px;height:28px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;flex-shrink:0;">2</div>
+        <div>
+          <div style="font-weight:700;font-size:13px;color:#92400E;">Phase 2 — CSV Import (1-2 weeks)</div>
+          <div style="font-size:11px;color:var(--ts);">Existing app se migration ke liye critical — vendor switch karne mein sabse bada hurdle</div>
+        </div>
+      </div>
+      <ul style="font-size:12px;color:#78350F;padding-left:16px;">
+        <li><code>POST /vendors/{id}/consumers/import-csv</code> — dry run + confirm flow</li>
+        <li>Template CSV download link app mein</li>
+        <li>Column mapping UI for non-standard CSVs</li>
+        <li>Row-level error reporting with row numbers</li>
+      </ul>
+    </div>
+
+    <!-- Phase 3: Image OCR -->
+    <div style="background:var(--thl);border:2px solid var(--th);border-radius:12px;padding:16px;">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
+        <div style="background:var(--th);color:white;border-radius:50%;width:28px;height:28px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;flex-shrink:0;">3</div>
+        <div>
+          <div style="font-weight:700;font-size:13px;color:var(--th);">Phase 3 — Image OCR + WhatsApp Screenshot Parse (3-4 weeks)</div>
+          <div style="font-size:11px;color:var(--ts);">High delight feature — magic moment for vendor</div>
+        </div>
+      </div>
+      <ul style="font-size:12px;color:#4C1D95;padding-left:16px;">
+        <li><code>POST /ai/parse/image</code> — Google Vision / AWS Textract integration</li>
+        <li>Confidence scoring + flagging low-confidence extractions</li>
+        <li>Editable preview before confirm</li>
+        <li>Multi-page register scan support</li>
+      </ul>
+    </div>
+
+    <!-- Phase 4: Voice -->
+    <div style="background:var(--gl);border:2px solid var(--g);border-radius:12px;padding:16px;">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
+        <div style="background:var(--g);color:white;border-radius:50%;width:28px;height:28px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;flex-shrink:0;">4</div>
+        <div>
+          <div style="font-weight:700;font-size:13px;color:#15803D;">Phase 4 — Voice-First Batch Entry (4-6 weeks)</div>
+          <div style="font-size:11px;color:var(--ts);">Ultimate vision — zero-typing onboarding</div>
+        </div>
+      </div>
+      <ul style="font-size:12px;color:#14532D;padding-left:16px;">
+        <li>Device-native STT (Android SpeechRecognizer) → text → Thiya NLP API</li>
+        <li><code>POST /ai/parse/voice-text</code> — NLP parse structured consumer data</li>
+        <li>Multi-consumer dictation in one session</li>
+        <li>Hindi + Hinglish support (most vendors prefer this)</li>
+        <li>Ambiguity resolution: "phone number unclear tha, type karo" inline prompt</li>
+      </ul>
+    </div>
+
+    <!-- Phase 5: Smart Templates -->
+    <div style="background:var(--skyl);border:2px solid var(--sky);border-radius:12px;padding:16px;">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
+        <div style="background:var(--sky);color:white;border-radius:50%;width:28px;height:28px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;flex-shrink:0;">5</div>
+        <div>
+          <div style="font-weight:700;font-size:13px;color:#0369A1;">Phase 5 — Smart Subscription Templates + Pattern Detection (ongoing)</div>
+          <div style="font-size:11px;color:var(--ts);">Repeat yogi — vendor ki intelligence platform par store ho</div>
+        </div>
+      </div>
+      <ul style="font-size:12px;color:#0C4A6E;padding-left:16px;">
+        <li>Subscription template CRUD APIs</li>
+        <li>Pattern detection: suggest template based on existing subscriptions</li>
+        <li>Named presets: "Morning Milk Pack", "Office Water Pack"</li>
+        <li>One-tap template apply when adding new consumer</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Summary table -->
+  <div style="background:white;border:1px solid var(--border);border-radius:12px;padding:16px;">
+    <div style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--ts);margin-bottom:12px;">Impact vs. Effort Summary</div>
+    <table class="tbl">
+      <tr><th>Feature</th><th>50 Consumers Onboard Time</th><th>Effort</th><th>Recommended</th></tr>
+      <tr style="background:var(--rl);">
+        <td>Current Manual Flow</td>
+        <td><strong>4+ hours</strong></td>
+        <td>Already built</td>
+        <td>Minimum viable — but not enough</td>
+      </tr>
+      <tr style="background:var(--ol);">
+        <td>Bulk Onboard API + Add Multiple UI</td>
+        <td><strong>~90 min</strong></td>
+        <td>2-3 weeks</td>
+        <td>Build immediately after P0 fixes</td>
+      </tr>
+      <tr style="background:var(--amberl);">
+        <td>CSV Import</td>
+        <td><strong>~15 min</strong></td>
+        <td>1-2 weeks</td>
+        <td>High ROI for migration</td>
+      </tr>
+      <tr style="background:var(--thl);">
+        <td>Image OCR</td>
+        <td><strong>~20 min</strong> (with corrections)</td>
+        <td>3-4 weeks</td>
+        <td>Magic feature — delight</td>
+      </tr>
+      <tr style="background:var(--gl);">
+        <td>Voice Batch</td>
+        <td><strong>~10 min</strong></td>
+        <td>4-6 weeks</td>
+        <td>The real vision — do it</td>
+      </tr>
+    </table>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════════════ -->
+<!-- SECTION 18: FUTURISTIC FLOW — THIYA KA FULL POTENTIAL                 -->
+<!-- ═══════════════════════════════════════════════════════════════════════ -->
+<div class="section">
+  <div class="sec-title"><span class="sec-num" style="background:linear-gradient(135deg,var(--p),var(--th));">18</span> Future Vision — Thiya Ka Full Potential</div>
+  <div class="sec-sub">Jab sab phases complete ho jaayein — tab kaisi dikhegi app</div>
+
+  <div class="note purple" style="margin-bottom:20px;">
+    <span class="note-icon">🚀</span>
+    <div><strong>Endgame scenario:</strong> Sharma ji (doodhwala) pehli baar app open karta hai. Thiya kehta hai: "Apna purana customer register scan karo ya bolo — main sab add kar deta hoon." Sharma ji 2 pages scan karta hai. 78 customers 8 minutes mein onboard. Kal se deliveries shuru. Koi manual typing nahi.</div>
+  </div>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:20px;">
+
+    <div style="background:white;border:1px solid var(--border);border-radius:12px;padding:16px;">
+      <div style="font-size:13px;font-weight:700;color:var(--p);margin-bottom:10px;">Vendor Onboarding Assistant (Thiya)</div>
+      <div style="font-size:12px;color:var(--ts);">
+        <div style="background:var(--thl);border-radius:8px;padding:8px 10px;margin-bottom:8px;font-size:11px;font-style:italic;">"Namaste Sharma ji! Aapke kitne customers hain?"</div>
+        <div style="background:white;border:1px solid var(--border);border-radius:8px;padding:8px 10px;margin-bottom:8px;font-size:11px;text-align:right;">"80 ke aaspaas hain"</div>
+        <div style="background:var(--thl);border-radius:8px;padding:8px 10px;margin-bottom:8px;font-size:11px;font-style:italic;">"Koi existing list hai? WhatsApp group, diary, ya koi file?"</div>
+        <div style="background:white;border:1px solid var(--border);border-radius:8px;padding:8px 10px;font-size:11px;text-align:right;">"Haan, diary hai aur ek WhatsApp screenshot"</div>
+      </div>
+      <div style="background:var(--p);color:white;border-radius:6px;padding:8px;text-align:center;font-size:11px;font-weight:700;margin-top:10px;">Scan Karo / Upload Karo / Bolo →</div>
+    </div>
+
+    <div style="background:white;border:1px solid var(--border);border-radius:12px;padding:16px;">
+      <div style="font-size:13px;font-weight:700;color:var(--g);margin-bottom:10px;">Result — 10 Minutes Mein</div>
+      <div style="display:flex;flex-direction:column;gap:8px;">
+        <div style="display:flex;align-items:center;gap:8px;">
+          <div style="width:32px;height:32px;background:var(--gl);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;">✅</div>
+          <div style="font-size:12px;"><strong>78 consumers</strong> platform par create / linked</div>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px;">
+          <div style="width:32px;height:32px;background:var(--wal);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;">📱</div>
+          <div style="font-size:12px;"><strong>78 WhatsApp invites</strong> queue mein — auto-send</div>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px;">
+          <div style="width:32px;height:32px;background:var(--skyl);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;">📋</div>
+          <div style="font-size:12px;"><strong>78 subscriptions</strong> queued — activate when consumer accepts</div>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px;">
+          <div style="width:32px;height:32px;background:var(--thl);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;">🕐</div>
+          <div style="font-size:12px;"><strong>Kal subah se orders</strong> auto-generate — scheduler chalega</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div style="background:linear-gradient(135deg,var(--pl) 0%,var(--thl) 100%);border:2px solid var(--p);border-radius:12px;padding:20px;text-align:center;">
+    <div style="font-size:15px;font-weight:700;color:var(--p);margin-bottom:8px;">Ye Hai Vinimay ka Real Differentiator</div>
+    <div style="font-size:13px;color:var(--ts);max-width:600px;margin:0 auto;line-height:1.7;">Manual form-filling sirf fallback mode hai. Primary mode hona chahiye: <strong>vendor apna existing data kisi bhi format mein laaye</strong> — Thiya sab samjhe, parse kare, confirm karae, aur platform par add kare. <em>Zero friction. Zero typing. Seedha delivery.</em></div>
   </div>
 </div>
 
