@@ -2,6 +2,8 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<meta name="robots" content="noindex, nofollow">
+<style id="auth-veil">body{visibility:hidden;background:#08080d}</style>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
 <title>Thiya — Verify Identity</title>
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700&family=Outfit:wght@400;500;600&display=swap" rel="stylesheet">
@@ -987,5 +989,26 @@ function skipKYC() {
 updateUI();
 </script>
 
+<script>
+(function() {
+  var veil = document.getElementById('auth-veil');
+  if (sessionStorage.getItem('thiya_dev_session') === '1') {
+    veil.remove();
+  } else {
+    veil.textContent = 'body{margin:0;background:#08080d;font-family:sans-serif}';
+    document.addEventListener('DOMContentLoaded', function() {
+      document.body.innerHTML =
+        '<div style="min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:28px;padding:24px;text-align:center">' +
+          '<div>' +
+            '<div style="width:52px;height:52px;background:#FF6B35;border-radius:12px;display:inline-flex;align-items:center;justify-content:center;font-weight:700;font-size:20px;color:#fff;margin-bottom:20px">th</div>' +
+            '<h2 style="color:#111;font-size:22px;font-weight:700;margin-bottom:10px">Restricted Access</h2>' +
+            '<p style="color:#666;font-size:14px;line-height:1.7;max-width:300px">This resource is only accessible through the Thiya Developer Portal.</p>' +
+          '</div>' +
+          '<a href="developer.html" style="display:inline-block;background:#FF6B35;color:#fff;text-decoration:none;padding:13px 28px;border-radius:8px;font-size:14px;font-weight:600">Go to Developer Portal &rarr;</a>' +
+        '</div>';
+    });
+  }
+})();
+</script>
 </body>
 </html>
