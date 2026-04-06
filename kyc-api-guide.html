@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Thiya KYC — API Integration Guide</title>
+<meta name="robots" content="noindex, nofollow">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700&family=DM+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#050508;--card:#0a0a10;--elevated:#0e0e16;--border:#14141e;
+  --t:#e8e4e0;--tm:#7a7680;--td:#3e3a44;
+  --o:#FF6B35;--od:#D45520;--g:#22C55E;--r:#EF4444;--b:#3B82F6;
+  --fd:'Sora',sans-serif;--fb:'DM Sans',sans-serif;--fm:'JetBrains Mono',monospace;
+}
+html{-webkit-font-smoothing:antialiased;scroll-behavior:smooth}
+body{font-family:var(--fb);background:var(--bg);color:var(--t);line-height:1.7}
+a{color:var(--o);text-decoration:none}
+a:hover{text-decoration:underline}
+
+/* Header */
+.top-bar{position:sticky;top:0;z-index:10;background:rgba(5,5,8,.95);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);padding:0 40px;height:56px;display:flex;align-items:center;gap:12px}
+.top-badge{width:28px;height:28px;background:var(--o);border-radius:6px;display:flex;align-items:center;justify-content:center;font-family:var(--fd);font-weight:700;color:#fff;font-size:11px}
+.top-title{font-family:var(--fd);font-weight:600;font-size:14px}
+.top-tag{font-size:9px;text-transform:uppercase;letter-spacing:.1em;color:var(--o);background:rgba(255,107,53,.1);border:1px solid rgba(255,107,53,.2);border-radius:4px;padding:2px 8px}
+
+/* Layout */
+.wrap{max-width:820px;margin:0 auto;padding:48px 40px 120px}
+@media(max-width:640px){.wrap{padding:32px 20px 80px}.top-bar{padding:0 20px}}
+
+/* Typography */
+h1{font-family:var(--fd);font-size:32px;font-weight:700;margin-bottom:8px;line-height:1.2}
+h2{font-family:var(--fd);font-size:20px;font-weight:600;margin:48px 0 16px;padding-bottom:10px;border-bottom:1px solid var(--border);color:var(--t)}
+h3{font-family:var(--fd);font-size:15px;font-weight:600;margin:28px 0 12px;color:var(--t)}
+p{margin-bottom:14px;color:var(--tm);font-size:14px;line-height:1.7}
+.subtitle{font-size:15px;color:var(--tm);margin-bottom:40px}
+strong{color:var(--t);font-weight:600}
+hr{border:none;border-top:1px solid var(--border);margin:32px 0}
+
+/* Code */
+code{font-family:var(--fm);font-size:12px;background:var(--elevated);border:1px solid var(--border);border-radius:4px;padding:2px 6px;color:var(--o)}
+pre{font-family:var(--fm);font-size:12px;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:18px 20px;margin:12px 0 20px;overflow-x:auto;line-height:1.6;color:var(--tm);white-space:pre;-webkit-overflow-scrolling:touch}
+pre code{background:none;border:none;padding:0;color:inherit}
+
+/* Tables */
+table{width:100%;border-collapse:collapse;margin:12px 0 20px;font-size:13px}
+th{text-align:left;font-family:var(--fd);font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--td);padding:10px 14px;border-bottom:1px solid var(--border);background:var(--card)}
+td{padding:10px 14px;border-bottom:1px solid var(--border);color:var(--tm)}
+td code{font-size:11px}
+tr:hover td{background:rgba(255,255,255,.01)}
+
+/* Badges */
+.req{color:var(--o);font-weight:600}
+.opt{color:var(--td)}
+
+/* Flow diagram box */
+.flow-box{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:24px;margin:16px 0 24px;text-align:center}
+.flow-steps{display:flex;align-items:center;justify-content:center;gap:8px;flex-wrap:wrap}
+.flow-step{background:var(--elevated);border:1px solid var(--border);border-radius:10px;padding:14px 18px;text-align:center;min-width:120px}
+.flow-step .num{font-family:var(--fd);font-size:20px;font-weight:700;color:var(--o);display:block}
+.flow-step .label{font-size:11px;color:var(--tm);margin-top:4px}
+.flow-step .ep{font-family:var(--fm);font-size:10px;color:var(--td);margin-top:4px}
+.flow-arrow{font-size:20px;color:var(--td)}
+
+/* Endpoint card */
+.ep-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:20px 24px;margin:16px 0}
+.ep-method{display:inline-block;font-family:var(--fm);font-size:11px;font-weight:600;padding:3px 10px;border-radius:6px;margin-right:8px}
+.ep-method.get{background:rgba(59,130,246,.12);color:var(--b)}
+.ep-method.post{background:rgba(34,197,94,.12);color:var(--g)}
+.ep-method.patch{background:rgba(255,107,53,.12);color:var(--o)}
+.ep-method.delete{background:rgba(239,68,68,.12);color:var(--r)}
+.ep-path{font-family:var(--fm);font-size:13px;color:var(--t)}
+.ep-desc{font-size:13px;color:var(--tm);margin-top:8px}
+.ep-perm{font-size:11px;color:var(--td);margin-top:6px}
+
+/* Status flow */
+.status-flow{display:flex;align-items:center;justify-content:center;gap:12px;margin:20px 0;flex-wrap:wrap}
+.status-node{padding:8px 16px;border-radius:8px;font-family:var(--fd);font-size:12px;font-weight:600}
+.status-node.pending{background:rgba(255,107,53,.1);color:var(--o);border:1px solid rgba(255,107,53,.2)}
+.status-node.approved{background:rgba(34,197,94,.1);color:var(--g);border:1px solid rgba(34,197,94,.2)}
+.status-node.rejected{background:rgba(239,68,68,.08);color:var(--r);border:1px solid rgba(239,68,68,.15)}
+.status-arrow{color:var(--td);font-size:16px}
+
+/* Info callout */
+.callout{background:var(--card);border:1px solid var(--border);border-left:3px solid var(--o);border-radius:12px;padding:16px 20px;margin:20px 0;font-size:13px;color:var(--tm);line-height:1.7}
+.callout strong{display:block;color:var(--t);margin-bottom:4px}
+.callout.green{border-left-color:var(--g)}
+.callout.red{border-left-color:var(--r)}
+
+/* List */
+ul,ol{margin:8px 0 16px 20px;color:var(--tm);font-size:13px}
+li{margin-bottom:6px;line-height:1.6}
+</style>
+</head>
+<body>
+
+<div class="top-bar">
+  <div class="top-badge">th</div>
+  <div class="top-title">KYC API Guide</div>
+  <span class="top-tag">Internal</span>
+</div>
+
+<div class="wrap">
+
+<h1>KYC — API Integration Guide</h1>
+<p class="subtitle">Complete endpoint reference for mobile app KYC implementation. Step 4 of vendor onboarding.</p>
+
+<div class="callout">
+  <strong>Key Rules</strong>
+  PAN and Aadhaar are <strong class="req">mandatory</strong>. Bank, FSSAI, GST are optional — vendor can set up later from profile. Payment features unlock only after KYC approval.
+</div>
+
+<!-- ═══ FLOW ═══ -->
+<h2>Upload Flow</h2>
+<p>Two-step process per document: upload the file first, then create the document record.</p>
+
+<div class="flow-box">
+  <div class="flow-steps">
+    <div class="flow-step">
+      <span class="num">1</span>
+      <span class="label">Upload File</span>
+      <span class="ep">POST /files/upload</span>
+    </div>
+    <span class="flow-arrow">&rarr;</span>
+    <div class="flow-step">
+      <span class="num">2</span>
+      <span class="label">Create Document</span>
+      <span class="ep">POST /vendor/documents/my</span>
+    </div>
+    <span class="flow-arrow">&rarr;</span>
+    <div class="flow-step">
+      <span class="num">3</span>
+      <span class="label">Admin Reviews</span>
+      <span class="ep">PENDING &rarr; APPROVED</span>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ ENDPOINTS ═══ -->
+<h2>Vendor Endpoints</h2>
+
+<h3>1. Upload File</h3>
+<div class="ep-card">
+  <span class="ep-method post">POST</span>
+  <span class="ep-path">/api/v1/files/upload</span>
+  <div class="ep-desc">Upload document image/PDF. Returns <code>fileId</code> for use in step 2.</div>
+  <div class="ep-perm">Content-Type: multipart/form-data</div>
+</div>
+
+<table>
+  <tr><th>Field</th><th>Type</th><th>Required</th><th>Description</th></tr>
+  <tr><td><code>file</code></td><td>File</td><td class="req">Yes</td><td>JPG, PNG or PDF. Max 5MB</td></tr>
+  <tr><td><code>category</code></td><td>String</td><td class="req">Yes</td><td><code>KYC_AADHAAR</code>, <code>KYC_PAN</code>, <code>KYC_GST</code>, <code>KYC_LICENSE</code>, <code>KYC_OTHER</code></td></tr>
+  <tr><td><code>ownerType</code></td><td>String</td><td class="req">Yes</td><td><code>VENDOR</code></td></tr>
+  <tr><td><code>ownerId</code></td><td>UUID</td><td class="req">Yes</td><td>Vendor ID</td></tr>
+</table>
+
+<p><strong>Response:</strong></p>
+<pre><code>{
+  "success": true,
+  "data": {
+    "id": "a1b2c3d4-...",
+    "originalName": "aadhaar_front.jpg",
+    "contentType": "image/jpeg",
+    "size": 245000,
+    "url": ".../download",
+    "thumbnailUrl": ".../thumbnail"
+  }
+}</code></pre>
+
+<h3>2. Create KYC Document</h3>
+<div class="ep-card">
+  <span class="ep-method post">POST</span>
+  <span class="ep-path">/api/v1/vendor/documents/my</span>
+  <div class="ep-desc">Creates a document record linked to the uploaded file.</div>
+  <div class="ep-perm">Permission: <code>vendor:kyc:write</code></div>
+</div>
+
+<p><strong>Body:</strong></p>
+<pre><code>{
+  "documentType": "AADHAAR",
+  "fileId": "a1b2c3d4-...",
+  "documentNumberMasked": "****1234",
+  "nameOnDocument": "Abhash Kumar"
+}</code></pre>
+
+<p><strong>Document Types:</strong></p>
+<table>
+  <tr><th>Value</th><th>Required</th><th>Description</th></tr>
+  <tr><td><code>AADHAAR</code></td><td class="req">Yes</td><td>Aadhaar card (12-digit ID)</td></tr>
+  <tr><td><code>PAN</code></td><td class="req">Yes</td><td>PAN card (ABCDE1234F)</td></tr>
+  <tr><td><code>BANK_ACCOUNT</code></td><td class="opt">No</td><td>Bank passbook / cancelled cheque</td></tr>
+  <tr><td><code>FSSAI</code></td><td class="opt">No</td><td>Food license (food vendors only)</td></tr>
+  <tr><td><code>GST</code></td><td class="opt">No</td><td>GST certificate</td></tr>
+</table>
+
+<h3>3. List My Documents</h3>
+<div class="ep-card">
+  <span class="ep-method get">GET</span>
+  <span class="ep-path">/api/v1/vendor/documents/my</span>
+  <div class="ep-desc">Returns all uploaded documents with their review status.</div>
+  <div class="ep-perm">Permission: <code>vendor:kyc:read</code></div>
+</div>
+
+<pre><code>{
+  "success": true,
+  "data": [
+    {
+      "id": "doc-uuid-1",
+      "documentType": "AADHAAR",
+      "fileId": "file-uuid-1",
+      "documentNumberMasked": "****1234",
+      "reviewStatus": "PENDING",
+      "createdAt": "2026-04-06T10:30:00Z"
+    },
+    {
+      "id": "doc-uuid-2",
+      "documentType": "PAN",
+      "reviewStatus": "APPROVED",
+      "reviewedAt": "2026-04-06T11:00:00Z"
+    }
+  ]
+}</code></pre>
+
+<h3>4. Resubmit Rejected Document</h3>
+<div class="ep-card">
+  <span class="ep-method patch">PATCH</span>
+  <span class="ep-path">/api/v1/vendor/documents/my/{documentId}/resubmit?newFileId={uuid}</span>
+  <div class="ep-desc">Re-upload a rejected document with a new file. Resets status to PENDING.</div>
+  <div class="ep-perm">Permission: <code>vendor:kyc:write</code></div>
+</div>
+
+<h3>5. View / Download File</h3>
+<div class="ep-card">
+  <span class="ep-method get">GET</span>
+  <span class="ep-path">/api/v1/files/{fileId}/download</span>
+  <div class="ep-desc">Returns file binary with Content-Type header.</div>
+</div>
+<div class="ep-card">
+  <span class="ep-method get">GET</span>
+  <span class="ep-path">/api/v1/files/{fileId}/thumbnail</span>
+  <div class="ep-desc">Returns 200x200 thumbnail (images only).</div>
+</div>
+
+<!-- ═══ ADMIN ═══ -->
+<h2>Admin Endpoints</h2>
+<p>Used by admin web portal for document review.</p>
+
+<div class="ep-card">
+  <span class="ep-method get">GET</span>
+  <span class="ep-path">/api/v1/vendor/documents/pending</span>
+  <div class="ep-desc">List all documents awaiting review.</div>
+  <div class="ep-perm">Permission: <code>vendor:kyc:review</code></div>
+</div>
+
+<div class="ep-card">
+  <span class="ep-method patch">PATCH</span>
+  <span class="ep-path">/api/v1/vendor/documents/{id}/approve</span>
+  <div class="ep-desc">Approve a document.</div>
+</div>
+
+<div class="ep-card">
+  <span class="ep-method patch">PATCH</span>
+  <span class="ep-path">/api/v1/vendor/documents/{id}/reject?reason=text</span>
+  <div class="ep-desc">Reject a document with reason. Vendor can resubmit.</div>
+</div>
+
+<!-- ═══ STATUS FLOW ═══ -->
+<h2>Document Status Flow</h2>
+
+<div class="flow-box">
+  <div class="status-flow">
+    <span class="status-node pending">PENDING</span>
+    <span class="status-arrow">&rarr;</span>
+    <span class="status-node approved">APPROVED</span>
+  </div>
+  <div style="margin-top:8px;font-size:12px;color:var(--td)">or</div>
+  <div class="status-flow" style="margin-top:8px">
+    <span class="status-node pending">PENDING</span>
+    <span class="status-arrow">&rarr;</span>
+    <span class="status-node rejected">REJECTED</span>
+    <span class="status-arrow">&rarr;</span>
+    <span style="font-size:12px;color:var(--td)">resubmit</span>
+    <span class="status-arrow">&rarr;</span>
+    <span class="status-node pending">PENDING</span>
+  </div>
+</div>
+
+<!-- ═══ VENDOR STATUS ═══ -->
+<h2>Vendor KYC Status (Aggregate)</h2>
+<p>The vendor's overall <code>kycStatus</code> on their profile reflects document states:</p>
+
+<table>
+  <tr><th>Status</th><th>Meaning</th></tr>
+  <tr><td><code>NOT_APPLIED</code></td><td>No documents uploaded yet</td></tr>
+  <tr><td><code>PENDING</code></td><td>At least one document uploaded, awaiting review</td></tr>
+  <tr><td><code>APPROVED</code></td><td>All required documents (PAN + Aadhaar) approved</td></tr>
+  <tr><td><code>REJECTED</code></td><td>One or more required documents rejected</td></tr>
+</table>
+
+<p>Check via: <code>GET /api/v1/vendor/profile/me</code> &rarr; <code>kycStatus</code> field</p>
+
+<!-- ═══ MOBILE NOTES ═══ -->
+<h2>Mobile Implementation Notes</h2>
+
+<h3>Upload Flow (per document)</h3>
+<ol>
+  <li>User taps document card</li>
+  <li>Open camera / file picker</li>
+  <li><code>POST /files/upload</code> (multipart) &rarr; get <code>fileId</code></li>
+  <li><code>POST /vendor/documents/my</code> with <code>{ documentType, fileId, documentNumberMasked }</code></li>
+  <li>Show success state on card</li>
+  <li>Repeat for next document</li>
+</ol>
+
+<h3>Mandatory Check</h3>
+<div class="callout green">
+  <strong>Submit Button Logic</strong>
+  Enable "Submit" only when both AADHAAR and PAN are uploaded. Other documents (BANK, FSSAI, GST) are optional and don't block onboarding.
+</div>
+
+<h3>Error Handling</h3>
+<table>
+  <tr><th>Error</th><th>Action</th></tr>
+  <tr><td>File too large (&gt;5MB)</td><td>Show "File too large. Please compress or crop."</td></tr>
+  <tr><td>Duplicate document type</td><td>Call resubmit endpoint instead of create</td></tr>
+  <tr><td>Network error during upload</td><td>Retry with exponential backoff</td></tr>
+  <tr><td>Rejected document</td><td>Show rejection reason, allow re-upload</td></tr>
+</table>
+
+<h3>WhatsApp Notifications</h3>
+<ul>
+  <li>After submit: "Documents received, under review"</li>
+  <li>On approval: "KYC approved! Payments unlocked."</li>
+  <li>On rejection: "Document rejected: {reason}. Please re-upload."</li>
+</ul>
+
+<!-- ═══ PERMISSIONS ═══ -->
+<h2>Permissions</h2>
+<table>
+  <tr><th>Permission</th><th>Role</th><th>Endpoints</th></tr>
+  <tr><td><code>vendor:kyc:read</code></td><td>VENDOR</td><td>GET /documents/my</td></tr>
+  <tr><td><code>vendor:kyc:write</code></td><td>VENDOR</td><td>POST /documents/my, PATCH resubmit</td></tr>
+  <tr><td><code>vendor:kyc:review</code></td><td>ADMIN, SUPER_ADMIN</td><td>GET /pending, PATCH approve/reject</td></tr>
+</table>
+
+<!-- ═══ CURL ═══ -->
+<h2>cURL Examples</h2>
+
+<h3>Upload file</h3>
+<pre><code>curl -X POST http://localhost:8080/api/v1/files/upload \
+  -H "Authorization: Bearer &lt;token&gt;" \
+  -F "file=@aadhaar.jpg" \
+  -F "category=KYC_AADHAAR" \
+  -F "ownerType=VENDOR" \
+  -F "ownerId=&lt;vendor-uuid&gt;"</code></pre>
+
+<h3>Create document</h3>
+<pre><code>curl -X POST http://localhost:8080/api/v1/vendor/documents/my \
+  -H "Authorization: Bearer &lt;token&gt;" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "documentType": "AADHAAR",
+    "fileId": "&lt;file-uuid&gt;",
+    "documentNumberMasked": "****1234",
+    "nameOnDocument": "Abhash Kumar"
+  }'</code></pre>
+
+<h3>List my documents</h3>
+<pre><code>curl http://localhost:8080/api/v1/vendor/documents/my \
+  -H "Authorization: Bearer &lt;token&gt;"</code></pre>
+
+</div>
+</body>
+</html>

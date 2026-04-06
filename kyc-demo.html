@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>Thiya KYC — Mobile Demo v2</title>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --o:#FF6B35;--ol:#FF8F55;--od:#E85520;
+  --bg:#08080D;--card:#0E0E16;--elevated:#12121B;--border:#1A1A24;--border-active:rgba(255,107,53,.35);
+  --t1:#FFFFFF;--t2:#E0E0E0;--t3:#999;--t4:#666;--t5:#444;
+  --green:#22C55E;--green-bg:rgba(34,197,94,.1);--green-border:rgba(34,197,94,.2);
+  --red:#EF4444;--red-bg:rgba(239,68,68,.08);--red-border:rgba(239,68,68,.15);
+  --blue:#3B82F6;--blue-bg:rgba(59,130,246,.08);
+  --f:'Outfit',system-ui,sans-serif;--fd:'Sora',sans-serif;
+}
+body{font-family:var(--f);background:#050508;color:var(--t2);-webkit-font-smoothing:antialiased;overflow:hidden}
+
+/* Device shell */
+.shell{display:flex;justify-content:center;align-items:center;min-height:100vh;padding:16px}
+.device{width:393px;max-width:100%;height:852px;max-height:95vh;background:var(--bg);border-radius:44px;border:1px solid var(--border);overflow:hidden;position:relative;box-shadow:0 25px 80px rgba(0,0,0,.6),0 0 0 1px rgba(255,255,255,.02) inset}
+.island{width:126px;height:34px;background:#000;border-radius:20px;position:absolute;top:8px;left:50%;transform:translateX(-50%);z-index:100}
+.home-ind{position:absolute;bottom:8px;left:50%;transform:translateX(-50%);width:134px;height:5px;background:var(--t1);border-radius:3px;opacity:.12;z-index:100}
+.status-bar{position:absolute;top:0;left:0;right:0;height:54px;z-index:95;display:flex;justify-content:space-between;align-items:flex-end;padding:0 28px 6px;font-size:11px;font-weight:600;color:var(--t1);pointer-events:none}
+
+/* Screens */
+.screen{position:absolute;inset:0;display:flex;flex-direction:column;opacity:0;pointer-events:none;transition:all .35s cubic-bezier(.4,0,.2,1);transform:translateX(40px)}
+.screen.active{opacity:1;pointer-events:auto;transform:translateX(0)}
+.screen.exit{opacity:0;transform:translateX(-40px)}
+
+/* Header */
+.hdr{padding:64px 24px 20px;background:var(--bg);position:relative;z-index:10}
+.hdr-back{position:absolute;top:62px;left:16px;width:40px;height:40px;border-radius:12px;background:rgba(255,107,53,.08);border:1px solid rgba(255,107,53,.15);color:var(--o);font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:.2s}
+.hdr-back:active{transform:scale(.92)}
+
+/* Progress */
+.progress{display:flex;gap:4px;margin-bottom:16px}
+.progress-dot{flex:1;height:3px;border-radius:2px;background:var(--border);transition:.4s}
+.progress-dot.done{background:var(--o)}
+.progress-dot.current{background:var(--o);box-shadow:0 0 8px rgba(255,107,53,.4)}
+.progress-labels{display:flex;justify-content:space-between;margin-top:6px;margin-bottom:16px}
+.progress-label{font-size:9px;color:var(--t5);font-weight:600;text-transform:uppercase;letter-spacing:.8px;transition:.3s}
+.progress-label.done{color:var(--o)}
+.progress-label.active{color:var(--ol)}
+
+.hdr h1{font-family:var(--fd);font-size:24px;font-weight:700;color:var(--t1);line-height:1.2}
+.hdr p{font-size:13px;color:var(--t4);margin-top:6px;line-height:1.5}
+
+/* Content */
+.cnt{flex:1;overflow-y:auto;padding:0 24px 120px;-webkit-overflow-scrolling:touch}
+.cnt::-webkit-scrollbar{display:none}
+
+/* ═══ DOCUMENT CARDS ═══ */
+.doc-card{
+  background:var(--card);border:1.5px solid var(--border);border-radius:20px;
+  padding:20px;margin-bottom:14px;transition:all .3s;cursor:pointer;position:relative;overflow:hidden
+}
+.doc-card:active{transform:scale(.98)}
+.doc-card.uploaded{border-color:var(--green-border);background:linear-gradient(135deg,rgba(34,197,94,.03),var(--card))}
+.doc-card.required{border-left:3px solid var(--o)}
+.doc-card.required.uploaded{border-left-color:var(--green)}
+
+.doc-top{display:flex;align-items:center;gap:14px}
+.doc-icon{width:50px;height:50px;border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0;transition:.3s}
+.doc-icon.default{background:rgba(255,107,53,.08);border:1px solid rgba(255,107,53,.12)}
+.doc-icon.done{background:var(--green-bg);border:1px solid var(--green-border)}
+.doc-info{flex:1;min-width:0}
+.doc-title{font-size:15px;font-weight:700;color:var(--t1);display:flex;align-items:center;gap:8px}
+.doc-sub{font-size:12px;color:var(--t4);margin-top:3px}
+.doc-sub.done{color:var(--green)}
+
+/* Badges */
+.tag{padding:2px 8px;border-radius:6px;font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.5px}
+.tag-req{background:rgba(255,107,53,.12);color:var(--o)}
+.tag-opt{background:rgba(255,255,255,.04);color:var(--t5)}
+.tag-done{background:var(--green-bg);color:var(--green)}
+
+/* Status chip */
+.status-chip{position:absolute;top:16px;right:16px;display:flex;align-items:center;gap:4px;font-size:10px;font-weight:600}
+.status-chip .dot{width:6px;height:6px;border-radius:50%}
+.status-chip.pending .dot{background:var(--o);animation:blink 2s infinite}
+.status-chip.pending{color:var(--o)}
+.status-chip.done .dot{background:var(--green)}
+.status-chip.done{color:var(--green)}
+
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+
+/* Uploaded file info row */
+.file-row{display:flex;align-items:center;gap:10px;margin-top:12px;padding:10px 12px;background:var(--elevated);border:1px solid var(--border);border-radius:12px}
+.file-row .thumb{width:40px;height:40px;border-radius:10px;background:rgba(255,107,53,.08);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
+.file-row .meta{flex:1;min-width:0}
+.file-row .fname{font-size:12px;font-weight:600;color:var(--t2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.file-row .fsize{font-size:10px;color:var(--t4)}
+.file-row .actions{display:flex;gap:6px}
+.file-row .abtn{width:30px;height:30px;border-radius:8px;border:none;display:flex;align-items:center;justify-content:center;font-size:13px;cursor:pointer;transition:.2s}
+.file-row .abtn:active{transform:scale(.88)}
+.abtn-edit{background:rgba(255,107,53,.1);color:var(--o)}
+.abtn-del{background:var(--red-bg);color:var(--red)}
+
+/* ═══ SEPARATOR ═══ */
+.sep{display:flex;align-items:center;gap:10px;margin:20px 0 14px;font-size:10px;color:var(--t5);font-weight:600;text-transform:uppercase;letter-spacing:1.5px}
+.sep::after{content:'';flex:1;height:1px;background:var(--border)}
+
+/* ═══ INFO BOX ═══ */
+.info{background:var(--card);border:1px solid var(--border);border-left:3px solid var(--o);border-radius:14px;padding:14px 16px;margin:20px 0;font-size:12px;color:var(--t3);line-height:1.7}
+.info strong{color:var(--t1);display:block;margin-bottom:4px;font-size:13px}
+
+/* ═══ BUTTONS ═══ */
+.btn{width:100%;padding:16px;border:none;border-radius:16px;font-size:15px;font-weight:700;font-family:var(--f);cursor:pointer;transition:.25s;position:relative;overflow:hidden}
+.btn:active{transform:scale(.97)}
+.btn-primary{background:linear-gradient(135deg,var(--o),var(--od));color:#fff;box-shadow:0 8px 24px rgba(255,107,53,.25)}
+.btn-primary:disabled{opacity:.4;cursor:not-allowed;transform:none}
+.btn-ghost{background:transparent;color:var(--o);font-size:14px;font-weight:600;padding:14px;display:flex;align-items:center;justify-content:center;gap:6px}
+.btn-ghost:active{opacity:.6}
+
+/* Fixed bottom */
+.bottom{position:absolute;bottom:0;left:0;right:0;padding:16px 24px 36px;background:linear-gradient(transparent,var(--bg) 20%);z-index:20}
+
+/* ═══ UPLOAD SCREEN ═══ */
+.upload-zone{background:linear-gradient(135deg,rgba(255,107,53,.04),transparent);border:2px dashed rgba(255,107,53,.18);border-radius:20px;padding:48px 24px;text-align:center;cursor:pointer;transition:.3s;margin:20px 0}
+.upload-zone:active{transform:scale(.98);border-color:rgba(255,107,53,.4)}
+.upload-orb{width:80px;height:80px;border-radius:50%;background:rgba(255,107,53,.1);margin:0 auto 20px;display:flex;align-items:center;justify-content:center;font-size:36px;animation:float 3s ease infinite;box-shadow:0 0 40px rgba(255,107,53,.08)}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+.upload-zone h3{font-size:16px;font-weight:600;color:var(--t1);margin-bottom:6px}
+.upload-zone p{font-size:12px;color:var(--t4)}
+
+/* Preview card */
+.preview{display:flex;align-items:center;gap:14px;padding:16px;background:var(--elevated);border:1px solid var(--green-border);border-radius:16px;margin:20px 0;animation:slideUp .35s ease}
+@keyframes slideUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+.preview .ico{width:56px;height:56px;border-radius:14px;background:var(--green-bg);display:flex;align-items:center;justify-content:center;font-size:28px;flex-shrink:0}
+.preview .info{flex:1}
+.preview .name{font-size:14px;font-weight:600;color:var(--t1);margin-bottom:3px}
+.preview .size{font-size:11px;color:var(--t4)}
+.preview .rm{width:36px;height:36px;border-radius:12px;background:var(--red-bg);border:1px solid var(--red-border);color:var(--red);font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center}
+.preview .rm:active{transform:scale(.9)}
+
+/* ═══ SUCCESS SCREEN ═══ */
+.success-ring{width:100px;height:100px;border-radius:50%;background:var(--green-bg);border:2px solid var(--green-border);margin:0 auto 24px;display:flex;align-items:center;justify-content:center;font-size:48px;animation:pop .5s cubic-bezier(.34,1.56,.64,1)}
+@keyframes pop{from{transform:scale(0)}to{transform:scale(1)}}
+
+/* ═══ CONFIRM MODAL ═══ */
+.modal-overlay{position:absolute;inset:0;background:rgba(0,0,0,.6);backdrop-filter:blur(4px);z-index:200;display:flex;align-items:center;justify-content:center;padding:24px;opacity:0;pointer-events:none;transition:.2s}
+.modal-overlay.show{opacity:1;pointer-events:auto}
+.modal{background:var(--card);border:1px solid var(--border);border-radius:24px;padding:28px 24px;width:100%;max-width:320px;text-align:center;transform:scale(.92);transition:.25s}
+.modal-overlay.show .modal{transform:scale(1)}
+.modal h3{font-family:var(--fd);font-size:18px;font-weight:700;color:var(--t1);margin-bottom:8px}
+.modal p{font-size:13px;color:var(--t4);line-height:1.5;margin-bottom:20px}
+.modal-btns{display:flex;gap:10px}
+.modal-btns button{flex:1;padding:12px;border:none;border-radius:12px;font-size:14px;font-weight:600;cursor:pointer;transition:.2s;font-family:var(--f)}
+.modal-btns button:active{transform:scale(.96)}
+.mbtn-cancel{background:var(--elevated);border:1px solid var(--border);color:var(--t3)}
+.mbtn-confirm{background:var(--red);color:#fff}
+.mbtn-skip{background:var(--o);color:#fff}
+
+input[type="file"]{display:none}
+</style>
+</head>
+<body>
+<div class="shell">
+<div class="device">
+<div class="island"></div>
+<div class="status-bar"><span>9:41</span><span style="display:flex;gap:4px;align-items:center">
+<svg width="16" height="11" viewBox="0 0 16 11" fill="currentColor"><rect width="3" height="11" rx="1" opacity=".3"/><rect x="5" y="2" width="3" height="9" rx="1" opacity=".6"/><rect x="10" y="4" width="3" height="7" rx="1"/></svg>
+<svg width="22" height="11" viewBox="0 0 22 11" fill="none"><rect x=".5" y=".5" width="19" height="10" rx="2" stroke="currentColor" opacity=".3"/><rect x="20" y="3.5" width="2" height="4" rx="1" fill="currentColor" opacity=".3"/><rect x="1.5" y="1.5" width="14" height="8" rx="1.5" fill="#22C55E"/></svg>
+</span></div>
+<div class="home-ind"></div>
+
+<!-- ═══ CONFIRM MODAL ═══ -->
+<div class="modal-overlay" id="modal">
+  <div class="modal">
+    <h3 id="modal-title">Delete document?</h3>
+    <p id="modal-msg">This will remove the uploaded file. You can upload again later.</p>
+    <div class="modal-btns">
+      <button class="mbtn-cancel" onclick="closeModal()">Cancel</button>
+      <button class="mbtn-confirm" id="modal-confirm" onclick="modalConfirm()">Delete</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SCREEN 1: MAIN KYC ═══ -->
+<div class="screen active" id="s-main">
+  <div class="hdr">
+    <button class="hdr-back" onclick="showModal('Go back?','Return to previous step?','Back','skip')">←</button>
+    <div class="progress">
+      <div class="progress-dot done"></div>
+      <div class="progress-dot done"></div>
+      <div class="progress-dot done"></div>
+      <div class="progress-dot current"></div>
+    </div>
+    <div class="progress-labels">
+      <span class="progress-label done">Profile</span>
+      <span class="progress-label done">Category</span>
+      <span class="progress-label done">Zone</span>
+      <span class="progress-label active">KYC</span>
+    </div>
+    <h1>Verify your identity</h1>
+    <p>Upload PAN & Aadhaar to get started. Other docs are optional.</p>
+  </div>
+
+  <div class="cnt">
+    <!-- Mandatory section -->
+    <div class="sep">Required documents</div>
+
+    <!-- Aadhaar -->
+    <div class="doc-card required" id="card-aadhaar" onclick="openUpload('aadhaar')">
+      <div class="status-chip" id="chip-aadhaar"></div>
+      <div class="doc-top">
+        <div class="doc-icon default" id="icon-aadhaar">🪪</div>
+        <div class="doc-info">
+          <div class="doc-title">Aadhaar Card <span class="tag tag-req">Required</span></div>
+          <div class="doc-sub" id="sub-aadhaar">Government ID proof</div>
+        </div>
+      </div>
+      <div id="file-aadhaar"></div>
+    </div>
+
+    <!-- PAN -->
+    <div class="doc-card required" id="card-pan" onclick="openUpload('pan')">
+      <div class="status-chip" id="chip-pan"></div>
+      <div class="doc-top">
+        <div class="doc-icon default" id="icon-pan">💳</div>
+        <div class="doc-info">
+          <div class="doc-title">PAN Card <span class="tag tag-req">Required</span></div>
+          <div class="doc-sub" id="sub-pan">Tax identification</div>
+        </div>
+      </div>
+      <div id="file-pan"></div>
+    </div>
+
+    <!-- Optional section -->
+    <div class="sep">Optional documents</div>
+
+    <!-- Bank Account -->
+    <div class="doc-card" id="card-bank" onclick="openUpload('bank')">
+      <div class="status-chip" id="chip-bank"></div>
+      <div class="doc-top">
+        <div class="doc-icon default" id="icon-bank">🏦</div>
+        <div class="doc-info">
+          <div class="doc-title">Bank Account <span class="tag tag-opt">Later</span></div>
+          <div class="doc-sub" id="sub-bank">For receiving payments</div>
+        </div>
+      </div>
+      <div id="file-bank"></div>
+    </div>
+
+    <!-- FSSAI -->
+    <div class="doc-card" id="card-fssai" onclick="openUpload('fssai')">
+      <div class="status-chip" id="chip-fssai"></div>
+      <div class="doc-top">
+        <div class="doc-icon default" id="icon-fssai">🍽️</div>
+        <div class="doc-info">
+          <div class="doc-title">FSSAI License <span class="tag tag-opt">Food only</span></div>
+          <div class="doc-sub" id="sub-fssai">Required for tiffin/food services</div>
+        </div>
+      </div>
+      <div id="file-fssai"></div>
+    </div>
+
+    <!-- GST -->
+    <div class="doc-card" id="card-gst" onclick="openUpload('gst')">
+      <div class="status-chip" id="chip-gst"></div>
+      <div class="doc-top">
+        <div class="doc-icon default" id="icon-gst">🏛️</div>
+        <div class="doc-info">
+          <div class="doc-title">GST Certificate <span class="tag tag-opt">Optional</span></div>
+          <div class="doc-sub" id="sub-gst">If turnover exceeds &#8377;20L</div>
+        </div>
+      </div>
+      <div id="file-gst"></div>
+    </div>
+
+    <div class="info">
+      <strong>&#128274; Secure & encrypted</strong>
+      Your documents are encrypted at rest. KYC unlocks payments, trust badges, and higher plan features.
+    </div>
+  </div>
+
+  <!-- Fixed bottom -->
+  <div class="bottom">
+    <button class="btn btn-primary" id="btn-submit" disabled onclick="submitKYC()">Submit for Verification</button>
+    <button class="btn-ghost" onclick="showModal('Skip KYC?','You can complete verification later from your profile. Some features will be limited.','Skip for now','skip')">I\'ll do it later &#8594;</button>
+  </div>
+</div>
+
+<!-- ═══ SCREEN 2: UPLOAD ═══ -->
+<div class="screen" id="s-upload">
+  <div class="hdr">
+    <button class="hdr-back" onclick="goBack()">←</button>
+    <h1 id="upload-title">Upload Document</h1>
+    <p id="upload-sub">Quick & secure upload</p>
+  </div>
+  <div class="cnt">
+    <label class="upload-zone" for="finput">
+      <div class="upload-orb" id="upload-orb">📁</div>
+      <h3>Tap to choose file</h3>
+      <p>JPG, PNG or PDF &bull; Max 5MB</p>
+    </label>
+    <input type="file" id="finput" accept="image/*,.pdf" onchange="handleFile(event)">
+
+    <div id="fprev" style="display:none">
+      <div class="preview">
+        <div class="ico">&#10003;</div>
+        <div class="info">
+          <div class="name" id="fn"></div>
+          <div class="size" id="fs"></div>
+        </div>
+        <button class="rm" onclick="event.stopPropagation();clearFile()">&#215;</button>
+      </div>
+    </div>
+
+    <div class="info" style="margin-top:24px">
+      <strong>&#128161; Tips for quick approval</strong>
+      &bull; Ensure the document is clearly visible<br>
+      &bull; All four corners should be in frame<br>
+      &bull; Avoid blurry or dark photos
+    </div>
+  </div>
+
+  <div class="bottom">
+    <button class="btn btn-primary" id="btn-save" disabled onclick="saveFile()">Save &amp; Continue</button>
+    <button class="btn-ghost" onclick="goBack()">Cancel</button>
+  </div>
+</div>
+
+<!-- ═══ SCREEN 3: SUCCESS ═══ -->
+<div class="screen" id="s-success">
+  <div class="hdr" style="text-align:center;padding-top:120px">
+    <div class="success-ring">&#10003;</div>
+    <h1 style="margin-bottom:8px">KYC Submitted!</h1>
+    <p style="max-width:260px;margin:0 auto">Your documents are being reviewed. We'll notify you on WhatsApp once verified.</p>
+  </div>
+  <div class="cnt" style="text-align:center;padding-top:32px">
+    <div style="display:inline-flex;flex-direction:column;gap:8px;text-align:left;margin:0 auto">
+      <div style="display:flex;align-items:center;gap:10px;font-size:13px;color:var(--t3)">
+        <span style="color:var(--green)">&#10003;</span> Documents uploaded securely
+      </div>
+      <div style="display:flex;align-items:center;gap:10px;font-size:13px;color:var(--t3)">
+        <span style="color:var(--o)">&#9679;</span> Under review (24-48 hrs)
+      </div>
+      <div style="display:flex;align-items:center;gap:10px;font-size:13px;color:var(--t4)">
+        <span style="color:var(--t5)">&#9675;</span> Payment features unlock after approval
+      </div>
+    </div>
+  </div>
+  <div class="bottom">
+    <button class="btn btn-primary" onclick="location.reload()">Go to Dashboard</button>
+  </div>
+</div>
+
+</div>
+</div>
+
+<script>
+// ═══ STATE ═══
+const docs = {
+  aadhaar:{uploaded:false,required:true,title:'Aadhaar Card',sub:'Government ID proof',icon:'🪪',file:null},
+  pan:{uploaded:false,required:true,title:'PAN Card',sub:'Tax identification',icon:'💳',file:null},
+  bank:{uploaded:false,required:false,title:'Bank Account',sub:'For receiving payments',icon:'🏦',file:null},
+  fssai:{uploaded:false,required:false,title:'FSSAI License',sub:'Required for tiffin/food services',icon:'🍽️',file:null},
+  gst:{uploaded:false,required:false,title:'GST Certificate',sub:'If turnover exceeds ₹20L',icon:'🏛️',file:null},
+};
+
+let currentDoc = '';
+let currentScreen = 's-main';
+let modalAction = null;
+
+// ═══ NAVIGATION ═══
+function goTo(id){
+  const cur = document.getElementById(currentScreen);
+  const next = document.getElementById(id);
+  cur.classList.remove('active');
+  cur.classList.add('exit');
+  setTimeout(()=>cur.classList.remove('exit'),350);
+  next.classList.add('active');
+  currentScreen = id;
+}
+function goBack(){goTo('s-main')}
+
+// ═══ UPLOAD ═══
+function openUpload(key){
+  currentDoc = key;
+  const d = docs[key];
+  document.getElementById('upload-title').textContent = d.title;
+  document.getElementById('upload-sub').textContent = d.sub;
+  document.getElementById('upload-orb').textContent = d.icon;
+  clearFile();
+  goTo('s-upload');
+}
+
+function handleFile(e){
+  const f = e.target.files[0];
+  if(!f)return;
+  docs[currentDoc].file = f;
+  document.getElementById('fprev').style.display = 'block';
+  document.getElementById('fn').textContent = f.name;
+  document.getElementById('fs').textContent = fmtSize(f.size);
+  document.getElementById('btn-save').disabled = false;
+}
+
+function clearFile(){
+  document.getElementById('finput').value='';
+  document.getElementById('fprev').style.display='none';
+  document.getElementById('btn-save').disabled=true;
+}
+
+function saveFile(){
+  docs[currentDoc].uploaded = true;
+  renderAll();
+  goBack();
+  setTimeout(clearFile,350);
+}
+
+function deleteDoc(key,e){
+  e.stopPropagation();
+  currentDoc = key;
+  showModal('Remove document?','The uploaded file will be deleted. You can upload again anytime.','Remove','delete');
+}
+
+function fmtSize(b){
+  if(b<1024)return b+' B';
+  if(b<1048576)return(b/1024).toFixed(1)+' KB';
+  return(b/1048576).toFixed(1)+' MB';
+}
+
+// ═══ RENDER ═══
+function renderAll(){
+  Object.keys(docs).forEach(key=>{
+    const d = docs[key];
+    const card = document.getElementById('card-'+key);
+    const icon = document.getElementById('icon-'+key);
+    const sub = document.getElementById('sub-'+key);
+    const chip = document.getElementById('chip-'+key);
+    const fileArea = document.getElementById('file-'+key);
+
+    if(d.uploaded){
+      card.classList.add('uploaded');
+      icon.className='doc-icon done';
+      sub.className='doc-sub done';
+      sub.textContent='Uploaded ✓';
+      chip.className='status-chip done';
+      chip.innerHTML='<span class="dot"></span>Done';
+      const fname = d.file ? d.file.name : 'document.pdf';
+      const fsize = d.file ? fmtSize(d.file.size) : '1.2 MB';
+      fileArea.innerHTML=`
+        <div class="file-row" onclick="event.stopPropagation()">
+          <div class="thumb">📄</div>
+          <div class="meta"><div class="fname">${fname}</div><div class="fsize">${fsize}</div></div>
+          <div class="actions">
+            <button class="abtn abtn-edit" onclick="event.stopPropagation();openUpload('${key}')">✏️</button>
+            <button class="abtn abtn-del" onclick="deleteDoc('${key}',event)">🗑️</button>
+          </div>
+        </div>`;
+    } else {
+      card.classList.remove('uploaded');
+      icon.className='doc-icon default';
+      sub.className='doc-sub';
+      sub.textContent=d.sub;
+      chip.className='status-chip';
+      chip.innerHTML='';
+      fileArea.innerHTML='';
+    }
+  });
+
+  // Submit button — enable if both required docs uploaded
+  const allReq = Object.values(docs).filter(d=>d.required).every(d=>d.uploaded);
+  document.getElementById('btn-submit').disabled = !allReq;
+}
+
+// ═══ SUBMIT ═══
+function submitKYC(){
+  const total = Object.values(docs).filter(d=>d.uploaded).length;
+  goTo('s-success');
+}
+
+// ═══ MODAL ═══
+function showModal(title,msg,confirmLabel,action){
+  document.getElementById('modal-title').textContent=title;
+  document.getElementById('modal-msg').textContent=msg;
+  const btn = document.getElementById('modal-confirm');
+  btn.textContent=confirmLabel;
+  btn.className = action==='delete'?'mbtn-confirm':'mbtn-skip';
+  modalAction = action;
+  document.getElementById('modal').classList.add('show');
+}
+function closeModal(){document.getElementById('modal').classList.remove('show')}
+function modalConfirm(){
+  closeModal();
+  if(modalAction==='delete'){
+    docs[currentDoc].uploaded=false;
+    docs[currentDoc].file=null;
+    renderAll();
+  } else if(modalAction==='skip'){
+    goTo('s-success');
+  }
+}
+
+// Init
+renderAll();
+</script>
+</body>
+</html>
