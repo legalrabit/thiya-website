@@ -1,0 +1,991 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>Thiya — Verify Identity</title>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700&family=Outfit:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+
+:root{
+  --o:#FF6B35;
+  --o-light:#FF8F55;
+  --bg:#08080d;
+  --bg-card:#0e0e16;
+  --bg-elevated:#12121b;
+  --border:#1a1a24;
+  --t1:#fff;
+  --t2:#e5e5e5;
+  --t3:#999;
+  --t4:#666;
+  --g:#22c55e;
+  --r:#ef4444;
+  --f-display:'Sora',sans-serif;
+  --f-body:'Outfit',sans-serif;
+}
+
+body{
+  font-family:var(--f-body);
+  background:var(--bg);
+  color:var(--t2);
+  -webkit-font-smoothing:antialiased;
+  overflow:hidden;
+}
+
+.shell{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  min-height:100vh;
+  padding:20px;
+  background:linear-gradient(135deg,#050508,#0a0a12);
+}
+
+.device{
+  width:393px;
+  max-width:100%;
+  height:852px;
+  max-height:95vh;
+  background:var(--bg);
+  border-radius:44px;
+  border:1px solid #1a1a24;
+  overflow:hidden;
+  position:relative;
+  box-shadow:0 25px 60px rgba(0,0,0,.5),0 0 0 1px rgba(255,255,255,.03) inset;
+}
+
+.island{
+  width:126px;
+  height:34px;
+  background:#000;
+  border-radius:20px;
+  position:absolute;
+  top:8px;
+  left:50%;
+  transform:translateX(-50%);
+  z-index:100;
+}
+
+.status-bar{
+  position:absolute;
+  top:0;
+  left:0;
+  right:0;
+  height:54px;
+  z-index:95;
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-end;
+  padding:0 28px 6px;
+  font-size:11px;
+  font-weight:600;
+  color:var(--t1);
+  pointer-events:none;
+}
+
+.home-indicator{
+  position:absolute;
+  bottom:8px;
+  left:50%;
+  transform:translateX(-50%);
+  width:134px;
+  height:5px;
+  background:var(--t1);
+  border-radius:3px;
+  opacity:.15;
+  z-index:100;
+}
+
+/* ═══ SCREEN ═══ */
+.screen{
+  position:absolute;
+  inset:0;
+  display:flex;
+  flex-direction:column;
+  opacity:0;
+  pointer-events:none;
+  transition:all .4s cubic-bezier(.4,0,.2,1);
+  transform:translateX(30px);
+}
+
+.screen.active{
+  opacity:1;
+  pointer-events:auto;
+  transform:translateX(0);
+}
+
+/* ═══ HEADER ═══ */
+.header{
+  padding:64px 24px 16px;
+  background:var(--bg);
+  position:relative;
+}
+
+.header-back{
+  position:absolute;
+  top:64px;
+  left:20px;
+  width:36px;
+  height:36px;
+  border-radius:10px;
+  background:transparent;
+  border:none;
+  color:var(--o);
+  font-size:20px;
+  cursor:pointer;
+}
+
+/* Progress steps */
+.progress-steps{
+  display:flex;
+  gap:6px;
+  margin-bottom:12px;
+}
+
+.step{
+  flex:1;
+  height:4px;
+  background:var(--border);
+  border-radius:2px;
+  position:relative;
+  overflow:hidden;
+}
+
+.step.done{
+  background:var(--o);
+}
+
+.step.done::after{
+  content:'✓';
+  position:absolute;
+  bottom:100%;
+  left:50%;
+  transform:translateX(-50%);
+  font-size:10px;
+  color:var(--o);
+  font-weight:700;
+  margin-bottom:4px;
+}
+
+.step-labels{
+  display:flex;
+  justify-content:space-between;
+  margin-top:8px;
+}
+
+.step-label{
+  font-size:9px;
+  color:var(--t4);
+  font-weight:600;
+  text-transform:uppercase;
+  letter-spacing:.5px;
+}
+
+.step-label.done{
+  color:var(--o);
+}
+
+.step-label.active{
+  color:var(--o);
+}
+
+.header-title{
+  font-family:var(--f-display);
+  font-size:22px;
+  font-weight:700;
+  color:var(--t1);
+  margin:16px 0 6px;
+}
+
+.header-subtitle{
+  font-size:13px;
+  color:var(--t4);
+  line-height:1.5;
+}
+
+/* ═══ CONTENT ═══ */
+.content{
+  flex:1;
+  overflow-y:auto;
+  padding:0 24px 100px;
+  -webkit-overflow-scrolling:touch;
+}
+
+.content::-webkit-scrollbar{display:none}
+
+/* ═══ GROUP CARD ═══ */
+.group-card{
+  background:var(--bg-card);
+  border:1.5px solid var(--border);
+  border-radius:18px;
+  padding:18px;
+  margin-bottom:12px;
+  transition:all .3s;
+}
+
+.group-card.expanded{
+  border-color:rgba(255,107,53,.3);
+}
+
+.group-header{
+  display:flex;
+  align-items:center;
+  gap:14px;
+  cursor:pointer;
+  user-select:none;
+}
+
+.group-header:active{
+  opacity:.7;
+}
+
+.group-icon{
+  width:48px;
+  height:48px;
+  border-radius:14px;
+  background:rgba(255,107,53,.1);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:24px;
+  flex-shrink:0;
+}
+
+.group-info{
+  flex:1;
+}
+
+.group-title{
+  font-weight:700;
+  font-size:15px;
+  color:var(--t1);
+  margin-bottom:4px;
+}
+
+.group-status{
+  font-size:12px;
+  color:var(--t4);
+}
+
+.group-arrow{
+  font-size:20px;
+  color:var(--t4);
+  transition:transform .3s;
+}
+
+.group-card.expanded .group-arrow{
+  transform:rotate(90deg);
+}
+
+/* Document list inside card */
+.doc-list{
+  max-height:0;
+  overflow:hidden;
+  transition:max-height .4s ease;
+}
+
+.group-card.expanded .doc-list{
+  max-height:600px;
+}
+
+.doc-item{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:12px 0;
+  border-top:1px solid var(--border);
+  margin-top:12px;
+}
+
+.doc-checkbox{
+  width:22px;
+  height:22px;
+  border-radius:7px;
+  border:2px solid var(--border);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex-shrink:0;
+  cursor:pointer;
+  transition:.2s;
+}
+
+.doc-checkbox.checked{
+  background:var(--g);
+  border-color:var(--g);
+  color:#fff;
+  font-size:12px;
+}
+
+.doc-checkbox:active{
+  transform:scale(.9);
+}
+
+.doc-details{
+  flex:1;
+  cursor:pointer;
+}
+
+.doc-name{
+  font-size:14px;
+  font-weight:600;
+  color:var(--t2);
+  margin-bottom:2px;
+}
+
+.doc-desc{
+  font-size:11px;
+  color:var(--t4);
+}
+
+.doc-item.uploaded .doc-desc{
+  color:var(--g);
+}
+
+.doc-actions{
+  display:flex;
+  gap:8px;
+}
+
+.doc-btn{
+  width:32px;
+  height:32px;
+  border-radius:10px;
+  border:none;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:14px;
+  cursor:pointer;
+  transition:.2s;
+}
+
+.doc-btn:active{
+  transform:scale(.9);
+}
+
+.btn-edit{
+  background:rgba(255,107,53,.1);
+  color:var(--o);
+}
+
+.btn-delete{
+  background:rgba(239,68,68,.1);
+  color:var(--r);
+}
+
+/* Badge */
+.badge{
+  padding:3px 8px;
+  border-radius:6px;
+  font-size:9px;
+  font-weight:700;
+  text-transform:uppercase;
+  letter-spacing:.5px;
+  margin-left:6px;
+}
+
+.badge-required{
+  background:rgba(255,107,53,.15);
+  color:var(--o);
+}
+
+.badge-optional{
+  background:rgba(255,255,255,.05);
+  color:var(--t4);
+}
+
+/* ═══ BUTTONS ═══ */
+.btn{
+  width:100%;
+  padding:16px;
+  border:none;
+  border-radius:16px;
+  font-size:15px;
+  font-weight:700;
+  font-family:var(--f-body);
+  cursor:pointer;
+  transition:.3s;
+}
+
+.btn:active{transform:scale(.97)}
+
+.btn-primary{
+  background:linear-gradient(135deg,var(--o),#E85520);
+  color:#fff;
+  box-shadow:0 6px 20px rgba(255,107,53,.3);
+  margin-top:24px;
+}
+
+.btn-skip{
+  background:transparent;
+  border:none;
+  color:var(--o);
+  font-size:14px;
+  font-weight:600;
+  padding:12px;
+  cursor:pointer;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:6px;
+  margin-top:12px;
+}
+
+.btn-skip:active{opacity:.7}
+
+/* ═══ UPLOAD SCREEN ═══ */
+.upload-zone{
+  background:linear-gradient(135deg,rgba(255,107,53,.05),transparent);
+  border:2px dashed rgba(255,107,53,.2);
+  border-radius:18px;
+  padding:40px 24px;
+  text-align:center;
+  cursor:pointer;
+  transition:.3s;
+  margin:24px 0;
+}
+
+.upload-zone:active{
+  transform:scale(.98);
+  border-color:rgba(255,107,53,.4);
+}
+
+.upload-icon{
+  width:72px;
+  height:72px;
+  border-radius:50%;
+  background:rgba(255,107,53,.15);
+  margin:0 auto 20px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:36px;
+  animation:float 3s ease infinite;
+}
+
+@keyframes float{
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(-10px)}
+}
+
+.upload-title{
+  font-size:16px;
+  font-weight:600;
+  color:var(--t1);
+  margin-bottom:8px;
+}
+
+.upload-hint{
+  font-size:13px;
+  color:var(--t4);
+}
+
+/* Preview */
+.preview{
+  display:flex;
+  align-items:center;
+  gap:14px;
+  padding:16px;
+  background:var(--bg-elevated);
+  border:1px solid var(--border);
+  border-radius:16px;
+  margin:20px 0;
+  animation:slide-in .4s;
+}
+
+@keyframes slide-in{
+  from{opacity:0;transform:translateY(12px)}
+  to{opacity:1;transform:translateY(0)}
+}
+
+.preview-thumb{
+  width:56px;
+  height:56px;
+  border-radius:14px;
+  background:rgba(255,107,53,.1);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:28px;
+  flex-shrink:0;
+}
+
+.preview-info{
+  flex:1;
+}
+
+.preview-name{
+  font-size:14px;
+  font-weight:600;
+  color:var(--t1);
+  margin-bottom:4px;
+}
+
+.preview-size{
+  font-size:12px;
+  color:var(--t4);
+}
+
+.preview-remove{
+  width:36px;
+  height:36px;
+  border-radius:12px;
+  background:rgba(239,68,68,.1);
+  border:none;
+  color:var(--r);
+  font-size:20px;
+  cursor:pointer;
+}
+
+.preview-remove:active{transform:scale(.9)}
+
+/* ═══ THIYA CHAT ═══ */
+.thiya-float{
+  position:absolute;
+  bottom:20px;
+  right:20px;
+  z-index:90;
+  width:56px;
+  height:56px;
+  border-radius:16px;
+  background:linear-gradient(135deg,var(--o),#E85520);
+  border:none;
+  cursor:pointer;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  box-shadow:0 8px 24px rgba(255,107,53,.3);
+  transition:.3s;
+}
+
+.thiya-float:hover{transform:scale(1.05)}
+.thiya-float:active{transform:scale(.95)}
+
+.thiya-float::before{
+  content:'';
+  position:absolute;
+  inset:-4px;
+  border-radius:20px;
+  border:2px solid rgba(255,107,53,.2);
+  animation:pulse 3s ease infinite;
+}
+
+@keyframes pulse{
+  0%,100%{opacity:.3;transform:scale(1)}
+  50%{opacity:.7;transform:scale(1.08)}
+}
+
+.thiya-char{
+  width:28px;
+  height:42px;
+}
+
+.thiya-head{
+  animation:bounce 3s ease-in-out infinite;
+}
+
+@keyframes bounce{
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(-6px)}
+}
+
+/* ═══ INFO BOX ═══ */
+.info-box{
+  background:var(--bg-card);
+  border:1px solid var(--border);
+  border-left:3px solid var(--o);
+  border-radius:12px;
+  padding:14px 16px;
+  margin:20px 0;
+  font-size:12px;
+  color:var(--t3);
+  line-height:1.6;
+}
+
+.info-box strong{
+  color:var(--t1);
+  display:block;
+  margin-bottom:4px;
+}
+
+input[type="file"]{display:none}
+</style>
+</head>
+<body>
+
+<div class="shell">
+  <div class="device">
+    <div class="island"></div>
+    <div class="status-bar">
+      <span>9:41</span>
+      <span style="display:flex;gap:4px">
+        <svg width="18" height="12" viewBox="0 0 18 12" fill="currentColor">
+          <rect width="4" height="12" opacity=".3" rx="1"/>
+          <rect x="7" y="2" width="4" height="10" opacity=".6" rx="1"/>
+          <rect x="14" y="4" width="4" height="8" rx="1"/>
+        </svg>
+      </span>
+    </div>
+    <div class="home-indicator"></div>
+
+    <!-- Floating Thiya -->
+    <button class="thiya-float" onclick="alert('Chat with Thiya')">
+      <svg class="thiya-char" viewBox="0 0 28 42" fill="none">
+        <g class="thiya-head">
+          <circle cx="14" cy="9" r="7" fill="#fff"/>
+          <circle cx="11" cy="8" r="1.3" fill="#fff"/>
+          <circle cx="17" cy="8" r="1.3" fill="#fff"/>
+          <circle cx="11" cy="8" r=".5" fill="#C84E1B"/>
+          <circle cx="17" cy="8" r=".5" fill="#C84E1B"/>
+          <path d="M11 11Q14 13 17 11" stroke="#fff" stroke-width=".8" stroke-linecap="round" fill="none"/>
+        </g>
+        <rect x="5" y="19" width="18" height="16" rx="5" fill="#fff"/>
+        <polygon points="8,35 14,39 20,35" fill="#fff"/>
+        <line x1="10" y1="39" x2="8" y2="41" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
+        <line x1="18" y1="39" x2="20" y2="41" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+    </button>
+
+    <!-- ═══ SCREEN 1: MAIN KYC ═══ -->
+    <div class="screen active" id="screen-main">
+      <div class="header">
+        <button class="header-back" onclick="alert('← Back')">←</button>
+        
+        <div class="progress-steps">
+          <div class="step done"></div>
+          <div class="step done"></div>
+          <div class="step done"></div>
+          <div class="step"></div>
+        </div>
+        <div class="step-labels">
+          <span class="step-label done">✓</span>
+          <span class="step-label done">✓</span>
+          <span class="step-label done">✓</span>
+          <span class="step-label active">KYC</span>
+        </div>
+        
+        <div class="header-title">Verify identity</div>
+        <div class="header-subtitle">Upload documents for trust & payments</div>
+      </div>
+      
+      <div class="content">
+        <!-- Identity Documents Card -->
+        <div class="group-card" id="card-identity">
+          <div class="group-header" onclick="toggleCard('identity')">
+            <div class="group-icon">🪪</div>
+            <div class="group-info">
+              <div class="group-title">Identity Documents</div>
+              <div class="group-status" id="status-identity">0/2 completed</div>
+            </div>
+            <div class="group-arrow">›</div>
+          </div>
+          
+          <div class="doc-list">
+            <!-- Aadhaar -->
+            <div class="doc-item" id="item-aadhaar">
+              <div class="doc-checkbox" id="check-aadhaar" onclick="event.stopPropagation()"></div>
+              <div class="doc-details" onclick="openUpload('aadhaar')">
+                <div class="doc-name">
+                  Aadhaar Card
+                  <span class="badge badge-required">Required</span>
+                </div>
+                <div class="doc-desc">ID proof · tap to upload</div>
+              </div>
+              <div class="doc-actions" id="actions-aadhaar" style="display:none">
+                <button class="doc-btn btn-edit" onclick="openUpload('aadhaar')">✏️</button>
+                <button class="doc-btn btn-delete" onclick="deleteDoc('aadhaar')">🗑️</button>
+              </div>
+            </div>
+            
+            <!-- PAN -->
+            <div class="doc-item" id="item-pan">
+              <div class="doc-checkbox" id="check-pan" onclick="event.stopPropagation()"></div>
+              <div class="doc-details" onclick="openUpload('pan')">
+                <div class="doc-name">
+                  PAN Card
+                  <span class="badge badge-optional">Optional</span>
+                </div>
+                <div class="doc-desc">Tax compliance · tap to upload</div>
+              </div>
+              <div class="doc-actions" id="actions-pan" style="display:none">
+                <button class="doc-btn btn-edit" onclick="openUpload('pan')">✏️</button>
+                <button class="doc-btn btn-delete" onclick="deleteDoc('pan')">🗑️</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Bank & Payment Card -->
+        <div class="group-card" id="card-bank">
+          <div class="group-header" onclick="toggleCard('bank')">
+            <div class="group-icon">🏦</div>
+            <div class="group-info">
+              <div class="group-title">Bank Details & Payment</div>
+              <div class="group-status" id="status-bank">0/1 completed</div>
+            </div>
+            <div class="group-arrow">›</div>
+          </div>
+          
+          <div class="doc-list">
+            <!-- Bank Account -->
+            <div class="doc-item" id="item-bank-account">
+              <div class="doc-checkbox" id="check-bank-account" onclick="event.stopPropagation()"></div>
+              <div class="doc-details" onclick="openUpload('bank-account')">
+                <div class="doc-name">
+                  Bank Account
+                  <span class="badge badge-required">Required</span>
+                </div>
+                <div class="doc-desc">To receive payments · tap to add</div>
+              </div>
+              <div class="doc-actions" id="actions-bank-account" style="display:none">
+                <button class="doc-btn btn-edit" onclick="openUpload('bank-account')">✏️</button>
+                <button class="doc-btn btn-delete" onclick="deleteDoc('bank-account')">🗑️</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Business Documents Card -->
+        <div class="group-card" id="card-business">
+          <div class="group-header" onclick="toggleCard('business')">
+            <div class="group-icon">📋</div>
+            <div class="group-info">
+              <div class="group-title">Business Documents</div>
+              <div class="group-status" id="status-business">0/2 completed</div>
+            </div>
+            <div class="group-arrow">›</div>
+          </div>
+          
+          <div class="doc-list">
+            <!-- FSSAI -->
+            <div class="doc-item" id="item-fssai">
+              <div class="doc-checkbox" id="check-fssai" onclick="event.stopPropagation()"></div>
+              <div class="doc-details" onclick="openUpload('fssai')">
+                <div class="doc-name">
+                  FSSAI License
+                  <span class="badge badge-required">Food vendors</span>
+                </div>
+                <div class="doc-desc">For tiffin service · tap to upload</div>
+              </div>
+              <div class="doc-actions" id="actions-fssai" style="display:none">
+                <button class="doc-btn btn-edit" onclick="openUpload('fssai')">✏️</button>
+                <button class="doc-btn btn-delete" onclick="deleteDoc('fssai')">🗑️</button>
+              </div>
+            </div>
+            
+            <!-- GST -->
+            <div class="doc-item" id="item-gst">
+              <div class="doc-checkbox" id="check-gst" onclick="event.stopPropagation()"></div>
+              <div class="doc-details" onclick="openUpload('gst')">
+                <div class="doc-name">
+                  GST Certificate
+                  <span class="badge badge-optional">Optional</span>
+                </div>
+                <div class="doc-desc">If turnover > ₹20L · tap to upload</div>
+              </div>
+              <div class="doc-actions" id="actions-gst" style="display:none">
+                <button class="doc-btn btn-edit" onclick="openUpload('gst')">✏️</button>
+                <button class="doc-btn btn-delete" onclick="deleteDoc('gst')">🗑️</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="info-box">
+          <strong>💡 Why verify identity?</strong>
+          Payment features unlock after KYC approval. All docs are encrypted & secure.
+        </div>
+
+        <button class="btn btn-primary" onclick="submitKYC()">
+          Submit & Register Shop
+        </button>
+
+        <button class="btn-skip" onclick="skipKYC()">
+          Skip for now →
+        </button>
+      </div>
+    </div>
+
+    <!-- ═══ SCREEN 2: UPLOAD ═══ -->
+    <div class="screen" id="screen-upload">
+      <div class="header">
+        <button class="header-back" onclick="goBack()">←</button>
+        
+        <div class="header-title" id="upload-doc-title">Upload Document</div>
+        <div class="header-subtitle" id="upload-doc-subtitle">Quick & secure</div>
+      </div>
+      
+      <div class="content">
+        <label class="upload-zone" for="file-input">
+          <div class="upload-icon" id="upload-icon">📁</div>
+          <div class="upload-title">Tap to choose file</div>
+          <div class="upload-hint">JPG, PNG or PDF • Max 5MB</div>
+        </label>
+        <input type="file" id="file-input" accept="image/*,.pdf" onchange="handleFile(event)">
+
+        <div id="file-preview" style="display:none">
+          <div class="preview">
+            <div class="preview-thumb">📄</div>
+            <div class="preview-info">
+              <div class="preview-name" id="file-name"></div>
+              <div class="preview-size" id="file-size"></div>
+            </div>
+            <button class="preview-remove" onclick="removeFile()">×</button>
+          </div>
+        </div>
+
+        <button class="btn btn-primary" id="btn-upload" disabled onclick="uploadFile()">
+          Save & Continue
+        </button>
+
+        <button class="btn-skip" onclick="goBack()">
+          I'll do it later →
+        </button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+let currentScreen = 'screen-main';
+let currentDoc = '';
+let docState = {
+  aadhaar: false,
+  pan: false,
+  'bank-account': false,
+  fssai: false,
+  gst: false
+};
+
+const docInfo = {
+  aadhaar: {title: 'Aadhaar Card', subtitle: 'ID proof for verification', icon: '🪪'},
+  pan: {title: 'PAN Card', subtitle: 'Tax compliance', icon: '💳'},
+  'bank-account': {title: 'Bank Account', subtitle: 'Payment details', icon: '🏦'},
+  fssai: {title: 'FSSAI License', subtitle: 'Food safety certificate', icon: '🍽️'},
+  gst: {title: 'GST Certificate', subtitle: 'Business registration', icon: '🏛️'}
+};
+
+function goToScreen(id) {
+  document.getElementById(currentScreen).classList.remove('active');
+  document.getElementById(id).classList.add('active');
+  currentScreen = id;
+}
+
+function goBack() {
+  goToScreen('screen-main');
+}
+
+function toggleCard(cardId) {
+  const card = document.getElementById(`card-${cardId}`);
+  card.classList.toggle('expanded');
+}
+
+function openUpload(docType) {
+  currentDoc = docType;
+  const info = docInfo[docType];
+  
+  document.getElementById('upload-doc-title').textContent = info.title;
+  document.getElementById('upload-doc-subtitle').textContent = info.subtitle;
+  document.getElementById('upload-icon').textContent = info.icon;
+  
+  goToScreen('screen-upload');
+}
+
+function handleFile(e) {
+  const file = e.target.files[0];
+  if (!file) return;
+  
+  document.getElementById('file-preview').style.display = 'block';
+  document.getElementById('file-name').textContent = file.name;
+  document.getElementById('file-size').textContent = formatSize(file.size);
+  document.getElementById('btn-upload').disabled = false;
+}
+
+function removeFile() {
+  document.getElementById('file-input').value = '';
+  document.getElementById('file-preview').style.display = 'none';
+  document.getElementById('btn-upload').disabled = true;
+}
+
+function formatSize(bytes) {
+  if (bytes < 1024) return bytes + ' B';
+  if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' KB';
+  return (bytes / (1024 * 1024)).toFixed(1) + ' MB';
+}
+
+function uploadFile() {
+  docState[currentDoc] = true;
+  updateUI();
+  goBack();
+  
+  // Reset upload form
+  setTimeout(() => {
+    removeFile();
+  }, 300);
+}
+
+function deleteDoc(docType) {
+  if (confirm('Delete this document?')) {
+    docState[docType] = false;
+    updateUI();
+  }
+}
+
+function updateUI() {
+  // Update all docs
+  Object.keys(docState).forEach(key => {
+    const item = document.getElementById(`item-${key}`);
+    const checkbox = document.getElementById(`check-${key}`);
+    const desc = item.querySelector('.doc-desc');
+    const actions = document.getElementById(`actions-${key}`);
+    
+    if (docState[key]) {
+      item.classList.add('uploaded');
+      checkbox.classList.add('checked');
+      checkbox.textContent = '✓';
+      desc.textContent = 'Uploaded ✓';
+      actions.style.display = 'flex';
+    } else {
+      item.classList.remove('uploaded');
+      checkbox.classList.remove('checked');
+      checkbox.textContent = '';
+      desc.textContent = 'Tap to upload';
+      actions.style.display = 'none';
+    }
+  });
+  
+  // Update group statuses
+  const identityCount = [docState.aadhaar, docState.pan].filter(Boolean).length;
+  document.getElementById('status-identity').textContent = `${identityCount}/2 completed`;
+  
+  const bankCount = [docState['bank-account']].filter(Boolean).length;
+  document.getElementById('status-bank').textContent = `${bankCount}/1 completed`;
+  
+  const businessCount = [docState.fssai, docState.gst].filter(Boolean).length;
+  document.getElementById('status-business').textContent = `${businessCount}/2 completed`;
+}
+
+function submitKYC() {
+  const total = Object.values(docState).filter(Boolean).length;
+  if (total === 0) {
+    alert('Please upload at least one document');
+    return;
+  }
+  alert(`Submitted! ${total} documents uploaded.`);
+}
+
+function skipKYC() {
+  if (confirm('Skip KYC for now? You can complete it later from your profile.')) {
+    alert('Skipped. Redirecting to next step...');
+  }
+}
+
+// Init
+updateUI();
+</script>
+
+</body>
+</html>
