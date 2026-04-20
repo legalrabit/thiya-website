@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Thiya Theme — Consumer · Dark Deep-Space</title>
+<meta name="robots" content="noindex, nofollow">
+<style id="auth-veil">body{visibility:hidden;background:#07080F}</style>
+</head>
+<body style="background:#07080F;margin:0;min-height:100vh;display:flex;justify-content:center;align-items:flex-start;padding:20px">
+<div style="width:100%;max-width:440px">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@700;600;400&family=Outfit:wght@400;500;600&family=DM+Mono:wght@400&display=swap');
+*{margin:0;padding:0;box-sizing:border-box}
+.phone{width:100%;min-height:640px;background:#07080F;border-radius:28px;overflow:hidden;font-family:'Outfit',sans-serif;position:relative}
+
+/* deep space stars */
+.stars{position:absolute;inset:0;z-index:0;overflow:hidden}
+.star{position:absolute;border-radius:50%;background:#fff;animation:twinkle var(--d) ease-in-out infinite}
+@keyframes twinkle{0%,100%{opacity:var(--o);transform:scale(1)}50%{opacity:calc(var(--o)*0.3);transform:scale(0.8)}}
+
+/* nebula glows */
+.neb1{position:absolute;top:-80px;right:-60px;width:280px;height:280px;border-radius:50%;background:radial-gradient(circle,rgba(99,102,241,0.16) 0%,rgba(139,92,246,0.08) 40%,transparent 70%);z-index:0;pointer-events:none}
+.neb2{position:absolute;bottom:60px;left:-60px;width:220px;height:220px;border-radius:50%;background:radial-gradient(circle,rgba(56,189,248,0.08) 0%,transparent 65%);z-index:0;pointer-events:none}
+.neb3{position:absolute;top:200px;right:-40px;width:180px;height:180px;border-radius:50%;background:radial-gradient(circle,rgba(139,92,246,0.07) 0%,transparent 65%);z-index:0;pointer-events:none}
+
+/* aurora top */
+.aurora-top{position:absolute;top:0;left:0;right:0;height:180px;background:linear-gradient(to bottom,rgba(99,102,241,0.08) 0%,transparent 100%);z-index:0;pointer-events:none}
+
+.topbar{height:2px;background:linear-gradient(90deg,transparent,#818cf8,#c084fc,#818cf8,transparent);position:relative;z-index:3}
+
+.header{display:flex;align-items:center;justify-content:space-between;padding:14px 18px 10px;position:relative;z-index:2}
+
+/* AI orb chip */
+.orb-chip{display:flex;align-items:center;gap:6px;background:rgba(129,140,248,0.1);border:1px solid rgba(129,140,248,0.2);border-radius:99px;padding:4px 10px;font-size:8px;color:#818cf8;letter-spacing:1.5px;font-family:'DM Mono',monospace}
+.orb{width:6px;height:6px;border-radius:50%;background:linear-gradient(135deg,#818cf8,#c084fc);animation:orbanim 2s ease-in-out infinite;box-shadow:0 0 6px rgba(129,140,248,0.6)}
+@keyframes orbanim{0%,100%{transform:scale(1);box-shadow:0 0 6px rgba(129,140,248,0.6)}50%{transform:scale(1.3);box-shadow:0 0 12px rgba(129,140,248,0.8)}}
+
+/* hero */
+.hero{margin:8px 16px;border-radius:22px;padding:18px;background:rgba(255,255,255,0.04);border:1px solid rgba(129,140,248,0.18);position:relative;z-index:2;overflow:hidden;box-shadow:0 8px 40px rgba(0,0,0,0.4),inset 0 1px 0 rgba(129,140,248,0.1)}
+.hero::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(192,132,252,0.4),rgba(129,140,248,0.4),transparent)}
+
+/* greeting */
+.greet{font-size:11px;color:rgba(129,140,248,0.6);letter-spacing:3px;text-transform:uppercase;margin-bottom:8px;font-family:'DM Mono',monospace}
+.greet-name{font-size:26px;font-weight:700;color:#fff;font-family:'Sora',sans-serif;line-height:1.1;margin-bottom:4px}
+.greet-sub{font-size:12px;color:rgba(255,255,255,0.3);margin-bottom:16px}
+
+.sc3{flex:1;background:rgba(255,255,255,0.04);border:1px solid rgba(129,140,248,0.1);border-radius:10px;padding:9px 10px}
+.sc3-v{font-size:15px;font-weight:700;color:#fff;font-family:'Sora',sans-serif}
+.sc3-l{font-size:8px;color:rgba(255,255,255,0.25);margin-top:1px}
+
+/* AI strip */
+.ai-strip{margin:0 16px 8px;border-radius:12px;padding:11px 14px;background:rgba(99,102,241,0.06);border:1px solid rgba(99,102,241,0.15);display:flex;align-items:center;gap:10px;position:relative;z-index:2}
+.ai-wave{display:flex;align-items:center;gap:2px;flex-shrink:0}
+.aw{width:2px;border-radius:99px;background:#818cf8;animation:awv 1s ease-in-out infinite}
+.aw:nth-child(1){height:5px;animation-delay:0s}
+.aw:nth-child(2){height:10px;animation-delay:0.12s}
+.aw:nth-child(3){height:6px;animation-delay:0.24s}
+.aw:nth-child(4){height:12px;animation-delay:0.08s}
+.aw:nth-child(5){height:5px;animation-delay:0.18s}
+@keyframes awv{0%,100%{transform:scaleY(0.4);opacity:0.4}50%{transform:scaleY(1);opacity:1}}
+
+.sec{font-size:9px;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,0.15);padding:12px 18px 8px;position:relative;z-index:2;font-family:'DM Mono',monospace}
+
+/* service cards */
+.cards-row{display:flex;gap:10px;padding:0 16px;overflow-x:auto;scrollbar-width:none;position:relative;z-index:2}
+.svc{flex-shrink:0;width:106px;border-radius:16px;padding:14px 12px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.06);position:relative}
+.svc.active{background:rgba(99,102,241,0.08);border-color:rgba(129,140,248,0.25)}
+.svc-badge{font-size:8px;background:rgba(129,140,248,0.15);color:#818cf8;padding:2px 6px;border-radius:5px;display:inline-block;margin-bottom:6px;font-weight:600;border:1px solid rgba(129,140,248,0.2)}
+
+/* order list */
+.olist{padding:0 16px;display:flex;flex-direction:column;gap:7px;position:relative;z-index:2;margin-bottom:8px}
+.oi2{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.05);border-radius:14px;padding:11px 14px;display:flex;align-items:center;gap:12px}
+.oi2.act{background:rgba(99,102,241,0.06);border-color:rgba(129,140,248,0.15)}
+.od2{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+.od2.g{background:#22c55e;box-shadow:0 0 6px rgba(34,197,94,0.5)}
+.od2.p{background:#818cf8;box-shadow:0 0 8px rgba(129,140,248,0.5)}
+
+/* bottom nav */
+.bnav{margin:0 16px 16px;border-radius:14px;padding:10px 20px;background:rgba(255,255,255,0.04);border:1px solid rgba(129,140,248,0.1);display:flex;justify-content:space-around;position:relative;z-index:2}
+.ni{display:flex;flex-direction:column;align-items:center;gap:3px;opacity:0.25}
+.ni.on{opacity:1}
+.ni-l{font-size:8px;color:rgba(255,255,255,0.3)}
+.ni.on .ni-l{color:#818cf8}
+
+@keyframes vb-sm{0%,100%{transform:translate(0,0)}15%{transform:translate(-1px,0.8px)}30%{transform:translate(0,1.6px)}45%{transform:translate(1px,0.8px)}60%{transform:translate(0,0)}}
+@keyframes sl{0%,100%{transform:rotate(0)}25%{transform:rotate(-14deg)}75%{transform:rotate(14deg)}}
+@keyframes sr{0%,100%{transform:rotate(0)}25%{transform:rotate(14deg)}75%{transform:rotate(-14deg)}}
+</style>
+
+<div class="phone" id="p">
+  <div class="stars" id="stars"></div>
+  <div class="neb1"></div><div class="neb2"></div><div class="neb3"></div>
+  <div class="aurora-top"></div>
+  <div class="topbar"></div>
+
+  <div class="header">
+    <div>
+      <div style="font-size:9px;color:rgba(129,140,248,0.4);letter-spacing:2px;font-family:'DM Mono',monospace;margin-bottom:3px">GOOD MORNING · 8:24 AM</div>
+      <div style="font-size:15px;font-weight:600;color:#fff;font-family:'Sora',sans-serif">Abhash 👋</div>
+    </div>
+    <div style="display:flex;align-items:center;gap:8px">
+      <div class="orb-chip"><div class="orb"></div>THIYA AI</div>
+      <svg width="58" height="18" viewBox="0 0 58 18" fill="none">
+        <text x="1" y="14" font-family="'Sora',sans-serif" font-weight="700" font-size="13" fill="#fff" letter-spacing="-0.6">th</text>
+        <g transform="translate(18,0)">
+          <path d="M0,5.8 L2.6,5.8 L2.6,9.3 L1.3,11.9 L0,9.3 Z" fill="#818cf8"/>
+          <g style="animation:sl 1.2s ease-in-out infinite;transform-origin:0.4px 11.9px"><line x1="0.4" y1="11.9" x2="0" y2="14.5" stroke="#818cf8" stroke-width="0.75" stroke-linecap="round"/></g>
+          <g style="animation:sr 1.2s ease-in-out infinite;transform-origin:2.2px 11.9px"><line x1="2.2" y1="11.9" x2="2.6" y2="14.5" stroke="#818cf8" stroke-width="0.75" stroke-linecap="round"/></g>
+          <g style="animation:vb-sm 3s ease-in-out infinite"><circle cx="1.3" cy="3.1" r="1.8" fill="#818cf8"/><circle cx="0.65" cy="2.7" r="0.33" fill="#fff"/><circle cx="1.95" cy="2.7" r="0.33" fill="#fff"/></g>
+        </g>
+        <text x="23" y="14" font-family="'Sora',sans-serif" font-weight="700" font-size="13" fill="#fff" letter-spacing="-0.6">ya</text>
+      </svg>
+    </div>
+  </div>
+
+  <div class="hero">
+    <div class="greet">Today's Universe</div>
+    <div class="greet-name">3 deliveries<br><span style="color:#818cf8">in orbit ✦</span></div>
+    <div class="greet-sub">All services aligned · on time</div>
+    <div style="display:flex;gap:10px">
+      <div class="sc3"><div class="sc3-v">₹2.4K</div><div class="sc3-l">This Week</div></div>
+      <div class="sc3"><div class="sc3-v">12</div><div class="sc3-l">Active</div></div>
+      <div class="sc3"><div class="sc3-v" style="color:#818cf8">4.9★</div><div class="sc3-l">Rating</div></div>
+    </div>
+  </div>
+
+  <div class="ai-strip">
+    <div class="ai-wave"><div class="aw"></div><div class="aw"></div><div class="aw"></div><div class="aw"></div><div class="aw"></div></div>
+    <div style="flex:1;font-size:11px;color:rgba(255,255,255,0.35);line-height:1.4"><span style="color:#818cf8">Thiya AI:</span> Your milk arrives in 8 min. Tiffin on track for 12:30 PM. Vacation mode available.</div>
+  </div>
+
+  <div class="sec">Your Services</div>
+  <div class="cards-row">
+    <div class="svc active"><div class="svc-badge">LIVE</div><div style="font-size:22px;margin-bottom:6px">🥛</div><div style="font-size:12px;font-weight:500;color:#fff">Milk</div><div style="font-size:10px;color:rgba(255,255,255,0.3);margin-top:2px">Daily 6AM</div></div>
+    <div class="svc"><div style="font-size:22px;margin-bottom:6px">🍱</div><div style="font-size:12px;font-weight:500;color:#fff">Tiffin</div><div style="font-size:10px;color:rgba(255,255,255,0.3);margin-top:2px">Lunch+Dinner</div></div>
+    <div class="svc"><div style="font-size:22px;margin-bottom:6px">💧</div><div style="font-size:12px;font-weight:500;color:#fff">Water</div><div style="font-size:10px;color:rgba(255,255,255,0.3);margin-top:2px">20L Cans</div></div>
+    <div class="svc"><div style="font-size:22px;margin-bottom:6px">👕</div><div style="font-size:12px;font-weight:500;color:#fff">Laundry</div><div style="font-size:10px;color:rgba(255,255,255,0.3);margin-top:2px">Pick & Drop</div></div>
+  </div>
+
+  <div class="sec">Recent Activity</div>
+  <div class="olist">
+    <div class="oi2"><div class="od2 g"></div><div style="flex:1"><div style="font-size:13px;color:#fff;font-weight:500">Morning Milk</div><div style="font-size:11px;color:rgba(255,255,255,0.25);margin-top:1px">Delivered · 6:32 AM</div></div><div style="font-size:13px;color:rgba(255,255,255,0.5);font-weight:600">₹45</div></div>
+    <div class="oi2 act"><div class="od2 p"></div><div style="flex:1"><div style="font-size:13px;color:#fff;font-weight:500">Lunch Tiffin</div><div style="font-size:11px;color:#818cf8;margin-top:1px">On the way · 12:15 PM</div></div><div style="font-size:13px;color:#fff;font-weight:600">₹120</div></div>
+  </div>
+
+  <div class="bnav">
+    <div class="ni on"><div style="font-size:16px">⌂</div><div class="ni-l" style="color:#818cf8">Home</div></div>
+    <div class="ni"><div style="font-size:16px">◫</div><div class="ni-l">Orders</div></div>
+    <div class="ni"><div style="font-size:16px">◎</div><div class="ni-l">Discover</div></div>
+    <div class="ni"><div style="font-size:16px">◈</div><div class="ni-l">Account</div></div>
+  </div>
+</div>
+
+<script>
+const s=document.getElementById('stars');
+for(let i=0;i<55;i++){
+  const d=document.createElement('div');
+  d.className='star';
+  const size=Math.random()*2+0.5;
+  const opacity=Math.random()*0.6+0.1;
+  d.style.cssText=`width:${size}px;height:${size}px;left:${Math.random()*100}%;top:${Math.random()*100}%;--d:${(Math.random()*3+2).toFixed(1)}s;--o:${opacity.toFixed(2)};animation-delay:${(Math.random()*4).toFixed(1)}s`;
+  s.appendChild(d);
+}
+</script>
+
+</div>
+<script>
+(function() {
+  var veil = document.getElementById('auth-veil');
+  if (sessionStorage.getItem('thiya_dev_session') === '1') {
+    veil.remove();
+  } else {
+    veil.textContent = 'body{margin:0;background:#07080F;font-family:sans-serif}';
+    document.addEventListener('DOMContentLoaded', function() {
+      document.body.innerHTML =
+        '<div style="min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:28px;padding:24px;text-align:center;width:100%">' +
+          '<div>' +
+            '<div style="width:52px;height:52px;background:#FF6B35;border-radius:12px;display:inline-flex;align-items:center;justify-content:center;font-weight:700;font-size:20px;color:#fff;margin-bottom:20px">th</div>' +
+            '<h2 style="color:#fff;font-size:22px;font-weight:700;margin-bottom:10px">Restricted Access</h2>' +
+            '<p style="color:#aaa;font-size:14px;line-height:1.7;max-width:300px">This resource is only accessible through the Thiya Developer Portal.</p>' +
+          '</div>' +
+          '<a href="developer.html" style="display:inline-block;background:#FF6B35;color:#fff;text-decoration:none;padding:13px 28px;border-radius:8px;font-size:14px;font-weight:600">Go to Developer Portal &rarr;</a>' +
+        '</div>';
+    });
+  }
+})();
+</script>
+</body>
+</html>

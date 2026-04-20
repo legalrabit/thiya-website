@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Thiya Theme — Vendor AI · Warm Aurora</title>
+<meta name="robots" content="noindex, nofollow">
+<style id="auth-veil">body{visibility:hidden;background:#12100E}</style>
+</head>
+<body style="background:#12100E;margin:0;min-height:100vh;display:flex;justify-content:center;align-items:flex-start;padding:20px">
+<div style="width:100%;max-width:440px">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@700;600;400&family=Outfit:wght@400;500;600&family=DM+Mono:wght@400&display=swap');
+*{margin:0;padding:0;box-sizing:border-box}
+
+.phone{
+  width:100%;min-height:640px;
+  background:#12100E;
+  border-radius:28px;overflow:hidden;
+  font-family:'Outfit',sans-serif;
+  position:relative;
+}
+
+/* warm aurora bg */
+.aurora{
+  position:absolute;inset:0;z-index:0;
+  background:
+    radial-gradient(ellipse 200px 120px at 80% 10%, rgba(255,107,53,0.1) 0%,transparent 70%),
+    radial-gradient(ellipse 160px 100px at 20% 40%, rgba(255,180,60,0.06) 0%,transparent 65%),
+    radial-gradient(ellipse 180px 120px at 60% 80%, rgba(255,107,53,0.05) 0%,transparent 70%)
+}
+
+/* horizontal scan lines — subtle futuristic -->*/
+.scanlines{
+  position:absolute;inset:0;z-index:0;
+  background:repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 3px,
+    rgba(255,107,53,0.012) 3px,
+    rgba(255,107,53,0.012) 4px
+  );
+  pointer-events:none
+}
+
+.topbar{height:2px;background:linear-gradient(90deg,transparent,#FF6B35,#FFB347,#FF6B35,transparent);position:relative;z-index:3}
+
+.header{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:14px 18px 10px;position:relative;z-index:2
+}
+
+/* temp/weather strip — vendor real world context -->*/
+.context-strip{
+  margin:0 16px 8px;padding:8px 14px;
+  background:rgba(255,255,255,0.03);
+  border:1px solid rgba(255,255,255,0.05);
+  border-radius:10px;
+  display:flex;align-items:center;justify-content:space-between;
+  position:relative;z-index:2
+}
+.cs-item{display:flex;align-items:center;gap:5px;font-size:10px;color:rgba(255,255,255,0.35);font-family:'DM Mono',monospace}
+.cs-item strong{color:rgba(255,255,255,0.7);font-weight:400}
+.cs-divider{width:1px;height:14px;background:rgba(255,255,255,0.08)}
+
+/* big hero card — warm glass -->*/
+.hero{
+  margin:0 16px 8px;border-radius:20px;padding:18px;
+  background:rgba(255,255,255,0.05);
+  border:1px solid rgba(255,150,60,0.18);
+  position:relative;z-index:2;overflow:hidden;
+  box-shadow:inset 0 1px 0 rgba(255,200,100,0.08), 0 8px 32px rgba(0,0,0,0.3)
+}
+.hero::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(255,180,60,0.3),transparent)
+}
+
+/* sunrise meter — unique to dawn mode -->*/
+.sunrise-bar{
+  display:flex;align-items:center;gap:8px;margin-bottom:14px
+}
+.sr-track{flex:1;height:3px;background:rgba(255,255,255,0.06);border-radius:99px;overflow:hidden}
+.sr-fill{height:100%;border-radius:99px;background:linear-gradient(90deg,#FF6B35,#FFB347);width:72%}
+.sr-label{font-size:9px;color:rgba(255,180,60,0.6);font-family:'DM Mono',monospace;letter-spacing:1px}
+
+.big-num{font-size:48px;font-weight:700;color:#fff;font-family:'Sora',sans-serif;line-height:1;letter-spacing:-2px}
+.big-sub{font-size:12px;color:rgba(255,255,255,0.3);margin-top:3px}
+
+/* holo stat row -->*/
+.holo-row{display:flex;gap:8px;margin-top:14px}
+.holo-cell{
+  flex:1;border-radius:10px;padding:9px 10px;
+  background:rgba(255,255,255,0.04);
+  border:1px solid rgba(255,255,255,0.06);
+  position:relative;overflow:hidden
+}
+.holo-cell::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(255,180,60,0.2),transparent)}
+.holo-cell.primary::before{background:linear-gradient(90deg,transparent,rgba(255,107,53,0.4),transparent)}
+.hc-val{font-size:15px;font-weight:700;color:#fff;font-family:'Sora',sans-serif}
+.hc-val.amber{color:#FFB347}
+.hc-lbl{font-size:8px;color:rgba(255,255,255,0.25);margin-top:2px;letter-spacing:0.5px}
+
+/* AI voice strip -->*/
+.voice-strip{
+  margin:0 16px 8px;border-radius:12px;padding:12px 14px;
+  background:rgba(255,107,53,0.06);
+  border:1px solid rgba(255,107,53,0.14);
+  display:flex;align-items:center;gap:10px;
+  position:relative;z-index:2
+}
+/* audio wave bars -->*/
+.wave-bars{display:flex;align-items:center;gap:2px;flex-shrink:0}
+.wb{width:2.5px;border-radius:99px;background:#FF6B35;animation:wavebar 1s ease-in-out infinite}
+.wb:nth-child(1){height:6px;animation-delay:0s}
+.wb:nth-child(2){height:12px;animation-delay:0.15s}
+.wb:nth-child(3){height:8px;animation-delay:0.3s}
+.wb:nth-child(4){height:14px;animation-delay:0.1s}
+.wb:nth-child(5){height:6px;animation-delay:0.25s}
+.wb:nth-child(6){height:10px;animation-delay:0.05s}
+@keyframes wavebar{0%,100%{transform:scaleY(0.4);opacity:0.5}50%{transform:scaleY(1);opacity:1}}
+
+/* route timeline -->*/
+.sec{font-size:9px;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,0.15);padding:12px 18px 8px;position:relative;z-index:2;font-family:'DM Mono',monospace}
+
+.rtl{padding:0 16px;display:flex;flex-direction:column;gap:0;position:relative;z-index:2;margin-bottom:8px}
+.rtl-item{display:flex;gap:0;position:relative}
+/* vertical line -->*/
+.rtl-item:not(:last-child) .rtl-line{position:absolute;left:22px;top:28px;bottom:-6px;width:1px;background:linear-gradient(to bottom,rgba(255,107,53,0.2),rgba(255,255,255,0.05))}
+.rtl-left{width:44px;flex-shrink:0;display:flex;flex-direction:column;align-items:center;padding-top:10px;gap:0}
+.rtl-dot{width:14px;height:14px;border-radius:50%;flex-shrink:0;position:relative;z-index:1}
+.rtl-dot.done{background:rgba(34,197,94,0.2);border:1.5px solid rgba(34,197,94,0.5)}
+.rtl-dot.done::after{content:'';position:absolute;inset:3px;border-radius:50%;background:#22c55e}
+.rtl-dot.now{background:rgba(255,107,53,0.2);border:1.5px solid rgba(255,107,53,0.6);animation:nowpulse 2s infinite}
+.rtl-dot.now::after{content:'';position:absolute;inset:3px;border-radius:50%;background:#FF6B35}
+@keyframes nowpulse{0%,100%{box-shadow:0 0 0 0 rgba(255,107,53,0.3)}50%{box-shadow:0 0 0 6px rgba(255,107,53,0)}}
+.rtl-dot.next{background:rgba(255,255,255,0.05);border:1.5px solid rgba(255,255,255,0.12)}
+.rtl-time{font-size:8px;color:rgba(255,255,255,0.2);font-family:'DM Mono',monospace;margin-top:4px;text-align:center}
+.rtl-card{flex:1;margin:6px 0 6px 0;border-radius:12px;padding:10px 12px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.05)}
+.rtl-card.now-card{background:rgba(255,107,53,0.06);border-color:rgba(255,107,53,0.2)}
+
+/* bottom nav -->*/
+.bnav{
+  margin:0 16px 16px;border-radius:14px;padding:10px 20px;
+  background:rgba(255,255,255,0.04);
+  border:1px solid rgba(255,255,255,0.06);
+  display:flex;justify-content:space-around;
+  position:relative;z-index:2
+}
+.ni{display:flex;flex-direction:column;align-items:center;gap:3px;opacity:0.25}
+.ni.on{opacity:1}
+.ni-l{font-size:8px;letter-spacing:0.5px;color:rgba(255,255,255,0.4)}
+.ni.on .ni-l{color:#FF6B35}
+
+@keyframes vb-sm{0%,100%{transform:translate(0,0)}15%{transform:translate(-1px,0.8px)}30%{transform:translate(0,1.6px)}45%{transform:translate(1px,0.8px)}60%{transform:translate(0,0)}}
+@keyframes sl{0%,100%{transform:rotate(0)}25%{transform:rotate(-14deg)}75%{transform:rotate(14deg)}}
+@keyframes sr{0%,100%{transform:rotate(0)}25%{transform:rotate(14deg)}75%{transform:rotate(-14deg)}}
+</style>
+
+<div class="phone">
+  <div class="aurora"></div>
+  <div class="scanlines"></div>
+  <div class="topbar"></div>
+
+  <!-- Header -->
+  <div class="header">
+    <div>
+      <div style="font-size:9px;color:rgba(255,180,60,0.4);letter-spacing:2px;font-family:'DM Mono',monospace;margin-bottom:3px">DAWN · 6:48 AM</div>
+      <div style="font-size:15px;font-weight:600;color:#fff;font-family:'Sora',sans-serif">Ramesh Vendor</div>
+    </div>
+    <svg width="58" height="18" viewBox="0 0 58 18" fill="none">
+      <text x="1" y="14" font-family="'Sora',sans-serif" font-weight="700" font-size="13" fill="#fff" letter-spacing="-0.6">th</text>
+      <g transform="translate(18,0)">
+        <path d="M0,5.8 L2.6,5.8 L2.6,9.3 L1.3,11.9 L0,9.3 Z" fill="#FF6B35"/>
+        <g style="animation:sl 1.2s ease-in-out infinite;transform-origin:0.4px 11.9px"><line x1="0.4" y1="11.9" x2="0" y2="14.5" stroke="#FF6B35" stroke-width="0.75" stroke-linecap="round"/></g>
+        <g style="animation:sr 1.2s ease-in-out infinite;transform-origin:2.2px 11.9px"><line x1="2.2" y1="11.9" x2="2.6" y2="14.5" stroke="#FF6B35" stroke-width="0.75" stroke-linecap="round"/></g>
+        <g style="animation:vb-sm 3s ease-in-out infinite"><circle cx="1.3" cy="3.1" r="1.8" fill="#FF6B35"/><circle cx="0.65" cy="2.7" r="0.33" fill="#fff"/><circle cx="1.95" cy="2.7" r="0.33" fill="#fff"/></g>
+      </g>
+      <text x="23" y="14" font-family="'Sora',sans-serif" font-weight="700" font-size="13" fill="#fff" letter-spacing="-0.6">ya</text>
+    </svg>
+  </div>
+
+  <!-- Context strip -->
+  <div class="context-strip">
+    <div class="cs-item">🌤 <strong>28°C</strong> Pune</div>
+    <div class="cs-divider"></div>
+    <div class="cs-item">📍 Wakad, <strong>Route B</strong></div>
+    <div class="cs-divider"></div>
+    <div class="cs-item">⚡ <strong>AI</strong> optimized</div>
+  </div>
+
+  <!-- Hero -->
+  <div class="hero">
+    <div class="sunrise-bar">
+      <div class="sr-label">🌅 DAY PROGRESS</div>
+      <div class="sr-track"><div class="sr-fill"></div></div>
+      <div class="sr-label">72%</div>
+    </div>
+    <div style="display:flex;align-items:flex-end;justify-content:space-between">
+      <div>
+        <div class="big-num">39</div>
+        <div style="font-size:15px;color:rgba(255,255,255,0.25);font-family:'Sora',sans-serif;margin-top:-4px">/ 42 deliveries</div>
+        <div class="big-sub">3 remaining · est. 35 min</div>
+      </div>
+      <svg width="64" height="64" viewBox="0 0 64 64">
+        <circle cx="32" cy="32" r="26" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="4"/>
+        <circle cx="32" cy="32" r="26" fill="none" stroke="url(#og)" stroke-width="4"
+          stroke-dasharray="163.4" stroke-dashoffset="22" stroke-linecap="round"
+          transform="rotate(-90 32 32)"/>
+        <defs><linearGradient id="og" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#FF6B35"/><stop offset="100%" stop-color="#FFB347"/></linearGradient></defs>
+        <text x="32" y="30" text-anchor="middle" font-size="10" fill="rgba(255,255,255,0.5)" font-family="'DM Mono',monospace">done</text>
+        <text x="32" y="42" text-anchor="middle" font-size="12" font-weight="700" fill="#FFB347" font-family="'Sora',sans-serif">93%</text>
+      </svg>
+    </div>
+    <div class="holo-row">
+      <div class="holo-cell primary"><div class="hc-val amber">₹4.2K</div><div class="hc-lbl">Collected</div></div>
+      <div class="holo-cell"><div class="hc-val">₹680</div><div class="hc-lbl">Pending</div></div>
+      <div class="holo-cell"><div class="hc-val">4.9★</div><div class="hc-lbl">Rating</div></div>
+    </div>
+  </div>
+
+  <!-- Voice AI strip -->
+  <div class="voice-strip">
+    <div class="wave-bars">
+      <div class="wb"></div><div class="wb"></div><div class="wb"></div>
+      <div class="wb"></div><div class="wb"></div><div class="wb"></div>
+    </div>
+    <div style="flex:1;font-size:11px;color:rgba(255,255,255,0.4);line-height:1.4">
+      <span style="color:#FFB347">Thiya:</span> Amit K. is home. Sunita prefers 7:15 AM. You're 12 min ahead of schedule.
+    </div>
+  </div>
+
+  <div class="sec">Live Route</div>
+  <div class="rtl">
+    <div class="rtl-item">
+      <div class="rtl-line"></div>
+      <div class="rtl-left">
+        <div class="rtl-dot done"></div>
+        <div class="rtl-time">6:30</div>
+      </div>
+      <div class="rtl-card">
+        <div style="display:flex;justify-content:space-between;align-items:center">
+          <div style="font-size:13px;color:rgba(255,255,255,0.7);font-weight:500">Rajesh S. · 2 items</div>
+          <div style="font-size:10px;color:#22c55e;font-family:'DM Mono',monospace">✓ done</div>
+        </div>
+      </div>
+    </div>
+    <div class="rtl-item">
+      <div class="rtl-line"></div>
+      <div class="rtl-left">
+        <div class="rtl-dot now"></div>
+        <div class="rtl-time" style="color:rgba(255,107,53,0.6)">NOW</div>
+      </div>
+      <div class="rtl-card now-card">
+        <div style="display:flex;justify-content:space-between;align-items:center">
+          <div style="font-size:13px;color:#fff;font-weight:600">Amit K. · 3 items</div>
+          <div style="font-size:10px;background:#FF6B35;color:#fff;padding:3px 8px;border-radius:6px;font-weight:600">Go →</div>
+        </div>
+        <div style="font-size:10px;color:rgba(255,107,53,0.6);margin-top:3px;font-family:'DM Mono',monospace">B-204 WAKAD · 0.4 KM</div>
+      </div>
+    </div>
+    <div class="rtl-item">
+      <div class="rtl-left">
+        <div class="rtl-dot next"></div>
+        <div class="rtl-time">7:15</div>
+      </div>
+      <div class="rtl-card">
+        <div style="display:flex;justify-content:space-between;align-items:center">
+          <div style="font-size:13px;color:rgba(255,255,255,0.5);font-weight:500">Sunita K. · 1 item</div>
+          <div style="font-size:10px;color:rgba(255,255,255,0.2);font-family:'DM Mono',monospace">0.8 km</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="bnav">
+    <div class="ni on"><div style="font-size:16px">⌂</div><div class="ni-l" style="color:#FF6B35">Home</div></div>
+    <div class="ni"><div style="font-size:16px">◫</div><div class="ni-l">Orders</div></div>
+    <div class="ni"><div style="font-size:16px">◎</div><div class="ni-l">Customers</div></div>
+    <div class="ni"><div style="font-size:16px">◈</div><div class="ni-l">Account</div></div>
+  </div>
+</div>
+
+</div>
+<script>
+(function() {
+  var veil = document.getElementById('auth-veil');
+  if (sessionStorage.getItem('thiya_dev_session') === '1') {
+    veil.remove();
+  } else {
+    veil.textContent = 'body{margin:0;background:#12100E;font-family:sans-serif}';
+    document.addEventListener('DOMContentLoaded', function() {
+      document.body.innerHTML =
+        '<div style="min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:28px;padding:24px;text-align:center;width:100%">' +
+          '<div>' +
+            '<div style="width:52px;height:52px;background:#FF6B35;border-radius:12px;display:inline-flex;align-items:center;justify-content:center;font-weight:700;font-size:20px;color:#fff;margin-bottom:20px">th</div>' +
+            '<h2 style="color:#fff;font-size:22px;font-weight:700;margin-bottom:10px">Restricted Access</h2>' +
+            '<p style="color:#aaa;font-size:14px;line-height:1.7;max-width:300px">This resource is only accessible through the Thiya Developer Portal.</p>' +
+          '</div>' +
+          '<a href="developer.html" style="display:inline-block;background:#FF6B35;color:#fff;text-decoration:none;padding:13px 28px;border-radius:8px;font-size:14px;font-weight:600">Go to Developer Portal &rarr;</a>' +
+        '</div>';
+    });
+  }
+})();
+</script>
+</body>
+</html>

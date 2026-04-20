@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Thiya Theme — Vendor · Dawn (iPhone)</title>
+<meta name="robots" content="noindex, nofollow">
+<style id="auth-veil">body{visibility:hidden;background:#1a1a1a}</style>
+</head>
+<body style="background:#1a1a1a;margin:0;min-height:100vh;display:flex;justify-content:center;align-items:flex-start;padding:20px">
+<div style="width:100%;max-width:440px">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@700;600&family=Outfit:wght@400;500;600&family=DM+Mono:wght@400&display=swap');
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#1a1a1a;display:flex;justify-content:center;padding:16px;font-family:'Outfit',sans-serif}
+
+.frame{
+  width:393px;
+  background:#12100E;
+  border-radius:47px;
+  overflow:hidden;
+  position:relative;
+  box-shadow:0 0 0 1px #2a2a2a, 0 32px 80px rgba(0,0,0,0.8);
+}
+
+/* status bar */
+.sbar{height:54px;display:flex;align-items:flex-end;justify-content:space-between;padding:0 28px 8px;position:relative;z-index:10}
+.sbar-time{font-size:15px;font-weight:600;color:#fff;font-family:'Sora',sans-serif}
+.sbar-icons{display:flex;align-items:center;gap:6px}
+
+/* dynamic island */
+.island{position:absolute;top:12px;left:50%;transform:translateX(-50%);width:126px;height:37px;background:#000;border-radius:20px;z-index:20}
+
+/* top accent */
+.topbar{height:2px;background:linear-gradient(90deg,transparent,#FF6B35,#FFB347,#FF6B35,transparent)}
+
+.hdr{display:flex;align-items:center;justify-content:space-between;padding:16px 24px 12px;position:relative;z-index:2}
+.hdr-time{font-size:10px;letter-spacing:2px;color:rgba(255,180,60,0.45);font-family:'DM Mono',monospace;margin-bottom:3px}
+.hdr-name{font-size:18px;font-weight:600;color:#fff;font-family:'Sora',sans-serif}
+
+.live-chip{display:flex;align-items:center;gap:5px;background:rgba(255,107,53,0.1);border:1px solid rgba(255,107,53,0.2);border-radius:99px;padding:5px 10px;font-size:9px;color:#FF6B35;letter-spacing:1.5px;font-family:'DM Mono',monospace}
+.live-dot{width:6px;height:6px;border-radius:50%;background:#FF6B35;animation:lp 1.5s ease-in-out infinite}
+@keyframes lp{0%,100%{opacity:1}50%{opacity:0.35}}
+
+.logo-svg{display:block}
+
+/* hero */
+.hero{margin:0 20px 12px;border-radius:20px;padding:20px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,150,60,0.14);position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(255,150,60,0.3),transparent)}
+.hero-tag{font-size:9px;letter-spacing:2.5px;color:rgba(255,180,60,0.45);text-transform:uppercase;font-family:'DM Mono',monospace;margin-bottom:8px}
+.hero-num{font-size:48px;font-weight:700;color:#fff;font-family:'Sora',sans-serif;line-height:1;letter-spacing:-2px}
+.hero-num span{font-size:20px;color:rgba(255,255,255,0.28);font-weight:400;letter-spacing:0}
+.hero-sub{font-size:12px;color:rgba(255,255,255,0.32);margin-top:4px;margin-bottom:18px}
+
+.srow{display:flex;gap:8px;margin-top:0}
+.sc{flex:1;border-radius:10px;padding:10px 12px}
+.sc-v{font-size:16px;font-weight:700;font-family:'Sora',sans-serif}
+.sc-l{font-size:9px;margin-top:2px;letter-spacing:0.3px}
+
+/* day bar */
+.daybar{display:flex;align-items:center;gap:10px;margin-bottom:18px}
+.dbt{flex:1;height:3px;background:rgba(255,255,255,0.06);border-radius:99px;overflow:hidden}
+.dbf{height:100%;background:linear-gradient(90deg,#FF6B35,#FFB347);border-radius:99px;width:72%}
+.dbl{font-size:9px;color:rgba(255,180,60,0.4);font-family:'DM Mono',monospace;letter-spacing:1px;white-space:nowrap}
+
+/* ring */
+.ring-wrap{position:relative;flex-shrink:0}
+
+/* divider */
+.div{height:1px;background:rgba(255,255,255,0.04);margin:0 20px}
+
+.sec{font-size:9px;letter-spacing:3px;color:rgba(255,255,255,0.16);padding:14px 24px 8px;font-family:'DM Mono',monospace}
+
+/* route */
+.rlist{padding:0 20px;display:flex;flex-direction:column;gap:8px;margin-bottom:12px}
+.ri{display:flex;align-items:center;gap:12px;border-radius:14px;padding:12px 14px}
+.ri-num{width:30px;height:30px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;font-family:'Sora',sans-serif;flex-shrink:0}
+.ri-name{font-size:14px;font-weight:500}
+.ri-sub{font-size:11px;margin-top:2px;font-family:'DM Mono',monospace}
+.ri-tag{font-size:10px;padding:4px 10px;border-radius:7px;font-weight:600;flex-shrink:0}
+
+/* bottom nav */
+.bnav{margin:4px 20px 32px;border-radius:16px;padding:12px 24px;display:flex;justify-content:space-around}
+.ni{display:flex;flex-direction:column;align-items:center;gap:3px;opacity:0.26}
+.ni.on{opacity:1}
+.ni-i{font-size:20px}
+.ni-l{font-size:9px;letter-spacing:0.3px}
+
+@keyframes vb{0%,100%{transform:translate(0,0)}15%{transform:translate(-1.5px,1px)}30%{transform:translate(0,2.2px)}45%{transform:translate(1.5px,1px)}60%{transform:translate(0,0)}}
+@keyframes sl{0%,100%{transform:rotate(0)}25%{transform:rotate(-14deg)}75%{transform:rotate(14deg)}}
+@keyframes sr{0%,100%{transform:rotate(0)}25%{transform:rotate(14deg)}75%{transform:rotate(-14deg)}}
+</style>
+
+<div class="body">
+<div class="frame">
+  <div class="island"></div>
+
+  <!-- Status bar -->
+  <div class="sbar">
+    <div class="sbar-time">9:41</div>
+    <div class="sbar-icons">
+      <svg width="17" height="12" viewBox="0 0 17 12" fill="white" opacity="0.9"><rect x="0" y="3" width="3" height="9" rx="1"/><rect x="4.5" y="2" width="3" height="10" rx="1"/><rect x="9" y="0" width="3" height="12" rx="1"/><rect x="13.5" y="0" width="3" height="12" rx="1" opacity="0.3"/></svg>
+      <svg width="16" height="12" viewBox="0 0 16 12" fill="white" opacity="0.9"><path d="M8 2.4C10.2 2.4 12.2 3.3 13.6 4.8L15 3.4C13.2 1.3 10.7 0 8 0C5.3 0 2.8 1.3 1 3.4L2.4 4.8C3.8 3.3 5.8 2.4 8 2.4Z"/><path d="M8 5.6C9.4 5.6 10.6 6.2 11.5 7.1L12.9 5.7C11.6 4.4 9.9 3.6 8 3.6C6.1 3.6 4.4 4.4 3.1 5.7L4.5 7.1C5.4 6.2 6.6 5.6 8 5.6Z"/><circle cx="8" cy="10" r="2"/></svg>
+      <svg width="25" height="12" viewBox="0 0 25 12" fill="none"><rect x="0.5" y="0.5" width="21" height="11" rx="3.5" stroke="white" stroke-opacity="0.35"/><rect x="2" y="2" width="17" height="8" rx="2" fill="white"/><path d="M23 4V8C23.8 7.5 24 6.5 24 6C24 5.5 23.8 4.5 23 4Z" fill="white" fill-opacity="0.4"/></svg>
+    </div>
+  </div>
+
+  <div class="topbar"></div>
+
+  <!-- Header -->
+  <div class="hdr">
+    <div>
+      <div class="hdr-time">DAWN · 6:48 AM</div>
+      <div class="hdr-name">Ramesh Vendor</div>
+    </div>
+    <div style="display:flex;align-items:center;gap:8px">
+      <div class="live-chip"><div class="live-dot"></div>LIVE</div>
+      <svg class="logo-svg" width="68" height="21" viewBox="0 0 68 21" fill="none">
+        <text x="1" y="17" font-family="'Sora',sans-serif" font-weight="700" font-size="15" fill="#fff" letter-spacing="-0.7">th</text>
+        <g transform="translate(21,0)">
+          <path d="M0,6.8 L3,6.8 L3,10.8 L1.5,13.8 L0,10.8 Z" fill="#FF6B35"/>
+          <g style="animation:sl 1.2s ease-in-out infinite;transform-origin:0.5px 13.8px"><line x1="0.5" y1="13.8" x2="0" y2="17" stroke="#FF6B35" stroke-width="0.85" stroke-linecap="round"/></g>
+          <g style="animation:sr 1.2s ease-in-out infinite;transform-origin:2.5px 13.8px"><line x1="2.5" y1="13.8" x2="3" y2="17" stroke="#FF6B35" stroke-width="0.85" stroke-linecap="round"/></g>
+          <g style="animation:vb 3s ease-in-out infinite"><circle cx="1.5" cy="3.6" r="2.1" fill="#FF6B35"/><circle cx="0.75" cy="3.1" r="0.38" fill="#fff"/><circle cx="2.25" cy="3.1" r="0.38" fill="#fff"/></g>
+        </g>
+        <text x="27" y="17" font-family="'Sora',sans-serif" font-weight="700" font-size="15" fill="#fff" letter-spacing="-0.7">ya</text>
+      </svg>
+    </div>
+  </div>
+
+  <!-- Hero -->
+  <div class="hero">
+    <div class="daybar">
+      <div class="dbl">🌅 DAY</div>
+      <div class="dbt"><div class="dbf"></div></div>
+      <div class="dbl">72%</div>
+    </div>
+    <div style="display:flex;align-items:flex-start;justify-content:space-between">
+      <div>
+        <div class="hero-tag">Today's Progress</div>
+        <div class="hero-num">39<span> /42</span></div>
+        <div class="hero-sub">3 remaining · est. 35 min</div>
+      </div>
+      <svg width="68" height="68" viewBox="0 0 68 68">
+        <circle cx="34" cy="34" r="28" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="5"/>
+        <circle cx="34" cy="34" r="28" fill="none" stroke="url(#vdg)" stroke-width="5" stroke-dasharray="175.9" stroke-dashoffset="23.7" stroke-linecap="round" transform="rotate(-90 34 34)"/>
+        <defs><linearGradient id="vdg" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#FF6B35"/><stop offset="100%" stop-color="#FFB347"/></linearGradient></defs>
+        <text x="34" y="30" text-anchor="middle" font-size="9" fill="rgba(255,255,255,0.3)" font-family="'DM Mono',monospace">done</text>
+        <text x="34" y="43" text-anchor="middle" font-size="13" font-weight="700" fill="#FF6B35" font-family="'Sora',sans-serif">93%</text>
+      </svg>
+    </div>
+    <div class="srow">
+      <div class="sc" style="background:rgba(255,107,53,0.08);border:1px solid rgba(255,107,53,0.16)"><div class="sc-v" style="color:#FF6B35">₹4.2K</div><div class="sc-l" style="color:rgba(255,255,255,0.28)">Collected</div></div>
+      <div class="sc" style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.06)"><div class="sc-v" style="color:#fff">₹680</div><div class="sc-l" style="color:rgba(255,255,255,0.28)">Pending</div></div>
+      <div class="sc" style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.06)"><div class="sc-v" style="color:#fff">4.9★</div><div class="sc-l" style="color:rgba(255,255,255,0.28)">Rating</div></div>
+    </div>
+  </div>
+
+  <div class="div"></div>
+  <div class="sec">Live Route</div>
+  <div class="rlist">
+    <div class="ri" style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.05)">
+      <div class="ri-num" style="background:rgba(34,197,94,0.1);color:#22c55e">✓</div>
+      <div style="flex:1">
+        <div class="ri-name" style="color:rgba(255,255,255,0.65)">Rajesh S. <span style="font-weight:400;color:rgba(255,255,255,0.28);font-size:12px">· 2 items</span></div>
+        <div class="ri-sub" style="color:rgba(255,255,255,0.22)">6:30 AM · A-Wing Wakad</div>
+      </div>
+      <div class="ri-tag" style="background:rgba(34,197,94,0.08);color:#22c55e;border:1px solid rgba(34,197,94,0.15)">Done</div>
+    </div>
+    <div class="ri" style="background:rgba(255,107,53,0.06);border:1px solid rgba(255,107,53,0.2)">
+      <div class="ri-num" style="background:#FF6B35;color:#fff">→</div>
+      <div style="flex:1">
+        <div class="ri-name" style="color:#fff;font-weight:600">Amit K. <span style="font-weight:400;color:rgba(255,255,255,0.35);font-size:12px">· 3 items</span></div>
+        <div class="ri-sub" style="color:#FF6B35">NOW · B-204 Wakad · 0.4 km</div>
+      </div>
+      <div class="ri-tag" style="background:#FF6B35;color:#fff">Go →</div>
+    </div>
+    <div class="ri" style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.04)">
+      <div class="ri-num" style="background:rgba(255,255,255,0.05);color:rgba(255,255,255,0.3)">3</div>
+      <div style="flex:1">
+        <div class="ri-name" style="color:rgba(255,255,255,0.38)">Sunita K. <span style="font-size:12px">· 1 item</span></div>
+        <div class="ri-sub" style="color:rgba(255,255,255,0.2)">7:15 · C-101 Baner · 0.8 km</div>
+      </div>
+      <div class="ri-tag" style="color:rgba(255,255,255,0.2)">Soon</div>
+    </div>
+  </div>
+
+  <div class="bnav" style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.05)">
+    <div class="ni on"><div class="ni-i">⌂</div><div class="ni-l" style="color:#FF6B35">Home</div></div>
+    <div class="ni"><div class="ni-i">◫</div><div class="ni-l" style="color:rgba(255,255,255,0.28)">Orders</div></div>
+    <div class="ni"><div class="ni-i">◎</div><div class="ni-l" style="color:rgba(255,255,255,0.28)">Customers</div></div>
+    <div class="ni"><div class="ni-i">◈</div><div class="ni-l" style="color:rgba(255,255,255,0.28)">Account</div></div>
+  </div>
+</div>
+</div>
+
+</div>
+<script>
+(function() {
+  var veil = document.getElementById('auth-veil');
+  if (sessionStorage.getItem('thiya_dev_session') === '1') {
+    veil.remove();
+  } else {
+    veil.textContent = 'body{margin:0;background:#1a1a1a;font-family:sans-serif}';
+    document.addEventListener('DOMContentLoaded', function() {
+      document.body.innerHTML =
+        '<div style="min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:28px;padding:24px;text-align:center;width:100%">' +
+          '<div>' +
+            '<div style="width:52px;height:52px;background:#FF6B35;border-radius:12px;display:inline-flex;align-items:center;justify-content:center;font-weight:700;font-size:20px;color:#fff;margin-bottom:20px">th</div>' +
+            '<h2 style="color:#fff;font-size:22px;font-weight:700;margin-bottom:10px">Restricted Access</h2>' +
+            '<p style="color:#aaa;font-size:14px;line-height:1.7;max-width:300px">This resource is only accessible through the Thiya Developer Portal.</p>' +
+          '</div>' +
+          '<a href="developer.html" style="display:inline-block;background:#FF6B35;color:#fff;text-decoration:none;padding:13px 28px;border-radius:8px;font-size:14px;font-weight:600">Go to Developer Portal &rarr;</a>' +
+        '</div>';
+    });
+  }
+})();
+</script>
+</body>
+</html>

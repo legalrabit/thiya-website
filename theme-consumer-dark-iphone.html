@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Thiya Theme — Consumer · Dark (iPhone)</title>
+<meta name="robots" content="noindex, nofollow">
+<style id="auth-veil">body{visibility:hidden;background:#1a1a1a}</style>
+</head>
+<body style="background:#1a1a1a;margin:0;min-height:100vh;display:flex;justify-content:center;align-items:flex-start;padding:20px">
+<div style="width:100%;max-width:440px">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@700;600&family=Outfit:wght@400;500;600&family=DM+Mono:wght@400&display=swap');
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#1a1a1a;display:flex;justify-content:center;padding:16px;font-family:'Outfit',sans-serif}
+.frame{width:393px;background:#07080F;border-radius:47px;overflow:hidden;position:relative;box-shadow:0 0 0 1px #2a2a2a,0 32px 80px rgba(0,0,0,0.8)}
+.island{position:absolute;top:12px;left:50%;transform:translateX(-50%);width:126px;height:37px;background:#000;border-radius:20px;z-index:20}
+.sbar{height:54px;display:flex;align-items:flex-end;justify-content:space-between;padding:0 28px 8px;z-index:10;position:relative}
+.sbar-time{font-size:15px;font-weight:600;color:#fff;font-family:'Sora',sans-serif}
+/* subtle nebula — no stars, just glow */
+.neb{position:absolute;top:-60px;right:-50px;width:220px;height:220px;border-radius:50%;background:radial-gradient(circle,rgba(99,102,241,0.1) 0%,transparent 65%);pointer-events:none;z-index:0}
+.topbar{height:2px;background:linear-gradient(90deg,transparent,#6366f1,#818cf8,transparent);position:relative;z-index:3}
+.hdr{display:flex;align-items:center;justify-content:space-between;padding:16px 24px 12px;position:relative;z-index:2}
+.chip{display:flex;align-items:center;gap:5px;background:rgba(129,140,248,0.1);border:1px solid rgba(129,140,248,0.2);border-radius:99px;padding:5px 10px;font-size:9px;color:#818cf8;letter-spacing:1.5px;font-family:'DM Mono',monospace}
+.chip-dot{width:6px;height:6px;border-radius:50%;background:#818cf8;animation:cdot 2s ease-in-out infinite;box-shadow:0 0 5px rgba(129,140,248,0.5)}
+@keyframes cdot{0%,100%{opacity:1;box-shadow:0 0 5px rgba(129,140,248,0.5)}50%{opacity:0.5;box-shadow:0 0 10px rgba(129,140,248,0.2)}}
+.hero{margin:0 20px 12px;border-radius:20px;padding:20px;background:rgba(255,255,255,0.04);border:1px solid rgba(129,140,248,0.14);position:relative;overflow:hidden;z-index:2}
+.hero::before{content:'';display:block;height:1px;background:linear-gradient(90deg,transparent,rgba(129,140,248,0.3),transparent);margin:-20px -20px 16px}
+.hero-tag{font-size:9px;letter-spacing:2.5px;color:rgba(129,140,248,0.45);text-transform:uppercase;font-family:'DM Mono',monospace;margin-bottom:8px}
+.hero-title{font-size:28px;font-weight:700;color:#fff;font-family:'Sora',sans-serif;line-height:1.1;margin-bottom:4px}
+.hero-sub{font-size:12px;color:rgba(255,255,255,0.28);margin-bottom:18px}
+.srow{display:flex;gap:8px}
+.sc{flex:1;border-radius:10px;padding:10px 12px}
+.div{height:1px;background:rgba(255,255,255,0.04);margin:0 20px}
+.sec{font-size:9px;letter-spacing:3px;color:rgba(255,255,255,0.15);padding:14px 24px 8px;font-family:'DM Mono',monospace;position:relative;z-index:2}
+.cards-row{display:flex;gap:10px;padding:0 20px;overflow-x:auto;scrollbar-width:none;position:relative;z-index:2;margin-bottom:12px}
+.svc{flex-shrink:0;width:88px;border-radius:14px;padding:12px 10px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.06)}
+.svc.act{background:rgba(99,102,241,0.08);border-color:rgba(129,140,248,0.22)}
+.svc-b{font-size:8px;background:rgba(129,140,248,0.12);color:#818cf8;padding:2px 5px;border-radius:4px;display:inline-block;margin-bottom:5px;font-weight:600;border:1px solid rgba(129,140,248,0.18)}
+.olist{padding:0 20px;display:flex;flex-direction:column;gap:8px;margin-bottom:12px;position:relative;z-index:2}
+.oi{display:flex;align-items:center;gap:12px;border-radius:14px;padding:12px 14px}
+.od{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.bnav{margin:4px 20px 32px;border-radius:16px;padding:12px 24px;display:flex;justify-content:space-around;background:rgba(255,255,255,0.04);border:1px solid rgba(129,140,248,0.08);position:relative;z-index:2}
+.ni{display:flex;flex-direction:column;align-items:center;gap:3px;opacity:0.26}
+.ni.on{opacity:1}
+.ni-i{font-size:20px}
+.ni-l{font-size:9px}
+@keyframes vb{0%,100%{transform:translate(0,0)}15%{transform:translate(-1.5px,1px)}30%{transform:translate(0,2.2px)}45%{transform:translate(1.5px,1px)}60%{transform:translate(0,0)}}
+@keyframes sl{0%,100%{transform:rotate(0)}25%{transform:rotate(-14deg)}75%{transform:rotate(14deg)}}
+@keyframes sr{0%,100%{transform:rotate(0)}25%{transform:rotate(14deg)}75%{transform:rotate(-14deg)}}
+</style>
+<div class="body">
+<div class="frame">
+  <div class="island"></div>
+  <div class="neb"></div>
+  <div class="sbar"><div class="sbar-time">9:41</div><div style="display:flex;gap:6px"><svg width="17" height="12" viewBox="0 0 17 12" fill="white" opacity="0.8"><rect x="0" y="3" width="3" height="9" rx="1"/><rect x="4.5" y="2" width="3" height="10" rx="1"/><rect x="9" y="0" width="3" height="12" rx="1"/><rect x="13.5" y="0" width="3" height="12" rx="1" opacity="0.3"/></svg><svg width="25" height="12" viewBox="0 0 25 12" fill="none"><rect x="0.5" y="0.5" width="21" height="11" rx="3.5" stroke="white" stroke-opacity="0.3"/><rect x="2" y="2" width="17" height="8" rx="2" fill="white" fill-opacity="0.8"/></svg></div></div>
+  <div class="topbar"></div>
+  <div class="hdr">
+    <div>
+      <div style="font-size:10px;letter-spacing:2px;color:rgba(129,140,248,0.4);font-family:'DM Mono',monospace;margin-bottom:3px">GOOD MORNING</div>
+      <div style="font-size:18px;font-weight:600;color:#fff;font-family:'Sora',sans-serif">Abhash 👋</div>
+    </div>
+    <div style="display:flex;align-items:center;gap:8px">
+      <div class="chip"><div class="chip-dot"></div>AI</div>
+      <svg width="68" height="21" viewBox="0 0 68 21" fill="none">
+        <text x="1" y="17" font-family="'Sora',sans-serif" font-weight="700" font-size="15" fill="#fff" letter-spacing="-0.7">th</text>
+        <g transform="translate(21,0)">
+          <path d="M0,6.8 L3,6.8 L3,10.8 L1.5,13.8 L0,10.8 Z" fill="#FF6B35"/>
+          <g style="animation:sl 1.2s ease-in-out infinite;transform-origin:0.5px 13.8px"><line x1="0.5" y1="13.8" x2="0" y2="17" stroke="#FF6B35" stroke-width="0.85" stroke-linecap="round"/></g>
+          <g style="animation:sr 1.2s ease-in-out infinite;transform-origin:2.5px 13.8px"><line x1="2.5" y1="13.8" x2="3" y2="17" stroke="#FF6B35" stroke-width="0.85" stroke-linecap="round"/></g>
+          <g style="animation:vb 3s ease-in-out infinite"><circle cx="1.5" cy="3.6" r="2.1" fill="#FF6B35"/><circle cx="0.75" cy="3.1" r="0.38" fill="#fff"/><circle cx="2.25" cy="3.1" r="0.38" fill="#fff"/></g>
+        </g>
+        <text x="27" y="17" font-family="'Sora',sans-serif" font-weight="700" font-size="15" fill="#fff" letter-spacing="-0.7">ya</text>
+      </svg>
+    </div>
+  </div>
+  <div class="hero" >
+    <div class="hero-tag">Today</div>
+    <div class="hero-title">3 deliveries<br><span style="color:#818cf8">on the way</span></div>
+    <div class="hero-sub">All services on time · next in 8 min</div>
+    <div class="srow">
+      <div class="sc" style="background:rgba(255,255,255,0.04);border:1px solid rgba(129,140,248,0.1)"><div style="font-size:16px;font-weight:700;color:#fff;font-family:'Sora',sans-serif">₹2.4K</div><div style="font-size:9px;color:rgba(255,255,255,0.25);margin-top:2px">This Week</div></div>
+      <div class="sc" style="background:rgba(255,255,255,0.04);border:1px solid rgba(129,140,248,0.1)"><div style="font-size:16px;font-weight:700;color:#fff;font-family:'Sora',sans-serif">12</div><div style="font-size:9px;color:rgba(255,255,255,0.25);margin-top:2px">Active</div></div>
+      <div class="sc" style="background:rgba(129,140,248,0.08);border:1px solid rgba(129,140,248,0.15)"><div style="font-size:16px;font-weight:700;color:#818cf8;font-family:'Sora',sans-serif">4.9★</div><div style="font-size:9px;color:rgba(255,255,255,0.25);margin-top:2px">Rating</div></div>
+    </div>
+  </div>
+  <div class="div"></div>
+  <div class="sec">Your Services</div>
+  <div class="cards-row">
+    <div class="svc act"><div class="svc-b">LIVE</div><div style="font-size:20px;margin-bottom:5px">🥛</div><div style="font-size:11px;font-weight:500;color:#fff">Milk</div><div style="font-size:9px;color:rgba(255,255,255,0.28);margin-top:1px">Daily 6AM</div></div>
+    <div class="svc"><div style="font-size:20px;margin-bottom:5px">🍱</div><div style="font-size:11px;font-weight:500;color:#fff">Tiffin</div><div style="font-size:9px;color:rgba(255,255,255,0.28);margin-top:1px">Lunch+Din</div></div>
+    <div class="svc"><div style="font-size:20px;margin-bottom:5px">💧</div><div style="font-size:11px;font-weight:500;color:#fff">Water</div><div style="font-size:9px;color:rgba(255,255,255,0.28);margin-top:1px">20L Cans</div></div>
+    <div class="svc"><div style="font-size:20px;margin-bottom:5px">👕</div><div style="font-size:11px;font-weight:500;color:#fff">Laundry</div><div style="font-size:9px;color:rgba(255,255,255,0.28);margin-top:1px">Pick&Drop</div></div>
+  </div>
+  <div class="sec">Recent</div>
+  <div class="olist">
+    <div class="oi" style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.05)"><div class="od" style="background:#22c55e;box-shadow:0 0 6px rgba(34,197,94,0.4)"></div><div style="flex:1"><div style="font-size:13px;color:rgba(255,255,255,0.7);font-weight:500">Morning Milk</div><div style="font-size:11px;color:rgba(255,255,255,0.25);margin-top:1px">Delivered · 6:32 AM</div></div><div style="font-size:13px;color:rgba(255,255,255,0.4);font-weight:600">₹45</div></div>
+    <div class="oi" style="background:rgba(129,140,248,0.06);border:1px solid rgba(129,140,248,0.14)"><div class="od" style="background:#818cf8;box-shadow:0 0 6px rgba(129,140,248,0.4)"></div><div style="flex:1"><div style="font-size:13px;color:#fff;font-weight:500">Lunch Tiffin</div><div style="font-size:11px;color:#818cf8;margin-top:1px">On the way · 12:15 PM</div></div><div style="font-size:13px;color:#fff;font-weight:600">₹120</div></div>
+  </div>
+  <div class="bnav">
+    <div class="ni on"><div class="ni-i">⌂</div><div class="ni-l" style="color:#818cf8">Home</div></div>
+    <div class="ni"><div class="ni-i">◫</div><div class="ni-l" style="color:rgba(255,255,255,0.25)">Orders</div></div>
+    <div class="ni"><div class="ni-i">◎</div><div class="ni-l" style="color:rgba(255,255,255,0.25)">Discover</div></div>
+    <div class="ni"><div class="ni-i">◈</div><div class="ni-l" style="color:rgba(255,255,255,0.25)">Account</div></div>
+  </div>
+</div>
+</div>
+
+</div>
+<script>
+(function() {
+  var veil = document.getElementById('auth-veil');
+  if (sessionStorage.getItem('thiya_dev_session') === '1') {
+    veil.remove();
+  } else {
+    veil.textContent = 'body{margin:0;background:#1a1a1a;font-family:sans-serif}';
+    document.addEventListener('DOMContentLoaded', function() {
+      document.body.innerHTML =
+        '<div style="min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:28px;padding:24px;text-align:center;width:100%">' +
+          '<div>' +
+            '<div style="width:52px;height:52px;background:#FF6B35;border-radius:12px;display:inline-flex;align-items:center;justify-content:center;font-weight:700;font-size:20px;color:#fff;margin-bottom:20px">th</div>' +
+            '<h2 style="color:#fff;font-size:22px;font-weight:700;margin-bottom:10px">Restricted Access</h2>' +
+            '<p style="color:#aaa;font-size:14px;line-height:1.7;max-width:300px">This resource is only accessible through the Thiya Developer Portal.</p>' +
+          '</div>' +
+          '<a href="developer.html" style="display:inline-block;background:#FF6B35;color:#fff;text-decoration:none;padding:13px 28px;border-radius:8px;font-size:14px;font-weight:600">Go to Developer Portal &rarr;</a>' +
+        '</div>';
+    });
+  }
+})();
+</script>
+</body>
+</html>

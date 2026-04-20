@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Thiya Theme — Vendor · Light Classic</title>
+<meta name="robots" content="noindex, nofollow">
+<style id="auth-veil">body{visibility:hidden;background:#faf7f4}</style>
+</head>
+<body style="background:#faf7f4;margin:0;min-height:100vh;display:flex;justify-content:center;align-items:flex-start;padding:20px">
+<div style="width:100%;max-width:440px">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@700;600&family=Outfit:wght@400;500;600&display=swap');
+*{margin:0;padding:0;box-sizing:border-box}
+.phone{width:100%;background:#faf7f4;border-radius:28px;overflow:hidden;font-family:'Outfit',sans-serif;position:relative;min-height:580px}
+.header{display:flex;align-items:center;justify-content:space-between;padding:20px 20px 12px;background:#fff;border-bottom:1px solid #f0ede9;position:relative;z-index:2}
+.hero-card{margin:12px 16px;border-radius:20px;padding:20px;background:linear-gradient(135deg,#FF6B35,#FF8F55);position:relative;overflow:hidden}
+.hero-card::before{content:'';position:absolute;top:-30px;right:-30px;width:120px;height:120px;border-radius:50%;background:rgba(255,255,255,0.1);pointer-events:none}
+.hero-card::after{content:'';position:absolute;bottom:-40px;right:20px;width:80px;height:80px;border-radius:50%;background:rgba(255,255,255,0.07);pointer-events:none}
+.stat{flex:1;background:rgba(255,255,255,0.2);border-radius:12px;padding:10px 12px;backdrop-filter:blur(4px)}
+.stat-val{font-size:18px;font-weight:600;color:#fff;font-family:'Sora',sans-serif}
+.stat-lbl{font-size:10px;color:rgba(255,255,255,0.75);margin-top:2px}
+.sec-title{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#bbb;padding:16px 20px 8px}
+.cards-row{display:flex;gap:10px;padding:0 16px;overflow-x:auto;scrollbar-width:none}
+.svc-card{flex-shrink:0;width:110px;border-radius:16px;padding:14px 12px;background:#fff;border:1px solid #f0ede9;position:relative;box-shadow:0 2px 8px rgba(0,0,0,0.04)}
+.svc-card.active{border-color:#FF6B3540;background:#fff8f5}
+.svc-badge{position:absolute;top:10px;right:10px;background:#FF6B35;color:#fff;font-size:8px;padding:2px 6px;border-radius:6px;font-weight:700}
+.order-list{padding:0 16px;display:flex;flex-direction:column;gap:8px;margin-bottom:20px}
+.order-item{background:#fff;border:1px solid #f0ede9;border-radius:14px;padding:12px 14px;display:flex;align-items:center;gap:12px;box-shadow:0 1px 4px rgba(0,0,0,0.04)}
+.order-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.order-dot.green{background:#22c55e}
+.order-dot.orange{background:#FF6B35}
+.bottom-nav{margin:0 16px 16px;border-radius:16px;padding:12px 20px;background:#fff;border:1px solid #f0ede9;display:flex;justify-content:space-around;align-items:center;box-shadow:0 2px 8px rgba(0,0,0,0.04)}
+.nav-item{display:flex;flex-direction:column;align-items:center;gap:4px;opacity:0.3}
+.nav-item.active{opacity:1}
+.nav-lbl{font-size:9px;letter-spacing:0.5px;color:#999}
+.nav-item.active .nav-lbl{color:#FF6B35}
+@keyframes vb-sm{0%,100%{transform:translate(0,0)}15%{transform:translate(-1px,0.8px)}30%{transform:translate(0,1.6px)}45%{transform:translate(1px,0.8px)}60%{transform:translate(0,0)}}
+@keyframes sl{0%,100%{transform:rotate(0)}25%{transform:rotate(-14deg)}75%{transform:rotate(14deg)}}
+@keyframes sr{0%,100%{transform:rotate(0)}25%{transform:rotate(14deg)}75%{transform:rotate(-14deg)}}
+</style>
+<div class="phone">
+  <div class="header">
+    <div>
+      <div style="font-size:10px;color:#ccc;letter-spacing:1px;margin-bottom:2px">GOOD MORNING</div>
+      <div style="font-size:16px;font-weight:600;color:#1a1a1a;font-family:'Sora',sans-serif">Ramesh Vendor 👋</div>
+    </div>
+    <svg width="72" height="22" viewBox="0 0 72 22" fill="none">
+      <text x="1" y="17" font-family="'Sora',sans-serif" font-weight="700" font-size="16" fill="#1a1a1a" letter-spacing="-0.8">th</text>
+      <g transform="translate(22,0)">
+        <path d="M0,7.2 L3.2,7.2 L3.2,11.5 L1.6,14.8 L0,11.5 Z" fill="#FF6B35"/>
+        <g style="animation:sl 1.2s ease-in-out infinite;transform-origin:0.6px 14.8px"><line x1="0.6" y1="14.8" x2="0" y2="18" stroke="#FF6B35" stroke-width="0.9" stroke-linecap="round"/></g>
+        <g style="animation:sr 1.2s ease-in-out infinite;transform-origin:2.6px 14.8px"><line x1="2.6" y1="14.8" x2="3.2" y2="18" stroke="#FF6B35" stroke-width="0.9" stroke-linecap="round"/></g>
+        <g style="animation:vb-sm 3s ease-in-out infinite"><circle cx="1.6" cy="3.8" r="2.3" fill="#FF6B35"/><circle cx="0.8" cy="3.4" r="0.42" fill="#fff"/><circle cx="2.4" cy="3.4" r="0.42" fill="#fff"/></g>
+      </g>
+      <text x="27" y="17" font-family="'Sora',sans-serif" font-weight="700" font-size="16" fill="#1a1a1a" letter-spacing="-0.8">ya</text>
+    </svg>
+  </div>
+
+  <div class="hero-card">
+    <div style="font-size:10px;color:rgba(255,255,255,0.7);letter-spacing:3px;text-transform:uppercase;margin-bottom:8px">TODAY'S OVERVIEW</div>
+    <div style="font-size:24px;font-weight:700;color:#fff;font-family:'Sora',sans-serif;line-height:1.1;margin-bottom:4px">42 deliveries<br>scheduled</div>
+    <div style="font-size:12px;color:rgba(255,255,255,0.7);margin-bottom:16px">3 pending · Route B next</div>
+    <div style="display:flex;gap:10px">
+      <div class="stat"><div class="stat-val">₹4.2K</div><div class="stat-lbl">Today</div></div>
+      <div class="stat"><div class="stat-val">42</div><div class="stat-lbl">Deliveries</div></div>
+      <div class="stat"><div class="stat-val">98%</div><div class="stat-lbl">On Time</div></div>
+    </div>
+  </div>
+
+  <div class="sec-title">Today's Route</div>
+  <div class="order-list">
+    <div class="order-item">
+      <div class="order-dot green"></div>
+      <div style="flex:1">
+        <div style="font-size:13px;color:#1a1a1a;font-weight:500">Rajesh S. — 2 items</div>
+        <div style="font-size:11px;color:#bbb;margin-top:1px">Delivered · 6:30 AM</div>
+      </div>
+      <div style="font-size:11px;background:#f0fdf4;color:#16a34a;padding:3px 8px;border-radius:6px;font-weight:600;border:1px solid #bbf7d0">Done</div>
+    </div>
+    <div class="order-item">
+      <div class="order-dot green"></div>
+      <div style="flex:1">
+        <div style="font-size:13px;color:#1a1a1a;font-weight:500">Priya M. — 1 item</div>
+        <div style="font-size:11px;color:#bbb;margin-top:1px">Delivered · 6:45 AM</div>
+      </div>
+      <div style="font-size:11px;background:#f0fdf4;color:#16a34a;padding:3px 8px;border-radius:6px;font-weight:600;border:1px solid #bbf7d0">Done</div>
+    </div>
+    <div class="order-item" style="border-color:#FF6B3530;background:#fff8f5">
+      <div class="order-dot orange"></div>
+      <div style="flex:1">
+        <div style="font-size:13px;color:#1a1a1a;font-weight:500">Amit K. — 3 items</div>
+        <div style="font-size:11px;color:#bbb;margin-top:1px">Route B · Next</div>
+      </div>
+      <div style="font-size:11px;background:#fff1ec;color:#FF6B35;padding:3px 8px;border-radius:6px;font-weight:600;border:1px solid #FF6B3530">Next</div>
+    </div>
+  </div>
+
+  <div class="bottom-nav">
+    <div class="nav-item active"><div style="font-size:18px">⌂</div><div class="nav-lbl" style="color:#FF6B35">Home</div></div>
+    <div class="nav-item"><div style="font-size:18px">◫</div><div class="nav-lbl">Orders</div></div>
+    <div class="nav-item"><div style="font-size:18px">◎</div><div class="nav-lbl">Customers</div></div>
+    <div class="nav-item"><div style="font-size:18px">◈</div><div class="nav-lbl">Account</div></div>
+  </div>
+</div>
+
+</div>
+<script>
+(function() {
+  var veil = document.getElementById('auth-veil');
+  if (sessionStorage.getItem('thiya_dev_session') === '1') {
+    veil.remove();
+  } else {
+    veil.textContent = 'body{margin:0;background:#faf7f4;font-family:sans-serif}';
+    document.addEventListener('DOMContentLoaded', function() {
+      document.body.innerHTML =
+        '<div style="min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:28px;padding:24px;text-align:center;width:100%">' +
+          '<div>' +
+            '<div style="width:52px;height:52px;background:#FF6B35;border-radius:12px;display:inline-flex;align-items:center;justify-content:center;font-weight:700;font-size:20px;color:#fff;margin-bottom:20px">th</div>' +
+            '<h2 style="color:#fff;font-size:22px;font-weight:700;margin-bottom:10px">Restricted Access</h2>' +
+            '<p style="color:#aaa;font-size:14px;line-height:1.7;max-width:300px">This resource is only accessible through the Thiya Developer Portal.</p>' +
+          '</div>' +
+          '<a href="developer.html" style="display:inline-block;background:#FF6B35;color:#fff;text-decoration:none;padding:13px 28px;border-radius:8px;font-size:14px;font-weight:600">Go to Developer Portal &rarr;</a>' +
+        '</div>';
+    });
+  }
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Thiya Theme — Option 2 · Teal</title>
+<meta name="robots" content="noindex, nofollow">
+<style id="auth-veil">body{visibility:hidden;background:#050d0b}</style>
+</head>
+<body style="background:#050d0b;margin:0;min-height:100vh;display:flex;justify-content:center;align-items:flex-start;padding:20px">
+<div style="width:100%;max-width:440px">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@700;600&family=Outfit:wght@400;500;600&display=swap');
+*{margin:0;padding:0;box-sizing:border-box}
+.phone{width:100%;background:#050d0b;border-radius:28px;overflow:hidden;font-family:'Outfit',sans-serif;position:relative;min-height:580px}
+.glow1{position:absolute;width:260px;height:260px;border-radius:50%;background:radial-gradient(circle,#00D4AA16 0%,transparent 70%);top:-30px;right:-50px;pointer-events:none}
+.glow2{position:absolute;width:200px;height:200px;border-radius:50%;background:radial-gradient(circle,#FF8C4212 0%,transparent 70%);bottom:100px;left:-30px;pointer-events:none}
+.header{display:flex;align-items:center;justify-content:space-between;padding:20px 20px 12px;position:relative;z-index:2}
+.hero-card{margin:8px 16px;border-radius:20px;padding:20px;position:relative;overflow:hidden;z-index:2;background:linear-gradient(135deg,rgba(0,212,170,0.1) 0%,rgba(255,140,66,0.06) 100%);border:1px solid rgba(0,212,170,0.2)}
+.hero-card::before{content:'';position:absolute;top:-30px;right:-30px;width:100px;height:100px;border-radius:50%;background:radial-gradient(circle,#00D4AA20,transparent);pointer-events:none}
+.stat{flex:1;background:rgba(0,212,170,0.07);border:1px solid rgba(0,212,170,0.15);border-radius:12px;padding:10px 12px}
+.stat-val{font-size:18px;font-weight:600;color:#fff;font-family:'Sora',sans-serif}
+.stat-lbl{font-size:10px;color:rgba(255,255,255,0.35);margin-top:2px}
+.sec-title{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.2);padding:16px 20px 8px}
+.cards-row{display:flex;gap:10px;padding:0 16px;overflow-x:auto;scrollbar-width:none}
+.svc-card{flex-shrink:0;width:110px;border-radius:16px;padding:14px 12px;background:rgba(0,212,170,0.05);border:1px solid rgba(0,212,170,0.12);position:relative}
+.svc-card.active{background:rgba(255,140,66,0.08);border-color:rgba(255,140,66,0.3)}
+.svc-badge{position:absolute;top:10px;right:10px;background:#00D4AA;color:#050d0b;font-size:8px;padding:2px 6px;border-radius:6px;font-weight:700}
+.order-list{padding:0 16px;display:flex;flex-direction:column;gap:8px;margin-bottom:20px}
+.order-item{background:rgba(0,212,170,0.04);border:1px solid rgba(0,212,170,0.1);border-radius:14px;padding:12px 14px;display:flex;align-items:center;gap:12px}
+.order-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.order-dot.green{background:#00D4AA;box-shadow:0 0 8px #00D4AA70}
+.order-dot.orange{background:#FF8C42;box-shadow:0 0 8px #FF8C4260}
+.bottom-nav{margin:0 16px 16px;border-radius:16px;padding:12px 20px;background:rgba(0,212,170,0.05);border:1px solid rgba(0,212,170,0.12);display:flex;justify-content:space-around;align-items:center}
+.nav-item{display:flex;flex-direction:column;align-items:center;gap:4px;opacity:0.35}
+.nav-item.active{opacity:1}
+.nav-lbl{font-size:9px;letter-spacing:0.5px}
+.tpill{display:inline-block;background:rgba(0,212,170,0.12);border:1px solid rgba(0,212,170,0.3);color:#00D4AA;font-size:9px;padding:3px 10px;border-radius:20px;letter-spacing:1px;margin-bottom:8px}
+@keyframes vb-sm{0%,100%{transform:translate(0,0)}15%{transform:translate(-1px,0.8px)}30%{transform:translate(0,1.6px)}45%{transform:translate(1px,0.8px)}60%{transform:translate(0,0)}}
+@keyframes sl{0%,100%{transform:rotate(0)}25%{transform:rotate(-14deg)}75%{transform:rotate(14deg)}}
+@keyframes sr{0%,100%{transform:rotate(0)}25%{transform:rotate(14deg)}75%{transform:rotate(-14deg)}}
+</style>
+<div class="phone">
+  <div class="glow1"></div><div class="glow2"></div>
+  <div style="background:linear-gradient(90deg,#00D4AA08,#00D4AA18,#00D4AA08);height:1px"></div>
+  <div class="header">
+    <div>
+      <div style="font-size:10px;color:rgba(255,255,255,0.3);letter-spacing:1px;margin-bottom:2px">GOOD MORNING</div>
+      <div style="font-size:16px;font-weight:600;color:#fff;font-family:'Sora',sans-serif">Abhash 👋</div>
+    </div>
+    <svg width="72" height="22" viewBox="0 0 72 22" fill="none">
+      <text x="1" y="17" font-family="'Sora',sans-serif" font-weight="700" font-size="16" fill="#fff" letter-spacing="-0.8">th</text>
+      <g transform="translate(22,0)">
+        <path d="M0,7.2 L3.2,7.2 L3.2,11.5 L1.6,14.8 L0,11.5 Z" fill="#FF8C42"/>
+        <g style="animation:sl 1.2s ease-in-out infinite;transform-origin:0.6px 14.8px"><line x1="0.6" y1="14.8" x2="0" y2="18" stroke="#FF8C42" stroke-width="0.9" stroke-linecap="round"/></g>
+        <g style="animation:sr 1.2s ease-in-out infinite;transform-origin:2.6px 14.8px"><line x1="2.6" y1="14.8" x2="3.2" y2="18" stroke="#FF8C42" stroke-width="0.9" stroke-linecap="round"/></g>
+        <g style="animation:vb-sm 3s ease-in-out infinite"><circle cx="1.6" cy="3.8" r="2.3" fill="#FF8C42"/><circle cx="0.8" cy="3.4" r="0.42" fill="#fff"/><circle cx="2.4" cy="3.4" r="0.42" fill="#fff"/></g>
+      </g>
+      <text x="27" y="17" font-family="'Sora',sans-serif" font-weight="700" font-size="16" fill="#fff" letter-spacing="-0.8">ya</text>
+    </svg>
+  </div>
+  <div class="hero-card">
+    <div class="tpill">✦ NEIGHBOURHOOD OS</div>
+    <div style="font-size:22px;font-weight:600;color:#fff;line-height:1.2;margin-bottom:4px">3 deliveries<br>on the way</div>
+    <div style="font-size:13px;color:rgba(255,255,255,0.4);margin-bottom:16px">All services running on time</div>
+    <div style="display:flex;gap:12px">
+      <div class="stat"><div class="stat-val">₹2.4K</div><div class="stat-lbl">This Week</div></div>
+      <div class="stat"><div class="stat-val">12</div><div class="stat-lbl">Active Orders</div></div>
+      <div class="stat"><div class="stat-val">4.9★</div><div class="stat-lbl">Rating</div></div>
+    </div>
+  </div>
+  <div class="sec-title">Your Services</div>
+  <div class="cards-row">
+    <div class="svc-card active"><div class="svc-badge">LIVE</div><div style="font-size:22px;margin-bottom:8px">🥛</div><div style="font-size:12px;font-weight:500;color:#fff">Milk</div><div style="font-size:10px;color:rgba(255,255,255,0.3);margin-top:2px">Daily 6AM</div></div>
+    <div class="svc-card"><div style="font-size:22px;margin-bottom:8px">🍱</div><div style="font-size:12px;font-weight:500;color:#fff">Tiffin</div><div style="font-size:10px;color:rgba(255,255,255,0.3);margin-top:2px">Lunch+Dinner</div></div>
+    <div class="svc-card"><div style="font-size:22px;margin-bottom:8px">💧</div><div style="font-size:12px;font-weight:500;color:#fff">Water</div><div style="font-size:10px;color:rgba(255,255,255,0.3);margin-top:2px">20L Cans</div></div>
+    <div class="svc-card"><div style="font-size:22px;margin-bottom:8px">👕</div><div style="font-size:12px;font-weight:500;color:#fff">Laundry</div><div style="font-size:10px;color:rgba(255,255,255,0.3);margin-top:2px">Pick & Drop</div></div>
+  </div>
+  <div class="sec-title">Recent Activity</div>
+  <div class="order-list">
+    <div class="order-item"><div class="order-dot green"></div><div style="flex:1"><div style="font-size:13px;color:#fff;font-weight:500">Morning Milk</div><div style="font-size:11px;color:rgba(255,255,255,0.3);margin-top:1px">Delivered · 6:32 AM</div></div><div style="font-size:13px;color:#00D4AA;font-weight:600">₹45</div></div>
+    <div class="order-item"><div class="order-dot orange"></div><div style="flex:1"><div style="font-size:13px;color:#fff;font-weight:500">Lunch Tiffin</div><div style="font-size:11px;color:rgba(255,255,255,0.3);margin-top:1px">On the way · 12:15 PM</div></div><div style="font-size:13px;color:#fff;font-weight:600">₹120</div></div>
+  </div>
+  <div class="bottom-nav">
+    <div class="nav-item active"><div style="font-size:18px">⌂</div><div class="nav-lbl" style="color:#00D4AA">Home</div></div>
+    <div class="nav-item"><div style="font-size:18px">◫</div><div class="nav-lbl" style="color:rgba(255,255,255,0.4)">Orders</div></div>
+    <div class="nav-item"><div style="font-size:18px">◎</div><div class="nav-lbl" style="color:rgba(255,255,255,0.4)">Discover</div></div>
+    <div class="nav-item"><div style="font-size:18px">◈</div><div class="nav-lbl" style="color:rgba(255,255,255,0.4)">Account</div></div>
+  </div>
+</div>
+
+</div>
+<script>
+(function() {
+  var veil = document.getElementById('auth-veil');
+  if (sessionStorage.getItem('thiya_dev_session') === '1') {
+    veil.remove();
+  } else {
+    veil.textContent = 'body{margin:0;background:#050d0b;font-family:sans-serif}';
+    document.addEventListener('DOMContentLoaded', function() {
+      document.body.innerHTML =
+        '<div style="min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:28px;padding:24px;text-align:center;width:100%">' +
+          '<div>' +
+            '<div style="width:52px;height:52px;background:#FF6B35;border-radius:12px;display:inline-flex;align-items:center;justify-content:center;font-weight:700;font-size:20px;color:#fff;margin-bottom:20px">th</div>' +
+            '<h2 style="color:#fff;font-size:22px;font-weight:700;margin-bottom:10px">Restricted Access</h2>' +
+            '<p style="color:#aaa;font-size:14px;line-height:1.7;max-width:300px">This resource is only accessible through the Thiya Developer Portal.</p>' +
+          '</div>' +
+          '<a href="developer.html" style="display:inline-block;background:#FF6B35;color:#fff;text-decoration:none;padding:13px 28px;border-radius:8px;font-size:14px;font-weight:600">Go to Developer Portal &rarr;</a>' +
+        '</div>';
+    });
+  }
+})();
+</script>
+</body>
+</html>
