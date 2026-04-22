@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>New Theme Demo 1 — Vendor Onboarding UX</title>
+<meta name="robots" content="noindex, nofollow">
+<style id="auth-veil">body{visibility:hidden;background:#1a1208}</style>
+</head>
+<body style="background:#1a1208;margin:0;min-height:100vh;display:flex;justify-content:center;align-items:flex-start;padding:20px">
+<div style="width:100%;max-width:440px">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Sora:wght@700&family=Outfit:wght@400;500;600&display=swap');
+  
+  * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  
+  :root {
+    --amber-bg: #1a1208;
+    --amber-card: #221a0a;
+    --amber-elevated: #2a2010;
+    --amber-border: #3d2e10;
+    --amber-glow: #c87c1a;
+    --amber-mid: #e8960a;
+    --amber-bright: #f5a623;
+    --amber-soft: #ffc55a;
+    --text-primary: #fff8ec;
+    --text-secondary: #b89a5a;
+    --text-muted: #6b5228;
+    --orange: #FF6B35;
+    --orange-light: #FF8F55;
+  }
+
+  .phone {
+    width: 380px;
+    margin: 0 auto;
+    background: var(--amber-bg);
+    min-height: 780px;
+    position: relative;
+    overflow: hidden;
+    font-family: 'Outfit', sans-serif;
+  }
+
+  .screen {
+    display: none;
+    flex-direction: column;
+    min-height: 780px;
+    padding: 0;
+    animation: fadeIn 0.35s ease;
+  }
+  .screen.active { display: flex; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+
+  .ambient {
+    position: absolute;
+    width: 280px; height: 280px;
+    border-radius: 50%;
+    background: radial-gradient(circle, #c87c1a18 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .top-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 52px 28px 0;
+  }
+
+  .step-dots {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+  }
+  .dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--amber-border);
+    transition: all 0.3s ease;
+  }
+  .dot.active {
+    width: 20px;
+    border-radius: 3px;
+    background: var(--amber-bright);
+  }
+  .dot.done {
+    background: var(--amber-glow);
+  }
+
+  .skip-btn {
+    font-size: 12px;
+    color: var(--text-muted);
+    font-family: 'Outfit', sans-serif;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px 0;
+    letter-spacing: 0.3px;
+  }
+
+  .mascot-zone {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 32px 28px 16px;
+    gap: 16px;
+  }
+
+  .bubble {
+    background: var(--amber-card);
+    border: 1px solid var(--amber-border);
+    border-radius: 16px 16px 16px 4px;
+    padding: 14px 18px;
+    max-width: 260px;
+    align-self: flex-start;
+    margin-left: 56px;
+    position: relative;
+  }
+  .bubble p {
+    font-size: 15px;
+    color: var(--text-primary);
+    line-height: 1.5;
+    font-weight: 400;
+  }
+  .bubble p span {
+    color: var(--amber-bright);
+    font-weight: 600;
+  }
+
+  .main-content {
+    flex: 1;
+    padding: 8px 28px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .field-label {
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    font-family: 'Outfit', sans-serif;
+    font-weight: 500;
+    margin-bottom: 6px;
+  }
+
+  .input-field {
+    width: 100%;
+    background: var(--amber-card);
+    border: 1px solid var(--amber-border);
+    border-radius: 14px;
+    padding: 16px 20px;
+    font-size: 17px;
+    font-family: 'Outfit', sans-serif;
+    font-weight: 500;
+    color: var(--text-primary);
+    outline: none;
+    transition: border-color 0.2s;
+    -webkit-appearance: none;
+  }
+  .input-field::placeholder { color: var(--text-muted); font-weight: 400; }
+  .input-field:focus { border-color: var(--amber-glow); }
+
+  .choice-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .choice-card {
+    background: var(--amber-card);
+    border: 1px solid var(--amber-border);
+    border-radius: 16px;
+    padding: 18px 20px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    transition: all 0.2s ease;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .choice-card:active, .choice-card.selected {
+    border-color: var(--amber-glow);
+    background: #2e2010;
+  }
+
+  .choice-icon {
+    width: 44px; height: 44px;
+    border-radius: 12px;
+    background: var(--amber-elevated);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    flex-shrink: 0;
+  }
+
+  .choice-info { flex: 1; }
+  .choice-name {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 2px;
+  }
+  .choice-sub {
+    font-size: 12px;
+    color: var(--text-secondary);
+  }
+
+  .choice-check {
+    width: 22px; height: 22px;
+    border-radius: 50%;
+    border: 1.5px solid var(--amber-border);
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+  }
+  .choice-card.selected .choice-check {
+    background: var(--amber-bright);
+    border-color: var(--amber-bright);
+  }
+  .checkmark { display: none; color: #1a1208; font-size: 13px; font-weight: 700; }
+  .choice-card.selected .checkmark { display: block; }
+
+  .trust-strip {
+    margin: 4px 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 16px;
+    background: #1e1a08;
+    border-radius: 12px;
+    border: 1px solid #2d2408;
+  }
+  .trust-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: #4a9a4a;
+    flex-shrink: 0;
+  }
+  .trust-text {
+    font-size: 12px;
+    color: var(--text-secondary);
+    line-height: 1.4;
+  }
+  .trust-text strong { color: var(--text-primary); font-weight: 600; }
+
+  .bottom-zone {
+    padding: 16px 28px 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .cta-btn {
+    width: 100%;
+    background: linear-gradient(135deg, var(--amber-glow), var(--amber-bright));
+    border: none;
+    border-radius: 16px;
+    padding: 18px;
+    font-size: 16px;
+    font-weight: 600;
+    font-family: 'Outfit', sans-serif;
+    color: #1a1208;
+    cursor: pointer;
+    letter-spacing: 0.2px;
+    transition: opacity 0.2s, transform 0.1s;
+    position: relative;
+    overflow: hidden;
+  }
+  .cta-btn:active { transform: scale(0.98); opacity: 0.9; }
+  .cta-btn.ghost {
+    background: transparent;
+    border: 1px solid var(--amber-border);
+    color: var(--text-secondary);
+    font-weight: 500;
+    padding: 14px;
+  }
+
+  .area-input {
+    width: 100%;
+    background: var(--amber-card);
+    border: 1px solid var(--amber-border);
+    border-radius: 14px;
+    padding: 16px 20px;
+    font-size: 15px;
+    font-family: 'Outfit', sans-serif;
+    color: var(--text-primary);
+    outline: none;
+    resize: none;
+    -webkit-appearance: none;
+  }
+  .area-input::placeholder { color: var(--text-muted); }
+  .area-input:focus { border-color: var(--amber-glow); }
+
+  .tag-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 4px;
+  }
+  .tag {
+    background: var(--amber-elevated);
+    border: 1px solid var(--amber-border);
+    border-radius: 20px;
+    padding: 7px 14px;
+    font-size: 13px;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: 'Outfit', sans-serif;
+  }
+  .tag:active, .tag.active {
+    background: #2e2010;
+    border-color: var(--amber-glow);
+    color: var(--amber-bright);
+  }
+
+  .confirm-card {
+    background: var(--amber-card);
+    border: 1px solid var(--amber-border);
+    border-radius: 20px;
+    padding: 24px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .confirm-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--amber-border);
+  }
+  .confirm-row:last-child { border-bottom: none; padding-bottom: 0; }
+
+  .confirm-icon {
+    width: 36px; height: 36px;
+    border-radius: 10px;
+    background: var(--amber-elevated);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px; flex-shrink: 0;
+  }
+  .confirm-label { font-size: 11px; color: var(--text-muted); margin-bottom: 2px; letter-spacing: 1px; text-transform: uppercase; }
+  .confirm-value { font-size: 15px; color: var(--text-primary); font-weight: 500; }
+
+  .success-zone {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 28px;
+    text-align: center;
+    gap: 12px;
+  }
+
+  .success-ring {
+    width: 100px; height: 100px;
+    border-radius: 50%;
+    background: #1e1a08;
+    border: 2px solid var(--amber-glow);
+    display: flex; align-items: center; justify-content: center;
+    position: relative;
+    margin-bottom: 8px;
+  }
+  .success-ring::before {
+    content: '';
+    position: absolute;
+    inset: -8px;
+    border-radius: 50%;
+    border: 1px solid #c87c1a22;
+  }
+
+  .h1 {
+    font-family: 'Sora', sans-serif;
+    font-size: 26px;
+    font-weight: 700;
+    color: var(--text-primary);
+    letter-spacing: -0.5px;
+    line-height: 1.2;
+  }
+  .h2 {
+    font-family: 'Sora', sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--text-primary);
+    letter-spacing: -0.3px;
+  }
+  .body-text {
+    font-size: 14px;
+    color: var(--text-secondary);
+    line-height: 1.6;
+  }
+
+  .nav-hint {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    padding: 12px 0 0;
+    border-top: 1px solid var(--amber-border);
+    margin: 0 28px;
+  }
+  .nav-btn {
+    font-size: 13px;
+    color: var(--text-muted);
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 6px 12px;
+    border-radius: 8px;
+    font-family: 'Outfit', sans-serif;
+    transition: color 0.2s;
+  }
+  .nav-btn:hover { color: var(--amber-bright); }
+  .nav-btn.primary-nav { color: var(--amber-glow); font-weight: 500; }
+</style>
+
+<div class="phone">
+  <div class="ambient" style="top:-80px; left:-60px;"></div>
+  <div class="ambient" style="bottom:-60px; right:-80px;"></div>
+
+  <div id="s0" class="screen active">
+    <div class="top-bar">
+      <div class="step-dots">
+        <div class="dot active"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+      </div>
+      <button class="skip-btn" onclick="goTo(4)">baad mein</button>
+    </div>
+    <div class="mascot-zone">
+      <svg width="56" height="88" viewBox="0 0 56 88" fill="none" style="flex-shrink:0;align-self:flex-start;">
+        <g style="animation: v-bounce 3s ease-in-out infinite;">
+          <circle cx="28" cy="22" r="18" fill="#FF6B35"/>
+          <circle cx="21" cy="20" r="3" fill="#fff"/>
+          <circle cx="35" cy="20" r="3" fill="#fff"/>
+          <path d="M21 29 Q28 35 35 29" stroke="#fff" stroke-width="2" stroke-linecap="round" fill="none"/>
+        </g>
+        <rect x="14" y="44" width="28" height="26" rx="7" fill="#FF6B35"/>
+        <polygon points="18,70 28,84 38,70" fill="#FF6B35"/>
+        <line x1="20" y1="84" x2="17" y2="96" stroke="#FF6B35" stroke-width="3.5" stroke-linecap="round"/>
+        <line x1="36" y1="84" x2="39" y2="96" stroke="#FF6B35" stroke-width="3.5" stroke-linecap="round"/>
+      </svg>
+      <div class="bubble" style="margin-left:0;">
+        <p>Namaste! Main <span>Thiya</span> hun.<br>Aapka business chalane mein madad karunga. Shuru karte hain?</p>
+      </div>
+    </div>
+    <div class="main-content">
+      <div>
+        <div class="field-label">Aapka naam</div>
+        <input class="input-field" type="text" placeholder="Jaise: Raju bhai, Suresh ji..." id="vendorName"/>
+      </div>
+      <div class="trust-strip">
+        <div class="trust-dot"></div>
+        <div class="trust-text"><strong>Baner-Wakad</strong> mein 12 vendors already Thiya ke saath hain</div>
+      </div>
+    </div>
+    <div class="bottom-zone">
+      <button class="cta-btn" onclick="nextFromName()">Aage badhein →</button>
+    </div>
+  </div>
+
+  <div id="s1" class="screen">
+    <div class="top-bar">
+      <div class="step-dots">
+        <div class="dot done"></div>
+        <div class="dot active"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+      </div>
+      <button class="skip-btn" onclick="goTo(4)">baad mein</button>
+    </div>
+    <div class="mascot-zone">
+      <svg width="56" height="88" viewBox="0 0 56 88" fill="none" style="flex-shrink:0;align-self:flex-start;">
+        <g style="animation: v-bounce 3s ease-in-out infinite; animation-delay:0.5s">
+          <circle cx="28" cy="22" r="18" fill="#FF6B35"/>
+          <circle cx="21" cy="20" r="3" fill="#fff"/>
+          <circle cx="35" cy="20" r="3" fill="#fff"/>
+          <path d="M21 29 Q28 35 35 29" stroke="#fff" stroke-width="2" stroke-linecap="round" fill="none"/>
+        </g>
+        <rect x="14" y="44" width="28" height="26" rx="7" fill="#FF6B35"/>
+        <polygon points="18,70 28,84 38,70" fill="#FF6B35"/>
+        <line x1="20" y1="84" x2="17" y2="96" stroke="#FF6B35" stroke-width="3.5" stroke-linecap="round"/>
+        <line x1="36" y1="84" x2="39" y2="96" stroke="#FF6B35" stroke-width="3.5" stroke-linecap="round"/>
+      </svg>
+      <div class="bubble" style="margin-left:0;">
+        <p>Aap kya deliver karte hain, <span id="nameDisplay">bhai</span>?</p>
+      </div>
+    </div>
+    <div class="main-content">
+      <div class="choice-grid">
+        <div class="choice-card" onclick="selectType(this,'Doodh')">
+          <div class="choice-icon">🥛</div>
+          <div class="choice-info">
+            <div class="choice-name">Doodh</div>
+            <div class="choice-sub">Daily milk delivery</div>
+          </div>
+          <div class="choice-check"><span class="checkmark">✓</span></div>
+        </div>
+        <div class="choice-card" onclick="selectType(this,'Tiffin')">
+          <div class="choice-icon">🍱</div>
+          <div class="choice-info">
+            <div class="choice-name">Tiffin</div>
+            <div class="choice-sub">Ghar ka khana</div>
+          </div>
+          <div class="choice-check"><span class="checkmark">✓</span></div>
+        </div>
+        <div class="choice-card" onclick="selectType(this,'Paani')">
+          <div class="choice-icon">💧</div>
+          <div class="choice-info">
+            <div class="choice-name">Paani</div>
+            <div class="choice-sub">Water can delivery</div>
+          </div>
+          <div class="choice-check"><span class="checkmark">✓</span></div>
+        </div>
+        <div class="choice-card" onclick="selectType(this,'Dhobi')">
+          <div class="choice-icon">👕</div>
+          <div class="choice-info">
+            <div class="choice-name">Dhobi / Laundry</div>
+            <div class="choice-sub">Kapde wash karna</div>
+          </div>
+          <div class="choice-check"><span class="checkmark">✓</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="bottom-zone">
+      <button class="cta-btn" id="typeBtn" onclick="goTo(2)" style="opacity:0.4;pointer-events:none;">Haan, yahi deliver karta hun</button>
+    </div>
+  </div>
+
+  <div id="s2" class="screen">
+    <div class="top-bar">
+      <div class="step-dots">
+        <div class="dot done"></div>
+        <div class="dot done"></div>
+        <div class="dot active"></div>
+        <div class="dot"></div>
+      </div>
+      <button class="skip-btn" onclick="goTo(4)">baad mein</button>
+    </div>
+    <div class="mascot-zone">
+      <svg width="56" height="88" viewBox="0 0 56 88" fill="none" style="flex-shrink:0;align-self:flex-start;">
+        <g style="animation: listen-tilt 2.5s ease-in-out infinite;">
+          <circle cx="28" cy="22" r="18" fill="#FF6B35"/>
+          <circle cx="21" cy="20" r="3" fill="#fff"/>
+          <circle cx="35" cy="20" r="3" fill="#fff"/>
+          <path d="M21 29 Q28 35 35 29" stroke="#fff" stroke-width="2" stroke-linecap="round" fill="none"/>
+        </g>
+        <rect x="14" y="44" width="28" height="26" rx="7" fill="#FF6B35"/>
+        <polygon points="18,70 28,84 38,70" fill="#FF6B35"/>
+        <line x1="20" y1="84" x2="17" y2="96" stroke="#FF6B35" stroke-width="3.5" stroke-linecap="round"/>
+        <line x1="36" y1="84" x2="39" y2="96" stroke="#FF6B35" stroke-width="3.5" stroke-linecap="round"/>
+      </svg>
+      <div class="bubble" style="margin-left:0;">
+        <p>Aap <span id="typeDisplay">kahan</span> deliver karte hain? Society ya area ka naam batao.</p>
+      </div>
+    </div>
+    <div class="main-content">
+      <div>
+        <div class="field-label">Delivery area</div>
+        <input class="input-field" type="text" placeholder="Jaise: Baner, Wakad, Balewadi..."/>
+      </div>
+      <div>
+        <div class="field-label" style="margin-bottom:10px;">Ya in mein se chunein</div>
+        <div class="tag-row">
+          <div class="tag" onclick="toggleTag(this,'Baner')">Baner</div>
+          <div class="tag" onclick="toggleTag(this,'Wakad')">Wakad</div>
+          <div class="tag" onclick="toggleTag(this,'Balewadi')">Balewadi</div>
+          <div class="tag" onclick="toggleTag(this,'Aundh')">Aundh</div>
+          <div class="tag" onclick="toggleTag(this,'Hinjewadi')">Hinjewadi</div>
+          <div class="tag" onclick="toggleTag(this,'Pimple Saudagar')">Pimple Saudagar</div>
+        </div>
+      </div>
+    </div>
+    <div class="bottom-zone">
+      <button class="cta-btn" onclick="goTo(3)">Bilkul sahi →</button>
+    </div>
+  </div>
+
+  <div id="s3" class="screen">
+    <div class="top-bar">
+      <div class="step-dots">
+        <div class="dot done"></div>
+        <div class="dot done"></div>
+        <div class="dot done"></div>
+        <div class="dot active"></div>
+      </div>
+    </div>
+    <div style="padding: 20px 28px 16px;">
+      <div class="h2" style="margin-bottom:6px;">Sab sahi hai?</div>
+      <div class="body-text">Ek baar confirm kar lein</div>
+    </div>
+    <div class="main-content">
+      <div class="confirm-card">
+        <div class="confirm-row">
+          <div class="confirm-icon">👤</div>
+          <div>
+            <div class="confirm-label">Naam</div>
+            <div class="confirm-value" id="cName">Raju bhai</div>
+          </div>
+        </div>
+        <div class="confirm-row">
+          <div class="confirm-icon" id="cTypeIcon">🥛</div>
+          <div>
+            <div class="confirm-label">Business</div>
+            <div class="confirm-value" id="cType">Doodh delivery</div>
+          </div>
+        </div>
+        <div class="confirm-row">
+          <div class="confirm-icon">📍</div>
+          <div>
+            <div class="confirm-label">Area</div>
+            <div class="confirm-value">Baner, Wakad</div>
+          </div>
+        </div>
+      </div>
+      <div class="trust-strip">
+        <div class="trust-dot"></div>
+        <div class="trust-text">Aapka data <strong>sirf aapka</strong> hai — kabhi share nahi hoga</div>
+      </div>
+    </div>
+    <div class="bottom-zone">
+      <button class="cta-btn" onclick="goTo(4)">Haan, shuru karte hain! 🎉</button>
+      <button class="cta-btn ghost" onclick="goTo(0)">Wapas jaana hai</button>
+    </div>
+  </div>
+
+  <div id="s4" class="screen">
+    <div class="success-zone">
+      <div class="success-ring">
+        <svg width="56" height="88" viewBox="0 0 56 88" fill="none">
+          <g style="animation: v-bounce-lg 3s ease-in-out infinite;">
+            <circle cx="28" cy="22" r="18" fill="#FF6B35"/>
+            <circle cx="20" cy="19" r="3.5" fill="#fff"/>
+            <circle cx="36" cy="19" r="3.5" fill="#fff"/>
+            <path d="M20 30 Q28 38 36 30" stroke="#fff" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+          </g>
+          <rect x="14" y="44" width="28" height="26" rx="7" fill="#FF6B35"/>
+          <polygon points="18,70 28,84 38,70" fill="#FF6B35"/>
+          <g style="animation: step-left 1.2s ease-in-out infinite; transform-origin: 20px 84px;">
+            <line x1="20" y1="84" x2="17" y2="96" stroke="#FF6B35" stroke-width="3.5" stroke-linecap="round"/>
+          </g>
+          <g style="animation: step-right 1.2s ease-in-out infinite; transform-origin: 36px 84px;">
+            <line x1="36" y1="84" x2="39" y2="96" stroke="#FF6B35" stroke-width="3.5" stroke-linecap="round"/>
+          </g>
+        </svg>
+      </div>
+      <div class="h1">Swaagat hai!</div>
+      <div class="body-text" style="max-width:240px;">Aapka pehla customer add karne ka time aa gaya. Thiya sab sambhaalta hai.</div>
+    </div>
+    <div class="main-content" style="flex:0; gap:10px;">
+      <div class="trust-strip" style="background:#1a1f0a; border-color:#2d3a10;">
+        <div class="trust-dot" style="background:#6abf6a;"></div>
+        <div class="trust-text">Pehle <strong>3 mahine free</strong> — koi card nahi chahiye</div>
+      </div>
+    </div>
+    <div class="bottom-zone">
+      <button class="cta-btn">Pehla customer add karein →</button>
+      <button class="cta-btn ghost">Dashboard dekhein</button>
+    </div>
+  </div>
+
+  <div class="nav-hint">
+    <button class="nav-btn" onclick="goTo(Math.max(0,currentScreen-1))">← Peeche</button>
+    <button class="nav-btn primary-nav" onclick="goTo(Math.min(4,currentScreen+1))">Aage →</button>
+  </div>
+</div>
+
+<style>
+@keyframes v-bounce { 0%{transform:translate(0,0)}15%{transform:translate(-8px,6px)}30%{transform:translate(0,12px)}45%{transform:translate(8px,6px)}60%{transform:translate(0,0)}100%{transform:translate(0,0)} }
+@keyframes v-bounce-lg { 0%{transform:translate(0,0)}15%{transform:translate(-12px,8px)}30%{transform:translate(0,16px)}45%{transform:translate(12px,8px)}60%{transform:translate(0,0)}100%{transform:translate(0,0)} }
+@keyframes step-left { 0%,100%{transform:rotate(0)}25%{transform:rotate(-14deg)}75%{transform:rotate(14deg)} }
+@keyframes step-right { 0%,100%{transform:rotate(0)}25%{transform:rotate(14deg)}75%{transform:rotate(-14deg)} }
+@keyframes listen-tilt { 0%,100%{transform:rotate(0)}30%{transform:rotate(8deg)}70%{transform:rotate(-4deg)} }
+</style>
+
+<script>
+let currentScreen = 0;
+let selectedType = '';
+let vendorName = '';
+
+function goTo(n) {
+  document.getElementById('s'+currentScreen).classList.remove('active');
+  currentScreen = n;
+  document.getElementById('s'+n).classList.add('active');
+  if(n===3) updateConfirm();
+}
+
+function nextFromName() {
+  const inp = document.getElementById('vendorName');
+  vendorName = inp.value.trim() || 'Bhai';
+  document.getElementById('nameDisplay').textContent = vendorName;
+  goTo(1);
+}
+
+function selectType(el, type) {
+  document.querySelectorAll('.choice-card').forEach(c => c.classList.remove('selected'));
+  el.classList.add('selected');
+  selectedType = type;
+  const btn = document.getElementById('typeBtn');
+  btn.style.opacity = '1';
+  btn.style.pointerEvents = 'auto';
+  const icons = {'Doodh':'🥛','Tiffin':'🍱','Paani':'💧','Dhobi':'👕'};
+  document.getElementById('typeDisplay').textContent = icons[type]+' '+type;
+}
+
+function toggleTag(el, area) {
+  el.classList.toggle('active');
+}
+
+function updateConfirm() {
+  const icons = {'Doodh':'🥛','Tiffin':'🍱','Paani':'💧','Dhobi':'👕'};
+  document.getElementById('cName').textContent = vendorName || 'Raju bhai';
+  document.getElementById('cType').textContent = (selectedType||'Doodh') + ' delivery';
+  document.getElementById('cTypeIcon').textContent = icons[selectedType||'Doodh'];
+}
+</script>
+
+</div>
+<script>
+(function() {
+  var veil = document.getElementById('auth-veil');
+  if (sessionStorage.getItem('thiya_dev_session') === '1') {
+    veil.remove();
+  } else {
+    veil.textContent = 'body{margin:0;background:#1a1208;font-family:sans-serif}';
+    document.addEventListener('DOMContentLoaded', function() {
+      document.body.innerHTML =
+        '<div style="min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:28px;padding:24px;text-align:center;width:100%">' +
+          '<div>' +
+            '<div style="width:52px;height:52px;background:#FF6B35;border-radius:12px;display:inline-flex;align-items:center;justify-content:center;font-weight:700;font-size:20px;color:#fff;margin-bottom:20px">th</div>' +
+            '<h2 style="color:#fff;font-size:22px;font-weight:700;margin-bottom:10px">Restricted Access</h2>' +
+            '<p style="color:#aaa;font-size:14px;line-height:1.7;max-width:300px">This resource is only accessible through the Thiya Developer Portal.</p>' +
+          '</div>' +
+          '<a href="developer.html" style="display:inline-block;background:#FF6B35;color:#fff;text-decoration:none;padding:13px 28px;border-radius:8px;font-size:14px;font-weight:600">Go to Developer Portal &rarr;</a>' +
+        '</div>';
+    });
+  }
+})();
+</script>
+</body>
+</html>
