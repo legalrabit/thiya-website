@@ -149,6 +149,12 @@ img{max-width:100%;display:block}
   transition:color 0.3s;
 }
 .nav-links a:hover{color:var(--text)}
+.nav-login{
+  font-size:13px;font-weight:500;color:var(--text);text-decoration:none;
+  padding:8px 16px;border:1px solid var(--border);border-radius:8px;
+  background:transparent;transition:all 0.2s;
+}
+.nav-login:hover{background:var(--accent);color:#fff;border-color:var(--accent)}
 .nav-cta{
   font-family:var(--font-display);font-size:12px;font-weight:600;
   color:var(--accent)!important;
@@ -665,6 +671,7 @@ section{padding:100px 24px}
       <a href="#how">How It Works</a>
       <a href="#apps">Apps</a>
       <a href="#" id="devPortalBtn" class="nav-dev-link">Dev</a>
+      <a href="https://app.thiya.in/" class="nav-login" target="_blank" rel="noopener">Login</a>
       <a href="#contact" class="nav-cta">Get Early Access</a>
     </div>
     <button class="nav-mobile-toggle" id="navToggle" aria-label="Menu">
