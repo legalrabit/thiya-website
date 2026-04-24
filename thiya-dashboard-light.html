@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Thiya — Dashboard All Light</title>
+<style id="auth-veil">body{visibility:hidden;background:#1a1a1f}</style>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Outfit:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    /* Forest - only used as text + accent, never as fill background */
+    --forest: #1B3A2F;
+    --forest-soft: #2D5443;
+    --sage: #8AA296;
+    --sage-light: #B5C4BB;
+
+    /* Light surfaces - the whole app lives here */
+    --cream: #F9F6EF;
+    --cream-alt: #F4F0E6;
+    --cream-deep: #EFEAD9;
+    --white: #FFFFFF;
+    --forest-mist: #F0F5F1;     /* very subtle green-tinted white */
+    --forest-tint: #E6EDE8;     /* slightly deeper green-tinted */
+
+    /* Brand orange (minimal use) */
+    --orange: #FF6B35;
+    --orange-soft: #FFF1EA;
+
+    /* Borders - forest green at low opacity */
+    --border: rgba(27, 58, 47, 0.10);
+    --border-soft: rgba(27, 58, 47, 0.06);
+    --border-accent: rgba(27, 58, 47, 0.18);
+
+    --success: #2D7A5C;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; -webkit-font-smoothing: antialiased; }
+
+  body {
+    background: #1a1a1f;
+    font-family: 'Outfit', sans-serif;
+    min-height: 100vh;
+    padding: 40px 20px;
+    display: grid;
+    place-items: center;
+  }
+
+  /* Phone frame */
+  .phone {
+    width: 400px;
+    height: 820px;
+    background: var(--cream);
+    border-radius: 48px;
+    overflow: hidden;
+    position: relative;
+    box-shadow:
+      0 0 0 10px #0a0a0a,
+      0 0 0 11px #2a2a2a,
+      0 40px 80px rgba(0,0,0,0.5);
+  }
+
+  /* Status bar */
+  .status-bar {
+    height: 44px;
+    padding: 0 28px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: var(--forest);
+    font-family: 'DM Mono', monospace;
+    font-size: 14px;
+    font-weight: 500;
+  }
+  .status-bar .right {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+    font-size: 11px;
+    letter-spacing: 0.05em;
+  }
+  .signal-dots { display: flex; gap: 2px; }
+  .signal-dots span { width: 3px; background: var(--forest); border-radius: 1px; }
+  .signal-dots span:nth-child(1) { height: 4px; }
+  .signal-dots span:nth-child(2) { height: 6px; }
+  .signal-dots span:nth-child(3) { height: 8px; }
+  .signal-dots span:nth-child(4) { height: 10px; }
+  .battery {
+    width: 22px; height: 11px;
+    border: 1.2px solid var(--forest);
+    border-radius: 2.5px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding: 1px;
+  }
+  .battery::after {
+    content: '';
+    position: absolute;
+    right: -3px;
+    top: 3px;
+    width: 2px; height: 5px;
+    background: var(--forest);
+    border-radius: 0 1px 1px 0;
+  }
+  .battery-fill {
+    width: 70%; height: 100%;
+    background: var(--forest);
+    border-radius: 1px;
+  }
+
+  /* Dashboard scroll area */
+  .dashboard {
+    height: calc(100% - 44px - 80px);
+    overflow-y: auto;
+    padding: 8px 24px 24px;
+    scrollbar-width: none;
+  }
+  .dashboard::-webkit-scrollbar { display: none; }
+
+  /* Header */
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 24px;
+    padding-top: 12px;
+  }
+  .greet-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    font-weight: 500;
+    color: var(--sage);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+  .greet-name {
+    font-family: 'Sora', sans-serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--forest);
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+  }
+  .greet-name span {
+    color: var(--sage);
+    font-weight: 500;
+  }
+
+  .icon-btn {
+    width: 40px; height: 40px;
+    border-radius: 12px;
+    background: var(--white);
+    border: 1px solid var(--border-soft);
+    display: grid;
+    place-items: center;
+    cursor: pointer;
+    position: relative;
+    transition: all 0.2s ease;
+  }
+  .icon-btn:hover {
+    border-color: var(--border-accent);
+    background: var(--forest-mist);
+  }
+  .icon-btn svg { color: var(--forest); }
+  .notif-dot {
+    position: absolute;
+    top: 9px; right: 10px;
+    width: 6px; height: 6px;
+    background: var(--orange);
+    border-radius: 50%;
+    border: 2px solid var(--white);
+  }
+
+  /* HERO — all light now, with forest accents */
+  .hero-card {
+    background: var(--white);
+    border: 1.5px solid var(--border-accent);
+    border-radius: 24px;
+    padding: 26px 26px 22px;
+    margin-bottom: 16px;
+    position: relative;
+    overflow: hidden;
+    /* Subtle forest tint in corner */
+    background:
+      radial-gradient(circle at top right, var(--forest-tint) 0%, transparent 45%),
+      var(--white);
+  }
+  /* Decorative accent line top-left */
+  .hero-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 26px;
+    width: 32px;
+    height: 3px;
+    background: var(--forest);
+    border-radius: 0 0 2px 2px;
+  }
+
+  .hero-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    font-weight: 500;
+    color: var(--sage);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  .hero-amount {
+    font-family: 'Sora', sans-serif;
+    font-size: 40px;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    line-height: 1.05;
+    color: var(--forest);
+    margin-bottom: 10px;
+  }
+  .hero-amount .rupee {
+    color: var(--sage-light);
+    font-weight: 600;
+    margin-right: 4px;
+  }
+  .hero-trend {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    color: var(--sage);
+    font-weight: 500;
+  }
+  .hero-trend .pill {
+    background: var(--forest-tint);
+    color: var(--forest);
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 12px;
+    display: inline-flex;
+    align-items: center;
+    gap: 3px;
+    border: 1px solid var(--border-soft);
+  }
+
+  /* Mascot in hero - now just clean on light */
+  .hero-mascot {
+    position: absolute;
+    right: 24px;
+    bottom: 20px;
+    width: 68px;
+    height: 84px;
+  }
+
+  /* Stats row */
+  .stats-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 28px;
+  }
+  .stat {
+    background: var(--white);
+    border: 1px solid var(--border-soft);
+    border-radius: 16px;
+    padding: 14px 12px;
+  }
+  /* Subtle accent - a small forest dot top-left */
+  .stat {
+    position: relative;
+  }
+  .stat::before {
+    content: '';
+    position: absolute;
+    top: 14px;
+    left: 12px;
+    width: 4px;
+    height: 4px;
+    background: var(--forest);
+    border-radius: 50%;
+    opacity: 0.3;
+  }
+  .stat-label {
+    font-size: 11px;
+    color: var(--sage);
+    font-weight: 500;
+    margin-bottom: 6px;
+    margin-left: 10px;
+    letter-spacing: 0.02em;
+  }
+  .stat-value {
+    font-family: 'Sora', sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--forest);
+    letter-spacing: -0.02em;
+  }
+  .stat-value .unit {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--sage);
+    margin-left: 2px;
+  }
+
+  /* Section heading */
+  .section-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 14px;
+  }
+  .section-head h3 {
+    font-family: 'Sora', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--forest);
+    letter-spacing: -0.01em;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .section-head h3::before {
+    content: '';
+    width: 3px;
+    height: 14px;
+    background: var(--forest);
+    border-radius: 2px;
+  }
+  .section-head .link {
+    font-size: 12px;
+    color: var(--sage);
+    font-weight: 500;
+    cursor: pointer;
+  }
+  .section-head .link:hover { color: var(--forest); }
+
+  /* Deliveries */
+  .deliveries {
+    background: var(--white);
+    border: 1px solid var(--border-soft);
+    border-radius: 20px;
+    margin-bottom: 20px;
+    overflow: hidden;
+  }
+  .delivery-row {
+    padding: 16px 20px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    border-bottom: 1px solid var(--border-soft);
+    cursor: pointer;
+    transition: background 0.15s ease;
+  }
+  .delivery-row:last-child { border-bottom: none; }
+  .delivery-row:hover { background: var(--forest-mist); }
+
+  .del-check {
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    border: 1.5px solid var(--border-accent);
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+    background: var(--white);
+  }
+  /* Done check — light green tint, not dark */
+  .del-check.done {
+    background: var(--forest-tint);
+    border-color: var(--forest);
+  }
+  .del-check.done svg { color: var(--forest); }
+  .del-check svg { color: transparent; }
+
+  .del-info { flex: 1; min-width: 0; }
+  .del-name {
+    font-family: 'Sora', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--forest);
+    margin-bottom: 2px;
+    letter-spacing: -0.01em;
+  }
+  .del-meta {
+    font-size: 12px;
+    color: var(--sage);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .del-meta .dot { width: 2px; height: 2px; background: var(--sage); border-radius: 50%; }
+
+  .del-amount {
+    font-family: 'DM Mono', monospace;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--forest);
+    flex-shrink: 0;
+  }
+  .delivery-row.done .del-name {
+    color: var(--sage);
+    text-decoration: line-through;
+    text-decoration-thickness: 1px;
+    text-decoration-color: rgba(138, 162, 150, 0.4);
+  }
+  .delivery-row.done .del-amount { color: var(--sage); }
+
+  /* Ask Thiya card */
+  .ask-thiya {
+    background: var(--white);
+    border: 1px solid var(--border-soft);
+    border-left: 3px solid var(--forest);
+    border-radius: 16px;
+    padding: 16px 20px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  .ask-thiya:hover {
+    border-color: var(--border-accent);
+    border-left-color: var(--forest);
+    transform: translateY(-1px);
+  }
+  .ask-thiya .mascot-mini {
+    width: 32px;
+    height: 42px;
+    flex-shrink: 0;
+  }
+  .ask-thiya .ask-text { flex: 1; }
+  .ask-thiya .ask-text .t1 {
+    font-family: 'Sora', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--forest);
+    margin-bottom: 2px;
+  }
+  .ask-thiya .ask-text .t2 {
+    font-size: 12px;
+    color: var(--sage);
+  }
+  .ask-thiya .mic-icon {
+    width: 34px; height: 34px;
+    border-radius: 50%;
+    background: var(--forest-tint);
+    border: 1px solid var(--border);
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+  }
+  .ask-thiya .mic-icon svg { color: var(--forest); width: 15px; height: 15px; }
+
+  /* Bottom nav */
+  .bottom-nav {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 80px;
+    background: rgba(249, 246, 239, 0.92);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-top: 1px solid var(--border-soft);
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 0 20px 20px;
+  }
+  .nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    cursor: pointer;
+    color: var(--sage);
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    padding: 8px 14px;
+    border-radius: 12px;
+    transition: all 0.2s ease;
+    position: relative;
+  }
+  .nav-item svg { width: 22px; height: 22px; }
+  .nav-item.active {
+    color: var(--forest);
+  }
+  .nav-item.active::after {
+    content: '';
+    position: absolute;
+    bottom: 2px;
+    width: 4px;
+    height: 4px;
+    background: var(--forest);
+    border-radius: 50%;
+  }
+
+  /* Floating AI mic button */
+  .fab {
+    position: absolute;
+    bottom: 88px;
+    right: 24px;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--orange), #FF9055);
+    display: grid;
+    place-items: center;
+    cursor: pointer;
+    box-shadow:
+      0 8px 24px rgba(255,107,53,0.35),
+      0 2px 4px rgba(255,107,53,0.2);
+    z-index: 10;
+    transition: all 0.2s ease;
+  }
+  .fab:hover {
+    transform: translateY(-2px) scale(1.03);
+  }
+  .fab::before {
+    content: '';
+    position: absolute;
+    inset: -4px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--orange), #FF9055);
+    opacity: 0.3;
+    z-index: -1;
+    filter: blur(12px);
+  }
+  .fab svg { color: white; width: 22px; height: 22px; }
+
+  /* Mascot animations */
+  @keyframes vbounce {
+    0%, 100% { transform: translate(0, 0); }
+    25% { transform: translate(-2px, 3px); }
+    75% { transform: translate(2px, 3px); }
+  }
+  @keyframes blink {
+    0%, 92%, 100% { transform: scaleY(1); }
+    95%, 97% { transform: scaleY(0.1); }
+  }
+  .bounce-head { animation: vbounce 1.6s ease-in-out infinite; transform-origin: center; }
+  .blink-eyes { animation: blink 4s ease-in-out infinite; transform-origin: center; transform-box: fill-box; }
+
+  .watermark {
+    position: fixed;
+    bottom: 16px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: rgba(255,255,255,0.3);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+</style>
+</head>
+<body>
+
+<div class="phone">
+
+  <!-- Status bar -->
+  <div class="status-bar">
+    <div class="time">9:41</div>
+    <div class="right">
+      <div class="signal-dots"><span></span><span></span><span></span><span></span></div>
+      <span>5G</span>
+      <div class="battery"><div class="battery-fill"></div></div>
+    </div>
+  </div>
+
+  <!-- Dashboard -->
+  <div class="dashboard">
+
+    <!-- Header -->
+    <div class="header">
+      <div>
+        <div class="greet-label">Namaste</div>
+        <div class="greet-name">Sharma ji, <br><span>aaj ka din kaisa?</span></div>
+      </div>
+      <div class="icon-btn">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+          <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+        </svg>
+        <span class="notif-dot"></span>
+      </div>
+    </div>
+
+    <!-- Hero card — ALL LIGHT -->
+    <div class="hero-card">
+      <div class="hero-label">Aaj ki earnings</div>
+      <div class="hero-amount"><span class="rupee">₹</span>2,840</div>
+      <div class="hero-trend">
+        <span class="pill">
+          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="18 15 12 9 6 15"></polyline>
+          </svg>
+          12%
+        </span>
+        kal se zyada
+      </div>
+
+      <svg class="hero-mascot" viewBox="0 0 68 84" xmlns="http://www.w3.org/2000/svg">
+        <g class="bounce-head">
+          <circle cx="34" cy="17" r="14" fill="#FF6B35"/>
+          <g class="blink-eyes">
+            <ellipse cx="29" cy="16" rx="1.7" ry="2.3" fill="#FFFFFF"/>
+            <ellipse cx="39" cy="16" rx="1.7" ry="2.3" fill="#FFFFFF"/>
+          </g>
+          <path d="M29.5 20.5 Q34 23.5 38.5 20.5" stroke="#FFFFFF" stroke-width="1.2" stroke-linecap="round" fill="none"/>
+        </g>
+        <path d="M25 39 Q25 37 27 37 L41 37 Q43 37 43 39 L43 54 L34 78 L25 54 Z" fill="#FF6B35"/>
+      </svg>
+    </div>
+
+    <!-- Stats -->
+    <div class="stats-row">
+      <div class="stat">
+        <div class="stat-label">Orders</div>
+        <div class="stat-value">24<span class="unit">/30</span></div>
+      </div>
+      <div class="stat">
+        <div class="stat-label">Customers</div>
+        <div class="stat-value">142</div>
+      </div>
+      <div class="stat">
+        <div class="stat-label">Pending</div>
+        <div class="stat-value">6<span class="unit">del.</span></div>
+      </div>
+    </div>
+
+    <!-- Deliveries -->
+    <div class="section-head">
+      <h3>Aaj ki delivery</h3>
+      <span class="link">Sab dekhein</span>
+    </div>
+
+    <div class="deliveries">
+
+      <div class="delivery-row done">
+        <div class="del-check done">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="20 6 9 17 4 12"></polyline>
+          </svg>
+        </div>
+        <div class="del-info">
+          <div class="del-name">Patel family · 1L dodh</div>
+          <div class="del-meta">6:30 AM <span class="dot"></span> Baner</div>
+        </div>
+        <div class="del-amount">₹60</div>
+      </div>
+
+      <div class="delivery-row done">
+        <div class="del-check done">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="20 6 9 17 4 12"></polyline>
+          </svg>
+        </div>
+        <div class="del-info">
+          <div class="del-name">Mehta · 2L dodh + curd</div>
+          <div class="del-meta">6:45 AM <span class="dot"></span> Baner</div>
+        </div>
+        <div class="del-amount">₹180</div>
+      </div>
+
+      <div class="delivery-row">
+        <div class="del-check">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="20 6 9 17 4 12"></polyline>
+          </svg>
+        </div>
+        <div class="del-info">
+          <div class="del-name">Kulkarni · 1L dodh</div>
+          <div class="del-meta">7:00 AM <span class="dot"></span> Wakad</div>
+        </div>
+        <div class="del-amount">₹60</div>
+      </div>
+
+      <div class="delivery-row">
+        <div class="del-check">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="20 6 9 17 4 12"></polyline>
+          </svg>
+        </div>
+        <div class="del-info">
+          <div class="del-name">Deshmukh · 1L dodh + paneer</div>
+          <div class="del-meta">7:15 AM <span class="dot"></span> Wakad</div>
+        </div>
+        <div class="del-amount">₹150</div>
+      </div>
+
+    </div>
+
+    <!-- Ask Thiya -->
+    <div class="ask-thiya">
+      <svg class="mascot-mini" viewBox="0 0 32 42" xmlns="http://www.w3.org/2000/svg">
+        <g class="bounce-head">
+          <circle cx="16" cy="8" r="7" fill="#FF6B35"/>
+          <ellipse cx="13" cy="7.5" rx="0.9" ry="1.3" fill="#FFFFFF"/>
+          <ellipse cx="19" cy="7.5" rx="0.9" ry="1.3" fill="#FFFFFF"/>
+          <path d="M13 10.5 Q16 12 19 10.5" stroke="#FFFFFF" stroke-width="0.7" stroke-linecap="round" fill="none"/>
+        </g>
+        <path d="M11 19 Q11 18 12 18 L20 18 Q21 18 21 19 L21 27 L16 39 L11 27 Z" fill="#FF6B35"/>
+      </svg>
+      <div class="ask-text">
+        <div class="t1">Thiya se pooch lein</div>
+        <div class="t2">"Kal kitni orders the?"</div>
+      </div>
+      <div class="mic-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3z"/>
+          <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
+          <line x1="12" y1="19" x2="12" y2="22"/>
+        </svg>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Floating voice button -->
+  <div class="fab">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3z"/>
+      <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
+      <line x1="12" y1="19" x2="12" y2="22"/>
+    </svg>
+  </div>
+
+  <!-- Bottom nav -->
+  <div class="bottom-nav">
+    <div class="nav-item active">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+        <polyline points="9 22 9 12 15 12 15 22"></polyline>
+      </svg>
+      <span>Ghar</span>
+    </div>
+    <div class="nav-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+        <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+        <line x1="12" y1="22.08" x2="12" y2="12"></line>
+      </svg>
+      <span>Orders</span>
+    </div>
+    <div class="nav-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+        <circle cx="9" cy="7" r="4"></circle>
+        <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+        <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+      </svg>
+      <span>Customers</span>
+    </div>
+    <div class="nav-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="3"></circle>
+        <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+      </svg>
+      <span>Settings</span>
+    </div>
+  </div>
+
+</div>
+
+<div class="watermark">Thiya · Dashboard · All Light</div>
+
+<script>
+(function() {
+  var veil = document.getElementById('auth-veil');
+  if (sessionStorage.getItem('thiya_dev_session') === '1') {
+    veil.remove();
+  } else {
+    veil.textContent = 'body{margin:0;background:#1a1a1f;font-family:sans-serif}';
+    document.addEventListener('DOMContentLoaded', function() {
+      document.body.innerHTML =
+        '<div style="min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:28px;padding:24px;text-align:center">' +
+          '<div>' +
+            '<div style="width:52px;height:52px;background:#FF6B35;border-radius:12px;display:inline-flex;align-items:center;justify-content:center;font-weight:700;font-size:20px;color:#fff;margin-bottom:20px">th</div>' +
+            '<h2 style="color:#fff;font-size:22px;font-weight:700;margin-bottom:10px">Restricted Access</h2>' +
+            '<p style="color:#aaa;font-size:14px;line-height:1.7;max-width:300px">This resource is only accessible through the Thiya Developer Portal.</p>' +
+          '</div>' +
+          '<a href="developer.html" style="display:inline-block;background:#FF6B35;color:#fff;text-decoration:none;padding:13px 28px;border-radius:8px;font-size:14px;font-weight:600">Go to Developer Portal &rarr;</a>' +
+        '</div>';
+    });
+  }
+})();
+</script>
+
+</body>
+</html>
