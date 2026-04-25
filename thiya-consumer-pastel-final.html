@@ -1,0 +1,1707 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Thiya Consumer — Pastel Final · 5 Screens</title>
+<style id="auth-veil">body{visibility:hidden;background:#1a1a1f}</style>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Outfit:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --mint: #7DD3C0;
+    --mint-soft: #B8E5DC;
+    --mint-deep: #4FB3A0;
+    --mint-text: #2E7565;
+    --lavender: #B8A8E8;
+    --lavender-soft: #DCD2F0;
+    --lavender-text: #6B5BA8;
+    --periwinkle: #A4B8E8;
+    --periwinkle-soft: #C9D4F0;
+    --butter: #F2D88A;
+    --butter-soft: #FAEBC2;
+    --rose: #F0B8C8;
+    --rose-soft: #F8DBE3;
+    --pearl: #F8FAFB;
+    --white: #FFFFFF;
+    --ink: #1C2333;
+    --ink-soft: #4A556B;
+    --ink-mute: #8C95AB;
+    --ink-light: #B8BFD0;
+    --glass-strong: rgba(255, 255, 255, 0.72);
+    --glass-medium: rgba(255, 255, 255, 0.6);
+    --glass-light: rgba(255, 255, 255, 0.45);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; -webkit-font-smoothing: antialiased; }
+
+  body {
+    background: #1a1a1f;
+    font-family: 'Outfit', sans-serif;
+    min-height: 100vh;
+    padding: 60px 20px 80px;
+    display: flex;
+    gap: 32px;
+    justify-content: center;
+    align-items: flex-start;
+    flex-wrap: wrap;
+  }
+
+  /* PHONE */
+  .phone {
+    width: 380px;
+    height: 800px;
+    border-radius: 48px;
+    overflow: hidden;
+    position: relative;
+    box-shadow:
+      0 0 0 10px #0a0a0a,
+      0 0 0 11px #2a2a2a,
+      0 40px 80px rgba(0,0,0,0.4);
+    background:
+      radial-gradient(circle at 20% 20%, rgba(125, 211, 192, 0.18), transparent 45%),
+      radial-gradient(circle at 80% 30%, rgba(242, 216, 138, 0.15), transparent 40%),
+      radial-gradient(circle at 70% 75%, rgba(184, 168, 232, 0.18), transparent 45%),
+      radial-gradient(circle at 30% 80%, rgba(164, 184, 232, 0.12), transparent 40%),
+      var(--pearl);
+  }
+
+  .blobs { position: absolute; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+  .orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(30px);
+    opacity: 0.55;
+  }
+  .orb-mint { width: 200px; height: 200px; background: radial-gradient(circle at 30% 30%, var(--mint), transparent 65%); top: -40px; right: -30px; }
+  .orb-lavender { width: 180px; height: 120px; background: radial-gradient(ellipse at 30% 30%, var(--lavender), transparent 65%); top: 40%; left: -50px; }
+  .orb-butter { width: 140px; height: 90px; background: radial-gradient(ellipse at 30% 30%, var(--butter), transparent 65%); bottom: 30%; right: -30px; }
+  .orb-rose { width: 110px; height: 110px; background: radial-gradient(circle at 30% 30%, var(--rose), transparent 65%); bottom: 15%; left: 30%; opacity: 0.4; }
+
+  .status-bar {
+    height: 44px;
+    padding: 0 28px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: var(--ink);
+    font-family: 'DM Mono', monospace;
+    font-size: 14px;
+    font-weight: 500;
+    position: relative;
+    z-index: 10;
+  }
+  .status-bar .right { display: flex; gap: 6px; align-items: center; font-size: 11px; letter-spacing: 0.05em; }
+  .signal-dots { display: flex; gap: 2px; }
+  .signal-dots span { width: 3px; background: var(--ink); border-radius: 1px; }
+  .signal-dots span:nth-child(1) { height: 4px; }
+  .signal-dots span:nth-child(2) { height: 6px; }
+  .signal-dots span:nth-child(3) { height: 8px; }
+  .signal-dots span:nth-child(4) { height: 10px; }
+  .battery {
+    width: 22px; height: 11px; border: 1.2px solid var(--ink);
+    border-radius: 2.5px; position: relative; display: flex; align-items: center; padding: 1px;
+  }
+  .battery::after {
+    content: ''; position: absolute; right: -3px; top: 3px;
+    width: 2px; height: 5px; background: var(--ink); border-radius: 0 1px 1px 0;
+  }
+  .battery-fill { width: 70%; height: 100%; background: var(--ink); border-radius: 1px; }
+
+  .screen {
+    height: calc(100% - 44px);
+    overflow-y: auto;
+    padding: 8px 22px 100px;
+    scrollbar-width: none;
+    position: relative;
+    z-index: 5;
+  }
+  .screen::-webkit-scrollbar { display: none; }
+
+  /* ============= HEADER ============= */
+  .home-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 14px 0 24px;
+  }
+  .logo-wrap {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+  .logo-text {
+    font-family: 'Sora', sans-serif;
+    font-size: 26px;
+    font-weight: 800;
+    color: var(--ink);
+    letter-spacing: -0.04em;
+  }
+  .logo-char {
+    width: 18px;
+    height: 36px;
+    margin: 0 1px;
+    transform: translateY(-2px);
+  }
+
+  .avatar {
+    width: 42px; height: 42px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--mint), var(--periwinkle));
+    border: 2px solid var(--white);
+    box-shadow: inset 0 1px 2px rgba(255,255,255,0.6), 0 4px 12px rgba(125,211,192,0.3);
+    display: grid; place-items: center;
+    color: var(--white);
+    font-family: 'Sora', sans-serif;
+    font-weight: 700;
+    font-size: 15px;
+  }
+
+  /* Greet card */
+  .greet-card {
+    background: var(--glass-strong);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border: 1px solid rgba(255,255,255,0.65);
+    border-radius: 22px;
+    padding: 20px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.9), 0 8px 24px rgba(28,35,51,0.06);
+    position: relative;
+    overflow: hidden;
+  }
+  .greet-card::before {
+    content: '';
+    position: absolute;
+    top: -30px; right: -30px;
+    width: 100px; height: 100px;
+    background: radial-gradient(circle, var(--mint), transparent 60%);
+    opacity: 0.25;
+    filter: blur(20px);
+  }
+  .greet-mascot { width: 64px; height: 80px; flex-shrink: 0; position: relative; z-index: 2; }
+  .greet-text { flex: 1; position: relative; z-index: 2; }
+  .greet-text .label {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    color: var(--ink-mute);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+  .greet-text .name {
+    font-family: 'Sora', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--ink);
+    letter-spacing: -0.015em;
+    line-height: 1.2;
+    margin-bottom: 4px;
+  }
+  .greet-text .greet { font-size: 12px; color: var(--ink-soft); }
+
+  .search {
+    background: var(--glass-strong);
+    backdrop-filter: blur(20px) saturate(180%);
+    border: 1px solid rgba(255,255,255,0.6);
+    border-radius: 18px;
+    padding: 14px 18px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 24px;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.9), 0 4px 20px rgba(28,35,51,0.04);
+  }
+  .search svg { color: var(--ink-mute); flex-shrink: 0; }
+  .search input {
+    flex: 1; border: none; background: transparent; outline: none;
+    font-family: 'Outfit', sans-serif; font-size: 15px; color: var(--ink);
+  }
+  .search input::placeholder { color: var(--ink-mute); }
+
+  .cats-label {
+    font-family: 'Sora', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--ink);
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .cats-label::before {
+    content: '';
+    width: 3px; height: 12px;
+    background: var(--mint-deep);
+    border-radius: 2px;
+  }
+
+  .categories {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    margin-bottom: 24px;
+  }
+  .cat {
+    border-radius: 22px;
+    padding: 18px 16px 16px;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    border: 1px solid rgba(255,255,255,0.6);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.8), 0 4px 16px rgba(28,35,51,0.04);
+  }
+  .cat.mint { background: linear-gradient(135deg, var(--mint-soft), var(--mint)); }
+  .cat.lavender { background: linear-gradient(135deg, var(--lavender-soft), var(--lavender)); }
+  .cat.butter { background: linear-gradient(135deg, var(--butter-soft), var(--butter)); }
+  .cat.peri { background: linear-gradient(135deg, var(--periwinkle-soft), var(--periwinkle)); }
+
+  .cat .glow-ball {
+    position: absolute;
+    top: -20px; right: -20px;
+    width: 70px; height: 70px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.4);
+    filter: blur(15px);
+  }
+  .cat .icon {
+    width: 36px; height: 36px;
+    border-radius: 12px;
+    background: rgba(255,255,255,0.5);
+    backdrop-filter: blur(8px);
+    display: grid; place-items: center;
+    margin-bottom: 12px;
+    border: 1px solid rgba(255,255,255,0.7);
+    position: relative; z-index: 2;
+    font-size: 18px;
+  }
+  .cat .name {
+    font-family: 'Sora', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 2px;
+    letter-spacing: -0.01em;
+    position: relative; z-index: 2;
+  }
+  .cat .meta { font-size: 11px; color: var(--ink-soft); font-weight: 500; position: relative; z-index: 2; }
+
+  /* Ask Thiya */
+  .ask-thiya-card {
+    background: linear-gradient(135deg, rgba(184,168,232,0.18) 0%, rgba(125,211,192,0.18) 100%);
+    backdrop-filter: blur(14px);
+    border: 1px solid rgba(184,168,232,0.3);
+    border-radius: 18px;
+    padding: 16px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    cursor: pointer;
+    margin-bottom: 16px;
+  }
+  .ask-mascot { width: 38px; height: 48px; flex-shrink: 0; }
+  .ask-content { flex: 1; }
+  .ask-content .label {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    color: var(--lavender-text);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 3px;
+  }
+  .ask-content .text { font-size: 13px; color: var(--ink); line-height: 1.5; font-weight: 500; }
+  .ask-mic {
+    width: 34px; height: 34px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--mint), var(--mint-deep));
+    display: grid; place-items: center;
+    color: white;
+    flex-shrink: 0;
+    box-shadow: 0 4px 12px rgba(79,179,160,0.4), inset 0 1px 0 rgba(255,255,255,0.3);
+  }
+
+  /* Active subscription */
+  .active-sub {
+    background: var(--glass-strong);
+    backdrop-filter: blur(20px) saturate(180%);
+    border: 1px solid rgba(255,255,255,0.65);
+    border-radius: 22px;
+    padding: 20px;
+    margin-bottom: 20px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.9), 0 8px 24px rgba(28,35,51,0.06);
+  }
+  .active-sub::before {
+    content: '';
+    position: absolute;
+    top: -40px; right: -40px;
+    width: 140px; height: 140px;
+    background: radial-gradient(circle, var(--mint), transparent 60%);
+    opacity: 0.3;
+    filter: blur(20px);
+  }
+  .sub-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    background: rgba(125,211,192,0.2);
+    color: var(--mint-text);
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    padding: 4px 9px;
+    border-radius: 6px;
+    margin-bottom: 12px;
+    text-transform: uppercase;
+    position: relative; z-index: 2;
+    border: 1px solid rgba(125,211,192,0.3);
+  }
+  .sub-tag .dot { width: 6px; height: 6px; background: var(--mint-deep); border-radius: 50%; box-shadow: 0 0 6px var(--mint); }
+  .sub-vendor {
+    font-family: 'Sora', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--ink);
+    letter-spacing: -0.01em;
+    margin-bottom: 4px;
+    position: relative; z-index: 2;
+  }
+  .sub-detail { font-size: 13px; color: var(--ink-soft); margin-bottom: 16px; position: relative; z-index: 2; }
+  .sub-progress {
+    background: rgba(28,35,51,0.06);
+    border-radius: 10px;
+    height: 8px;
+    overflow: hidden;
+    margin-bottom: 8px;
+    position: relative; z-index: 2;
+  }
+  .sub-progress .fill {
+    height: 100%;
+    width: 73%;
+    background: linear-gradient(90deg, var(--mint), var(--mint-deep));
+    border-radius: 10px;
+    box-shadow: 0 0 12px rgba(125,211,192,0.5);
+  }
+  .sub-meta {
+    display: flex;
+    justify-content: space-between;
+    font-size: 11px;
+    color: var(--ink-mute);
+    font-family: 'DM Mono', monospace;
+    position: relative; z-index: 2;
+  }
+
+  /* ============= VENDOR PROFILE ============= */
+  .v-back {
+    margin: 16px 0 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .icon-btn-glass {
+    width: 38px; height: 38px;
+    border-radius: 12px;
+    background: var(--glass-strong);
+    backdrop-filter: blur(14px) saturate(180%);
+    border: 1px solid rgba(255,255,255,0.6);
+    display: grid; place-items: center;
+    color: var(--ink);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.9);
+  }
+  .icon-btn-glass.heart { color: var(--rose); }
+
+  .v-hero {
+    background: linear-gradient(135deg, rgba(125,211,192,0.4) 0%, rgba(164,184,232,0.4) 100%);
+    backdrop-filter: blur(14px);
+    border: 1px solid rgba(255,255,255,0.6);
+    border-radius: 26px;
+    padding: 28px 24px;
+    text-align: center;
+    margin-bottom: 16px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.9), 0 8px 24px rgba(28,35,51,0.06);
+  }
+  .v-hero::before {
+    content: '';
+    position: absolute;
+    top: -30px; right: -30px;
+    width: 120px; height: 120px;
+    background: radial-gradient(circle, var(--butter), transparent 60%);
+    opacity: 0.5;
+    filter: blur(20px);
+  }
+  .v-avatar {
+    width: 72px; height: 72px;
+    border-radius: 22px;
+    background: linear-gradient(135deg, var(--white), var(--mint-soft));
+    margin: 0 auto 12px;
+    display: grid; place-items: center;
+    font-size: 36px;
+    box-shadow: inset 0 2px 4px rgba(255,255,255,0.8), 0 6px 16px rgba(28,35,51,0.1);
+    position: relative; z-index: 2;
+  }
+  .v-name {
+    font-family: 'Sora', sans-serif;
+    font-size: 22px;
+    font-weight: 800;
+    color: var(--ink);
+    letter-spacing: -0.02em;
+    margin-bottom: 4px;
+    position: relative; z-index: 2;
+  }
+  .v-meta { font-size: 13px; color: var(--ink-soft); margin-bottom: 14px; position: relative; z-index: 2; }
+  .v-stats { display: flex; justify-content: center; gap: 24px; position: relative; z-index: 2; }
+  .v-stat .num { font-family: 'Sora', sans-serif; font-size: 17px; font-weight: 700; color: var(--ink); }
+  .v-stat .lbl { font-size: 11px; color: var(--ink-mute); margin-top: 2px; }
+  .v-stat .num.rating { color: var(--mint-text); display: flex; align-items: center; gap: 3px; justify-content: center; }
+
+  .v-section-head {
+    font-family: 'Sora', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .v-section-head::before {
+    content: '';
+    width: 3px; height: 12px;
+    background: var(--lavender);
+    border-radius: 2px;
+  }
+
+  .products { display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px; }
+  .product {
+    background: var(--glass-strong);
+    backdrop-filter: blur(14px) saturate(180%);
+    border: 1px solid rgba(255,255,255,0.6);
+    border-radius: 16px;
+    padding: 14px 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.9), 0 2px 8px rgba(28,35,51,0.03);
+  }
+  .p-icon {
+    width: 38px; height: 38px;
+    border-radius: 12px;
+    display: grid; place-items: center;
+    flex-shrink: 0;
+    font-size: 18px;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.6);
+  }
+  .p-icon.mint { background: linear-gradient(135deg, var(--mint-soft), var(--mint)); }
+  .p-icon.butter { background: linear-gradient(135deg, var(--butter-soft), var(--butter)); }
+  .p-icon.lavender { background: linear-gradient(135deg, var(--lavender-soft), var(--lavender)); }
+  .p-icon.rose { background: linear-gradient(135deg, var(--rose-soft), var(--rose)); }
+
+  .p-info { flex: 1; }
+  .p-name { font-family: 'Sora', sans-serif; font-size: 14px; font-weight: 600; color: var(--ink); margin-bottom: 2px; }
+  .p-desc { font-size: 11px; color: var(--ink-mute); }
+  .p-price { font-family: 'DM Mono', monospace; font-size: 13px; font-weight: 600; color: var(--ink); }
+  .p-add {
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    background: var(--ink);
+    color: white;
+    display: grid; place-items: center;
+    margin-left: 8px;
+    cursor: pointer;
+  }
+
+  /* ============= TRACKING ============= */
+  .t-header {
+    margin: 16px 0 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .t-header h2 {
+    font-family: 'Sora', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--ink);
+    letter-spacing: -0.01em;
+  }
+
+  .t-orb-wrap {
+    text-align: center;
+    margin: 20px 0 24px;
+    position: relative;
+  }
+  .t-orb {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 30% 30%, var(--mint) 0%, var(--periwinkle) 50%, var(--lavender) 100%);
+    margin: 0 auto;
+    position: relative;
+    box-shadow:
+      inset -10px -10px 20px rgba(28,35,51,0.15),
+      inset 10px 10px 20px rgba(255,255,255,0.6),
+      0 20px 40px rgba(125,211,192,0.3);
+    animation: orb-float 4s ease-in-out infinite;
+  }
+  @keyframes orb-float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+  }
+  .t-orb::after {
+    content: '';
+    position: absolute;
+    top: 12px; left: 22px;
+    width: 30px; height: 22px;
+    background: rgba(255,255,255,0.7);
+    border-radius: 50%;
+    filter: blur(4px);
+  }
+  .t-orb-bubble { position: absolute; border-radius: 50%; box-shadow: inset 0 1px 2px rgba(255,255,255,0.5); }
+  .t-bub-1 { width: 36px; height: 36px; background: linear-gradient(135deg, var(--butter-soft), var(--butter)); top: -10px; right: 30%; animation: bub-float-1 3s ease-in-out infinite; }
+  .t-bub-2 { width: 26px; height: 26px; background: linear-gradient(135deg, var(--lavender-soft), var(--lavender)); bottom: 0px; left: 28%; animation: bub-float-2 3.5s ease-in-out infinite; }
+  .t-bub-3 { width: 18px; height: 18px; background: linear-gradient(135deg, var(--mint-soft), var(--mint)); top: 30%; left: 20%; animation: bub-float-1 4s ease-in-out infinite 0.5s; }
+  @keyframes bub-float-1 { 0%, 100% { transform: translate(0,0); } 50% { transform: translate(-4px, -8px); } }
+  @keyframes bub-float-2 { 0%, 100% { transform: translate(0,0); } 50% { transform: translate(6px, -4px); } }
+
+  .t-status { text-align: center; margin-bottom: 28px; }
+  .t-status .pulse {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(125,211,192,0.18);
+    color: var(--mint-text);
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    padding: 6px 12px;
+    border-radius: 10px;
+    margin-bottom: 12px;
+    text-transform: uppercase;
+    border: 1px solid rgba(125,211,192,0.3);
+  }
+  .t-status .pulse .dot {
+    width: 6px; height: 6px;
+    background: var(--mint-deep);
+    border-radius: 50%;
+    animation: pulse-dot 1.5s ease-in-out infinite;
+  }
+  @keyframes pulse-dot { 0%, 100% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.4); opacity: 0.6; } }
+  .t-status h2 {
+    font-family: 'Sora', sans-serif;
+    font-size: 22px;
+    font-weight: 800;
+    color: var(--ink);
+    letter-spacing: -0.02em;
+    margin-bottom: 6px;
+  }
+  .t-status .sub { font-size: 14px; color: var(--ink-soft); }
+
+  .timeline {
+    background: var(--glass-strong);
+    backdrop-filter: blur(20px) saturate(180%);
+    border: 1px solid rgba(255,255,255,0.6);
+    border-radius: 20px;
+    padding: 18px 20px;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.9), 0 6px 20px rgba(28,35,51,0.04);
+  }
+  .tl-item { display: flex; gap: 14px; position: relative; padding-bottom: 18px; }
+  .tl-item:last-child { padding-bottom: 0; }
+  .tl-item::before {
+    content: '';
+    position: absolute;
+    left: 9px; top: 22px; bottom: 0;
+    width: 2px; background: var(--ink-light); opacity: 0.3;
+  }
+  .tl-item:last-child::before { display: none; }
+  .tl-item.done .tl-dot { background: linear-gradient(135deg, var(--mint), var(--mint-deep)); box-shadow: 0 0 8px rgba(125,211,192,0.5); }
+  .tl-item.active .tl-dot { background: linear-gradient(135deg, var(--mint), var(--mint-deep)); box-shadow: 0 0 16px rgba(125,211,192,0.6); }
+  .tl-item.active .tl-dot::after {
+    content: '';
+    position: absolute;
+    inset: -4px;
+    border-radius: 50%;
+    background: var(--mint);
+    opacity: 0.4;
+    animation: tl-pulse 2s ease-out infinite;
+  }
+  @keyframes tl-pulse { 0% { transform: scale(1); opacity: 0.4; } 100% { transform: scale(2.5); opacity: 0; } }
+  .tl-dot {
+    width: 20px; height: 20px;
+    border-radius: 50%;
+    background: var(--ink-light);
+    flex-shrink: 0;
+    margin-top: 2px;
+    position: relative; z-index: 2;
+  }
+  .tl-content { flex: 1; }
+  .tl-title { font-family: 'Sora', sans-serif; font-size: 13px; font-weight: 600; color: var(--ink); margin-bottom: 2px; }
+  .tl-time { font-size: 11px; color: var(--ink-mute); font-family: 'DM Mono', monospace; }
+  .tl-item:not(.done):not(.active) .tl-title { color: var(--ink-mute); font-weight: 500; }
+
+  /* ============= SUBSCRIPTIONS LIST ============= */
+  .s-header {
+    margin: 16px 0 24px;
+  }
+  .s-title {
+    font-family: 'Sora', sans-serif;
+    font-size: 24px;
+    font-weight: 800;
+    color: var(--ink);
+    letter-spacing: -0.025em;
+    margin-bottom: 4px;
+  }
+  .s-sub { font-size: 13px; color: var(--ink-soft); }
+
+  .s-tabs {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 18px;
+  }
+  .s-tab {
+    padding: 8px 16px;
+    border-radius: 10px;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--ink-soft);
+    background: var(--glass-medium);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255,255,255,0.5);
+    cursor: pointer;
+  }
+  .s-tab.active {
+    background: linear-gradient(135deg, var(--mint), var(--mint-deep));
+    color: var(--white);
+    border-color: transparent;
+    box-shadow: 0 4px 12px rgba(79,179,160,0.4);
+  }
+
+  .sub-card {
+    background: var(--glass-strong);
+    backdrop-filter: blur(20px) saturate(180%);
+    border: 1px solid rgba(255,255,255,0.6);
+    border-radius: 20px;
+    padding: 18px 20px;
+    margin-bottom: 12px;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.9), 0 6px 20px rgba(28,35,51,0.04);
+    position: relative;
+    overflow: hidden;
+  }
+  .sub-card.mint::before {
+    content: '';
+    position: absolute;
+    top: -30px; right: -30px;
+    width: 90px; height: 90px;
+    background: radial-gradient(circle, var(--mint), transparent 60%);
+    opacity: 0.3;
+    filter: blur(15px);
+  }
+  .sub-card.butter::before {
+    content: '';
+    position: absolute;
+    top: -30px; right: -30px;
+    width: 90px; height: 90px;
+    background: radial-gradient(circle, var(--butter), transparent 60%);
+    opacity: 0.4;
+    filter: blur(15px);
+  }
+  .sub-card.lavender::before {
+    content: '';
+    position: absolute;
+    top: -30px; right: -30px;
+    width: 90px; height: 90px;
+    background: radial-gradient(circle, var(--lavender), transparent 60%);
+    opacity: 0.3;
+    filter: blur(15px);
+  }
+
+  .sub-card-row {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    position: relative;
+    z-index: 2;
+  }
+  .sub-icon {
+    width: 44px; height: 44px;
+    border-radius: 14px;
+    display: grid; place-items: center;
+    font-size: 22px;
+    flex-shrink: 0;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.6);
+  }
+  .sub-icon.mint { background: linear-gradient(135deg, var(--mint-soft), var(--mint)); }
+  .sub-icon.butter { background: linear-gradient(135deg, var(--butter-soft), var(--butter)); }
+  .sub-icon.lavender { background: linear-gradient(135deg, var(--lavender-soft), var(--lavender)); }
+
+  .sub-card-info { flex: 1; min-width: 0; }
+  .sub-card-name {
+    font-family: 'Sora', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 2px;
+    letter-spacing: -0.01em;
+  }
+  .sub-card-detail { font-size: 12px; color: var(--ink-soft); }
+  .sub-card-amt {
+    font-family: 'DM Mono', monospace;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--ink);
+    text-align: right;
+  }
+  .sub-card-amt .small { font-size: 10px; color: var(--ink-mute); display: block; }
+
+  .sub-card-foot {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 14px;
+    padding-top: 14px;
+    border-top: 1px solid rgba(28,35,51,0.06);
+    position: relative;
+    z-index: 2;
+  }
+  .sub-card-prog {
+    flex: 1;
+    margin-right: 12px;
+    background: rgba(28,35,51,0.06);
+    height: 5px;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  .sub-card-prog .f { height: 100%; border-radius: 8px; }
+  .sub-card-prog .f.mint { background: linear-gradient(90deg, var(--mint), var(--mint-deep)); width: 73%; }
+  .sub-card-prog .f.butter { background: linear-gradient(90deg, var(--butter), #D4A943); width: 40%; }
+  .sub-card-prog .f.lavender { background: linear-gradient(90deg, var(--lavender), var(--lavender-text)); width: 90%; }
+  .sub-card-days { font-size: 11px; color: var(--ink-mute); font-family: 'DM Mono', monospace; flex-shrink: 0; }
+
+  /* ============= CHAT WITH THIYA AI ============= */
+  .chat-screen {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    background: transparent;
+  }
+  .chat-header {
+    padding: 14px 22px 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: rgba(248, 250, 251, 0.6);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(255,255,255,0.5);
+    position: relative;
+    z-index: 5;
+  }
+  .chat-header .ch-mascot {
+    width: 44px; height: 56px;
+    flex-shrink: 0;
+  }
+  .chat-header-info { flex: 1; }
+  .chat-header-info .name {
+    font-family: 'Sora', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--ink);
+    letter-spacing: -0.01em;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .online-dot {
+    width: 7px; height: 7px;
+    background: var(--mint-deep);
+    border-radius: 50%;
+    box-shadow: 0 0 6px var(--mint);
+  }
+  .chat-header-info .status { font-size: 11px; color: var(--ink-mute); }
+
+  .messages {
+    flex: 1;
+    overflow-y: auto;
+    padding: 20px 22px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    scrollbar-width: none;
+  }
+  .messages::-webkit-scrollbar { display: none; }
+
+  .msg { display: flex; gap: 8px; max-width: 88%; }
+  .msg.thiya { align-self: flex-start; }
+  .msg.user { align-self: flex-end; flex-direction: row-reverse; }
+  .msg-mascot { width: 28px; height: 36px; flex-shrink: 0; align-self: flex-end; }
+  .msg-bubble {
+    padding: 12px 16px;
+    border-radius: 18px;
+    font-size: 14px;
+    line-height: 1.45;
+    box-shadow: 0 2px 8px rgba(28,35,51,0.04);
+  }
+  .msg.thiya .msg-bubble {
+    background: var(--glass-strong);
+    backdrop-filter: blur(14px);
+    border: 1px solid rgba(255,255,255,0.6);
+    color: var(--ink);
+    border-bottom-left-radius: 6px;
+  }
+  .msg.user .msg-bubble {
+    background: linear-gradient(135deg, var(--mint), var(--mint-deep));
+    color: white;
+    border-bottom-right-radius: 6px;
+    font-weight: 500;
+  }
+
+  .msg-suggest {
+    background: linear-gradient(135deg, rgba(184,168,232,0.15), rgba(125,211,192,0.15));
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(184,168,232,0.25);
+    border-radius: 16px;
+    padding: 12px 14px;
+    margin-top: 8px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+  }
+  .msg-suggest .icon {
+    width: 32px; height: 32px;
+    border-radius: 10px;
+    background: linear-gradient(135deg, var(--mint-soft), var(--mint));
+    display: grid; place-items: center;
+    font-size: 16px;
+    flex-shrink: 0;
+  }
+  .msg-suggest .info { flex: 1; }
+  .msg-suggest .info .t { font-family: 'Sora', sans-serif; font-size: 12px; font-weight: 600; color: var(--ink); }
+  .msg-suggest .info .d { font-size: 10px; color: var(--ink-mute); margin-top: 1px; }
+
+  .quick-replies {
+    padding: 0 22px 12px;
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .quick-reply {
+    background: var(--glass-medium);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.5);
+    border-radius: 14px;
+    padding: 8px 14px;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--mint-text);
+    cursor: pointer;
+  }
+
+  .chat-input {
+    padding: 12px 22px 24px;
+    background: rgba(248, 250, 251, 0.7);
+    backdrop-filter: blur(20px);
+    border-top: 1px solid rgba(255,255,255,0.5);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .chat-input input {
+    flex: 1;
+    background: var(--white);
+    border: 1px solid rgba(28,35,51,0.08);
+    border-radius: 18px;
+    padding: 12px 16px;
+    font-size: 14px;
+    color: var(--ink);
+    outline: none;
+    font-family: 'Outfit', sans-serif;
+  }
+  .chat-input input::placeholder { color: var(--ink-mute); }
+  .chat-mic {
+    width: 42px; height: 42px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--mint), var(--periwinkle));
+    display: grid; place-items: center;
+    color: white;
+    flex-shrink: 0;
+    box-shadow: 0 4px 12px rgba(125,211,192,0.4), inset 0 1px 0 rgba(255,255,255,0.3);
+  }
+
+  /* Bottom nav */
+  .bottom-nav {
+    position: absolute;
+    bottom: 0;
+    left: 0; right: 0;
+    height: 80px;
+    background: rgba(248, 250, 251, 0.7);
+    backdrop-filter: blur(24px) saturate(180%);
+    border-top: 1px solid rgba(255,255,255,0.5);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.9);
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 0 20px 20px;
+    z-index: 10;
+  }
+  .nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    cursor: pointer;
+    color: var(--ink-mute);
+    font-size: 10px;
+    font-weight: 500;
+    padding: 8px 12px;
+    position: relative;
+  }
+  .nav-item svg { width: 22px; height: 22px; }
+  .nav-item.active { color: var(--mint-text); }
+  .nav-item.active::after {
+    content: '';
+    position: absolute;
+    bottom: 2px;
+    width: 4px; height: 4px;
+    background: var(--mint-deep);
+    border-radius: 50%;
+  }
+
+  /* Chat FAB - now with proper Thiya including legs */
+  .chat-fab {
+    position: absolute;
+    bottom: 96px;
+    right: 24px;
+    width: 64px; height: 64px;
+    border-radius: 50%;
+    background:
+      radial-gradient(circle at 30% 30%, rgba(255,255,255,0.6), rgba(255,255,255,0.1) 40%),
+      linear-gradient(135deg, var(--mint), var(--periwinkle));
+    box-shadow:
+      inset -4px -4px 8px rgba(28,35,51,0.15),
+      inset 4px 4px 8px rgba(255,255,255,0.4),
+      0 12px 32px rgba(125,211,192,0.45);
+    z-index: 20;
+    cursor: pointer;
+    display: grid;
+    place-items: center;
+    overflow: hidden;
+  }
+  .chat-fab::before {
+    content: '';
+    position: absolute;
+    inset: -8px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--mint), var(--lavender));
+    opacity: 0.35;
+    z-index: -1;
+    filter: blur(14px);
+  }
+  .chat-fab .fab-mascot {
+    width: 36px;
+    height: 46px;
+    position: relative;
+    z-index: 2;
+  }
+  .chat-badge {
+    position: absolute;
+    top: 6px; right: 6px;
+    width: 14px; height: 14px;
+    border-radius: 50%;
+    background: var(--rose);
+    border: 2px solid var(--white);
+    z-index: 25;
+  }
+
+  @keyframes vbounce {
+    0%, 100% { transform: translate(0, 0); }
+    25% { transform: translate(-3px, 4px); }
+    75% { transform: translate(3px, 4px); }
+  }
+  @keyframes blink {
+    0%, 92%, 100% { transform: scaleY(1); }
+    95%, 97% { transform: scaleY(0.1); }
+  }
+  .bounce-head { animation: vbounce 1.6s ease-in-out infinite; transform-origin: center; }
+  .blink-eyes { animation: blink 4s ease-in-out infinite; transform-origin: center; transform-box: fill-box; }
+
+  .phone-cap {
+    position: absolute;
+    bottom: -36px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: rgba(255,255,255,0.55);
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+</style>
+</head>
+<body>
+
+<!-- Shared SVG defs for pastel mascot - CLEAN VERSION -->
+<svg width="0" height="0" style="position: absolute;">
+  <defs>
+    <!-- Cleaner head: lighter top, darker bottom, but eyes always sit on lighter middle -->
+    <linearGradient id="thiyaHead" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#B8E5DC"/>
+      <stop offset="50%" stop-color="#7DD3C0"/>
+      <stop offset="100%" stop-color="#4FB3A0"/>
+    </linearGradient>
+    <linearGradient id="thiyaBody" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#A4B8E8"/>
+      <stop offset="100%" stop-color="#B8A8E8"/>
+    </linearGradient>
+    <!-- White Thiya for FAB -->
+    <linearGradient id="thiyaWhite" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FFFFFF"/>
+      <stop offset="100%" stop-color="#F0F8F5"/>
+    </linearGradient>
+  </defs>
+</svg>
+
+<!-- ============== SCREEN 1: HOME ============== -->
+<div style="position: relative;">
+  <div class="phone">
+    <div class="blobs">
+      <div class="orb orb-mint"></div>
+      <div class="orb orb-lavender"></div>
+      <div class="orb orb-butter"></div>
+      <div class="orb orb-rose"></div>
+    </div>
+    <div class="status-bar">
+      <div>9:41</div>
+      <div class="right">
+        <div class="signal-dots"><span></span><span></span><span></span><span></span></div>
+        <span>5G</span>
+        <div class="battery"><div class="battery-fill"></div></div>
+      </div>
+    </div>
+    <div class="screen">
+      <div class="home-header">
+        <div class="logo-wrap">
+          <span class="logo-text">th</span>
+          <svg class="logo-char" viewBox="0 0 18 36" xmlns="http://www.w3.org/2000/svg">
+            <g class="bounce-head">
+              <circle cx="9" cy="6" r="5.5" fill="url(#thiyaHead)"/>
+              <g class="blink-eyes">
+                <ellipse cx="6.7" cy="5.5" rx="0.7" ry="1" fill="#FFFFFF"/>
+                <ellipse cx="11.3" cy="5.5" rx="0.7" ry="1" fill="#FFFFFF"/>
+              </g>
+              <path d="M6.8 7.8 Q9 9 11.2 7.8" stroke="#FFFFFF" stroke-width="0.5" stroke-linecap="round" fill="none"/>
+            </g>
+            <path d="M5 14 Q5 13 6 13 L12 13 Q13 13 13 14 L13 21 L9 30 L5 21 Z" fill="url(#thiyaBody)"/>
+            <line x1="7" y1="30" x2="6" y2="34" stroke="#B8A8E8" stroke-width="1.5" stroke-linecap="round"/>
+            <line x1="11" y1="30" x2="12" y2="34" stroke="#B8A8E8" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+          <span class="logo-text">ya</span>
+        </div>
+        <div class="avatar">P</div>
+      </div>
+
+      <div class="greet-card">
+        <svg class="greet-mascot" viewBox="0 0 64 80" xmlns="http://www.w3.org/2000/svg">
+          <g class="bounce-head">
+            <circle cx="32" cy="14" r="12" fill="url(#thiyaHead)"/>
+            <g class="blink-eyes">
+              <ellipse cx="27" cy="13" rx="1.6" ry="2.1" fill="#FFFFFF"/>
+              <ellipse cx="37" cy="13" rx="1.6" ry="2.1" fill="#FFFFFF"/>
+            </g>
+            <path d="M27 17.5 Q32 20 37 17.5" stroke="#FFFFFF" stroke-width="1.1" stroke-linecap="round" fill="none"/>
+          </g>
+          <path d="M24 33 Q24 31 26 31 L38 31 Q40 31 40 33 L40 47 L32 70 L24 47 Z" fill="url(#thiyaBody)"/>
+          <line x1="28" y1="70" x2="26" y2="78" stroke="#B8A8E8" stroke-width="2.5" stroke-linecap="round"/>
+          <line x1="36" y1="70" x2="38" y2="78" stroke="#B8A8E8" stroke-width="2.5" stroke-linecap="round"/>
+        </svg>
+        <div class="greet-text">
+          <div class="label">Namaste</div>
+          <div class="name">Priya ji!</div>
+          <div class="greet">22 din ki subscription baaki</div>
+        </div>
+      </div>
+
+      <div class="search">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+        <input placeholder="Vendor ya product dhoondhein..." />
+      </div>
+
+      <div class="cats-label">Aapke aas paas</div>
+
+      <div class="categories">
+        <div class="cat mint"><div class="glow-ball"></div><div class="icon">🥛</div><div class="name">Doodh</div><div class="meta">12 vendors</div></div>
+        <div class="cat butter"><div class="glow-ball"></div><div class="icon">🍱</div><div class="name">Tiffin</div><div class="meta">8 vendors</div></div>
+        <div class="cat lavender"><div class="glow-ball"></div><div class="icon">💧</div><div class="name">Paani</div><div class="meta">5 vendors</div></div>
+        <div class="cat peri"><div class="glow-ball"></div><div class="icon">👕</div><div class="name">Dhulai</div><div class="meta">6 vendors</div></div>
+      </div>
+
+      <div class="ask-thiya-card">
+        <svg class="ask-mascot" viewBox="0 0 38 48" xmlns="http://www.w3.org/2000/svg">
+          <g class="bounce-head">
+            <circle cx="19" cy="9" r="7.5" fill="url(#thiyaHead)"/>
+            <g class="blink-eyes">
+              <ellipse cx="15.7" cy="8.3" rx="1" ry="1.4" fill="#FFFFFF"/>
+              <ellipse cx="22.3" cy="8.3" rx="1" ry="1.4" fill="#FFFFFF"/>
+            </g>
+            <path d="M15.8 11 Q19 12.5 22.2 11" stroke="#FFFFFF" stroke-width="0.7" stroke-linecap="round" fill="none"/>
+          </g>
+          <path d="M14 21 Q14 20 15 20 L23 20 Q24 20 24 21 L24 30 L19 44 L14 30 Z" fill="url(#thiyaBody)"/>
+          <line x1="16" y1="44" x2="15" y2="47" stroke="#B8A8E8" stroke-width="1.5" stroke-linecap="round"/>
+          <line x1="22" y1="44" x2="23" y2="47" stroke="#B8A8E8" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+        <div class="ask-content">
+          <div class="label">Thiya AI</div>
+          <div class="text">Sharma ji ki dairy mein paneer fresh aaya hai!</div>
+        </div>
+        <div class="ask-mic">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3z"/>
+            <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
+            <line x1="12" y1="19" x2="12" y2="22"/>
+          </svg>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- CHAT FAB with full Thiya including legs -->
+    <div class="chat-fab">
+      <div class="chat-badge"></div>
+      <svg class="fab-mascot" viewBox="0 0 36 48" xmlns="http://www.w3.org/2000/svg">
+        <g class="bounce-head">
+          <circle cx="18" cy="9" r="7" fill="url(#thiyaWhite)"/>
+          <g class="blink-eyes">
+            <ellipse cx="15" cy="8.3" rx="0.95" ry="1.3" fill="#2E7565"/>
+            <ellipse cx="21" cy="8.3" rx="0.95" ry="1.3" fill="#2E7565"/>
+          </g>
+          <path d="M15 10.8 Q18 12.2 21 10.8" stroke="#2E7565" stroke-width="0.7" stroke-linecap="round" fill="none"/>
+        </g>
+        <path d="M13 20 Q13 19 14 19 L22 19 Q23 19 23 20 L23 28 L18 42 L13 28 Z" fill="url(#thiyaWhite)"/>
+        <line x1="15" y1="42" x2="14" y2="46" stroke="#FFFFFF" stroke-width="1.5" stroke-linecap="round"/>
+        <line x1="21" y1="42" x2="22" y2="46" stroke="#FFFFFF" stroke-width="1.5" stroke-linecap="round"/>
+      </svg>
+    </div>
+
+    <div class="bottom-nav">
+      <div class="nav-item active">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path></svg>
+        <span>Ghar</span>
+      </div>
+      <div class="nav-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+        <span>Khoj</span>
+      </div>
+      <div class="nav-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path></svg>
+        <span>Orders</span>
+      </div>
+      <div class="nav-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+        <span>Profile</span>
+      </div>
+    </div>
+
+    <div class="phone-cap">01 · Home</div>
+  </div>
+</div>
+
+<!-- ============== SCREEN 2: VENDOR ============== -->
+<div style="position: relative;">
+  <div class="phone">
+    <div class="blobs">
+      <div class="orb orb-mint"></div>
+      <div class="orb orb-lavender"></div>
+      <div class="orb orb-butter"></div>
+    </div>
+    <div class="status-bar">
+      <div>9:41</div>
+      <div class="right">
+        <div class="signal-dots"><span></span><span></span><span></span><span></span></div>
+        <span>5G</span>
+        <div class="battery"><div class="battery-fill"></div></div>
+      </div>
+    </div>
+    <div class="screen">
+      <div class="v-back">
+        <div class="icon-btn-glass">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+        </div>
+        <div class="icon-btn-glass heart">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="1.5"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+        </div>
+      </div>
+
+      <div class="v-hero">
+        <div class="v-avatar">🥛</div>
+        <div class="v-name">Sharma Milk Dairy</div>
+        <div class="v-meta">Baner · 250m door · 12 saalon se</div>
+        <div class="v-stats">
+          <div class="v-stat"><div class="num rating">★ 4.9</div><div class="lbl">340 reviews</div></div>
+          <div class="v-stat"><div class="num">142</div><div class="lbl">customers</div></div>
+          <div class="v-stat"><div class="num">99%</div><div class="lbl">on time</div></div>
+        </div>
+      </div>
+
+      <div class="v-section-head">Products</div>
+
+      <div class="products">
+        <div class="product">
+          <div class="p-icon mint">🥛</div>
+          <div class="p-info"><div class="p-name">Cow milk · 1L</div><div class="p-desc">Fresh, A2, full cream</div></div>
+          <div class="p-price">₹60</div>
+          <div class="p-add">+</div>
+        </div>
+        <div class="product">
+          <div class="p-icon butter">🧈</div>
+          <div class="p-info"><div class="p-name">Paneer · 250g</div><div class="p-desc">Soft, fresh daily</div></div>
+          <div class="p-price">₹90</div>
+          <div class="p-add">+</div>
+        </div>
+        <div class="product">
+          <div class="p-icon lavender">🥄</div>
+          <div class="p-info"><div class="p-name">Curd · 500g</div><div class="p-desc">Homemade style</div></div>
+          <div class="p-price">₹40</div>
+          <div class="p-add">+</div>
+        </div>
+        <div class="product">
+          <div class="p-icon rose">🥛</div>
+          <div class="p-info"><div class="p-name">Buffalo milk · 1L</div><div class="p-desc">Thick, rich</div></div>
+          <div class="p-price">₹70</div>
+          <div class="p-add">+</div>
+        </div>
+      </div>
+
+      <div class="ask-thiya-card">
+        <svg class="ask-mascot" viewBox="0 0 38 48" xmlns="http://www.w3.org/2000/svg">
+          <g class="bounce-head">
+            <circle cx="19" cy="9" r="7.5" fill="url(#thiyaHead)"/>
+            <g class="blink-eyes">
+              <ellipse cx="15.7" cy="8.3" rx="1" ry="1.4" fill="#FFFFFF"/>
+              <ellipse cx="22.3" cy="8.3" rx="1" ry="1.4" fill="#FFFFFF"/>
+            </g>
+            <path d="M15.8 11 Q19 12.5 22.2 11" stroke="#FFFFFF" stroke-width="0.7" stroke-linecap="round" fill="none"/>
+          </g>
+          <path d="M14 21 Q14 20 15 20 L23 20 Q24 20 24 21 L24 30 L19 44 L14 30 Z" fill="url(#thiyaBody)"/>
+          <line x1="16" y1="44" x2="15" y2="47" stroke="#B8A8E8" stroke-width="1.5" stroke-linecap="round"/>
+          <line x1="22" y1="44" x2="23" y2="47" stroke="#B8A8E8" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+        <div class="ask-content">
+          <div class="label">Thiya AI</div>
+          <div class="text">Monthly subscription rakhein, 15% save hoga.</div>
+        </div>
+        <div class="ask-mic">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="22"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <div class="chat-fab">
+      <div class="chat-badge"></div>
+      <svg class="fab-mascot" viewBox="0 0 36 48" xmlns="http://www.w3.org/2000/svg">
+        <g class="bounce-head">
+          <circle cx="18" cy="9" r="7" fill="url(#thiyaWhite)"/>
+          <g class="blink-eyes">
+            <ellipse cx="15" cy="8.3" rx="0.95" ry="1.3" fill="#2E7565"/>
+            <ellipse cx="21" cy="8.3" rx="0.95" ry="1.3" fill="#2E7565"/>
+          </g>
+          <path d="M15 10.8 Q18 12.2 21 10.8" stroke="#2E7565" stroke-width="0.7" stroke-linecap="round" fill="none"/>
+        </g>
+        <path d="M13 20 Q13 19 14 19 L22 19 Q23 19 23 20 L23 28 L18 42 L13 28 Z" fill="url(#thiyaWhite)"/>
+        <line x1="15" y1="42" x2="14" y2="46" stroke="#FFFFFF" stroke-width="1.5" stroke-linecap="round"/>
+        <line x1="21" y1="42" x2="22" y2="46" stroke="#FFFFFF" stroke-width="1.5" stroke-linecap="round"/>
+      </svg>
+    </div>
+
+    <div class="bottom-nav">
+      <div class="nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path></svg><span>Ghar</span></div>
+      <div class="nav-item active"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg><span>Khoj</span></div>
+      <div class="nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path></svg><span>Orders</span></div>
+      <div class="nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg><span>Profile</span></div>
+    </div>
+
+    <div class="phone-cap">02 · Vendor</div>
+  </div>
+</div>
+
+<!-- ============== SCREEN 3: TRACKING ============== -->
+<div style="position: relative;">
+  <div class="phone">
+    <div class="blobs">
+      <div class="orb orb-mint"></div>
+      <div class="orb orb-lavender"></div>
+      <div class="orb orb-butter"></div>
+      <div class="orb orb-rose"></div>
+    </div>
+    <div class="status-bar">
+      <div>9:41</div>
+      <div class="right">
+        <div class="signal-dots"><span></span><span></span><span></span><span></span></div>
+        <span>5G</span>
+        <div class="battery"><div class="battery-fill"></div></div>
+      </div>
+    </div>
+    <div class="screen">
+      <div class="t-header">
+        <div class="icon-btn-glass">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+        </div>
+        <h2>Aaj ki delivery</h2>
+      </div>
+
+      <div class="t-orb-wrap">
+        <div class="t-orb-bubble t-bub-1"></div>
+        <div class="t-orb-bubble t-bub-2"></div>
+        <div class="t-orb-bubble t-bub-3"></div>
+        <div class="t-orb"></div>
+      </div>
+
+      <div class="t-status">
+        <div class="pulse"><span class="dot"></span>Live tracking</div>
+        <h2>Sharma ji raaste mein hain</h2>
+        <div class="sub">5 minute mein pahunch jaayenge</div>
+      </div>
+
+      <div class="timeline">
+        <div class="tl-item done"><div class="tl-dot"></div><div class="tl-content"><div class="tl-title">Order confirmed</div><div class="tl-time">6:00 AM</div></div></div>
+        <div class="tl-item done"><div class="tl-dot"></div><div class="tl-content"><div class="tl-title">Doodh nikaaala</div><div class="tl-time">6:15 AM</div></div></div>
+        <div class="tl-item active"><div class="tl-dot"></div><div class="tl-content"><div class="tl-title">Aapke ghar ki taraf</div><div class="tl-time">6:25 AM · 250m baaki</div></div></div>
+        <div class="tl-item"><div class="tl-dot"></div><div class="tl-content"><div class="tl-title">Delivered</div><div class="tl-time">~6:30 AM</div></div></div>
+      </div>
+    </div>
+
+    <div class="chat-fab">
+      <div class="chat-badge"></div>
+      <svg class="fab-mascot" viewBox="0 0 36 48" xmlns="http://www.w3.org/2000/svg">
+        <g class="bounce-head">
+          <circle cx="18" cy="9" r="7" fill="url(#thiyaWhite)"/>
+          <g class="blink-eyes">
+            <ellipse cx="15" cy="8.3" rx="0.95" ry="1.3" fill="#2E7565"/>
+            <ellipse cx="21" cy="8.3" rx="0.95" ry="1.3" fill="#2E7565"/>
+          </g>
+          <path d="M15 10.8 Q18 12.2 21 10.8" stroke="#2E7565" stroke-width="0.7" stroke-linecap="round" fill="none"/>
+        </g>
+        <path d="M13 20 Q13 19 14 19 L22 19 Q23 19 23 20 L23 28 L18 42 L13 28 Z" fill="url(#thiyaWhite)"/>
+        <line x1="15" y1="42" x2="14" y2="46" stroke="#FFFFFF" stroke-width="1.5" stroke-linecap="round"/>
+        <line x1="21" y1="42" x2="22" y2="46" stroke="#FFFFFF" stroke-width="1.5" stroke-linecap="round"/>
+      </svg>
+    </div>
+
+    <div class="bottom-nav">
+      <div class="nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path></svg><span>Ghar</span></div>
+      <div class="nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg><span>Khoj</span></div>
+      <div class="nav-item active"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path></svg><span>Orders</span></div>
+      <div class="nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg><span>Profile</span></div>
+    </div>
+
+    <div class="phone-cap">03 · Tracking</div>
+  </div>
+</div>
+
+<!-- ============== SCREEN 4: SUBSCRIPTIONS ============== -->
+<div style="position: relative;">
+  <div class="phone">
+    <div class="blobs">
+      <div class="orb orb-mint"></div>
+      <div class="orb orb-lavender"></div>
+      <div class="orb orb-butter"></div>
+    </div>
+    <div class="status-bar">
+      <div>9:41</div>
+      <div class="right">
+        <div class="signal-dots"><span></span><span></span><span></span><span></span></div>
+        <span>5G</span>
+        <div class="battery"><div class="battery-fill"></div></div>
+      </div>
+    </div>
+    <div class="screen">
+
+      <div class="s-header">
+        <div class="s-title">Subscriptions</div>
+        <div class="s-sub">Aapki regular delivery</div>
+      </div>
+
+      <div class="s-tabs">
+        <div class="s-tab active">Active · 3</div>
+        <div class="s-tab">Paused · 1</div>
+        <div class="s-tab">History</div>
+      </div>
+
+      <div class="sub-card mint">
+        <div class="sub-card-row">
+          <div class="sub-icon mint">🥛</div>
+          <div class="sub-card-info">
+            <div class="sub-card-name">Sharma Milk Dairy</div>
+            <div class="sub-card-detail">1L doodh roz · 6:30 AM</div>
+          </div>
+          <div class="sub-card-amt">₹1,800<span class="small">/month</span></div>
+        </div>
+        <div class="sub-card-foot">
+          <div class="sub-card-prog"><div class="f mint"></div></div>
+          <div class="sub-card-days">22 din baaki</div>
+        </div>
+      </div>
+
+      <div class="sub-card butter">
+        <div class="sub-card-row">
+          <div class="sub-icon butter">🍱</div>
+          <div class="sub-card-info">
+            <div class="sub-card-name">Anjali's Tiffin Service</div>
+            <div class="sub-card-detail">Lunch · 1 PM</div>
+          </div>
+          <div class="sub-card-amt">₹3,500<span class="small">/month</span></div>
+        </div>
+        <div class="sub-card-foot">
+          <div class="sub-card-prog"><div class="f butter"></div></div>
+          <div class="sub-card-days">18 din baaki</div>
+        </div>
+      </div>
+
+      <div class="sub-card lavender">
+        <div class="sub-card-row">
+          <div class="sub-icon lavender">💧</div>
+          <div class="sub-card-info">
+            <div class="sub-card-name">Aqua Pure Water</div>
+            <div class="sub-card-detail">20L bottle · weekly</div>
+          </div>
+          <div class="sub-card-amt">₹400<span class="small">/month</span></div>
+        </div>
+        <div class="sub-card-foot">
+          <div class="sub-card-prog"><div class="f lavender"></div></div>
+          <div class="sub-card-days">3 din baaki</div>
+        </div>
+      </div>
+
+      <div class="ask-thiya-card" style="margin-top: 18px;">
+        <svg class="ask-mascot" viewBox="0 0 38 48" xmlns="http://www.w3.org/2000/svg">
+          <g class="bounce-head">
+            <circle cx="19" cy="9" r="7.5" fill="url(#thiyaHead)"/>
+            <g class="blink-eyes">
+              <ellipse cx="15.7" cy="8.3" rx="1" ry="1.4" fill="#FFFFFF"/>
+              <ellipse cx="22.3" cy="8.3" rx="1" ry="1.4" fill="#FFFFFF"/>
+            </g>
+            <path d="M15.8 11 Q19 12.5 22.2 11" stroke="#FFFFFF" stroke-width="0.7" stroke-linecap="round" fill="none"/>
+          </g>
+          <path d="M14 21 Q14 20 15 20 L23 20 Q24 20 24 21 L24 30 L19 44 L14 30 Z" fill="url(#thiyaBody)"/>
+          <line x1="16" y1="44" x2="15" y2="47" stroke="#B8A8E8" stroke-width="1.5" stroke-linecap="round"/>
+          <line x1="22" y1="44" x2="23" y2="47" stroke="#B8A8E8" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+        <div class="ask-content">
+          <div class="label">Thiya AI</div>
+          <div class="text">Aqua Pure 3 din mein khatam, refill schedule kar dun?</div>
+        </div>
+        <div class="ask-mic">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="22"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <div class="chat-fab">
+      <div class="chat-badge"></div>
+      <svg class="fab-mascot" viewBox="0 0 36 48" xmlns="http://www.w3.org/2000/svg">
+        <g class="bounce-head">
+          <circle cx="18" cy="9" r="7" fill="url(#thiyaWhite)"/>
+          <g class="blink-eyes">
+            <ellipse cx="15" cy="8.3" rx="0.95" ry="1.3" fill="#2E7565"/>
+            <ellipse cx="21" cy="8.3" rx="0.95" ry="1.3" fill="#2E7565"/>
+          </g>
+          <path d="M15 10.8 Q18 12.2 21 10.8" stroke="#2E7565" stroke-width="0.7" stroke-linecap="round" fill="none"/>
+        </g>
+        <path d="M13 20 Q13 19 14 19 L22 19 Q23 19 23 20 L23 28 L18 42 L13 28 Z" fill="url(#thiyaWhite)"/>
+        <line x1="15" y1="42" x2="14" y2="46" stroke="#FFFFFF" stroke-width="1.5" stroke-linecap="round"/>
+        <line x1="21" y1="42" x2="22" y2="46" stroke="#FFFFFF" stroke-width="1.5" stroke-linecap="round"/>
+      </svg>
+    </div>
+
+    <div class="bottom-nav">
+      <div class="nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path></svg><span>Ghar</span></div>
+      <div class="nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg><span>Khoj</span></div>
+      <div class="nav-item active"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path></svg><span>Subs</span></div>
+      <div class="nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg><span>Profile</span></div>
+    </div>
+
+    <div class="phone-cap">04 · Subscriptions</div>
+  </div>
+</div>
+
+<!-- ============== SCREEN 5: CHAT WITH THIYA AI ============== -->
+<div style="position: relative;">
+  <div class="phone">
+    <div class="blobs">
+      <div class="orb orb-mint"></div>
+      <div class="orb orb-lavender"></div>
+      <div class="orb orb-butter"></div>
+    </div>
+    <div class="status-bar">
+      <div>9:41</div>
+      <div class="right">
+        <div class="signal-dots"><span></span><span></span><span></span><span></span></div>
+        <span>5G</span>
+        <div class="battery"><div class="battery-fill"></div></div>
+      </div>
+    </div>
+
+    <div class="chat-screen">
+      <div class="chat-header">
+        <svg class="ch-mascot" viewBox="0 0 44 56" xmlns="http://www.w3.org/2000/svg">
+          <g class="bounce-head">
+            <circle cx="22" cy="11" r="9" fill="url(#thiyaHead)"/>
+            <g class="blink-eyes">
+              <ellipse cx="18.5" cy="10" rx="1.2" ry="1.6" fill="#FFFFFF"/>
+              <ellipse cx="25.5" cy="10" rx="1.2" ry="1.6" fill="#FFFFFF"/>
+            </g>
+            <path d="M18.5 13.5 Q22 15.5 25.5 13.5" stroke="#FFFFFF" stroke-width="0.85" stroke-linecap="round" fill="none"/>
+          </g>
+          <path d="M16 25 Q16 23.5 17.5 23.5 L26.5 23.5 Q28 23.5 28 25 L28 35 L22 51 L16 35 Z" fill="url(#thiyaBody)"/>
+          <line x1="19" y1="51" x2="18" y2="55" stroke="#B8A8E8" stroke-width="1.7" stroke-linecap="round"/>
+          <line x1="25" y1="51" x2="26" y2="55" stroke="#B8A8E8" stroke-width="1.7" stroke-linecap="round"/>
+        </svg>
+        <div class="chat-header-info">
+          <div class="name">Thiya <span class="online-dot"></span></div>
+          <div class="status">AI assistant · always here</div>
+        </div>
+        <div class="icon-btn-glass" style="width: 34px; height: 34px;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="1"></circle><circle cx="19" cy="12" r="1"></circle><circle cx="5" cy="12" r="1"></circle>
+          </svg>
+        </div>
+      </div>
+
+      <div class="messages">
+
+        <div class="msg thiya">
+          <svg class="msg-mascot" viewBox="0 0 28 36" xmlns="http://www.w3.org/2000/svg">
+            <g class="bounce-head">
+              <circle cx="14" cy="7" r="6" fill="url(#thiyaHead)"/>
+              <g class="blink-eyes">
+                <ellipse cx="11.7" cy="6.5" rx="0.8" ry="1.1" fill="#FFFFFF"/>
+                <ellipse cx="16.3" cy="6.5" rx="0.8" ry="1.1" fill="#FFFFFF"/>
+              </g>
+              <path d="M11.8 8.5 Q14 9.7 16.2 8.5" stroke="#FFFFFF" stroke-width="0.55" stroke-linecap="round" fill="none"/>
+            </g>
+            <path d="M10.5 16 Q10.5 15 11.5 15 L16.5 15 Q17.5 15 17.5 16 L17.5 22 L14 32 L10.5 22 Z" fill="url(#thiyaBody)"/>
+            <line x1="12" y1="32" x2="11.5" y2="34.5" stroke="#B8A8E8" stroke-width="1.2" stroke-linecap="round"/>
+            <line x1="16" y1="32" x2="16.5" y2="34.5" stroke="#B8A8E8" stroke-width="1.2" stroke-linecap="round"/>
+          </svg>
+          <div class="msg-bubble">Namaste Priya ji! Aaj kya help chahiye?</div>
+        </div>
+
+        <div class="msg user">
+          <div class="msg-bubble">Sharma Dairy ki delivery kahan hai?</div>
+        </div>
+
+        <div class="msg thiya">
+          <svg class="msg-mascot" viewBox="0 0 28 36" xmlns="http://www.w3.org/2000/svg">
+            <g class="bounce-head">
+              <circle cx="14" cy="7" r="6" fill="url(#thiyaHead)"/>
+              <g class="blink-eyes">
+                <ellipse cx="11.7" cy="6.5" rx="0.8" ry="1.1" fill="#FFFFFF"/>
+                <ellipse cx="16.3" cy="6.5" rx="0.8" ry="1.1" fill="#FFFFFF"/>
+              </g>
+              <path d="M11.8 8.5 Q14 9.7 16.2 8.5" stroke="#FFFFFF" stroke-width="0.55" stroke-linecap="round" fill="none"/>
+            </g>
+            <path d="M10.5 16 Q10.5 15 11.5 15 L16.5 15 Q17.5 15 17.5 16 L17.5 22 L14 32 L10.5 22 Z" fill="url(#thiyaBody)"/>
+            <line x1="12" y1="32" x2="11.5" y2="34.5" stroke="#B8A8E8" stroke-width="1.2" stroke-linecap="round"/>
+            <line x1="16" y1="32" x2="16.5" y2="34.5" stroke="#B8A8E8" stroke-width="1.2" stroke-linecap="round"/>
+          </svg>
+          <div>
+            <div class="msg-bubble">Sharma ji 5 minute mein pahunch jaayenge — abhi 250m door hain.</div>
+            <div class="msg-suggest">
+              <div class="icon">📍</div>
+              <div class="info">
+                <div class="t">Live tracking dekhein</div>
+                <div class="d">Map par real-time location</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="msg user">
+          <div class="msg-bubble">Aur paneer order kar do</div>
+        </div>
+
+        <div class="msg thiya">
+          <svg class="msg-mascot" viewBox="0 0 28 36" xmlns="http://www.w3.org/2000/svg">
+            <g class="bounce-head">
+              <circle cx="14" cy="7" r="6" fill="url(#thiyaHead)"/>
+              <g class="blink-eyes">
+                <ellipse cx="11.7" cy="6.5" rx="0.8" ry="1.1" fill="#FFFFFF"/>
+                <ellipse cx="16.3" cy="6.5" rx="0.8" ry="1.1" fill="#FFFFFF"/>
+              </g>
+              <path d="M11.8 8.5 Q14 9.7 16.2 8.5" stroke="#FFFFFF" stroke-width="0.55" stroke-linecap="round" fill="none"/>
+            </g>
+            <path d="M10.5 16 Q10.5 15 11.5 15 L16.5 15 Q17.5 15 17.5 16 L17.5 22 L14 32 L10.5 22 Z" fill="url(#thiyaBody)"/>
+            <line x1="12" y1="32" x2="11.5" y2="34.5" stroke="#B8A8E8" stroke-width="1.2" stroke-linecap="round"/>
+            <line x1="16" y1="32" x2="16.5" y2="34.5" stroke="#B8A8E8" stroke-width="1.2" stroke-linecap="round"/>
+          </svg>
+          <div>
+            <div class="msg-bubble">Done! 250g paneer add kar diya. ₹90 extra. Kal subah mil jaayega.</div>
+            <div class="msg-suggest">
+              <div class="icon" style="background: linear-gradient(135deg, var(--butter-soft), var(--butter));">🧈</div>
+              <div class="info">
+                <div class="t">Paneer · 250g · ₹90</div>
+                <div class="d">Add to tomorrow's delivery</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="quick-replies">
+        <div class="quick-reply">Subscription pause</div>
+        <div class="quick-reply">Bill dekho</div>
+        <div class="quick-reply">Naya vendor</div>
+      </div>
+
+      <div class="chat-input">
+        <input placeholder="Thiya se kuch poochein..." />
+        <div class="chat-mic">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="22"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <div class="phone-cap">05 · Chat with Thiya AI</div>
+  </div>
+</div>
+
+<script>
+(function() {
+  var veil = document.getElementById('auth-veil');
+  if (sessionStorage.getItem('thiya_dev_session') === '1') {
+    veil.remove();
+  } else {
+    veil.textContent = 'body{margin:0;background:#1a1a1f;font-family:sans-serif}';
+    document.addEventListener('DOMContentLoaded', function() {
+      document.body.innerHTML =
+        '<div style="min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:28px;padding:24px;text-align:center">' +
+          '<div>' +
+            '<div style="width:52px;height:52px;background:#FF6B35;border-radius:12px;display:inline-flex;align-items:center;justify-content:center;font-weight:700;font-size:20px;color:#fff;margin-bottom:20px">th</div>' +
+            '<h2 style="color:#fff;font-size:22px;font-weight:700;margin-bottom:10px">Restricted Access</h2>' +
+            '<p style="color:#aaa;font-size:14px;line-height:1.7;max-width:300px">This resource is only accessible through the Thiya Developer Portal.</p>' +
+          '</div>' +
+          '<a href="developer.html" style="display:inline-block;background:#FF6B35;color:#fff;text-decoration:none;padding:13px 28px;border-radius:8px;font-size:14px;font-weight:600">Go to Developer Portal &rarr;</a>' +
+        '</div>';
+    });
+  }
+})();
+</script>
+
+</body>
+</html>
