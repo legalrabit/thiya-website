@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Thiya — Redirecting…</title>
+  <style>
+    body{font-family:system-ui,-apple-system,sans-serif;text-align:center;padding:48px 16px;color:#222;background:#FAFAFA;margin:0}
+    .card{max-width:420px;margin:0 auto;background:#fff;border-radius:16px;padding:32px;box-shadow:0 2px 24px rgba(0,0,0,.06)}
+    h1{font-size:18px;margin:0 0 8px;color:#FF6B35}
+    p{font-size:14px;color:#555;margin:8px 0}
+    a.btn{display:inline-block;background:#FF6B35;color:#fff;padding:12px 24px;border-radius:8px;text-decoration:none;font-weight:600;margin-top:16px}
+    .small{font-size:12px;color:#888;margin-top:24px}
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>Opening payment page…</h1>
+    <p id="status">Redirecting you to your UPI app…</p>
+    <p id="fallback" style="display:none">Couldn't find this payment link. <a href="https://thiya.in/" class="btn">Go to Thiya</a></p>
+  </div>
+
+  <script>
+    // Pay-link redirect: thiya.in/p/{invoiceId} → backend pay endpoint that
+    // serves the upi:// scheme launch page. Backend domain is configured
+    // here once; update when the live API host changes (dev = ngrok, prod
+    // = api.thiya.in).
+    var PAY_API_BASE = "https://shine-evolve-crowbar.ngrok-free.dev";  // ★ update on ngrok rotation / prod cutover
+
+    var path = window.location.pathname;
+    // Match /p/{uuid-or-token}/optional-suffix — we keep the suffix since the
+    // backend pay endpoint expects /pay at the end.
+    var m = path.match(/^\/p\/([0-9a-fA-F-]{8,})(\/.*)?$/);
+    if (m) {
+      var token = m[1];
+      var suffix = m[2] || "/pay";
+      var target = PAY_API_BASE + "/api/v1/public/invoices/" + token + suffix;
+      window.location.replace(target);
+    } else {
+      document.getElementById("status").style.display = "none";
+      document.getElementById("fallback").style.display = "block";
+    }
+  </script>
+</body>
+</html>
