@@ -22,10 +22,11 @@
 
   <script>
     // Pay-link redirect: thiya.in/p/{invoiceId} → backend pay endpoint that
-    // serves the upi:// scheme launch page. Backend domain is configured
-    // here once; update when the live API host changes (dev = ngrok, prod
-    // = api.thiya.in).
-    var PAY_API_BASE = "https://shine-evolve-crowbar.ngrok-free.dev";  // ★ update on ngrok rotation / prod cutover
+    // serves the upi:// scheme launch page.
+    // PRODUCTION default = Railway-hosted API. For dev testing with ngrok,
+    // either temporarily edit this constant locally OR add ?dev=1&api=https://...
+    // (not implemented today — local dev usually doesn't go through thiya.in).
+    var PAY_API_BASE = "https://pleasing-essence-production.up.railway.app";
 
     var path = window.location.pathname;
     // Match /p/{uuid-or-token}/optional-suffix — we keep the suffix since the
